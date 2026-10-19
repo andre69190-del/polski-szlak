@@ -81,3 +81,8 @@
 - Patch-Skripte in den Scratchpad schreiben (Heredocs mit ’ brechen), `rep(a,b)` mit assert count==1.
 - Safety-Check verbietet Schlüssel wie `*_secret`, `token` usw. und jeden Netzwerkzugriff.
 - Checks: `node checks/check_syntax.mjs`, `node checks/i18n_check.mjs`, `python -I checks/*_check.py`, `bash checks/check_features.sh`, `node --test tests/core.test.js`.
+
+## 19.10.2026 – GitHub
+- [x] Git-Repo lokal angelegt (.gitignore: backup_v1.0/, content_neu/, *.zip, .claude/), öffentliches Repo https://github.com/andre69190-del/polski-szlak, `main` gepusht.
+- [x] DNS: polski.arndt-software.de löst über Wildcard schon auf 159.195.159.150 auf (wie geoquest) – kein Cloudflare-Schritt nötig.
+- [ ] Coolify-Ressource anlegen (Nutzer): Repo polski-szlak, Build Pack Dockerfile, Port 80, Domain https://polski.arndt-software.de, Auto Deploy an. Danach Handy-Install + Flugmodus-Test.

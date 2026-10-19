@@ -28,22 +28,11 @@ Für „von überall“ braucht die App einen **statischen Webhost mit HTTPS**. 
 - [x] Alle Pfade relativ, daher keine Codeänderung für die Domain nötig.
 
 ### Was du noch machen musst (einmalig, ca. 20–30 Minuten)
-1. **GitHub:** ein neues **privates** Repo `polski-szlak` anlegen.
-2. **Projekt hochladen:** im Projektordner ein Terminal öffnen. Das kann Claude machen, wenn du es sagst.
-   ```bash
-   git init
-   git add .
-   git commit -m "Polski Szlak 1.3"
-   git branch -M main
-   git remote add origin https://github.com/<dein-name>/polski-szlak.git
-   git push -u origin main
-   ```
-3. **Cloudflare DNS:** A-Record anlegen.
-   - Name: `polski`
-   - Ziel: IP des Coolify-Servers (dieselbe wie bei `geoquest`)
-   - Proxy-Status: **„Nur DNS“** (graue Wolke)
+1. ~~GitHub-Repo~~ **erledigt 19.10.2026:** öffentlich unter https://github.com/andre69190-del/polski-szlak (Branch `main`). Backups, Entwürfe (`content_neu/`) und Zips sind per `.gitignore` ausgeschlossen.
+2. ~~Projekt hochladen~~ **erledigt** (`git push -u origin main`). Künftige Updates: `git add . && git commit -m "…" && git push`.
+3. ~~Cloudflare DNS~~ **nicht nötig:** Der Wildcard-Eintrag `*.arndt-software.de` zeigt schon auf den Coolify-Server (159.195.159.150, geprüft).
 4. **Coolify** (wie bei GeoQuest):
-   1. *+ New → Application → Private Repository (GitHub App)*, dann das Repo `polski-szlak` und den Branch `main` wählen.
+   1. *+ New → Resource → Public Repository* (oder über die GitHub App), URL `https://github.com/andre69190-del/polski-szlak`, Branch `main`. Bei „Public Repository“ geht Auto Deploy nur mit Webhook; einfacher ist die GitHub App wie bei GeoQuest.
    2. Build Pack: **Dockerfile**. Ports Exposes: **80**.
    3. Domains: `https://polski.arndt-software.de`
    4. *Auto Deploy* **an** (Webhook). Danach geht jeder `git push` automatisch live.
