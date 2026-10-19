@@ -90,7 +90,7 @@
 
 ## 19.10.2026 – Version 1.6 (Install-Hinweis, Impressum, Datenschutz)
 - [x] Live: polski.arndt-software.de (Let's Encrypt), Homepage-Karte online.
-- [x] LIVE (manueller Redeploy; Auto-Deploy per Webhook greift noch NICHT). Install-Hinweis einmalig 2 s + Bereich „Ich → Als App installieren“; Impressum/Datenschutz als eigene Seiten. Im Browser getestet, alle Checks + 32 Tests grün.
+- [x] LIVE. Auto-Deploy: manueller GitHub-Webhook (Coolify → Webhooks → Manual Git Webhooks, URL …/webhooks/source/github/events/manual, Secret nur beim Nutzer) am 19.10. eingerichtet. Install-Hinweis einmalig 2 s + Bereich „Ich → Als App installieren“; Impressum/Datenschutz als eigene Seiten. Im Browser getestet, alle Checks + 32 Tests grün.
 - [ ] Offen/Idee: Google Fonts selbst hosten (dann entfällt der Google-Absatz im Datenschutz).
 - [ ] Frage des Nutzers: Anmeldung/Sync zwischen Geräten. GeoQuest nutzt selbst gehostetes Supabase (https://supabase.arndt-software.de): signInAnonymously beim Start, später optional E-Mail+Passwort (updateUser), Tabellen mit RLS. Vorschlag: genauso – Tabelle ps_progress(user_id, data jsonb, updated_at) mit RLS user_id = auth.uid(), offline-first, Zusammenführen statt Überschreiben. Wartet auf Entscheidung des Nutzers.
 
