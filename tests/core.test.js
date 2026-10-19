@@ -308,3 +308,25 @@ test('Duell-Ergebnis mit Name und Prüfsumme: Fälschung fällt auf, Rangliste',
   const list = C.rankList(rank);
   assert.equal(list.length, 2); assert.equal(list[0].name, 'ania'); assert.equal(list[0].g, 2); assert.equal(list[0].w, 1); assert.equal(list[0].d, 1); assert.equal(list[0].pts, 39);
 });
+
+test('Geräte-Abgleich: zwei Spielstände zusammenführen ohne Verlust', () => {
+  const base = { app: 'polski-szlak', v: 1, onboarded: true, xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, daily: {}, best: {}, plBest: {}, plv: null, skipped: {}, rank: {}, rankSeen: [], goal: 4 };
+  const handy = Object.assign(JSON.parse(JSON.stringify(base)), { ts: 100, xp: 50, unlocked: 2, goal: 3,
+    cards: { w1: { box: 3, due: '2026-10-20', seen: 5, wrong: 1 }, w2: { box: 1, due: '2026-10-19', seen: 1, wrong: 0 }, 'my:0': { box: 2, due: 'x', seen: 4, wrong: 0 } },
+    active: { '2026-10-18': 3 }, boss: { u1: 70 }, krasnale: [1, 4], custom: [['kot', 'Katze', 'Katze']], mistakes: ['w2'], plv: 2, rank: { ania: { name: 'Ania', g: 2 } } });
+  const laptop = Object.assign(JSON.parse(JSON.stringify(base)), { ts: 200, xp: 30, unlocked: 1, goal: 5,
+    cards: { w1: { box: 1, due: '2026-10-19', seen: 2, wrong: 1 }, w3: { box: 1, due: '2026-10-19', seen: 1, wrong: 0 }, 'my:0': { box: 1, due: 'y', seen: 1, wrong: 0 } },
+    active: { '2026-10-18': 1, '2026-10-19': 2 }, boss: { u1: 90, u2: 60 }, krasnale: [4, 7], custom: [['pies', 'Hund', 'Hund']], mistakes: ['w3'], rank: { ania: { name: 'Ania', g: 1 }, ben: { name: 'Ben', g: 1 } } });
+  for (const m of [C.mergeSave(handy, laptop), C.mergeSave(laptop, handy)]) {
+    assert.equal(m.xp, 50); assert.equal(m.unlocked, 2); assert.equal(m.goal, 5); assert.equal(m.ts, 200); assert.equal(m.plv, 2);
+    assert.equal(m.cards.w1.seen, 5); assert.ok(m.cards.w2 && m.cards.w3);
+    assert.equal(JSON.stringify(m.active), JSON.stringify({ '2026-10-18': 3, '2026-10-19': 2 })); assert.equal(JSON.stringify(m.boss), JSON.stringify({ u1: 90, u2: 60 }));
+    assert.equal([...m.krasnale].sort().join(), '1,4,7'); assert.equal(m.rank.ania.g, 2); assert.ok(m.rank.ben);
+    // eigene Wörter: beide da, Karten bleiben beim richtigen Wort
+    assert.equal(m.custom.map((w) => w[0]).join(), 'pies,kot');
+    assert.equal(m.cards['my:0'].due, 'y'); assert.equal(m.cards['my:1'].due, 'x');
+    assert.equal([...m.mistakes].sort().join(), 'w2,w3');
+  }
+  assert.equal(C.mergeSave(handy, { app: 'x' }), handy);
+  assert.equal(C.mergeSave(null, laptop), laptop);
+});

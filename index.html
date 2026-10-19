@@ -516,6 +516,42 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     return a === b ? 0 : (a < b ? 1 : -1);
   }
 
+  /* Geräte-Abgleich: zwei Spielstände zusammenführen, ohne Fortschritt zu verlieren.
+     Zähler und Rekorde = Maximum, Sammlungen = Vereinigung, Wortkarten = die mit mehr Wiederholungen,
+     Einstellungen = vom zuletzt gespeicherten Stand (ts). Eigene Wörter werden angehängt, ihre Karten umnummeriert. */
+  function mergeSave(a, b) {
+    if (!validateSave(a)) return validateSave(b) ? b : a;
+    if (!validateSave(b)) return a;
+    var nw = (b.ts || 0) > (a.ts || 0) ? b : a, ol = nw === a ? b : a, o = JSON.parse(JSON.stringify(nw));
+    function obj(x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : {}; }
+    function arr(x) { return Array.isArray(x) ? x : []; }
+    function each(k, f) { var A = obj(nw[k]), B = obj(ol[k]), r = {}; Object.keys(A).concat(Object.keys(B)).forEach(function (i) { r[i] = i in A ? (i in B ? f(A[i], B[i]) : A[i]) : B[i]; }); o[k] = r; }
+    function max(x, y) { return Math.max(+x || 0, +y || 0); }
+    o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked);
+    o.onboarded = !!(nw.onboarded || ol.onboarded);
+    if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
+    ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
+    ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
+    each('daily', function (x, y) { return ((y && y.score) || 0) > ((x && x.score) || 0) ? y : x; });
+    each('rank', function (x, y) { return ((y && y.g) || 0) > ((x && x.g) || 0) ? y : x; });
+    /* eigene Wörter: vom neueren Stand, fehlende vom älteren hinten anhängen */
+    var custom = arr(nw.custom).slice(), mapOld = {}, keyOf = function (w) { return String(w && w[0]).toLowerCase() + '|' + String(w && w[1]).toLowerCase(); };
+    var idx = {}; custom.forEach(function (w, i) { idx[keyOf(w)] = i; });
+    arr(ol.custom).forEach(function (w, i) { var k = keyOf(w); if (!(k in idx)) { idx[k] = custom.length; custom.push(w); } mapOld[i] = idx[k]; });
+    o.custom = custom;
+    var oc = {}; Object.keys(obj(ol.cards)).forEach(function (id) { var m = /^my:(\d+)$/.exec(id); oc[m ? 'my:' + mapOld[m[1]] : id] = ol.cards[id]; });
+    var na = obj(nw.cards), cards = {};
+    Object.keys(na).concat(Object.keys(oc)).forEach(function (id) {
+      var x = na[id], y = oc[id];
+      cards[id] = !x ? y : !y ? x : ((y.seen | 0) > (x.seen | 0) || ((y.seen | 0) === (x.seen | 0) && (y.box | 0) > (x.box | 0))) ? y : x;
+    });
+    o.cards = cards;
+    function union(k, lim) { var r = arr(nw[k]).slice(); arr(ol[k]).forEach(function (v) { if (r.indexOf(v) < 0) r.push(v); }); o[k] = lim ? r.slice(0, lim) : r; }
+    union('krasnale'); union('rankSeen'); union('mistakes', 60);
+    o.ts = max(nw.ts, ol.ts);
+    return o;
+  }
+
   /* Lokale Rangliste: pro Spielername Spiele, Siege, Unentschieden, gewichtete Punkte, je Stufe.
      res = 1 Sieg, 0 unentschieden, -1 Niederlage (aus Sicht dieses Spielers). */
   function rankAdd(rank, p, res) {
@@ -678,7 +714,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     INTERVALS: INTERVALS, MASTERED_BOX: MASTERED_BOX, srsUpdate: srsUpdate, isDue: isDue,
     dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek,
     weekStreak: weekStreak, totalDays: totalDays,
-    duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList,
+    duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,
     xpForLevel: xpForLevel, levelFromXp: levelFromXp, comboBonus: comboBonus, xpFor: xpFor,
     shareText: shareText, tokens: tokens, sameSentence: sameSentence, validateSave: validateSave
@@ -788,7 +824,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       spell: 'Rechtschreibung', spell_d: 'ó oder u? rz oder ż? Die richtige Schreibweise finden', spell_q: 'Wie schreibt man es richtig?',
       rule_ou: 'ó und u klingen gleich. Die Schreibweise muss man sich merken.', rule_rz: 'rz und ż klingen gleich. Tipp: Wechselt das r in verwandten Wörtern (morze → morski), schreibt man rz.',
       rule_ch: 'ch und h klingen heute gleich. ch ist viel häufiger, h steht oft in Lehnwörtern (herbata, hotel).', rule_dia: 'Ohne Akzent ist es ein anderer Laut, manchmal sogar ein anderes Wort.', rule_nasal: 'ą und ę sind eigene Nasallaute und werden nicht als om/en geschrieben.', rule_soft: 'ś/ć/ź sind weich (Zunge vorn), sz/cz/ż hart. Vor Vokal schreibt man si/ci/zi statt ś/ć/ź.', rule_final: 'Am Wortende werden b, d, g, w, z stimmlos gesprochen (chleb klingt wie „chlep“), geschrieben bleibt der Originalbuchstabe.',
-      inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
+      sync: 'Geräte-Abgleich', sync_d: 'Mit einem Konto ist dein Fortschritt auf Handy, Tablet und Laptop gleich. Ohne Konto bleibt alles nur auf diesem Gerät.', sync_email: 'E-Mail', sync_pw: 'Passwort (mind. 8 Zeichen)', sync_login: 'Anmelden', sync_signup: 'Konto anlegen', sync_forgot: 'Passwort vergessen?', sync_as: 'Angemeldet als', sync_now: 'Jetzt abgleichen', sync_last: 'Zuletzt abgeglichen', sync_never: 'noch nicht', sync_busy: 'Gleiche ab …', sync_done: 'Abgeglichen ✓', sync_logout: 'Abmelden', sync_del: 'Meine Daten vom Server löschen', sync_del_q: 'Wirklich löschen? Nochmal tippen', sync_deleted: 'Daten auf dem Server gelöscht. Auf diesem Gerät bleibt alles.', sync_mail_sent: 'Fast fertig: Öffne den Link in der E-Mail. Danach bist du angemeldet.', sync_reset_sent: 'Wenn es das Konto gibt, kommt gleich eine E-Mail zum Zurücksetzen.', sync_newpw: 'Neues Passwort', sync_setpw: 'Passwort speichern', sync_pw_saved: 'Neues Passwort gespeichert ✓', sync_shared: 'Ein Konto für alle Apps auf arndt-software.de (z. B. auch GeoQuest).', sync_err_cred: 'E-Mail oder Passwort stimmt nicht.', sync_err_confirm: 'Bitte zuerst den Link in der Bestätigungs-Mail öffnen.', sync_err_exists: 'Für diese E-Mail gibt es schon ein Konto. Bitte anmelden.', sync_err_pw: 'Das Passwort ist zu kurz oder zu einfach.', sync_err_rate: 'Zu viele Versuche. Bitte später nochmal.', sync_err_net: 'Keine Verbindung zum Server. Dein Fortschritt bleibt auf dem Gerät und wird später abgeglichen.', sync_err: 'Das hat nicht geklappt', sync_ob: 'Schon ein Konto? Anmelden und Fortschritt laden', bk_more: 'Ohne Konto: Spielstand als Text übertragen', bk_copy: 'Text kopieren', inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
       about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline, speichert nur auf diesem Gerät.'
     },
     en: {
@@ -881,7 +917,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       spell: 'Spelling', spell_d: 'ó or u? rz or ż? Find the correct spelling', spell_q: 'Which spelling is correct?',
       rule_ou: 'ó and u sound the same. You have to remember the spelling.', rule_rz: 'rz and ż sound the same. Tip: if related words have an r (morze → morski), write rz.',
       rule_ch: 'ch and h sound the same today. ch is much more common; h appears mostly in loanwords (herbata, hotel).', rule_dia: 'Without the accent it is a different sound, sometimes even a different word.', rule_nasal: 'ą and ę are nasal vowels of their own and are not written om/en.', rule_soft: 'ś/ć/ź are soft (tongue forward), sz/cz/ż hard. Before a vowel you write si/ci/zi instead of ś/ć/ź.', rule_final: 'At the end of a word b, d, g, w, z are pronounced voiceless (chleb sounds like "chlep"), but the spelling keeps the original letter.',
-      inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
+      sync: 'Device sync', sync_d: 'With an account your progress is the same on phone, tablet and laptop. Without one, everything stays on this device only.', sync_email: 'Email', sync_pw: 'Password (min. 8 characters)', sync_login: 'Sign in', sync_signup: 'Create account', sync_forgot: 'Forgot password?', sync_as: 'Signed in as', sync_now: 'Sync now', sync_last: 'Last synced', sync_never: 'not yet', sync_busy: 'Syncing …', sync_done: 'Synced ✓', sync_logout: 'Sign out', sync_del: 'Delete my data from the server', sync_del_q: 'Really delete? Tap again', sync_deleted: 'Server data deleted. Everything stays on this device.', sync_mail_sent: 'Almost done: open the link in the email. Then you are signed in.', sync_reset_sent: 'If the account exists, a reset email is on its way.', sync_newpw: 'New password', sync_setpw: 'Save password', sync_pw_saved: 'New password saved ✓', sync_shared: 'One account for all apps on arndt-software.de (e.g. GeoQuest too).', sync_err_cred: 'Email or password is wrong.', sync_err_confirm: 'Please open the link in the confirmation email first.', sync_err_exists: 'This email already has an account. Please sign in.', sync_err_pw: 'The password is too short or too simple.', sync_err_rate: 'Too many attempts. Please try again later.', sync_err_net: 'No connection to the server. Your progress stays on this device and will sync later.', sync_err: 'That did not work', sync_ob: 'Already have an account? Sign in and load progress', bk_more: 'Without an account: transfer progress as text', bk_copy: 'Copy text', inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
       about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline, stores data only on this device.'
     }
   };
@@ -890,7 +926,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [] }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [] }; /* PATCH002 PATCH004 */
   }
   var S = load();
   function load() {
@@ -898,7 +934,8 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     try { var h = window.claude && window.claude.hot && window.claude.hot.data; if (h && C.validateSave(h)) return Object.assign(fresh(), h); } catch (e) {}
     return fresh();
   }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function saveLocal() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { S.ts = Date.now(); saveLocal(); syncSoon(); }
   try { if (window.claude && window.claude.hot) window.claude.hot.snapshot(function () { return S; }); } catch (e) {}
 
   function diff() { return C.diffCfg(S.diff); }
@@ -1014,6 +1051,11 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
 
   /* ---------- Onboarding ---------- */
   function renderOnboarding() {
+    if (obSync) {
+      shell('<button class="btn ghost" id="ob-back" style="justify-self:start;padding-left:0">← ' + esc(t('back')) + '</button>' + syncBox(), false);
+      document.getElementById('ob-back').onclick = function () { obSync = false; renderOnboarding(); };
+      bindSync(); return;
+    }
     shell('<section class="ob">' +
       '<div class="stack"><span class="eyebrow">Polski Szlak</span><div class="big">' + esc(t('ob_title')) + '</div><p class="muted">' + esc(t('ob_sub')) + '</p></div>' +
       '<div class="stack"><b>' + esc(TX.de.base_lang) + ' / ' + esc(TX.en.base_lang) + '</b><div class="seg" id="ob-base">' +
@@ -1023,7 +1065,8 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       '<div class="stack"><b>' + esc(t('ob_goal')) + '</b><div class="seg" id="ob-goal">' +
         [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div><p class="small muted">' + esc(t('pause_ok')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('ob_diff')) + '</b><div class="seg" id="ob-diff">' + ['easy', 'medium', 'hard'].map(function (k) { return segBtn(k, t('diff_' + k), S.diff === k); }).join('') + '</div><p class="small muted">' + esc(t('diff_' + S.diff + '_d')) + '</p></div>' +
-      '<button class="btn primary block" id="ob-go">' + esc(t('ob_go')) + '</button><button class="btn block" id="ob-place">' + esc(t('ob_place')) + '</button></section>', false);
+      '<button class="btn primary block" id="ob-go">' + esc(t('ob_go')) + '</button><button class="btn block" id="ob-place">' + esc(t('ob_place')) + '</button><button class="btn ghost block" id="ob-sync">' + esc(t('sync_ob')) + '</button></section>', false);
+    document.getElementById('ob-sync').onclick = function () { obSync = true; renderOnboarding(); };
     bindSeg('ob-base', function (v) { S.base = v; renderOnboarding(); });
     bindSeg('ob-why', function (v) { S.why = v; renderOnboarding(); });
     bindSeg('ob-goal', function (v) { S.goal = +v; renderOnboarding(); });
@@ -1193,7 +1236,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     var html = '<h1>' + esc(t('nav_me')) + '</h1>' +
       '<section class="card stack"><div class="row" style="justify-content:space-between"><b>' + esc(t('level')) + ' ' + lv.level + '</b><span class="small muted num">' + lv.into + ' / ' + lv.need + ' ' + t('xp') + '</span></div><div class="bar amber"><i style="width:' + (lv.into / lv.need * 100) + '%"></i></div>' +
       '<div class="stats3"><div class="stat"><b class="num">' + masteredCount() + '</b><span class="small muted">' + esc(t('mastered')) + '</span></div><div class="stat"><b class="num">' + C.totalDays(S.active) + '</b><span class="small muted">' + esc(t('total_days')) + '</span></div><div class="stat"><b class="num">' + C.weekStreak(S.active, S.goal, today()) + '</b><span class="small muted">' + esc(t('wk_streak')) + '</span></div></div></section>' +
-      installBox() +
+      installBox() + syncBox() +
       '<section class="card stack"><h2>' + esc(t('settings')) + '</h2>' +
       '<div class="stack"><b>' + esc(t('base_lang')) + '</b><div class="seg" id="s-base">' + segBtn('de', 'Deutsch', S.base === 'de') + segBtn('en', 'English', S.base === 'en') + '</div></div>' +
       '<div class="stack"><b>' + esc(t('goal')) + '</b><div class="seg" id="s-goal">' + [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div></div>' +
@@ -1206,14 +1249,15 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       '<label class="row"><input type="checkbox" id="s-hard"' + (S.hardcore ? ' checked' : '') + '> ' + esc(t('hardcore')) + '</label>' +
       '<label class="row"><input type="checkbox" id="s-slow"' + (S.slow ? ' checked' : '') + '> ' + esc(t('slow')) + ' (TTS)</label></section>' +
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
-      '<section class="card stack"><h2>' + esc(t('backup')) + '</h2><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
-      '<div class="row"><button class="btn" id="bk-copy">' + esc(t('share')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></section>' +
+      '<section class="card"><details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_more')) + '</summary><div class="stack" style="margin-top:10px"><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
+      '<div class="row"><button class="btn" id="bk-copy">' + esc(t('bk_copy')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></div></details></section>' +
       '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><p class="small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p><button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
     shell(html);
     bindSeg('s-base', function (v) { S.base = v; save(); renderMe(); });
     bindSeg('s-goal', function (v) { S.goal = +v; save(); renderMe(); });
     bindSeg('s-len', function (v) { S.len = +v; save(); renderMe(); });
     bindSeg('s-theme', function (v) { S.theme = v; save(); renderMe(); });
+    bindSync();
     var ib = document.getElementById('s-inst'); if (ib && ib.tagName === 'BUTTON') ib.onclick = doInstall;
     document.getElementById('s-hard').onchange = function (e) { S.hardcore = e.target.checked; save(); };
     document.getElementById('s-slow').onchange = function (e) { S.slow = e.target.checked; save(); };
@@ -1227,6 +1271,147 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     };
     document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); save(); render(); };
   }
+
+  /* ---------- Geräte-Abgleich über das eigene Supabase (wie GeoQuest, gleiches Konto) ----------
+     Freiwillig: ohne Anmeldung verlässt nichts das Gerät. Mit Anmeldung: Spielstand als JSON in public.ps_progress
+     (nur eigene Zeile, RLS), beim Start/Wiederkommen/Speichern abgleichen. Zusammenführen statt überschreiben (C.mergeSave). */
+  var SB_URL = 'https://supabase.arndt-software.de', SB_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NDgxMTAwMCwiZXhwIjo0OTQwNDg0NjAwLCJyb2xlIjoiYW5vbiJ9.kMAlX4dS_sXjH6dsLoICMKnwyHFLAAuEwum7zuJh2DQ', AUTH_KEY = 'polski_szlak_auth';
+  var A = null; try { A = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null'); } catch (e) {}
+  var syncBusy = false, syncTimer = null, syncMsg = '', syncErr = '', syncDelArmed = false, syncRecovery = false, obSync = false;
+  function saveAuth() { try { if (A) localStorage.setItem(AUTH_KEY, JSON.stringify(A)); else localStorage.removeItem(AUTH_KEY); } catch (e) {} }
+  function sbFetch(path, o) {
+    o = o || {}; var h = { apikey: SB_KEY, 'Content-Type': 'application/json' };
+    if (o.auth && A) h.Authorization = 'Bearer ' + A.at; if (o.prefer) h.Prefer = o.prefer;
+    return fetch(SB_URL + path, { method: o.method || 'GET', headers: h, body: o.body ? JSON.stringify(o.body) : undefined }).then(function (r) {
+      return r.text().then(function (txt) {
+        var j = null; try { j = txt ? JSON.parse(txt) : null; } catch (e) {}
+        if (!r.ok) { var er = new Error((j && (j.msg || j.error_description || j.message || j.error)) || ('HTTP ' + r.status)); er.status = r.status; er.code = j && (j.error_code || j.code || j.error); throw er; }
+        return j;
+      });
+    }, function () { var er = new Error('net'); er.code = 'net'; throw er; });
+  }
+  function setSession(j) {
+    var u = j.user || {};
+    A = { at: j.access_token, rt: j.refresh_token, exp: Date.now() + ((+j.expires_in || 3600) - 60) * 1000, email: u.email || (A && A.email) || '', uid: u.id || (A && A.uid) || '', last: A && A.last };
+    saveAuth();
+  }
+  function sbToken() {
+    if (!A) return Promise.reject(new Error('auth'));
+    if (Date.now() < A.exp) return Promise.resolve();
+    return sbFetch('/auth/v1/token?grant_type=refresh_token', { method: 'POST', body: { refresh_token: A.rt } }).then(setSession, function (e) {
+      if (e.status === 400 || e.status === 401) { A = null; saveAuth(); } throw e;
+    });
+  }
+  function syncErrText(e) {
+    var c = String((e && e.code) || ''), m = String((e && e.message) || '');
+    if (c === 'net' || !navigator.onLine) return t('sync_err_net');
+    if (c === 'invalid_credentials' || /invalid login/i.test(m)) return t('sync_err_cred');
+    if (c === 'email_not_confirmed' || /not confirmed/i.test(m)) return t('sync_err_confirm');
+    if (c === 'user_already_exists' || /already registered/i.test(m)) return t('sync_err_exists');
+    if (c === 'weak_password' || (/password/i.test(m) && e.status === 422)) return t('sync_err_pw');
+    if ((e && e.status === 429) || /rate limit/i.test(m)) return t('sync_err_rate');
+    return t('sync_err') + ' (' + m.slice(0, 80) + ')';
+  }
+  function syncSoon() { if (!A) return; clearTimeout(syncTimer); syncTimer = setTimeout(syncNow, 4000); }
+  function syncNow() {
+    if (!A || !A.uid || syncBusy) return Promise.resolve();
+    if (!navigator.onLine) { syncErr = t('sync_err_net'); refreshSyncBox(); return Promise.resolve(); }
+    syncBusy = true; syncErr = ''; refreshSyncBox();
+    var before = JSON.stringify(S);
+    return sbToken().then(function () { return sbFetch('/rest/v1/ps_progress?select=data&user_id=eq.' + encodeURIComponent(A.uid), { auth: true }); })
+      .then(function (rows) {
+        var remote = rows && rows[0] && rows[0].data;
+        if (remote && C.validateSave(remote)) { S = Object.assign(fresh(), C.mergeSave(S, remote)); saveLocal(); }
+        return sbFetch('/rest/v1/ps_progress?on_conflict=user_id', { method: 'POST', auth: true, prefer: 'resolution=merge-duplicates,return=minimal', body: { user_id: A.uid, data: S } });
+      })
+      .then(function () { A.last = Date.now(); saveAuth(); syncMsg = t('sync_done'); }, function (e) { syncErr = syncErrText(e); })
+      .then(function () {
+        syncBusy = false;
+        if (JSON.stringify(S) !== before && !view) render(); else refreshSyncBox();
+      });
+  }
+  function afterLogin(j) { setSession(j); syncMsg = ''; syncErr = ''; obSync = false; return syncNow().then(function () { render(); }); }
+  /* Rückkehr aus Bestätigungs- oder Passwort-Mail: Tokens stehen im #-Teil der Adresse */
+  function sbFromHash() {
+    var h = location.hash || ''; if (!/[#&](access_token|error)/.test(h)) return;
+    var q = {}; h.slice(1).split('&').forEach(function (kv) { var i = kv.indexOf('='); if (i > 0) q[decodeURIComponent(kv.slice(0, i))] = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' ')); });
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    if (q.error || q.error_description) { syncErr = t('sync_err') + ' (' + String(q.error_description || q.error).slice(0, 80) + ')'; if (S.onboarded) tab = 'me'; else obSync = true; return; }
+    if (!q.access_token) return;
+    A = { at: q.access_token, rt: q.refresh_token, exp: Date.now() + ((+q.expires_in || 3600) - 60) * 1000, email: '', uid: '' };
+    syncRecovery = q.type === 'recovery'; if (S.onboarded) tab = 'me';
+    sbFetch('/auth/v1/user', { auth: true }).then(function (u) { A.email = u.email || ''; A.uid = u.id || ''; saveAuth(); return syncNow().then(function () { render(); }); },
+      function (e) { A = null; saveAuth(); syncErr = syncErrText(e); refreshSyncBox(); });
+  }
+  function syncBox() {
+    var h = '<section class="card stack" id="sync"><h2>' + esc(t('sync')) + '</h2>';
+    if (A && A.uid) {
+      h += '<p class="small">' + esc(t('sync_as')) + ' <b>' + esc(A.email) + '</b></p>' +
+        '<p class="small muted" role="status">' + esc(syncBusy ? t('sync_busy') : syncErr || ((syncMsg ? syncMsg + ' · ' : '') + t('sync_last') + ': ' + (A.last ? new Date(A.last).toLocaleString(S.base === 'en' ? 'en-GB' : 'de-DE', { dateStyle: 'short', timeStyle: 'short' }) : t('sync_never')))) + '</p>' +
+        (syncRecovery ? '<label class="fld">' + esc(t('sync_newpw')) + '<input type="password" id="sy-npw" autocomplete="new-password" minlength="8"></label><button class="btn primary" id="sy-setpw" style="justify-self:start">' + esc(t('sync_setpw')) + '</button>' : '') +
+        '<div class="row"><button class="btn primary" id="sy-now"' + (syncBusy ? ' disabled' : '') + '>' + esc(t('sync_now')) + '</button><button class="btn" id="sy-out">' + esc(t('sync_logout')) + '</button></div>' +
+        '<button class="btn ghost" id="sy-del" style="justify-self:start;color:var(--bad)">' + esc(syncDelArmed ? t('sync_del_q') : t('sync_del')) + '</button>';
+    } else {
+      h += '<p class="small muted">' + esc(t('sync_d')) + '</p>' +
+        '<label class="fld">' + esc(t('sync_email')) + '<input type="email" id="sy-mail" autocomplete="email" inputmode="email"></label>' +
+        '<label class="fld">' + esc(t('sync_pw')) + '<input type="password" id="sy-pw" autocomplete="current-password" minlength="8"></label>' +
+        '<div class="row"><button class="btn primary" id="sy-in"' + (syncBusy ? ' disabled' : '') + '>' + esc(t('sync_login')) + '</button><button class="btn" id="sy-up"' + (syncBusy ? ' disabled' : '') + '>' + esc(t('sync_signup')) + '</button></div>' +
+        '<button class="btn ghost" id="sy-forgot" style="justify-self:start;padding-left:0">' + esc(t('sync_forgot')) + '</button>' +
+        (syncErr || syncMsg ? '<p class="small" role="status">' + esc(syncErr || syncMsg) + '</p>' : '') +
+        '<p class="small muted">' + esc(t('sync_shared')) + ' <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p>';
+    }
+    return h + '</section>';
+  }
+  function refreshSyncBox() {
+    var el = document.getElementById('sync'); if (!el) return;
+    var keep = {}; ['sy-mail', 'sy-pw', 'sy-npw'].forEach(function (id) { var i = document.getElementById(id); if (i) keep[id] = i.value; });
+    var tmp = document.createElement('div'); tmp.innerHTML = syncBox(); el.replaceWith(tmp.firstChild);
+    Object.keys(keep).forEach(function (id) { var i = document.getElementById(id); if (i) i.value = keep[id]; });
+    bindSync();
+  }
+  function bindSync() {
+    function $(id) { return document.getElementById(id); }
+    function creds() { return { email: ($('sy-mail').value || '').trim(), password: $('sy-pw').value || '' }; }
+    function fail(e) { syncBusy = false; syncErr = syncErrText(e); syncMsg = ''; refreshSyncBox(); }
+    function busy() { syncBusy = true; syncErr = ''; syncMsg = ''; refreshSyncBox(); }
+    var redirect = encodeURIComponent(location.origin + location.pathname);
+    if ($('sy-in')) $('sy-in').onclick = function () {
+      var c = creds(); if (!c.email || !c.password) return;
+      busy(); sbFetch('/auth/v1/token?grant_type=password', { method: 'POST', body: c }).then(function (j) { syncBusy = false; return afterLogin(j); }, fail);
+    };
+    if ($('sy-up')) $('sy-up').onclick = function () {
+      var c = creds(); if (!c.email) return; if (c.password.length < 8) { syncErr = t('sync_err_pw'); refreshSyncBox(); return; }
+      busy(); sbFetch('/auth/v1/signup?redirect_to=' + redirect, { method: 'POST', body: c }).then(function (j) {
+        syncBusy = false;
+        if (j && j.access_token) return afterLogin(j);
+        if (j && Array.isArray(j.identities) && !j.identities.length) syncErr = t('sync_err_exists'); else syncMsg = t('sync_mail_sent');
+        refreshSyncBox();
+      }, fail);
+    };
+    if ($('sy-forgot')) $('sy-forgot').onclick = function () {
+      var c = creds(); if (!c.email) { $('sy-mail').focus(); return; }
+      busy(); sbFetch('/auth/v1/recover?redirect_to=' + redirect, { method: 'POST', body: { email: c.email } }).then(function () { syncBusy = false; syncMsg = t('sync_reset_sent'); refreshSyncBox(); }, fail);
+    };
+    if ($('sy-now')) $('sy-now').onclick = function () { syncNow(); };
+    if ($('sy-setpw')) $('sy-setpw').onclick = function () {
+      var pw = $('sy-npw').value || ''; if (pw.length < 8) { syncErr = t('sync_err_pw'); refreshSyncBox(); return; }
+      sbToken().then(function () { return sbFetch('/auth/v1/user', { method: 'PUT', auth: true, body: { password: pw } }); })
+        .then(function () { syncRecovery = false; syncErr = ''; syncMsg = t('sync_pw_saved'); refreshSyncBox(); }, fail);
+    };
+    if ($('sy-out')) $('sy-out').onclick = function () {
+      var at = A && A.at; clearTimeout(syncTimer);
+      if (at) fetch(SB_URL + '/auth/v1/logout', { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + at } }).catch(function () {});
+      A = null; saveAuth(); syncMsg = ''; syncErr = ''; syncDelArmed = false; syncRecovery = false; refreshSyncBox();
+    };
+    if ($('sy-del')) $('sy-del').onclick = function () {
+      if (!syncDelArmed) { syncDelArmed = true; refreshSyncBox(); return; }
+      syncDelArmed = false;
+      sbToken().then(function () { return sbFetch('/rest/v1/ps_progress?user_id=eq.' + encodeURIComponent(A.uid), { method: 'DELETE', auth: true }); })
+        .then(function () { var at = A.at; clearTimeout(syncTimer); fetch(SB_URL + '/auth/v1/logout', { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + at } }).catch(function () {}); A = null; saveAuth(); syncMsg = t('sync_deleted'); refreshSyncBox(); }, fail);
+    };
+  }
+  window.addEventListener('online', function () { syncNow(); });
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && A && (!A.last || Date.now() - A.last > 60000)) syncNow(); });
 
   /* ---------- Als App installieren: einmaliger Hinweis + Bereich unter „Ich“ ---------- */
   var instEvt = null;
@@ -2240,7 +2425,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   }
 
   /* ---------- Start ---------- */
-  function boot() { render(); setTimeout(installHint, 1200); }
+  function boot() { sbFromHash(); render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
   if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(boot); else boot();
 
   /* Service Worker nur im eigenen Hosting (nicht in Vorschauen/iframes) */

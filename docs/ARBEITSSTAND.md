@@ -92,5 +92,16 @@
 - [x] Live: polski.arndt-software.de (Let's Encrypt), Homepage-Karte online.
 - [x] LIVE. Auto-Deploy: manueller GitHub-Webhook (Coolify → Webhooks → Manual Git Webhooks, URL …/webhooks/source/github/events/manual, Secret nur beim Nutzer) am 19.10. eingerichtet. Install-Hinweis einmalig 2 s + Bereich „Ich → Als App installieren“; Impressum/Datenschutz als eigene Seiten. Im Browser getestet, alle Checks + 32 Tests grün.
 - [ ] Offen/Idee: Google Fonts selbst hosten (dann entfällt der Google-Absatz im Datenschutz).
-- [ ] Frage des Nutzers: Anmeldung/Sync zwischen Geräten. GeoQuest nutzt selbst gehostetes Supabase (https://supabase.arndt-software.de): signInAnonymously beim Start, später optional E-Mail+Passwort (updateUser), Tabellen mit RLS. Vorschlag: genauso – Tabelle ps_progress(user_id, data jsonb, updated_at) mit RLS user_id = auth.uid(), offline-first, Zusammenführen statt Überschreiben. Wartet auf Entscheidung des Nutzers.
+- [ ] Frage des Nutzers: Anmeldung/Sync zwischen Geräten. GeoQuest nutzt selbst gehostetes Supabase (https://supabase.arndt-software.de): signInAnonymously beim Start, später optional E-Mail+Passwort (updateUser), Tabellen mit RLS. Vorschlag: genauso – Tabelle ps_progress(user_id, data jsonb, updated_at) mit RLS user_id = auth.uid(), offline-first, Zusammenführen statt Überschreiben. Entschieden: gebaut in 1.7 (siehe unten).
 
+## 19.10.2026 – Version 1.7 (Geräte-Abgleich über Supabase)
+- [x] Auftrag: „Bitte jetzt den Geräte-Abgleich über Supabase wie bei GeoQuest bauen.“
+- [x] Bauweise: kein supabase-js, nur fetch auf die REST-/Auth-Endpunkte (klein, offline-fest). Anmeldung in localStorage `polski_szlak_auth` {at, rt, exp, email, uid, last}. Tabelle `ps_progress` (SQL in deploy/), Upsert per `on_conflict=user_id`. Kein anonymes Konto (anders als GeoQuest): ohne Anmeldung bleibt alles lokal.
+- [x] `C.mergeSave` + Test, `save()` setzt `S.ts` und stößt den Abgleich nach 4 s an; Start/online/sichtbar gleichen ab.
+- [x] UI unter Ich + Onboarding-Knopf, Text-Export zugeklappt. Datenschutz ergänzt. sw.js v1-8 + Supabase-Bypass. safety_check: fetch nur an SB_URL, Schlüssel muss role=anon sein.
+- [x] Lokal getestet mit nachgebautem Server (Login → Abruf → Zusammenführen → Hochladen, Löschen + Abmelden). Echte Konten hat Claude nicht angelegt.
+- [ ] **Nutzer:** `deploy/supabase_ps_progress.sql` im Supabase Studio → SQL Editor ausführen.
+- [ ] **Nutzer:** In Coolify beim Supabase-Dienst `https://polski.arndt-software.de` zur Redirect-Liste hinzufügen (Variable `ADDITIONAL_REDIRECT_URLS` bzw. `GOTRUE_URI_ALLOW_LIST`, kommagetrennt), Auth neu starten. Sonst landen Bestätigungs-Links bei der Standard-Seite (GeoQuest).
+- [ ] **Nutzer:** Konto anlegen, Mail bestätigen, auf Handy + Laptop anmelden und testen.
+- [ ] Danach prüft Claude per anon-Abfrage, dass die Tabelle da ist (vorher: PGRST205).
+- Frage des Nutzers (19.10.): „Wie komme ich zurück zur Startseite?“ → untere Leiste „Szlak“. „Nur reden oder lesen, nicht schreiben?“ → gibt es seit 1.3: Ich → Einstellungen → Antwortart (Sprechen / Antippen), plus „Lieber: …“ unter jeder Schreibfrage. Angebot: Antwortart auch beim ersten Start abfragen.

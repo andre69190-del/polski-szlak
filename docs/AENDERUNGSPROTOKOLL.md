@@ -1,5 +1,15 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 1.7 · 19.10.2026 · Geräte-Abgleich mit Konto
+
+- **Geräte-Abgleich (freiwillig):** Unter **Ich → Geräte-Abgleich** mit E-Mail und Passwort anmelden oder ein Konto anlegen. Danach ist der Fortschritt auf Handy, Tablet und Laptop gleich. Es ist dasselbe Konto wie bei GeoQuest: das eigene Supabase (`supabase.arndt-software.de`), Tabelle `ps_progress` mit einer Zeile pro Konto (RLS, nur die eigene Zeile). SQL: `deploy/supabase_ps_progress.sql`.
+- **Zusammenführen statt Überschreiben** (`mergeSave` in core.js): XP und Städte als Maximum, je Karte der Stand mit mehr Übung, Bestwerte als Maximum, eigene Wörter vereint, Krasnale/Szenen vereint. So geht auf keinem Gerät etwas verloren. Neuer Test (jetzt 33).
+- Abgleich beim Start, beim Zurückkehren in die App, wenn das Netz wieder da ist, und 4 s nach jeder Änderung. Offline geht alles weiter wie bisher.
+- Bestätigungs- und Passwort-Mails führen zurück in die App (Anmeldung wird übernommen, bei „Passwort vergessen“ erscheint das Feld für ein neues Passwort). „Abmelden“ und „Meine Daten vom Server löschen“ (mit Rückfrage).
+- Beim ersten Start: Knopf „Schon ein Konto? Anmelden und Fortschritt laden“.
+- Der alte Text-Export ist jetzt zugeklappt („Ohne Konto: Spielstand als Text übertragen“), mit dem richtigen Knopftext „Text kopieren“.
+- Datenschutz um den Abschnitt „Geräte-Abgleich“ ergänzt. Service Worker (Cache v1-8) fragt Supabase nie aus dem Cache ab. Sicherheits-Check erlaubt Netzwerk nur zum eigenen Supabase und prüft, dass nur der öffentliche anon-Schlüssel im Code steht.
+
 ## 1.6 · 19.10.2026 · Install-Hinweis, Impressum, Datenschutz
 
 - **„Als App installieren“:** Einmaliger Hinweis oben für 2 Sekunden (nach dem ersten Start, nicht in der installierten App; antippbar). Dauerhaft unter **Ich → Als App installieren**: Knopf „Jetzt installieren“ (Chrome/Edge/Android) bzw. Anleitung für iPhone/iPad und andere Browser; „läuft schon als App“, wenn installiert. Neues Spielstand-Feld `instHint`.

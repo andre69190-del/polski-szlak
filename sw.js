@@ -1,6 +1,6 @@
 /* Polski Szlak – Service Worker (übernommen aus GeoQuest sw.js, Phase 589-Muster):
    Seitenaufrufe network-first (immer aktuell), offline aus dem Cache. Version bei jedem Release erhöhen. */
-var CACHE_NAME = 'polski-szlak-v1-7';
+var CACHE_NAME = 'polski-szlak-v1-8';
 var ASSETS = ['./', './index.html', './impressum.html', './datenschutz.html', './manifest.json', './icon.svg', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
@@ -17,6 +17,7 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET' || !/^https?:/.test(e.request.url)) return;
+  if (e.request.url.indexOf('supabase.') >= 0) return; /* Geräte-Abgleich: nie aus dem Cache */
   if (e.request.mode === 'navigate') {
     e.respondWith(fetch(e.request).then(function (r) {
       if (r && r.status === 200) { var c = r.clone(); caches.open(CACHE_NAME).then(function (cache) { cache.put(e.request, c).catch(function () {}); }); }

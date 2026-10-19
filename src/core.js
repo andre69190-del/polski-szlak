@@ -245,6 +245,42 @@
     return a === b ? 0 : (a < b ? 1 : -1);
   }
 
+  /* Geräte-Abgleich: zwei Spielstände zusammenführen, ohne Fortschritt zu verlieren.
+     Zähler und Rekorde = Maximum, Sammlungen = Vereinigung, Wortkarten = die mit mehr Wiederholungen,
+     Einstellungen = vom zuletzt gespeicherten Stand (ts). Eigene Wörter werden angehängt, ihre Karten umnummeriert. */
+  function mergeSave(a, b) {
+    if (!validateSave(a)) return validateSave(b) ? b : a;
+    if (!validateSave(b)) return a;
+    var nw = (b.ts || 0) > (a.ts || 0) ? b : a, ol = nw === a ? b : a, o = JSON.parse(JSON.stringify(nw));
+    function obj(x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : {}; }
+    function arr(x) { return Array.isArray(x) ? x : []; }
+    function each(k, f) { var A = obj(nw[k]), B = obj(ol[k]), r = {}; Object.keys(A).concat(Object.keys(B)).forEach(function (i) { r[i] = i in A ? (i in B ? f(A[i], B[i]) : A[i]) : B[i]; }); o[k] = r; }
+    function max(x, y) { return Math.max(+x || 0, +y || 0); }
+    o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked);
+    o.onboarded = !!(nw.onboarded || ol.onboarded);
+    if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
+    ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
+    ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
+    each('daily', function (x, y) { return ((y && y.score) || 0) > ((x && x.score) || 0) ? y : x; });
+    each('rank', function (x, y) { return ((y && y.g) || 0) > ((x && x.g) || 0) ? y : x; });
+    /* eigene Wörter: vom neueren Stand, fehlende vom älteren hinten anhängen */
+    var custom = arr(nw.custom).slice(), mapOld = {}, keyOf = function (w) { return String(w && w[0]).toLowerCase() + '|' + String(w && w[1]).toLowerCase(); };
+    var idx = {}; custom.forEach(function (w, i) { idx[keyOf(w)] = i; });
+    arr(ol.custom).forEach(function (w, i) { var k = keyOf(w); if (!(k in idx)) { idx[k] = custom.length; custom.push(w); } mapOld[i] = idx[k]; });
+    o.custom = custom;
+    var oc = {}; Object.keys(obj(ol.cards)).forEach(function (id) { var m = /^my:(\d+)$/.exec(id); oc[m ? 'my:' + mapOld[m[1]] : id] = ol.cards[id]; });
+    var na = obj(nw.cards), cards = {};
+    Object.keys(na).concat(Object.keys(oc)).forEach(function (id) {
+      var x = na[id], y = oc[id];
+      cards[id] = !x ? y : !y ? x : ((y.seen | 0) > (x.seen | 0) || ((y.seen | 0) === (x.seen | 0) && (y.box | 0) > (x.box | 0))) ? y : x;
+    });
+    o.cards = cards;
+    function union(k, lim) { var r = arr(nw[k]).slice(); arr(ol[k]).forEach(function (v) { if (r.indexOf(v) < 0) r.push(v); }); o[k] = lim ? r.slice(0, lim) : r; }
+    union('krasnale'); union('rankSeen'); union('mistakes', 60);
+    o.ts = max(nw.ts, ol.ts);
+    return o;
+  }
+
   /* Lokale Rangliste: pro Spielername Spiele, Siege, Unentschieden, gewichtete Punkte, je Stufe.
      res = 1 Sieg, 0 unentschieden, -1 Niederlage (aus Sicht dieses Spielers). */
   function rankAdd(rank, p, res) {
@@ -407,7 +443,7 @@
     INTERVALS: INTERVALS, MASTERED_BOX: MASTERED_BOX, srsUpdate: srsUpdate, isDue: isDue,
     dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek,
     weekStreak: weekStreak, totalDays: totalDays,
-    duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList,
+    duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,
     xpForLevel: xpForLevel, levelFromXp: levelFromXp, comboBonus: comboBonus, xpFor: xpFor,
     shareText: shareText, tokens: tokens, sameSentence: sameSentence, validateSave: validateSave

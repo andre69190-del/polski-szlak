@@ -126,6 +126,15 @@ Falls ein Handy trotzdem die alte Version zeigt: App komplett schließen und neu
 
 ---
 
+## 4b. Geräte-Abgleich (ab 1.7, einmalig einrichten)
+
+1. Supabase Studio öffnen → **SQL Editor** → Inhalt von `deploy/supabase_ps_progress.sql` einfügen → **Run**. Mehrfaches Ausführen schadet nicht.
+2. Coolify → Supabase-Dienst → Umgebungsvariablen: bei `ADDITIONAL_REDIRECT_URLS` (oder `GOTRUE_URI_ALLOW_LIST`) `https://polski.arndt-software.de` ergänzen (kommagetrennt, vorhandene Einträge stehen lassen) → Dienst neu starten.
+3. Mail-Versand (SMTP) muss laufen, denn neue Konten bekommen eine Bestätigungs-Mail.
+4. Test: Auf dem Handy unter Ich → Geräte-Abgleich ein Konto anlegen, Mail bestätigen, etwas spielen. Am Laptop anmelden: Der Fortschritt ist da.
+
+Wer sich nicht anmeldet, merkt davon nichts: Dann bleibt alles wie bisher nur im Browser.
+
 ## 5. Kurz-Checkliste „neue Version live“
 
 - [ ] `python -I build.py`

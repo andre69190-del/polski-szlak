@@ -50,6 +50,8 @@ chk "Lokale Rangliste (Duell, Prüfsumme)" "rankBox"
 chk "Gemischtes Duell mit Gewichtung" "duelWeight"
 chk "Install-Hinweis (einmalig) + Bereich unter Ich" "installHint"
 chk "Impressum + Datenschutz verlinkt" "datenschutz.html"
+chk "Geräte-Abgleich (Supabase, eigene Zeile)" "ps_progress"
+chk "Zusammenführen statt Überschreiben" "mergeSave"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL
