@@ -70,7 +70,7 @@ Dort laufen schon GeoQuest und BIOGLOW, deshalb ist das der kürzeste Weg. Detai
    - Build Pack: **Dockerfile** (liegt bei und baut nginx mit den 4 Dateien).
    - Port: **80**.
    - Domain: `https://polski.arndt-software.de`.
-3. **Automatisch deployen einschalten:** in Coolify unter *Settings → Auto Deploy* (der GitHub-Webhook wird von Coolify angelegt). Ab dann löst jeder `git push` automatisch einen neuen Build aus.
+3. **Automatisch deployen (eingerichtet 19.10.2026):** Coolify → Anwendung → *Webhooks → Manual Git Webhooks*: GitHub-URL `https://coolify.arndt-software.de/webhooks/source/github/events/manual` + eigenes Secret. In GitHub → *Settings → Webhooks*: diese URL, `application/json`, dasselbe Secret, nur Push-Event. *Auto Deploy* an. Getestet: ein `git push` ist nach etwa 40 Sekunden live.
 4. **DNS bei Cloudflare:** A-Record `polski` → Server-IP, auf **„Nur DNS“** stellen. Dann holt sich Let's Encrypt das HTTPS-Zertifikat.
 5. **Auf dem Handy:**
    - Adresse öffnen und **„Zum Startbildschirm hinzufügen“**. Danach sieht es aus wie eine echte App und funktioniert auch offline.
