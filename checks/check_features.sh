@@ -52,6 +52,11 @@ chk "Install-Hinweis (einmalig) + Bereich unter Ich" "installHint"
 chk "Impressum + Datenschutz verlinkt" "datenschutz.html"
 chk "Geräte-Abgleich (Supabase, eigene Zeile)" "ps_progress"
 chk "Zusammenführen statt Überschreiben" "mergeSave"
+chk "Weiter-Knopf (roter Faden)" "nextStep"
+chk "Ausblick am Rundenende" "outlookBox"
+chk "Willkommen zurück" "wb-go"
+chk "Das kann ich schon" "candoBox"
+chk "Logo führt zur Startseite" "id=\"brand\""
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL

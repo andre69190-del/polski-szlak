@@ -1,5 +1,16 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 1.8 · 19.10.2026 · Weiter-Knopf, Ausblick, Willkommen zurück
+
+- **Zur Startseite:** Das Logo „Polski Szlak“ oben ist jetzt überall ein Knopf zur Startseite (auch mitten im Spiel). Der erste Knopf unten heißt „Start“ statt „Szlak“.
+- **Weiter-Knopf (Lesezeichen):** Auf der Startseite steht oben „Weiter auf dem Szlak: Stadt · Schritt“. Ein Tipp startet genau den nächsten offenen Schritt (Neue Wörter → Szene → Quiz → Sätze bauen → Stadtprüfung). Darunter „Als Nächstes: …“ und „Stadt ansehen →“. Auf der Stadtseite trägt die nächste Kachel das Abzeichen „Als Nächstes“.
+- **Ausblick am Rundenende:** Nach jeder Runde zeigt ein Kasten „Als Nächstes · Stadt“ mit einem kurzen Einstieg in die nächste Szene und dem Knopf „Weiter →“ (Hemingway-Effekt: aufhören, wenn man weiß, wie es weitergeht).
+- **Willkommen zurück:** Nach 7 oder mehr Tagen Pause erscheint einmal ein freundlicher Kasten ohne Vorwurf: „5 Wörter auffrischen“ (die 5 schwächsten bekannten Wörter) oder „Später“.
+- **Das kann ich schon** (Tab Ich): Wörter sicher, Gespräche, geschaffte Städte, alle erreichten Kann-Sätze und was als Nächstes kommt.
+- **Antwortart beim ersten Start:** Schreiben, Sprechen oder Antippen gleich im Onboarding wählen.
+- Text „Über die App“ korrigiert: Ohne Konto bleibt alles auf dem Gerät, mit Konto wird abgeglichen.
+- core.js: `daysSince`, `nextStep`; `mergeSave` führt auch die erledigten Schritte zusammen. 35 Tests. Service Worker Cache v1-9.
+
 ## 1.7 · 19.10.2026 · Geräte-Abgleich mit Konto
 
 - **Geräte-Abgleich (freiwillig):** Unter **Ich → Geräte-Abgleich** mit E-Mail und Passwort anmelden oder ein Konto anlegen. Danach ist der Fortschritt auf Handy, Tablet und Laptop gleich. Es ist dasselbe Konto wie bei GeoQuest: das eigene Supabase (`supabase.arndt-software.de`), Tabelle `ps_progress` mit einer Zeile pro Konto (RLS, nur die eigene Zeile). SQL: `deploy/supabase_ps_progress.sql`.

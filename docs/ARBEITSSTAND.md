@@ -105,3 +105,22 @@
 - [ ] **Nutzer:** Konto anlegen, Mail bestätigen, auf Handy + Laptop anmelden und testen.
 - [ ] Danach prüft Claude per anon-Abfrage, dass die Tabelle da ist (vorher: PGRST205).
 - Frage des Nutzers (19.10.): „Wie komme ich zurück zur Startseite?“ → untere Leiste „Szlak“. „Nur reden oder lesen, nicht schreiben?“ → gibt es seit 1.3: Ich → Einstellungen → Antwortart (Sprechen / Antippen), plus „Lieber: …“ unter jeder Schreibfrage. Angebot: Antwortart auch beim ersten Start abfragen.
+
+## 19.10.2026: Recherche Motivation / „Wollen“ / Navigation / ARDOC+GeoQuest
+
+- Der Nutzer fragte, was fehlt, wie das „spannende Buch“-Gefühl in die App kommt, wie man zur Startseite zurückkommt und was ARDOC/GeoQuest noch bieten. Danach fragte er nach weiteren Vorschlägen.
+- Ergebnis: **`docs/MOTIVATION_UND_VORSCHLAEGE.md`** mit Studien und Quellen, Ist-Stand, Rahmengeschichte „Der Brief“, Navigation und den Vorschlägen A–N.
+- Kernbefund: Die Szenen pro Stadt stehen jeweils für sich. Es fehlen ein roter Faden, ein Lesezeichen („Weiter“), ein Ausblick am Rundenende und erlebbares Können.
+- Kleiner Fehler: `about_d` sagt „speichert nur auf diesem Gerät“. Das ist seit 1.7 nicht mehr ganz richtig.
+- (Stand vor Paket 1) Noch nichts gebaut. Empfehlung: zuerst Paket 1 (A, B, D, E, F, G und `about_d`), dann Paket 2 (C „Der Brief“).
+- Offen beim Nutzer: Registrierung und Login auf Handy und Laptop testen (Geräte-Abgleich 1.7).
+
+## 19.10.2026: Version 1.8 (Paket 1 gebaut)
+
+- [x] Auftrag: „Bitte Paket 1 bauen: Navigation, Weiter-Knopf, Ausblick am Rundenende, Willkommen zurück, Das kann ich schon, Antwortart beim ersten Start und about_d-Korrektur.“
+- [x] Logo = Knopf zur Startseite (`#brand`, beendet laufendes Spiel), Leiste „Start“. Home-CTA über `C.nextStep(S, uid)` (Reihenfolge learn → scene → quiz → build → boss, gespeichert in `S.done[uid][modus]`), Badge „Als Nächstes“ auf der Stadtseite.
+- [x] `outlookBox(g)` im Ergebnis (nicht bei Duell/Polnisch-UI), `#next-step`. Willkommen-zurück `#wb` bei `C.daysSince(S.active, heute) >= 7`, einmal pro Tag (`S.welcomeDay`), Modus `welcome`. `candoBox()` im Tab Ich. Onboarding-Segment `#ob-inp`. `about_d` korrigiert.
+- [x] Im Browser getestet (Onboarding, Badge, Ausblick → Szene startet, Logo → Start, CTA, Ich-Kasten, Willkommen-Banner mit simuliertem alten Datum, Handybreite 375 px ohne Querscrollen). Alle Checks grün, 35 Tests.
+- [ ] Nächstes (wenn gewünscht): Paket 2 „Der Brief“ (Vorschlag C), danach H, I, K, N.
+- [ ] Offen beim Nutzer weiterhin: Registrierung/Login auf Handy und Laptop testen.
+- Hinweis: Beim Testen hat Claude versehentlich im Coolify-Tab des eingebauten Browsers localStorage/Cache geleert (Seite war schon /login). Ggf. dort neu anmelden.

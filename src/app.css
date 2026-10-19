@@ -46,7 +46,9 @@ p { margin: 0; }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line);
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .top-in { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding-block: 10px; }
-.brand { font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; margin-right: auto; }
+.brand { font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; margin-right: auto;
+  background: none; border: 0; padding: 4px 0; color: inherit; cursor: pointer; min-height: 44px; }
+.brand:hover { color: var(--red); }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); font-size: .85rem; font-weight: 700; }
 .chip.amber { background: var(--amber-soft); border-color: transparent; color: var(--amber); }
 main { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -115,6 +117,9 @@ button.chip { cursor: pointer; min-height: 40px; } /* PATCH004 */
 .tile .badge { justify-self: start; margin-top: 4px; }
 .badge { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--amber-soft); color: var(--amber); }
 .badge.good { background: var(--good-soft); color: var(--good); }
+.badge.next { background: var(--red); color: var(--on-red); }
+.next-box { border-left: 4px solid var(--red); }
+.welcome { border-left: 4px solid var(--amber); }
 
 .bar { height: 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
 .bar > i { display: block; height: 100%; background: var(--red); border-radius: 999px; }

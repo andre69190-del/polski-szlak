@@ -65,7 +65,9 @@ p { margin: 0; }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line);
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .top-in { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding-block: 10px; }
-.brand { font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; margin-right: auto; }
+.brand { font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; margin-right: auto;
+  background: none; border: 0; padding: 4px 0; color: inherit; cursor: pointer; min-height: 44px; }
+.brand:hover { color: var(--red); }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); font-size: .85rem; font-weight: 700; }
 .chip.amber { background: var(--amber-soft); border-color: transparent; color: var(--amber); }
 main { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -134,6 +136,9 @@ button.chip { cursor: pointer; min-height: 40px; } /* PATCH004 */
 .tile .badge { justify-self: start; margin-top: 4px; }
 .badge { font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--amber-soft); color: var(--amber); }
 .badge.good { background: var(--good-soft); color: var(--good); }
+.badge.next { background: var(--red); color: var(--on-red); }
+.next-box { border-left: 4px solid var(--red); }
+.welcome { border-left: 4px solid var(--amber); }
 
 .bar { height: 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
 .bar > i { display: block; height: 100%; background: var(--red); border-radius: 999px; }
@@ -376,6 +381,24 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   /* Woche beginnt Montag. Schlüssel = Datum des Montags. */
   function weekKey(k) { var d = parseDay(k), wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd); return dayKey(d); }
   function prevWeek(wk) { return addDays(wk, -7); }
+  /* Tage seit dem letzten aktiven Tag (vor heute); -1 = noch nie aktiv */
+  function daysSince(activeDays, todayKey) {
+    var last = Object.keys(activeDays || {}).filter(function (k) { return k < todayKey; }).sort().pop();
+    if (!last) return -1;
+    return Math.round((parseDay(todayKey) - parseDay(last)) / 86400000);
+  }
+  /* Roter Faden pro Stadt: empfohlene Reihenfolge, nächster offener Schritt (null = Stadt geschafft) */
+  var STEPS = ['learn', 'scene', 'quiz', 'build', 'boss'];
+  function nextStep(st, uid) {
+    var d = (st.done && st.done[uid]) || {};
+    if (st.boss && st.boss[uid]) return null;
+    for (var i = 0; i < STEPS.length; i++) {
+      var m = STEPS[i];
+      if (m === 'boss') return m;
+      if (m === 'scene' ? !(st.scenes && st.scenes[uid]) : !d[m]) return m;
+    }
+    return 'boss';
+  }
   function daysInWeek(activeDays, wk) {
     var c = 0; for (var i = 0; i < 7; i++) if (activeDays[addDays(wk, i)]) c++; return c;
   }
@@ -532,6 +555,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
     ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
     ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
+    each('done', function (x, y) { return Object.assign({}, y, x); });
     each('daily', function (x, y) { return ((y && y.score) || 0) > ((x && x.score) || 0) ? y : x; });
     each('rank', function (x, y) { return ((y && y.g) || 0) > ((x && x.g) || 0) ? y : x; });
     /* eigene Wörter: vom neueren Stand, fehlende vom älteren hinten anhängen */
@@ -712,7 +736,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     stripDia: stripDia, norm: norm, variants: variants, lev: lev, checkAnswer: checkAnswer,
     numToPl: numToPl, zlotyForm: zlotyForm, priceWords: priceWords,
     INTERVALS: INTERVALS, MASTERED_BOX: MASTERED_BOX, srsUpdate: srsUpdate, isDue: isDue,
-    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek,
+    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek, daysSince: daysSince, STEPS: STEPS, nextStep: nextStep,
     weekStreak: weekStreak, totalDays: totalDays,
     duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,
@@ -735,7 +759,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   /* ---------- Texte (UI-Sprache = Basissprache) ---------- */
   var TX = {
     de: {
-      nav_home: 'Szlak', nav_practice: 'Üben', nav_album: 'Album', nav_me: 'Ich',
+      nav_home: 'Start', nav_practice: 'Üben', nav_album: 'Album', nav_me: 'Ich',
       level: 'Stufe', week: 'Diese Woche', of: 'von', days: 'Tagen', wk_streak: 'Wochen in Folge',
       total_days: 'Lerntage gesamt', mastered: 'Wörter sicher', due: 'fällig', continue: 'Weiter auf dem Szlak',
       review: 'Wiederholen', review_d: 'Was dein Gedächtnis gerade vergisst', daily: 'Tagesrätsel', daily_d: '10 Fragen, heute für dich gleich',
@@ -825,10 +849,10 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       rule_ou: 'ó und u klingen gleich. Die Schreibweise muss man sich merken.', rule_rz: 'rz und ż klingen gleich. Tipp: Wechselt das r in verwandten Wörtern (morze → morski), schreibt man rz.',
       rule_ch: 'ch und h klingen heute gleich. ch ist viel häufiger, h steht oft in Lehnwörtern (herbata, hotel).', rule_dia: 'Ohne Akzent ist es ein anderer Laut, manchmal sogar ein anderes Wort.', rule_nasal: 'ą und ę sind eigene Nasallaute und werden nicht als om/en geschrieben.', rule_soft: 'ś/ć/ź sind weich (Zunge vorn), sz/cz/ż hart. Vor Vokal schreibt man si/ci/zi statt ś/ć/ź.', rule_final: 'Am Wortende werden b, d, g, w, z stimmlos gesprochen (chleb klingt wie „chlep“), geschrieben bleibt der Originalbuchstabe.',
       sync: 'Geräte-Abgleich', sync_d: 'Mit einem Konto ist dein Fortschritt auf Handy, Tablet und Laptop gleich. Ohne Konto bleibt alles nur auf diesem Gerät.', sync_email: 'E-Mail', sync_pw: 'Passwort (mind. 8 Zeichen)', sync_login: 'Anmelden', sync_signup: 'Konto anlegen', sync_forgot: 'Passwort vergessen?', sync_as: 'Angemeldet als', sync_now: 'Jetzt abgleichen', sync_last: 'Zuletzt abgeglichen', sync_never: 'noch nicht', sync_busy: 'Gleiche ab …', sync_done: 'Abgeglichen ✓', sync_logout: 'Abmelden', sync_del: 'Meine Daten vom Server löschen', sync_del_q: 'Wirklich löschen? Nochmal tippen', sync_deleted: 'Daten auf dem Server gelöscht. Auf diesem Gerät bleibt alles.', sync_mail_sent: 'Fast fertig: Öffne den Link in der E-Mail. Danach bist du angemeldet.', sync_reset_sent: 'Wenn es das Konto gibt, kommt gleich eine E-Mail zum Zurücksetzen.', sync_newpw: 'Neues Passwort', sync_setpw: 'Passwort speichern', sync_pw_saved: 'Neues Passwort gespeichert ✓', sync_shared: 'Ein Konto für alle Apps auf arndt-software.de (z. B. auch GeoQuest).', sync_err_cred: 'E-Mail oder Passwort stimmt nicht.', sync_err_confirm: 'Bitte zuerst den Link in der Bestätigungs-Mail öffnen.', sync_err_exists: 'Für diese E-Mail gibt es schon ein Konto. Bitte anmelden.', sync_err_pw: 'Das Passwort ist zu kurz oder zu einfach.', sync_err_rate: 'Zu viele Versuche. Bitte später nochmal.', sync_err_net: 'Keine Verbindung zum Server. Dein Fortschritt bleibt auf dem Gerät und wird später abgeglichen.', sync_err: 'Das hat nicht geklappt', sync_ob: 'Schon ein Konto? Anmelden und Fortschritt laden', bk_more: 'Ohne Konto: Spielstand als Text übertragen', bk_copy: 'Text kopieren', inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
-      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline, speichert nur auf diesem Gerät.'
+      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.'
     },
     en: {
-      nav_home: 'Szlak', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
+      nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
       level: 'Level', week: 'This week', of: 'of', days: 'days', wk_streak: 'weeks in a row',
       total_days: 'Total study days', mastered: 'Words solid', due: 'due', continue: 'Continue on the Szlak',
       review: 'Review', review_d: 'What your memory is about to forget', daily: 'Daily puzzle', daily_d: '10 questions, fixed for today',
@@ -918,7 +942,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       rule_ou: 'ó and u sound the same. You have to remember the spelling.', rule_rz: 'rz and ż sound the same. Tip: if related words have an r (morze → morski), write rz.',
       rule_ch: 'ch and h sound the same today. ch is much more common; h appears mostly in loanwords (herbata, hotel).', rule_dia: 'Without the accent it is a different sound, sometimes even a different word.', rule_nasal: 'ą and ę are nasal vowels of their own and are not written om/en.', rule_soft: 'ś/ć/ź are soft (tongue forward), sz/cz/ż hard. Before a vowel you write si/ci/zi instead of ś/ć/ź.', rule_final: 'At the end of a word b, d, g, w, z are pronounced voiceless (chleb sounds like "chlep"), but the spelling keeps the original letter.',
       sync: 'Device sync', sync_d: 'With an account your progress is the same on phone, tablet and laptop. Without one, everything stays on this device only.', sync_email: 'Email', sync_pw: 'Password (min. 8 characters)', sync_login: 'Sign in', sync_signup: 'Create account', sync_forgot: 'Forgot password?', sync_as: 'Signed in as', sync_now: 'Sync now', sync_last: 'Last synced', sync_never: 'not yet', sync_busy: 'Syncing …', sync_done: 'Synced ✓', sync_logout: 'Sign out', sync_del: 'Delete my data from the server', sync_del_q: 'Really delete? Tap again', sync_deleted: 'Server data deleted. Everything stays on this device.', sync_mail_sent: 'Almost done: open the link in the email. Then you are signed in.', sync_reset_sent: 'If the account exists, a reset email is on its way.', sync_newpw: 'New password', sync_setpw: 'Save password', sync_pw_saved: 'New password saved ✓', sync_shared: 'One account for all apps on arndt-software.de (e.g. GeoQuest too).', sync_err_cred: 'Email or password is wrong.', sync_err_confirm: 'Please open the link in the confirmation email first.', sync_err_exists: 'This email already has an account. Please sign in.', sync_err_pw: 'The password is too short or too simple.', sync_err_rate: 'Too many attempts. Please try again later.', sync_err_net: 'No connection to the server. Your progress stays on this device and will sync later.', sync_err: 'That did not work', sync_ob: 'Already have an account? Sign in and load progress', bk_more: 'Without an account: transfer progress as text', bk_copy: 'Copy text', inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
-      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline, stores data only on this device.'
+      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.'
     }
   };
 
@@ -926,7 +950,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [] }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '' }; /* PATCH002 PATCH004 */
   }
   var S = load();
   function load() {
@@ -1019,7 +1043,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
 
   function shell(inner, showNav) {
     var lv = C.levelFromXp(S.xp);
-    var html = '<header class="top"><div class="top-in"><div class="brand">' + blaze('red') + 'Polski Szlak</div>' +
+    var html = '<header class="top"><div class="top-in"><button type="button" class="brand" id="brand" title="' + esc(t('to_start')) + '" aria-label="Polski Szlak – ' + esc(t('to_start')) + '">' + blaze('red') + 'Polski Szlak</button>' +
       '<span class="chip num" title="' + t('level') + '">' + t('level') + ' ' + lv.level + '</span>' +
       '<span class="chip amber num">' + S.xp + ' ' + t('xp') + '</span></div></header><main id="main">' + inner + '</main>';
     if (showNav !== false) {
@@ -1030,6 +1054,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     html += '<textarea id="copy-fallback" hidden aria-label="Copy"></textarea>';
     $app.innerHTML = html;
     $app.querySelectorAll('[data-nav]').forEach(function (b) { b.onclick = function () { go(b.getAttribute('data-nav')); }; });
+    document.getElementById('brand').onclick = function () { if (G) { stopTimer(); G = null; } go('home'); };
   }
   function navBtn(k, ic, label) { return '<button data-nav="' + k + '"' + (tab === k ? ' aria-current="page"' : '') + '>' + ic + '<span>' + esc(label) + '</span></button>'; }
 
@@ -1065,12 +1090,14 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       '<div class="stack"><b>' + esc(t('ob_goal')) + '</b><div class="seg" id="ob-goal">' +
         [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div><p class="small muted">' + esc(t('pause_ok')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('ob_diff')) + '</b><div class="seg" id="ob-diff">' + ['easy', 'medium', 'hard'].map(function (k) { return segBtn(k, t('diff_' + k), S.diff === k); }).join('') + '</div><p class="small muted">' + esc(t('diff_' + S.diff + '_d')) + '</p></div>' +
+      '<div class="stack"><b>' + esc(t('ob_inp')) + '</b><div class="seg" id="ob-inp">' + ['write', 'speak', 'tap'].map(function (k) { return segBtn(k, t('inp_' + k), S.input === k); }).join('') + '</div><p class="small muted">' + esc(t('inp_' + S.input + '_d')) + ' ' + esc(t('ob_inp_d')) + '</p></div>' +
       '<button class="btn primary block" id="ob-go">' + esc(t('ob_go')) + '</button><button class="btn block" id="ob-place">' + esc(t('ob_place')) + '</button><button class="btn ghost block" id="ob-sync">' + esc(t('sync_ob')) + '</button></section>', false);
     document.getElementById('ob-sync').onclick = function () { obSync = true; renderOnboarding(); };
     bindSeg('ob-base', function (v) { S.base = v; renderOnboarding(); });
     bindSeg('ob-why', function (v) { S.why = v; renderOnboarding(); });
     bindSeg('ob-goal', function (v) { S.goal = +v; renderOnboarding(); });
     bindSeg('ob-diff', function (v) { S.diff = v; renderOnboarding(); });
+    bindSeg('ob-inp', function (v) { S.input = v; renderOnboarding(); });
     document.getElementById('ob-place').onclick = function () { S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); tab = 'home'; startMode('placement'); };
     document.getElementById('ob-go').onclick = function () { S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); go('city', 0); };
   }
@@ -1113,8 +1140,12 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   function renderHome() {
     var d = today(), wk = C.weekKey(d), nUnit = nextUnit(), u = U[nUnit];
     var due = dueList().length, ws = C.weekStreak(S.active, S.goal, d);
-    var banner = '';
-    if (S.seenWeek && S.seenWeek !== wk) {
+    var banner = '', gap = C.daysSince(S.active, d), step = C.nextStep(S, u.id);
+    if (gap >= 7 && S.welcomeDay !== d && Object.keys(S.cards).length) {
+      banner = '<section class="card stack pop welcome" id="wb"><b class="big">' + esc(t('wb_title')) + '</b><p>' + esc(t('wb_d')) + '</p>' +
+        '<div class="row"><button class="btn primary" id="wb-go">' + esc(t('wb_go')) + '</button><button class="btn ghost" id="wb-later">' + esc(t('wb_later')) + '</button></div></section>';
+      S.welcomeDay = d; S.seenWeek = wk; save();
+    } else if (S.seenWeek && S.seenWeek !== wk) {
       var lastN = C.daysInWeek(S.active, C.prevWeek(wk));
       banner = '<div class="banner pop"><strong>' + esc(t('fresh')) + '</strong><span>' + esc(lastN >= S.goal ? t('fresh_ok') : t('fresh_d').replace('{a}', lastN).replace('{g}', S.goal)) + '</span></div>';
       S.seenWeek = wk; save();
@@ -1123,7 +1154,8 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     var html = banner +
       '<section class="card hero"><div class="hero-top">' + weekRing() + '<div class="stack" style="gap:4px;min-width:0"><span class="eyebrow">' + esc(t('week')) + '</span>' +
       '<b class="num">' + ws + ' ' + esc(t('wk_streak')) + '</b><span class="small muted num">' + C.totalDays(S.active) + ' ' + esc(t('total_days')) + ' · ' + masteredCount() + ' ' + esc(t('mastered')) + '</span></div></div>' +
-      '<button class="btn primary block" id="cta">' + blaze(u.trail) + esc(t('continue')) + ': ' + esc(u.city) + '</button></section>' +
+      '<button class="btn primary block" id="cta">' + blaze(u.trail) + esc(t('continue')) + ': ' + esc(u.city) + (step ? ' · ' + esc(t(step)) : '') + '</button>' +
+      (step ? '<div class="row small" style="justify-content:space-between"><span class="muted">' + esc(t('next_up')) + ': ' + esc(t('step_' + step)) + '</span><button class="btn ghost small" id="cta-city" style="min-height:36px;padding:4px 0">' + esc(t('view_city')) + ' →</button></div>' : '') + '</section>' +
       '<section class="map-wrap card" style="padding:8px">' + mapSvg() + '</section>' +
       '<section class="tiles">' +
         tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
@@ -1134,7 +1166,10 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
         '<div class="row small"><span style="width:110px">' + esc(t('last_w')) + '</span><div class="bar muted" style="flex:1"><i style="width:' + (lastXp / mx * 100) + '%"></i></div><b class="num">' + lastXp + '</b></div>' +
       '</section>';
     shell(html);
-    document.getElementById('cta').onclick = function () { go('city', nUnit); };
+    document.getElementById('cta').onclick = function () { if (step && isOpen(nUnit)) startMode(step, nUnit); else go('city', nUnit); };
+    var cc = document.getElementById('cta-city'); if (cc) cc.onclick = function () { go('city', nUnit); };
+    var wg = document.getElementById('wb-go'); if (wg) wg.onclick = function () { startMode('welcome'); };
+    var wl = document.getElementById('wb-later'); if (wl) wl.onclick = function () { var w = document.getElementById('wb'); if (w) w.remove(); };
     bindTiles();
     document.querySelectorAll('[data-city]').forEach(function (g) {
       var open = function () { go('city', +g.getAttribute('data-city')); };
@@ -1156,12 +1191,13 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
     if (locked) {
       html += '<section class="card stack"><b>' + esc(t('locked')) + '</b><button class="btn primary" data-mode="boss">' + esc(t('test_out')) + '</button><button class="btn" id="skip-city">' + esc(t('skip_city')) + '</button><p class="small muted">' + esc(t('skip_city_d')) + '</p></section>';
     } else {
+      var nst = C.nextStep(S, u.id), nx = function (k) { return k === nst ? '<span class="badge next">' + esc(t('next_up')) + '</span>' : ''; };
       html += '<section class="tiles">' +
-        tileBtn('learn', t('learn'), t('learn_d')) + tileBtn('scene', t('scene'), t('scene_d'), S.scenes[u.id] ? '<span class="badge good">✓</span>' : '') +
-        tileBtn('quiz', t('quiz'), t('quiz_d')) + tileBtn('listen', t('listen'), t('listen_d')) +
-        tileBtn('type', t('type'), t('type_d')) + tileBtn('build', t('build'), t('build_d')) +
+        tileBtn('learn', t('learn'), t('learn_d'), nx('learn')) + tileBtn('scene', t('scene'), t('scene_d'), S.scenes[u.id] ? '<span class="badge good">✓</span>' : nx('scene')) +
+        tileBtn('quiz', t('quiz'), t('quiz_d'), nx('quiz')) + tileBtn('listen', t('listen'), t('listen_d')) +
+        tileBtn('type', t('type'), t('type_d')) + tileBtn('build', t('build'), t('build_d'), nx('build')) +
         tileBtn('cloze', t('cloze'), t('cloze_d')) + tileBtn('match', t('match'), t('match_d')) +
-        tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : '') +
+        tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : nx('boss')) +
         '</section>';
       if (!S.boss[u.id] && ui < U.length - 1) html += '<button class="btn ghost" id="skip-city" style="justify-self:start">' + esc(t('skip_city')) + ' →</button>';
     }
@@ -1230,13 +1266,21 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
   }
 
   /* ---------- Ich / Einstellungen ---------- */
+  function candoBox() {
+    var done = U.filter(function (u) { return S.boss[u.id]; }), nu = U[nextUnit()], ns = C.nextStep(S, nu.id);
+    var stats = t('cando_stats').replace('{w}', masteredCount()).replace('{s}', Object.keys(S.scenes).length).replace('{c}', done.length);
+    return '<section class="card stack" id="cando"><h2>' + esc(t('cando')) + '</h2><p class="small muted num">' + esc(stats) + '</p>' +
+      (done.length ? '<div class="list">' + done.map(function (u) { return '<div class="li"><span class="badge good">✓</span><div class="grow"><b>' + esc(u.city) + '</b><div class="small">' + esc(L(u.can)) + '</div></div></div>'; }).join('') + '</div>'
+        : '<p class="small muted">' + esc(t('cando_empty')) + '</p>') +
+      (ns ? '<p class="small"><b>' + esc(t('cando_next')) + ' (' + esc(nu.city) + '):</b> ' + esc(L(nu.can)) + '</p>' : '') + '</section>';
+  }
   var resetArmed = false;
   function renderMe() {
     var lv = C.levelFromXp(S.xp);
     var html = '<h1>' + esc(t('nav_me')) + '</h1>' +
       '<section class="card stack"><div class="row" style="justify-content:space-between"><b>' + esc(t('level')) + ' ' + lv.level + '</b><span class="small muted num">' + lv.into + ' / ' + lv.need + ' ' + t('xp') + '</span></div><div class="bar amber"><i style="width:' + (lv.into / lv.need * 100) + '%"></i></div>' +
       '<div class="stats3"><div class="stat"><b class="num">' + masteredCount() + '</b><span class="small muted">' + esc(t('mastered')) + '</span></div><div class="stat"><b class="num">' + C.totalDays(S.active) + '</b><span class="small muted">' + esc(t('total_days')) + '</span></div><div class="stat"><b class="num">' + C.weekStreak(S.active, S.goal, today()) + '</b><span class="small muted">' + esc(t('wk_streak')) + '</span></div></div></section>' +
-      installBox() + syncBox() +
+      candoBox() + installBox() + syncBox() +
       '<section class="card stack"><h2>' + esc(t('settings')) + '</h2>' +
       '<div class="stack"><b>' + esc(t('base_lang')) + '</b><div class="seg" id="s-base">' + segBtn('de', 'Deutsch', S.base === 'de') + segBtn('en', 'English', S.base === 'en') + '</div></div>' +
       '<div class="stack"><b>' + esc(t('goal')) + '</b><div class="seg" id="s-goal">' + [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div></div>' +
@@ -1570,6 +1614,11 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       var bc = diff().boss, ss = C.shuffle(u.sentences, R);
       qs = mixedFor(list, list, bc.n - 4).concat(ss.slice(0, 2).map(function (s) { return S.diff === 'easy' ? qBuild(s) : qTranslate(s); })).concat(ss.slice(2, 4).map(function (s) { return qCloze(s, list); }));
       return runGame({ title: t('boss') + ' · ' + u.city, qs: C.shuffle(qs, R), unit: ui, boss: true, lives: bc.lives, pass: bc.pass });
+    }
+    if (mode === 'welcome') {
+      var wsrc = allWords().filter(function (x) { return S.cards[x.id]; }).sort(function (a, b) { return S.cards[a.id].box - S.cards[b.id].box; }).slice(0, 5);
+      if (wsrc.length < 2) wsrc = pool.slice(0, 5);
+      return runGame({ title: t('wb_title'), qs: mixedFor(wsrc, pool.concat(wsrc), 5) });
     }
     if (mode === 'review' || mode === 'mistakes' || mode === 'mine') {
       var src;
@@ -1907,6 +1956,7 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
         extras += maybeKrasnal(true);
       } else extras += '<p class="muted">' + esc(t('failed')) + '</p>';
     } else if (!g.players && !polUI && total >= 5) extras += maybeKrasnal(false);
+    if (g.cfg.unit != null && !g.players && lastMode && lastMode.ui === g.cfg.unit && total >= 1) { var did = U[g.cfg.unit].id; S.done = S.done || {}; S.done[did] = S.done[did] || {}; S.done[did][lastMode.m] = 1; }
     save();
     if (g.cfg.placement) {
       var per = U.map(function () { return []; });
@@ -1930,18 +1980,28 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
       duelRes = '<div class="card stack" style="width:100%;text-align:left">' + g.players.map(function (p, i) { return '<div class="row" style="justify-content:space-between"><b>' + esc(p) + '</b><span class="num">' + g.pscore[i] + '</span></div>'; }).join('') + '</div><h2>' + esc(win.length > 1 ? t('tie') : win[0] + ' ' + t('winner')) + '</h2>';
     }
     if (g.cfg.duel) { g.ms = Date.now() - g.start; extras = duelResultBox(g) + extras; }
+    var outlook = (!g.players && !g.cfg.duel && !polUI) ? outlookBox(g) : '';
     var html = '<section class="result pop"><span class="eyebrow">' + esc(g.cfg.title) + '</span><h1>' + esc(title) + '</h1>' +
       (g.players ? duelRes : '<div class="score num">' + g.right + '/' + total + '</div>') +
       '<div class="stats3"><div class="stat"><b class="num">+' + g.xp + '</b><span class="small muted">' + t('xp') + '</span></div><div class="stat"><b class="num">' + pct + '%</b><span class="small muted">' + esc(t('right')) + '</span></div><div class="stat"><b class="num">×' + g.best + '</b><span class="small muted">' + esc(t('combo')) + '</span></div></div>' +
-      extras + learned +
+      extras + learned + outlook +
       (g.cfg.daily ? '<button class="btn" id="share">' + esc(t('share')) + '</button>' : '') +
-      '<div class="row" style="width:100%"><button class="btn" id="again" style="flex:1">' + esc(t('again')) + '</button><button class="btn primary" id="home" style="flex:1">' + esc(t('home')) + '</button></div></section>';
+      '<div class="row" style="width:100%"><button class="btn" id="again" style="flex:1">' + esc(t('again')) + '</button><button class="btn' + (outlook.indexOf('next-step') >= 0 ? '' : ' primary') + '" id="home" style="flex:1">' + esc(t('home')) + '</button></div></section>';
     shell(html);
     var cfg = g.cfg;
     document.getElementById('home').onclick = function () { G = null; go(cfg.unit != null ? 'city' : (cfg.back || 'home'), cfg.unit); };
     document.getElementById('again').onclick = function () { G = null; if (cfg.duel) { tab = 'duel'; return renderDuelSetup(); } if (cfg.players) return startDuel(cfg.players); if (cfg.rerun) return cfg.rerun(); var c2 = Object.assign({}, cfg); restart(c2); };
     var sh = document.getElementById('share'); if (sh) sh.onclick = function () { copy(C.shareText(cfg.daily, g.results)); };
+    var nxb = document.getElementById('next-step'); if (nxb) nxb.onclick = function () { G = null; var nui = +nxb.getAttribute('data-ui'); if (isOpen(nui)) startMode(nxb.getAttribute('data-step'), nui); else go('city', nui); };
     if (cfg.duel) bindDuelResult(g);
+  }
+  /* Ausblick: was als Nächstes kommt – mit dem Szenen-Anfang der nächsten Stadt als kleiner Spannungsbogen */
+  function outlookBox(g) {
+    var cu = g.cfg.unit, ui = (cu != null && !S.boss[U[cu].id]) ? cu : nextUnit(), u = U[ui], step = C.nextStep(S, u.id);
+    if (!step) return U.every(function (x) { return S.boss[x.id]; }) ? '<div class="card stack next-box" style="text-align:left;width:100%"><span class="eyebrow">' + esc(t('next_up')) + '</span><p>' + esc(t('trip_done')) + '</p></div>' : '';
+    var newCity = cu != null && ui !== cu, teaser = (newCity || step === 'scene') && u.scene ? '<p class="small scene-intro">' + esc(L(u.scene.intro)) + '</p>' : '';
+    return '<div class="card stack next-box pop" style="text-align:left;width:100%"><span class="eyebrow">' + esc((newCity ? t('next_station') : t('next_up')) + ' · ' + u.city) + '</span>' + teaser +
+      '<b>' + esc(t('step_' + step)) + '</b><button class="btn primary" id="next-step" data-ui="' + ui + '" data-step="' + esc(step) + '">' + esc(t('go_on')) + ' →</button></div>';
   }
   function restart(cfg) {
     if (cfg.mode) return startMode(cfg.mode.m, cfg.mode.ui);

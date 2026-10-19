@@ -105,6 +105,24 @@
   /* Woche beginnt Montag. Schlüssel = Datum des Montags. */
   function weekKey(k) { var d = parseDay(k), wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd); return dayKey(d); }
   function prevWeek(wk) { return addDays(wk, -7); }
+  /* Tage seit dem letzten aktiven Tag (vor heute); -1 = noch nie aktiv */
+  function daysSince(activeDays, todayKey) {
+    var last = Object.keys(activeDays || {}).filter(function (k) { return k < todayKey; }).sort().pop();
+    if (!last) return -1;
+    return Math.round((parseDay(todayKey) - parseDay(last)) / 86400000);
+  }
+  /* Roter Faden pro Stadt: empfohlene Reihenfolge, nächster offener Schritt (null = Stadt geschafft) */
+  var STEPS = ['learn', 'scene', 'quiz', 'build', 'boss'];
+  function nextStep(st, uid) {
+    var d = (st.done && st.done[uid]) || {};
+    if (st.boss && st.boss[uid]) return null;
+    for (var i = 0; i < STEPS.length; i++) {
+      var m = STEPS[i];
+      if (m === 'boss') return m;
+      if (m === 'scene' ? !(st.scenes && st.scenes[uid]) : !d[m]) return m;
+    }
+    return 'boss';
+  }
   function daysInWeek(activeDays, wk) {
     var c = 0; for (var i = 0; i < 7; i++) if (activeDays[addDays(wk, i)]) c++; return c;
   }
@@ -261,6 +279,7 @@
     if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
     ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
     ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
+    each('done', function (x, y) { return Object.assign({}, y, x); });
     each('daily', function (x, y) { return ((y && y.score) || 0) > ((x && x.score) || 0) ? y : x; });
     each('rank', function (x, y) { return ((y && y.g) || 0) > ((x && x.g) || 0) ? y : x; });
     /* eigene Wörter: vom neueren Stand, fehlende vom älteren hinten anhängen */
@@ -441,7 +460,7 @@
     stripDia: stripDia, norm: norm, variants: variants, lev: lev, checkAnswer: checkAnswer,
     numToPl: numToPl, zlotyForm: zlotyForm, priceWords: priceWords,
     INTERVALS: INTERVALS, MASTERED_BOX: MASTERED_BOX, srsUpdate: srsUpdate, isDue: isDue,
-    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek,
+    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek, daysSince: daysSince, STEPS: STEPS, nextStep: nextStep,
     weekStreak: weekStreak, totalDays: totalDays,
     duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,

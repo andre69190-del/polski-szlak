@@ -330,3 +330,20 @@ test('Geräte-Abgleich: zwei Spielstände zusammenführen ohne Verlust', () => {
   assert.equal(C.mergeSave(handy, { app: 'x' }), handy);
   assert.equal(C.mergeSave(null, laptop), laptop);
 });
+
+test('daysSince: Tage seit letzter Aktivität', () => {
+  assert.equal(C.daysSince({}, '2026-10-19'), -1);
+  assert.equal(C.daysSince({ '2026-10-19': 1 }, '2026-10-19'), -1);
+  assert.equal(C.daysSince({ '2026-10-01': 1, '2026-10-10': 2, '2026-10-19': 1 }, '2026-10-19'), 9);
+  assert.equal(C.daysSince({ '2026-03-20': 1 }, '2026-04-03'), 14);
+});
+
+test('nextStep: roter Faden pro Stadt', () => {
+  assert.equal(C.nextStep({}, 'waw'), 'learn');
+  assert.equal(C.nextStep({ done: { waw: { learn: 1 } } }, 'waw'), 'scene');
+  assert.equal(C.nextStep({ done: { waw: { learn: 1 } }, scenes: { waw: true } }, 'waw'), 'quiz');
+  assert.equal(C.nextStep({ done: { waw: { learn: 1, quiz: 1, build: 1 } }, scenes: { waw: true } }, 'waw'), 'boss');
+  assert.equal(C.nextStep({ boss: { waw: 80 } }, 'waw'), null);
+  const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, done: { waw: { learn: 1 } } }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, done: { waw: { quiz: 1 }, lod: { learn: 1 } } });
+  assert.equal(JSON.stringify(m.done), JSON.stringify({ waw: { quiz: 1, learn: 1 }, lod: { learn: 1 } }));
+});
