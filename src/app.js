@@ -99,6 +99,7 @@
       spell: 'Rechtschreibung', spell_d: 'ó oder u? rz oder ż? Die richtige Schreibweise finden', spell_q: 'Wie schreibt man es richtig?',
       rule_ou: 'ó und u klingen gleich. Die Schreibweise muss man sich merken.', rule_rz: 'rz und ż klingen gleich. Tipp: Wechselt das r in verwandten Wörtern (morze → morski), schreibt man rz.',
       rule_ch: 'ch und h klingen heute gleich. ch ist viel häufiger, h steht oft in Lehnwörtern (herbata, hotel).', rule_dia: 'Ohne Akzent ist es ein anderer Laut, manchmal sogar ein anderes Wort.', rule_nasal: 'ą und ę sind eigene Nasallaute und werden nicht als om/en geschrieben.', rule_soft: 'ś/ć/ź sind weich (Zunge vorn), sz/cz/ż hart. Vor Vokal schreibt man si/ci/zi statt ś/ć/ź.', rule_final: 'Am Wortende werden b, d, g, w, z stimmlos gesprochen (chleb klingt wie „chlep“), geschrieben bleibt der Originalbuchstabe.',
+      inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
       about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline, speichert nur auf diesem Gerät.'
     },
     en: {
@@ -191,6 +192,7 @@
       spell: 'Spelling', spell_d: 'ó or u? rz or ż? Find the correct spelling', spell_q: 'Which spelling is correct?',
       rule_ou: 'ó and u sound the same. You have to remember the spelling.', rule_rz: 'rz and ż sound the same. Tip: if related words have an r (morze → morski), write rz.',
       rule_ch: 'ch and h sound the same today. ch is much more common; h appears mostly in loanwords (herbata, hotel).', rule_dia: 'Without the accent it is a different sound, sometimes even a different word.', rule_nasal: 'ą and ę are nasal vowels of their own and are not written om/en.', rule_soft: 'ś/ć/ź are soft (tongue forward), sz/cz/ż hard. Before a vowel you write si/ci/zi instead of ś/ć/ź.', rule_final: 'At the end of a word b, d, g, w, z are pronounced voiceless (chleb sounds like "chlep"), but the spelling keeps the original letter.',
+      inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
       about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline, stores data only on this device.'
     }
   };
@@ -199,7 +201,7 @@
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [] }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [] }; /* PATCH002 PATCH004 */
   }
   var S = load();
   function load() {
@@ -502,6 +504,7 @@
     var html = '<h1>' + esc(t('nav_me')) + '</h1>' +
       '<section class="card stack"><div class="row" style="justify-content:space-between"><b>' + esc(t('level')) + ' ' + lv.level + '</b><span class="small muted num">' + lv.into + ' / ' + lv.need + ' ' + t('xp') + '</span></div><div class="bar amber"><i style="width:' + (lv.into / lv.need * 100) + '%"></i></div>' +
       '<div class="stats3"><div class="stat"><b class="num">' + masteredCount() + '</b><span class="small muted">' + esc(t('mastered')) + '</span></div><div class="stat"><b class="num">' + C.totalDays(S.active) + '</b><span class="small muted">' + esc(t('total_days')) + '</span></div><div class="stat"><b class="num">' + C.weekStreak(S.active, S.goal, today()) + '</b><span class="small muted">' + esc(t('wk_streak')) + '</span></div></div></section>' +
+      installBox() +
       '<section class="card stack"><h2>' + esc(t('settings')) + '</h2>' +
       '<div class="stack"><b>' + esc(t('base_lang')) + '</b><div class="seg" id="s-base">' + segBtn('de', 'Deutsch', S.base === 'de') + segBtn('en', 'English', S.base === 'en') + '</div></div>' +
       '<div class="stack"><b>' + esc(t('goal')) + '</b><div class="seg" id="s-goal">' + [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div></div>' +
@@ -516,12 +519,13 @@
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
       '<section class="card stack"><h2>' + esc(t('backup')) + '</h2><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
       '<div class="row"><button class="btn" id="bk-copy">' + esc(t('share')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></section>' +
-      '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
+      '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><p class="small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p><button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
     shell(html);
     bindSeg('s-base', function (v) { S.base = v; save(); renderMe(); });
     bindSeg('s-goal', function (v) { S.goal = +v; save(); renderMe(); });
     bindSeg('s-len', function (v) { S.len = +v; save(); renderMe(); });
     bindSeg('s-theme', function (v) { S.theme = v; save(); renderMe(); });
+    var ib = document.getElementById('s-inst'); if (ib && ib.tagName === 'BUTTON') ib.onclick = doInstall;
     document.getElementById('s-hard').onchange = function (e) { S.hardcore = e.target.checked; save(); };
     document.getElementById('s-slow').onchange = function (e) { S.slow = e.target.checked; save(); };
     bindSeg('s-diff', function (v) { S.diff = v; save(); renderMe(); });
@@ -533,6 +537,33 @@
       try { var o = JSON.parse(document.getElementById('bk').value); if (!C.validateSave(o)) throw 0; S = Object.assign(fresh(), o); save(); toast(t('restored')); renderMe(); } catch (e) { toast(t('bad_backup')); }
     };
     document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); save(); render(); };
+  }
+
+  /* ---------- Als App installieren: einmaliger Hinweis + Bereich unter „Ich“ ---------- */
+  var instEvt = null;
+  function isStandalone() { try { return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; } catch (e) { return false; } }
+  function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+  function installBox() {
+    var body = isStandalone() ? '<p class="small muted">' + esc(t('inst_done')) + '</p>' :
+      (instEvt ? '<button class="btn primary" id="s-inst" style="justify-self:start">' + esc(t('inst_btn')) + '</button><p class="small muted">' + esc(t('inst_d')) + '</p>' :
+        '<p class="small muted" id="s-inst">' + esc(isIOS() ? t('inst_ios') : t('inst_other')) + '</p><p class="small muted">' + esc(t('inst_d')) + '</p>');
+    return '<section class="card stack" id="inst"><h2>' + esc(t('inst')) + '</h2>' + body + '</section>';
+  }
+  function doInstall() {
+    if (!instEvt) { go('me'); var el = document.getElementById('inst'); if (el) el.scrollIntoView(); return; }
+    var e = instEvt; e.prompt(); e.userChoice.then(function () { instEvt = null; if (document.getElementById('inst')) renderMe(); }, function () {});
+  }
+  function refreshInstallBox() { if (document.getElementById('inst')) renderMe(); }
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); instEvt = e; refreshInstallBox(); });
+  window.addEventListener('appinstalled', function () { instEvt = null; S.instHint = true; save(); refreshInstallBox(); });
+  /* Einmalig 2 Sekunden einblenden, nicht in der installierten App, nicht während der Einstufung beim ersten Start */
+  function installHint() {
+    if (S.instHint || !S.onboarded || isStandalone()) return;
+    S.instHint = true; save();
+    var el = document.createElement('button'); el.className = 'inst-hint'; el.type = 'button';
+    el.textContent = '📲 ' + t('inst_hint'); el.onclick = function () { el.remove(); doInstall(); };
+    document.body.appendChild(el);
+    setTimeout(function () { el.classList.add('out'); setTimeout(function () { el.remove(); }, 400); }, 2000);
   }
 
   /* ---------- Meine Wörter ---------- */
@@ -1520,7 +1551,7 @@
   }
 
   /* ---------- Start ---------- */
-  function boot() { render(); }
+  function boot() { render(); setTimeout(installHint, 1200); }
   if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(boot); else boot();
 
   /* Service Worker nur im eigenen Hosting (nicht in Vorschauen/iframes) */

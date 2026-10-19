@@ -48,6 +48,8 @@ chk "Antwortart Schreiben/Sprechen/Antippen" "drawTapType"
 chk "Dla Polaków (Muttersprachler, eigene Einstufung)" "renderPolacy"
 chk "Lokale Rangliste (Duell, Prüfsumme)" "rankBox"
 chk "Gemischtes Duell mit Gewichtung" "duelWeight"
+chk "Install-Hinweis (einmalig) + Bereich unter Ich" "installHint"
+chk "Impressum + Datenschutz verlinkt" "datenschutz.html"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL

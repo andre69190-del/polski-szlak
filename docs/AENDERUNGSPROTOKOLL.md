@@ -1,5 +1,11 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 1.6 · 19.10.2026 · Install-Hinweis, Impressum, Datenschutz
+
+- **„Als App installieren“:** Einmaliger Hinweis oben für 2 Sekunden (nach dem ersten Start, nicht in der installierten App; antippbar). Dauerhaft unter **Ich → Als App installieren**: Knopf „Jetzt installieren“ (Chrome/Edge/Android) bzw. Anleitung für iPhone/iPad und andere Browser; „läuft schon als App“, wenn installiert. Neues Spielstand-Feld `instHint`.
+- **Impressum und Datenschutz** als eigene Seiten (`impressum.html`, `datenschutz.html`), verlinkt unter Ich → Über die App. Datenschutz nennt Server-Logs, localStorage, Service Worker, Google Fonts und die Spracherkennung des Browsers.
+- Dockerfile, Service Worker (Cache v1-7) und nginx (`*.html` no-cache) um die zwei Seiten erweitert.
+
 ## 1.5 · 18.10.2026 · Rangliste und gemischtes Duell
 
 - **Duell-Code mit 6 Stufen:** Lernende 1/2/3 und neu **P1/P2/P3 = Dla Polaków** (20 Fragen aus dem Muttersprachler-Bereich, Stufe dobry / bardzo dobry / mistrz). Empfohlene Stufe aus der eigenen Einstufung (Schwierigkeit bzw. Test poziomu), frei änderbar.

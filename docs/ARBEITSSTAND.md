@@ -85,4 +85,12 @@
 ## 19.10.2026 – GitHub
 - [x] Git-Repo lokal angelegt (.gitignore: backup_v1.0/, content_neu/, *.zip, .claude/), öffentliches Repo https://github.com/andre69190-del/polski-szlak, `main` gepusht.
 - [x] DNS: polski.arndt-software.de löst über Wildcard schon auf 159.195.159.150 auf (wie geoquest) – kein Cloudflare-Schritt nötig.
-- [ ] Coolify-Ressource anlegen (Nutzer): Repo polski-szlak, Build Pack Dockerfile, Port 80, Domain https://polski.arndt-software.de, Auto Deploy an. Danach Handy-Install + Flugmodus-Test.
+- [x] (19.10. live, Let's-Encrypt-Zertifikat ab 12:44 UTC) Coolify-Ressource anlegen (Nutzer): Repo polski-szlak, Build Pack Dockerfile, Port 80, Domain https://polski.arndt-software.de, Auto Deploy an. Danach Handy-Install + Flugmodus-Test.
+- [x] Homepage-Karte (homepage/index.html, Farbe --pol #d22f45, 🇵🇱) gepusht (homepage 4151bc9).
+
+## 19.10.2026 – Version 1.6 (Install-Hinweis, Impressum, Datenschutz)
+- [x] Live: polski.arndt-software.de (Let's Encrypt), Homepage-Karte online.
+- [x] Install-Hinweis einmalig 2 s + Bereich „Ich → Als App installieren“; Impressum/Datenschutz als eigene Seiten. Im Browser getestet, alle Checks + 32 Tests grün.
+- [ ] Offen/Idee: Google Fonts selbst hosten (dann entfällt der Google-Absatz im Datenschutz).
+- [ ] Frage des Nutzers: Anmeldung/Sync zwischen Geräten. GeoQuest nutzt selbst gehostetes Supabase (https://supabase.arndt-software.de): signInAnonymously beim Start, später optional E-Mail+Passwort (updateUser), Tabellen mit RLS. Vorschlag: genauso – Tabelle ps_progress(user_id, data jsonb, updated_at) mit RLS user_id = auth.uid(), offline-first, Zusammenführen statt Überschreiben. Wartet auf Entscheidung des Nutzers.
+
