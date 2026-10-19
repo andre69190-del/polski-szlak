@@ -1,5 +1,14 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 1.9 · 19.10.2026 · Der Brief
+
+- **Rahmengeschichte „Der Brief“:** Szymek, ein Krasnal-Briefträger aus Wrocław, bringt einen Brief auf Polnisch von Ania. Am Anfang ist er unlesbar (verschwommen); nach jeder geschafften Stadtprüfung (oder übersprungenen Stadt) wird ein Satz lesbar, 12 Sätze für 12 Städte.
+- **Startseite:** Karte „✉ Der Brief“ mit Fortschritt (n/12) und dem Abzeichen „Neu im Brief“, sobald ein neuer Satz lesbar ist. Knopf „Brief lesen“.
+- **Briefseite:** Szymeks Einleitung, alle Sätze mit Vorlesen und Übersetzung, gesperrte Sätze mit „lesbar nach Stadt“, neue Sätze rot markiert. Wenn alles lesbar ist: Finale am Bahnhof Wrocław Główny.
+- **Ergebnis der Stadtprüfung:** Beim ersten Bestehen erscheint der neue Satz mit Übersetzung und Szymeks Ausblick auf die nächste Stadt.
+- core.js: `letterRead`; `mergeSave` führt `letterSeen` zusammen. 36 Tests. content_check prüft den Brief. Service Worker Cache v1-10.
+- Hinweis: Die polnischen Briefsätze sollten von einer Muttersprachlerin / einem Muttersprachler gegengelesen werden.
+
 ## 1.8 · 19.10.2026 · Weiter-Knopf, Ausblick, Willkommen zurück
 
 - **Zur Startseite:** Das Logo „Polski Szlak“ oben ist jetzt überall ein Knopf zur Startseite (auch mitten im Spiel). Der erste Knopf unten heißt „Start“ statt „Szlak“.

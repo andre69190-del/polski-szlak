@@ -347,3 +347,11 @@ test('nextStep: roter Faden pro Stadt', () => {
   const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, done: { waw: { learn: 1 } } }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, done: { waw: { quiz: 1 }, lod: { learn: 1 } } });
   assert.equal(JSON.stringify(m.done), JSON.stringify({ waw: { quiz: 1, learn: 1 }, lod: { learn: 1 } }));
 });
+
+test('letterRead: Brief wird Stadt für Stadt lesbar', () => {
+  const lines = [{ u: 'waw' }, { u: 'lod' }, { u: 'poz' }];
+  assert.equal(JSON.stringify(C.letterRead(lines, {})), JSON.stringify([false, false, false]));
+  assert.equal(JSON.stringify(C.letterRead(lines, { boss: { waw: 70 }, skipped: { poz: true } })), JSON.stringify([true, false, true]));
+  const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, letterSeen: 1 }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, letterSeen: 3 });
+  assert.equal(m.letterSeen, 3);
+});

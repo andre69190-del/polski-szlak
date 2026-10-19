@@ -100,7 +100,7 @@
       rule_ou: 'ó und u klingen gleich. Die Schreibweise muss man sich merken.', rule_rz: 'rz und ż klingen gleich. Tipp: Wechselt das r in verwandten Wörtern (morze → morski), schreibt man rz.',
       rule_ch: 'ch und h klingen heute gleich. ch ist viel häufiger, h steht oft in Lehnwörtern (herbata, hotel).', rule_dia: 'Ohne Akzent ist es ein anderer Laut, manchmal sogar ein anderes Wort.', rule_nasal: 'ą und ę sind eigene Nasallaute und werden nicht als om/en geschrieben.', rule_soft: 'ś/ć/ź sind weich (Zunge vorn), sz/cz/ż hart. Vor Vokal schreibt man si/ci/zi statt ś/ć/ź.', rule_final: 'Am Wortende werden b, d, g, w, z stimmlos gesprochen (chleb klingt wie „chlep“), geschrieben bleibt der Originalbuchstabe.',
       sync: 'Geräte-Abgleich', sync_d: 'Mit einem Konto ist dein Fortschritt auf Handy, Tablet und Laptop gleich. Ohne Konto bleibt alles nur auf diesem Gerät.', sync_email: 'E-Mail', sync_pw: 'Passwort (mind. 8 Zeichen)', sync_login: 'Anmelden', sync_signup: 'Konto anlegen', sync_forgot: 'Passwort vergessen?', sync_as: 'Angemeldet als', sync_now: 'Jetzt abgleichen', sync_last: 'Zuletzt abgeglichen', sync_never: 'noch nicht', sync_busy: 'Gleiche ab …', sync_done: 'Abgeglichen ✓', sync_logout: 'Abmelden', sync_del: 'Meine Daten vom Server löschen', sync_del_q: 'Wirklich löschen? Nochmal tippen', sync_deleted: 'Daten auf dem Server gelöscht. Auf diesem Gerät bleibt alles.', sync_mail_sent: 'Fast fertig: Öffne den Link in der E-Mail. Danach bist du angemeldet.', sync_reset_sent: 'Wenn es das Konto gibt, kommt gleich eine E-Mail zum Zurücksetzen.', sync_newpw: 'Neues Passwort', sync_setpw: 'Passwort speichern', sync_pw_saved: 'Neues Passwort gespeichert ✓', sync_shared: 'Ein Konto für alle Apps auf arndt-software.de (z. B. auch GeoQuest).', sync_err_cred: 'E-Mail oder Passwort stimmt nicht.', sync_err_confirm: 'Bitte zuerst den Link in der Bestätigungs-Mail öffnen.', sync_err_exists: 'Für diese E-Mail gibt es schon ein Konto. Bitte anmelden.', sync_err_pw: 'Das Passwort ist zu kurz oder zu einfach.', sync_err_rate: 'Zu viele Versuche. Bitte später nochmal.', sync_err_net: 'Keine Verbindung zum Server. Dein Fortschritt bleibt auf dem Gerät und wird später abgeglichen.', sync_err: 'Das hat nicht geklappt', sync_ob: 'Schon ein Konto? Anmelden und Fortschritt laden', bk_more: 'Ohne Konto: Spielstand als Text übertragen', bk_copy: 'Text kopieren', inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
-      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.'
+      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.', letter: 'Der Brief', letter_start: 'Szymek, ein Krasnal aus Wrocław, hat dir einen Brief auf Polnisch gebracht. Noch kannst du ihn nicht lesen, aber nach jeder Stadt wird ein Satz lesbar.', letter_d: '{n} von {t} Sätzen kannst du schon lesen.', letter_new: 'Neu im Brief', letter_open: 'Brief lesen', letter_locked: 'lesbar nach {c}', letter_done: 'Du hast den ganzen Brief gelesen.', letter_from: 'Ein Brief aus Wrocław'
     },
     en: {
       nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
@@ -193,7 +193,7 @@
       rule_ou: 'ó and u sound the same. You have to remember the spelling.', rule_rz: 'rz and ż sound the same. Tip: if related words have an r (morze → morski), write rz.',
       rule_ch: 'ch and h sound the same today. ch is much more common; h appears mostly in loanwords (herbata, hotel).', rule_dia: 'Without the accent it is a different sound, sometimes even a different word.', rule_nasal: 'ą and ę are nasal vowels of their own and are not written om/en.', rule_soft: 'ś/ć/ź are soft (tongue forward), sz/cz/ż hard. Before a vowel you write si/ci/zi instead of ś/ć/ź.', rule_final: 'At the end of a word b, d, g, w, z are pronounced voiceless (chleb sounds like "chlep"), but the spelling keeps the original letter.',
       sync: 'Device sync', sync_d: 'With an account your progress is the same on phone, tablet and laptop. Without one, everything stays on this device only.', sync_email: 'Email', sync_pw: 'Password (min. 8 characters)', sync_login: 'Sign in', sync_signup: 'Create account', sync_forgot: 'Forgot password?', sync_as: 'Signed in as', sync_now: 'Sync now', sync_last: 'Last synced', sync_never: 'not yet', sync_busy: 'Syncing …', sync_done: 'Synced ✓', sync_logout: 'Sign out', sync_del: 'Delete my data from the server', sync_del_q: 'Really delete? Tap again', sync_deleted: 'Server data deleted. Everything stays on this device.', sync_mail_sent: 'Almost done: open the link in the email. Then you are signed in.', sync_reset_sent: 'If the account exists, a reset email is on its way.', sync_newpw: 'New password', sync_setpw: 'Save password', sync_pw_saved: 'New password saved ✓', sync_shared: 'One account for all apps on arndt-software.de (e.g. GeoQuest too).', sync_err_cred: 'Email or password is wrong.', sync_err_confirm: 'Please open the link in the confirmation email first.', sync_err_exists: 'This email already has an account. Please sign in.', sync_err_pw: 'The password is too short or too simple.', sync_err_rate: 'Too many attempts. Please try again later.', sync_err_net: 'No connection to the server. Your progress stays on this device and will sync later.', sync_err: 'That did not work', sync_ob: 'Already have an account? Sign in and load progress', bk_more: 'Without an account: transfer progress as text', bk_copy: 'Copy text', inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
-      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.'
+      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.', letter: 'The letter', letter_start: 'Szymek, a Krasnal from Wrocław, has brought you a letter in Polish. You can’t read it yet, but after every city one more sentence becomes readable.', letter_d: 'You can already read {n} of {t} sentences.', letter_new: 'New in the letter', letter_open: 'Read the letter', letter_locked: 'readable after {c}', letter_done: 'You have read the whole letter.', letter_from: 'A letter from Wrocław'
     }
   };
 
@@ -323,6 +323,7 @@
     if (tab === 'duel') return renderDuelSetup();
     if (tab === 'face') return renderFaceSetup();
     if (tab === 'polacy') return renderPolacy();
+    if (tab === 'letter') return renderLetter();
   }
 
   /* ---------- Onboarding ---------- */
@@ -407,6 +408,7 @@
       '<b class="num">' + ws + ' ' + esc(t('wk_streak')) + '</b><span class="small muted num">' + C.totalDays(S.active) + ' ' + esc(t('total_days')) + ' · ' + masteredCount() + ' ' + esc(t('mastered')) + '</span></div></div>' +
       '<button class="btn primary block" id="cta">' + blaze(u.trail) + esc(t('continue')) + ': ' + esc(u.city) + (step ? ' · ' + esc(t(step)) : '') + '</button>' +
       (step ? '<div class="row small" style="justify-content:space-between"><span class="muted">' + esc(t('next_up')) + ': ' + esc(t('step_' + step)) + '</span><button class="btn ghost small" id="cta-city" style="min-height:36px;padding:4px 0">' + esc(t('view_city')) + ' →</button></div>' : '') + '</section>' +
+      letterCard() +
       '<section class="map-wrap card" style="padding:8px">' + mapSvg() + '</section>' +
       '<section class="tiles">' +
         tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
@@ -419,6 +421,7 @@
     shell(html);
     document.getElementById('cta').onclick = function () { if (step && isOpen(nUnit)) startMode(step, nUnit); else go('city', nUnit); };
     var cc = document.getElementById('cta-city'); if (cc) cc.onclick = function () { go('city', nUnit); };
+    var lo = document.getElementById('letter-open'); if (lo) lo.onclick = function () { go('letter'); };
     var wg = document.getElementById('wb-go'); if (wg) wg.onclick = function () { startMode('welcome'); };
     var wl = document.getElementById('wb-later'); if (wl) wl.onclick = function () { var w = document.getElementById('wb'); if (w) w.remove(); };
     bindTiles();
@@ -517,6 +520,45 @@
   }
 
   /* ---------- Ich / Einstellungen ---------- */
+  /* ---------- Der Brief (Rahmengeschichte) ---------- */
+  function letterLines() { return (D.letter && D.letter.lines) || []; }
+  function unitById(id) { for (var i = 0; i < U.length; i++) if (U[i].id === id) return U[i]; return null; }
+  function letterCard() {
+    var lines = letterLines(), n = C.letterRead(lines, S).filter(Boolean).length, tot = lines.length, isNew = n > (S.letterSeen || 0);
+    if (!tot) return '';
+    return '<section class="card stack letter-card"><div class="row" style="justify-content:space-between"><span class="eyebrow">✉ ' + esc(t('letter')) + '</span>' +
+      (isNew ? '<span class="badge next">' + esc(t('letter_new')) + '</span>' : '<span class="small muted num">' + n + '/' + tot + '</span>') + '</div>' +
+      '<p class="small">' + esc(n ? (n === tot && !isNew ? t('letter_done') : t('letter_d').replace('{n}', n).replace('{t}', tot)) : t('letter_start')) + '</p>' +
+      '<div class="bar"><i style="width:' + (n / tot * 100) + '%"></i></div><button class="btn" id="letter-open" style="justify-self:start">' + esc(t('letter_open')) + ' →</button></section>';
+  }
+  function letterLineHtml(l, readable, fresh) {
+    if (!readable) { var u = unitById(l.u); return '<div class="lt-line locked"><p class="lt-pl" aria-hidden="true">' + esc(l.pl) + '</p><p class="small muted">' + esc(t('letter_locked').replace('{c}', u ? u.city : '')) + '</p></div>'; }
+    return '<div class="lt-line' + (fresh ? ' fresh' : '') + '"><div class="row" style="align-items:start"><p class="lt-pl grow" lang="pl">' + esc(l.pl) + '</p><button class="icon-btn" data-say="' + esc(l.pl) + '" aria-label="' + esc(t('listen_again')) + '">' + I.spk + '</button></div><p class="small muted">' + esc(L(l.tr)) + '</p></div>';
+  }
+  function renderLetter() {
+    var lines = letterLines(), rd = C.letterRead(lines, S), n = rd.filter(Boolean).length, seen = S.letterSeen || 0, all = n === lines.length, k = 0;
+    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button><h1>' + esc(t('letter')) + '</h1>' +
+      '<section class="card row letter-szymek" style="align-items:start"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small scene-intro grow">' + esc(L(D.letter.prolog)) + '</p></section>' +
+      '<article class="card stack letter" aria-label="' + esc(t('letter_from')) + '"><span class="eyebrow">' + esc(t('letter_from')) + ' · <span class="num">' + n + '/' + lines.length + '</span></span>' +
+      lines.map(function (l, i) { var fresh = rd[i] && ++k > seen; return letterLineHtml(l, rd[i], fresh && seen > 0); }).join('') + '</article>' +
+      (all ? '<section class="card stack next-box pop"><span class="eyebrow">Wrocław</span><p>' + esc(L(D.letter.finale)) + '</p></section>' : '');
+    shell(html);
+    if (n !== seen) { S.letterSeen = n; save(); }
+    document.getElementById('back').onclick = function () { go('home'); };
+    document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
+  }
+  /* Nach der ersten bestandenen Stadtprüfung: der neue Satz, dazu Szymeks Ausblick oder das Finale */
+  function letterNewBox(uid) {
+    var lines = letterLines(), i = -1;
+    for (var j = 0; j < lines.length; j++) if (lines[j].u === uid) i = j;
+    if (i < 0) return '';
+    var l = lines[i], all = C.letterRead(lines, S).every(Boolean);
+    return '<div class="card stack letter-card pop" style="text-align:left;width:100%"><span class="eyebrow">✉ ' + esc(t('letter_new')) + '</span>' +
+      '<p class="lt-pl" lang="pl">' + esc(l.pl) + '</p><p class="small muted">' + esc(L(l.tr)) + '</p>' +
+      '<p class="small scene-intro">' + esc(L((all || !l.bridge) ? D.letter.finale : l.bridge)) + '</p>' +
+      '<button class="btn" id="letter-res" style="justify-self:start">' + esc(t('letter_open')) + ' →</button></div>';
+  }
+
   function candoBox() {
     var done = U.filter(function (u) { return S.boss[u.id]; }), nu = U[nextUnit()], ns = C.nextStep(S, nu.id);
     var stats = t('cando_stats').replace('{w}', masteredCount()).replace('{s}', Object.keys(S.scenes).length).replace('{c}', done.length);
@@ -1203,7 +1245,7 @@
         var first = !S.boss[u.id];
         S.boss[u.id] = Math.max(S.boss[u.id] || 0, pct);
         if (g.cfg.unit >= S.unlocked && g.cfg.unit < U.length - 1) { S.unlocked = g.cfg.unit + 1; extras += '<div class="banner pop"><strong>' + esc(t('unlocked')) + ': ' + esc(U[S.unlocked].city) + '</strong></div>'; }
-        if (first) extras += '<div class="card stack pop"><span class="eyebrow">' + esc(t('postcard_new')) + '</span><b>' + esc(u.city) + '</b><p class="small">' + esc(L(u.fact)) + '</p></div>';
+        if (first) extras += '<div class="card stack pop"><span class="eyebrow">' + esc(t('postcard_new')) + '</span><b>' + esc(u.city) + '</b><p class="small">' + esc(L(u.fact)) + '</p></div>' + letterNewBox(u.id);
         extras += maybeKrasnal(true);
       } else extras += '<p class="muted">' + esc(t('failed')) + '</p>';
     } else if (!g.players && !polUI && total >= 5) extras += maybeKrasnal(false);
@@ -1244,6 +1286,7 @@
     document.getElementById('again').onclick = function () { G = null; if (cfg.duel) { tab = 'duel'; return renderDuelSetup(); } if (cfg.players) return startDuel(cfg.players); if (cfg.rerun) return cfg.rerun(); var c2 = Object.assign({}, cfg); restart(c2); };
     var sh = document.getElementById('share'); if (sh) sh.onclick = function () { copy(C.shareText(cfg.daily, g.results)); };
     var nxb = document.getElementById('next-step'); if (nxb) nxb.onclick = function () { G = null; var nui = +nxb.getAttribute('data-ui'); if (isOpen(nui)) startMode(nxb.getAttribute('data-step'), nui); else go('city', nui); };
+    var lr = document.getElementById('letter-res'); if (lr) lr.onclick = function () { G = null; go('letter'); };
     if (cfg.duel) bindDuelResult(g);
   }
   /* Ausblick: was als Nächstes kommt – mit dem Szenen-Anfang der nächsten Stadt als kleiner Spannungsbogen */

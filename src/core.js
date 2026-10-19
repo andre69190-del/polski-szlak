@@ -123,6 +123,10 @@
     }
     return 'boss';
   }
+  /* Der Brief: ein Satz pro Stadt wird lesbar, sobald die Stadt geschafft (oder per Einstufung übersprungen) ist */
+  function letterRead(lines, st) {
+    return (lines || []).map(function (l) { return !!((st.boss && st.boss[l.u]) || (st.skipped && st.skipped[l.u])); });
+  }
   function daysInWeek(activeDays, wk) {
     var c = 0; for (var i = 0; i < 7; i++) if (activeDays[addDays(wk, i)]) c++; return c;
   }
@@ -274,7 +278,7 @@
     function arr(x) { return Array.isArray(x) ? x : []; }
     function each(k, f) { var A = obj(nw[k]), B = obj(ol[k]), r = {}; Object.keys(A).concat(Object.keys(B)).forEach(function (i) { r[i] = i in A ? (i in B ? f(A[i], B[i]) : A[i]) : B[i]; }); o[k] = r; }
     function max(x, y) { return Math.max(+x || 0, +y || 0); }
-    o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked);
+    o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked); o.letterSeen = max(nw.letterSeen, ol.letterSeen);
     o.onboarded = !!(nw.onboarded || ol.onboarded);
     if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
     ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
@@ -460,7 +464,7 @@
     stripDia: stripDia, norm: norm, variants: variants, lev: lev, checkAnswer: checkAnswer,
     numToPl: numToPl, zlotyForm: zlotyForm, priceWords: priceWords,
     INTERVALS: INTERVALS, MASTERED_BOX: MASTERED_BOX, srsUpdate: srsUpdate, isDue: isDue,
-    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek, daysSince: daysSince, STEPS: STEPS, nextStep: nextStep,
+    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek, daysSince: daysSince, STEPS: STEPS, nextStep: nextStep, letterRead: letterRead,
     weekStreak: weekStreak, totalDays: totalDays,
     duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,

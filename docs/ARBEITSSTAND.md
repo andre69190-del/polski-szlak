@@ -121,6 +121,16 @@
 - [x] Logo = Knopf zur Startseite (`#brand`, beendet laufendes Spiel), Leiste „Start“. Home-CTA über `C.nextStep(S, uid)` (Reihenfolge learn → scene → quiz → build → boss, gespeichert in `S.done[uid][modus]`), Badge „Als Nächstes“ auf der Stadtseite.
 - [x] `outlookBox(g)` im Ergebnis (nicht bei Duell/Polnisch-UI), `#next-step`. Willkommen-zurück `#wb` bei `C.daysSince(S.active, heute) >= 7`, einmal pro Tag (`S.welcomeDay`), Modus `welcome`. `candoBox()` im Tab Ich. Onboarding-Segment `#ob-inp`. `about_d` korrigiert.
 - [x] Im Browser getestet (Onboarding, Badge, Ausblick → Szene startet, Logo → Start, CTA, Ich-Kasten, Willkommen-Banner mit simuliertem alten Datum, Handybreite 375 px ohne Querscrollen). Alle Checks grün, 35 Tests.
-- [ ] Nächstes (wenn gewünscht): Paket 2 „Der Brief“ (Vorschlag C), danach H, I, K, N.
+- [x] Paket 2 „Der Brief“ → Version 1.9.
 - [ ] Offen beim Nutzer weiterhin: Registrierung/Login auf Handy und Laptop testen.
 - Hinweis: Beim Testen hat Claude versehentlich im Coolify-Tab des eingebauten Browsers localStorage/Cache geleert (Seite war schon /login). Ggf. dort neu anmelden.
+
+## 19.10.2026: Version 1.9 (Paket 2 „Der Brief“ gebaut)
+
+- [x] Auftrag: „ja, mache 2“ (Vorschlag C aus MOTIVATION_UND_VORSCHLAEGE.md).
+- [x] data.json: Block `letter` am Ende (prolog, finale, 12 lines {u, pl, tr, bridge}); Briefschreiberin Ania aus Wrocław, Begleiter Krasnal Szymek (Briefträger), Finale: Wrocław Główny, Bahnsteig 3, Schild „Cześć! To ty?“.
+- [x] core.js `letterRead(lines, S)` (lesbar = boss bestanden oder Stadt übersprungen), `S.letterSeen` (max beim Merge). app.js: `letterCard()` auf Home, Tab `letter` → `renderLetter()`, `letterNewBox(uid)` im Ergebnis der ersten bestandenen Stadtprüfung. CSS `.letter*`, `.lt-*`. content_check prüft den Brief, check_features hat zwei neue Einträge.
+- [x] Im Browser getestet: echte Warschau-Prüfung bestanden → „Neu im Brief“ + Ausblick; Home-Abzeichen; Briefseite 1/12 mit 11 verschwommenen Sätzen; alle Städte → Finale; 375 px ohne Querscrollen. Alle Checks grün, 36 Tests. Cache v1-10.
+- [ ] Empfohlen: polnische Briefsätze von Muttersprachler/in gegenlesen lassen.
+- [ ] Nächstes (wenn gewünscht): H, I, K, N; später J, M, L.
+- [ ] Offen beim Nutzer weiterhin: Registrierung/Login auf Handy und Laptop testen.

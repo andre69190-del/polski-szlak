@@ -95,6 +95,15 @@ for k, v in allw.items():
 
 if len(D['outline']) < 20 or D['outline'][0] != D['outline'][-1]: e('Umriss: zu wenige Punkte oder nicht geschlossen')
 
+# Der Brief: genau ein Satz pro Stadt in Reiseroute-Reihenfolge, Ausblick (bridge) überall außer in der letzten Stadt
+LT = D.get('letter') or {}
+pair(LT.get('prolog'), 'Brief.prolog'); pair(LT.get('finale'), 'Brief.finale')
+if [l.get('u') for l in LT.get('lines', [])] != [u['id'] for u in D['units']]: e('Brief: braucht genau einen Satz pro Stadt in Routen-Reihenfolge')
+for li, l in enumerate(LT.get('lines', [])):
+    if not PL_OK.match(l.get('pl', '')) or l.get('pl', '')[-1:] not in '.!?a': e(f'Brief Satz {li + 1}: ungültiger polnischer Text')
+    pair(l.get('tr'), f'Brief Satz {li + 1}.tr')
+    if li < len(D['units']) - 1: pair(l.get('bridge'), f'Brief Satz {li + 1}.bridge')
+
 total = sum(len(u['words']) for u in D['units'])
 print(f'  Städte {len(D["units"])} · Wörter {total} · Sätze {sum(len(u["sentences"]) for u in D["units"])} · '
       f'Szenen {sum(1 for u in D["units"] if u.get("scene"))} · Fälle {len(D["cases"])} · Laute {len(D["sounds"])}')

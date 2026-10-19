@@ -102,5 +102,5 @@ Kleiner Fehler nebenbei: Der Text „Über die App“ (`about_d`) sagt noch „s
 
 **Empfohlene Reihenfolge:**
 1. Paket 1 (schnell, sofort spürbar): A + B + D + E + F + G + `about_d`-Korrektur. **Erledigt in Version 1.8.**
-2. Paket 2: C, „Der Brief“ (das eigentliche Buch-Gefühl).
+2. Paket 2: C, „Der Brief“ (das eigentliche Buch-Gefühl). **Erledigt in Version 1.9.**
 3. Danach H, I, K, N; später J, M, L.

@@ -57,6 +57,8 @@ chk "Ausblick am Rundenende" "outlookBox"
 chk "Willkommen zurück" "wb-go"
 chk "Das kann ich schon" "candoBox"
 chk "Logo führt zur Startseite" "id=\"brand\""
+chk "Der Brief (Rahmengeschichte)" "renderLetter"
+chk "Brief wird Stadt für Stadt lesbar" "letterRead"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL
