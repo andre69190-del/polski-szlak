@@ -786,5 +786,73 @@
       {"u":"kat","pl":"Proponuję spotkanie. Termin wybierasz ty.","tr":["Ich schlage ein Treffen vor. Den Termin wählst du.","I suggest we meet. You choose the date."],"bridge":["„Ein Treffen!“ Szymek packt seine Posttasche. „Nur noch ein Satz, in Wrocław, bei mir zu Hause.“","\"A meeting!\" Szymek packs his mailbag. \"Just one more sentence, in Wrocław, my home.\""]},
       {"u":"wro","pl":"Dbaj o zdrowie! Jeśli czytasz ten list, to już rozumiesz po polsku. Do zobaczenia! Ania","tr":["Pass auf dich auf! Wenn du diesen Brief liest, verstehst du schon Polnisch. Bis bald! Ania","Take care of yourself! If you're reading this letter, you already understand Polish. See you soon! Ania"]}
     ]
-  }
+  },
+  "missions": {
+    "waw":{"pl":"Dzień dobry! Dziękuję!","d":["Sag heute zu einem echten Menschen „Dzień dobry“ oder „Dziękuję“: in der Bäckerei, zur Nachbarin, im Videoanruf. Ein Lächeln zählt mit.","Say “Dzień dobry” or “Dziękuję” to a real person today: at the bakery, to a neighbour, on a video call. A smile counts too."]},
+    "lod":{"pl":"Mam na imię … i jestem z …","d":["Stell dich laut auf Polnisch vor: Name, woher du kommst, wo du wohnst. Vor dem Spiegel oder als Sprachnachricht an dich selbst.","Introduce yourself out loud in Polish: name, where you are from, where you live. In front of the mirror or as a voice message to yourself."]},
+    "poz":{"pl":"Ile to kosztuje?","d":["Nimm beim nächsten Einkauf drei Preise vom Kassenzettel und sag sie laut auf Polnisch: „To kosztuje … złotych.“","Take three prices from your next receipt and say them out loud in Polish: “To kosztuje … złotych.”"]},
+    "szc":{"pl":"Poproszę kawę.","d":["Bestelle dein nächstes Getränk zuerst auf Polnisch, laut oder im Kopf, bevor du es auf Deutsch bestellst.","Order your next drink in Polish first, out loud or in your head, before you order it in your own language."]},
+    "gda":{"pl":"To jest mój brat. To jest moja mama.","d":["Nimm ein Familienfoto und stell drei Menschen darauf auf Polnisch vor.","Take a family photo and introduce three people on it in Polish."]},
+    "tor":{"pl":"Dziś jest poniedziałek. Jest ósma.","d":["Sag morgen früh beim Aufstehen den Wochentag und die Uhrzeit auf Polnisch.","Tomorrow morning when you get up, say the day of the week and the time in Polish."]},
+    "bia":{"pl":"Dziś jest zimno i pada deszcz.","d":["Schau aus dem Fenster und beschreibe das Wetter in einem polnischen Satz.","Look out of the window and describe the weather in one Polish sentence."]},
+    "lub":{"pl":"Lista zakupów: chleb, mleko, jabłka …","d":["Schreib deine nächste Einkaufsliste auf Polnisch, mindestens fünf Sachen.","Write your next shopping list in Polish, at least five items."]},
+    "kra":{"pl":"Prosto, potem w lewo.","d":["Beschreib auf Polnisch den Weg von deiner Haustür zum nächsten Laden: prosto, w lewo, w prawo.","Describe in Polish the way from your front door to the nearest shop: prosto, w lewo, w prawo."]},
+    "zak":{"pl":"Jadę do pracy autobusem.","d":["Sag bei deiner nächsten Fahrt laut, wohin du fährst und womit.","On your next trip, say out loud where you are going and how."]},
+    "kat":{"pl":"Pracuję jako … Lubię moją pracę.","d":["Erzähl in drei polnischen Sätzen, was du arbeitest oder lernst.","Tell in three Polish sentences what you do for work or study."]},
+    "wro":{"pl":"To jest głowa, ręka, noga …","d":["Zeig auf fünf Körperteile und benenne sie auf Polnisch. Mit Kindern macht es doppelt Spaß.","Point to five body parts and name them in Polish. Twice the fun with kids."]}
+  },
+  "listen": {
+    "radio": {
+      "waw":["Polskie Radio","https://www.polskieradio.pl/"],
+      "lod":["Radio Łódź","https://radiolodz.pl/"],
+      "poz":["Radio Poznań","https://radiopoznan.fm/"],
+      "szc":["Radio Szczecin","https://radioszczecin.pl/"],
+      "gda":["Radio Gdańsk","https://radiogdansk.pl/"],
+      "tor":["Polskie Radio PiK","https://www.radiopik.pl/"],
+      "bia":["Radio Białystok","https://www.radio.bialystok.pl/"],
+      "lub":["Radio Lublin","https://radio.lublin.pl/"],
+      "kra":["Radio Kraków","https://www.radiokrakow.pl/"],
+      "zak":["Radio Alex (Zakopane)","https://radioalex.pl/"],
+      "kat":["Radio Katowice","https://www.radio.katowice.pl/"],
+      "wro":["Radio Wrocław","https://www.radiowroclaw.pl/"]
+    },
+    "learn": [
+      ["Easy Polish","https://www.youtube.com/@EasyPolish","Straßeninterviews mit Untertiteln (Polnisch, Englisch). Echtes Alltagspolnisch.","Street interviews with subtitles (Polish, English). Real everyday Polish."],
+      ["Real Polish","https://realpolish.pl/","Podcast mit einfachem, langsam gesprochenem Polnisch.","Podcast with simple, slowly spoken Polish."],
+      ["PolishPod101","https://www.polishpod101.com/","Kurze Hörlektionen für Anfänger (teils kostenpflichtig).","Short audio lessons for beginners (partly paid)."],
+      ["TVP VOD","https://vod.tvp.pl/","Polnisches Fernsehen online: Serien, Nachrichten, Kinderprogramm.","Polish TV online: series, news, children's programmes."],
+      ["Mówiąc Inaczej","https://www.youtube.com/@MowiacInaczej","Für Fortgeschrittene: polnische Sprache erklärt von Polen für Polen.","For advanced learners: the Polish language explained by Poles for Poles."]
+    ]
+  },
+  "aspects": [
+    {"s":"Codziennie ___ kawę.","base":"pić / wypić","opts":["piję","wypiję"],"a":"piję","pf":0,"why":["„codziennie“ (jeden Tag) ist eine Gewohnheit, dafür nimmt man das unvollendete Verb.","“codziennie” (every day) is a habit, so you use the imperfective verb."],"tr":["Jeden Tag trinke ich Kaffee.","I drink coffee every day."]},
+    {"s":"Jutro ___ ten list.","base":"pisać / napisać","opts":["napiszę","piszę"],"a":"napiszę","pf":1,"why":["Eine einzelne Handlung morgen, die fertig wird: vollendet. „napiszę“ ist schon Zukunft.","A single action tomorrow that gets finished: perfective. “napiszę” already means future."],"tr":["Morgen schreibe ich diesen Brief (fertig).","Tomorrow I will write this letter (and finish it)."]},
+    {"s":"Wczoraj Ania ___ cały film.","base":"oglądać / obejrzeć","opts":["obejrzała","oglądała"],"a":"obejrzała","pf":1,"why":["„cały“ (ganz): Der Film ist zu Ende geschaut, das Ergebnis zählt, also vollendet.","“cały” (whole): the film was watched to the end, the result counts, so perfective."],"tr":["Gestern hat Ania den ganzen Film angeschaut.","Yesterday Ania watched the whole film."]},
+    {"s":"Kiedy Ania ___ obiad, zadzwonił telefon.","base":"gotować / ugotować","opts":["gotowała","ugotowała"],"a":"gotowała","pf":0,"why":["Das Kochen lief gerade, als etwas passierte: Hintergrund-Handlung, also unvollendet.","The cooking was in progress when something happened: background action, so imperfective."],"tr":["Als Ania das Mittagessen kochte, klingelte das Telefon.","While Ania was cooking lunch, the phone rang."]},
+    {"s":"Często ___ listy do Ani.","base":"pisać / napisać","opts":["piszę","napiszę"],"a":"piszę","pf":0,"why":["„często“ (oft) heißt Wiederholung, also unvollendet.","“często” (often) means repetition, so imperfective."],"tr":["Ich schreibe oft Briefe an Ania.","I often write letters to Ania."]},
+    {"s":"Proszę, ___ okno!","base":"otwierać / otworzyć","opts":["otwórz","otwieraj"],"a":"otwórz","pf":1,"why":["Eine einmalige Bitte mit Ergebnis (Fenster auf): vollendeter Imperativ.","A one-off request with a result (window open): perfective imperative."],"tr":["Bitte mach das Fenster auf!","Please open the window!"]},
+    {"s":"Tomek już ___ zadanie.","base":"robić / zrobić","opts":["zrobił","robił"],"a":"zrobił","pf":1,"why":["„już“ (schon): Die Aufgabe ist erledigt, das Ergebnis liegt vor, also vollendet.","“już” (already): the task is done, the result is there, so perfective."],"tr":["Tomek hat die Aufgabe schon gemacht.","Tomek has already done the task."]},
+    {"s":"Codziennie rano ___ gazetę.","base":"czytać / przeczytać","opts":["czytam","przeczytam"],"a":"czytam","pf":0,"why":["Jeden Morgen: Gewohnheit, also unvollendet.","Every morning: a habit, so imperfective."],"tr":["Jeden Morgen lese ich die Zeitung.","Every morning I read the newspaper."]},
+    {"s":"Za chwilę ___ ci, jak to działa.","base":"pokazywać / pokazać","opts":["pokażę","pokazuję"],"a":"pokażę","pf":1,"why":["„za chwilę“ (gleich): einmal, mit Ergebnis, in der Zukunft, also vollendet.","“za chwilę” (in a moment): once, with a result, in the future, so perfective."],"tr":["Gleich zeige ich dir, wie das funktioniert.","In a moment I will show you how it works."]},
+    {"s":"Przez dwie godziny Ola ___ na pociąg.","base":"czekać / zaczekać","opts":["czekała","zaczekała"],"a":"czekała","pf":0,"why":["„przez dwie godziny“ (zwei Stunden lang) betont die Dauer, also unvollendet.","“przez dwie godziny” (for two hours) stresses duration, so imperfective."],"tr":["Zwei Stunden lang wartete Ola auf den Zug.","Ola waited for the train for two hours."]},
+    {"s":"Kiedy ___ pracę, zadzwonię do ciebie.","base":"kończyć / skończyć","opts":["skończę","kończę"],"a":"skończę","pf":1,"why":["Erst fertig werden, dann anrufen: abgeschlossene Handlung in der Zukunft, also vollendet.","First finish, then call: a completed action in the future, so perfective."],"tr":["Wenn ich mit der Arbeit fertig bin, rufe ich dich an.","When I finish work, I will call you."]},
+    {"s":"Marek ___ list i wysłał go.","base":"pisać / napisać","opts":["napisał","pisał"],"a":"napisał","pf":1,"why":["Eine Handlung nach der anderen, jede abgeschlossen: vollendet.","One action after another, each completed: perfective."],"tr":["Marek schrieb den Brief und schickte ihn ab.","Marek wrote the letter and sent it."]},
+    {"s":"Zwykle ___ o siódmej.","base":"wstawać / wstać","opts":["wstaję","wstanę"],"a":"wstaję","pf":0,"why":["„zwykle“ (normalerweise): Gewohnheit, also unvollendet.","“zwykle” (usually): a habit, so imperfective."],"tr":["Normalerweise stehe ich um sieben auf.","I usually get up at seven."]},
+    {"s":"Nie mogę rozmawiać, teraz ___.","base":"jeść / zjeść","opts":["jem","zjem"],"a":"jem","pf":0,"why":["Gerade jetzt, im Verlauf: unvollendet. Vollendete Verben haben keine Gegenwart („zjem“ ist Zukunft).","Right now, in progress: imperfective. Perfective verbs have no present tense (“zjem” is future)."],"tr":["Ich kann nicht reden, ich esse gerade.","I can't talk, I'm eating right now."]},
+    {"s":"Ola ___ całą pizzę sama!","base":"jeść / zjeść","opts":["zjadła","jadła"],"a":"zjadła","pf":1,"why":["Die ganze Pizza ist weg, das Ergebnis zählt: vollendet.","The whole pizza is gone, the result counts: perfective."],"tr":["Ola hat die ganze Pizza allein aufgegessen!","Ola ate the whole pizza by herself!"]},
+    {"s":"Jutro cały dzień będę ___.","base":"pracować / popracować","opts":["pracować","popracować"],"a":"pracować","pf":0,"why":["„będę“ + Infinitiv gibt es nur mit unvollendeten Verben. Dazu: den ganzen Tag (Dauer).","“będę” + infinitive only works with imperfective verbs. Also: all day (duration)."],"tr":["Morgen werde ich den ganzen Tag arbeiten.","Tomorrow I will work all day."]}
+  ],
+  "letterQuiz": [
+    {"l":1,"q":["Wie heißt die Schreiberin, und wo wohnt sie?","What is the writer called, and where does she live?"],"o":[["Ania, in Breslau (Wrocław)","Ania, in Wrocław"],["Ola, in Łódź","Ola, in Łódź"],["Ania, in Krakau","Ania, in Kraków"]]},
+    {"l":2,"q":["Wie alt ist Ania?","How old is Ania?"],"o":[["28","28"],["22","22"],["38","38"]]},
+    {"l":3,"q":["Was mag Ania?","What does Ania like?"],"o":[["Kaffee ohne Zucker und guten Kuchen","Coffee without sugar and good cake"],["Tee mit Zucker und Brot","Tea with sugar and bread"],["Kaffee mit Milch und Eis","Coffee with milk and ice cream"]]},
+    {"l":4,"q":["Wer gehört zu Anias Familie?","Who is in Ania's family?"],"o":[["ein Bruder, eine Schwester und eine Katze","a brother, a sister and a cat"],["zwei Schwestern und ein Hund","two sisters and a dog"],["ein Bruder und eine Großmutter","a brother and a grandmother"]]},
+    {"l":5,"q":["Wann schreibt Ania Briefe?","When does Ania write letters?"],"o":[["samstags morgens","on Saturday mornings"],["sonntags abends","on Sunday evenings"],["jeden Abend","every evening"]]},
+    {"l":6,"q":["Wie ist es gerade bei Ania?","What is it like at Ania's right now?"],"o":[["Herbst, es regnet oft","autumn, it often rains"],["Sommer, es ist sehr heiß","summer, it is very hot"],["Winter, es schneit","winter, it is snowing"]]},
+    {"l":7,"q":["Wen sucht Ania?","Who is Ania looking for?"],"o":[["jemanden, der Polnisch lernt","someone who is learning Polish"],["eine Polnischlehrerin","a Polish teacher"],["eine neue Wohnung","a new flat"]]},
+    {"l":8,"q":["Wo wohnt Ania genau?","Where exactly does Ania live?"],"o":[["nahe am Marktplatz, neben dem Museum","near the Market Square, next to the museum"],["direkt am Bahnhof","right by the station"],["außerhalb der Stadt","outside the city"]]},
+    {"l":9,"q":["Wo wartet Ania, wenn du mit dem Zug kommst?","Where will Ania wait if you come by train?"],"o":[["auf dem Bahnsteig","on the platform"],["im Café","in the café"],["zu Hause","at home"]]},
+    {"l":10,"q":["Wer wählt den Termin für das Treffen?","Who chooses the date for the meeting?"],"o":[["du","you"],["Ania","Ania"],["Szymek","Szymek"]]}
+  ],
+  "audio": {}
 }

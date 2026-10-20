@@ -1,5 +1,18 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 2.0 · 20.10.2026 · Alle Vorschläge umgesetzt
+
+- **Mini-Missionen (H):** pro Stadt eine freiwillige Aufgabe im echten Leben (z. B. Warschau: „Dzień dobry! Dziękuję!“). Abhaken gibt einmalig +15 XP und Konfetti, danach Abzeichen „Mission erledigt“.
+- **Echtes Polnisch hören (I):** in jeder Stadt ein Link zum Regionalradio (Polskie Radio, Radio Łódź … Radio Wrocław); unter „Polska“ fünf ausgewählte Hörangebote (Easy Polish, Real Polish, PolishPod101, TVP VOD, Mówiąc Inaczej). Externe Seiten öffnen in neuem Tab.
+- **Fehler melden (J):** unter jeder Antwort und unter „Ich“. Speichert Text, Übung, Sprache und Version in `ps_feedback` (Supabase, nur Einfügen, kein Lesen über die API). Klappt das nicht, wird der Text kopiert und eine Mail-Adresse angezeigt. SQL: `deploy/supabase_ps_feedback.sql`.
+- **Teilen (K):** Tagesrätsel, bestandene Stadtprüfung und Brief-Quiz über das Teilen-Menü des Geräts (sonst kopieren).
+- **Muttersprachler-Aufnahmen (L):** Infrastruktur fertig (`data.json` → `audio`, Ordner `audio/`, Anleitung `docs/AUDIO_AUFNAHMEN.md`); noch keine Aufnahmen. Neu: „Mich aufnehmen und vergleichen“ in Sprechübungen (bleibt im Browser).
+- **Verb-Aspekt (M):** neue Übung unter „Üben“, 16 Lückensätze vollendet/unvollendet mit Erklärung.
+- **Google (N):** besserer Titel, Beschreibung, canonical, Open Graph, JSON-LD, ausführliches `<noscript>`, `robots.txt`, `sitemap.xml`.
+- **Extras:** Konfetti bei Erfolgen (aus bei „Bewegung reduzieren“), Offline-/Abgleich-Anzeige im Kopf, einmalige Einführungs-Tour (unter „Ich“ wiederholbar).
+- **Der Brief, Abschluss:** Szymek begrüßt am Anfang jeder Stadt-Szene mit seinem Ausblick (in Warschau: der Prolog); wenn alle 12 Sätze lesbar sind: „Brief selbst lesen“, 10 Verständnisfragen ohne Übersetzung.
+- Datenschutz ergänzt (Fehler melden, Aufnahme, externe Links). core.js `mergeSave`: missions, tour, letterQuiz. 37 Tests, check_features +14, content_check prüft die neuen Daten, check_syntax prüft JSON-LD. Service Worker Cache v1-11.
+
 ## 1.9 · 19.10.2026 · Der Brief
 
 - **Rahmengeschichte „Der Brief“:** Szymek, ein Krasnal-Briefträger aus Wrocław, bringt einen Brief auf Polnisch von Ania. Am Anfang ist er unlesbar (verschwommen); nach jeder geschafften Stadtprüfung (oder übersprungenen Stadt) wird ein Satz lesbar, 12 Sätze für 12 Städte.

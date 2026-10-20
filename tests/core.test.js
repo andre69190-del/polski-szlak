@@ -355,3 +355,11 @@ test('letterRead: Brief wird Stadt für Stadt lesbar', () => {
   const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, letterSeen: 1 }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, letterSeen: 3 });
   assert.equal(m.letterSeen, 3);
 });
+
+test('mergeSave: Missionen, Tour und Brief-Quiz gehen nicht verloren', () => {
+  const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, missions: { waw: '2026-10-20' }, letterQuiz: 60 },
+    { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, missions: { lod: '2026-10-19' }, tour: true, letterQuiz: 90 });
+  assert.deepEqual({ ...m.missions }, { waw: '2026-10-20', lod: '2026-10-19' });
+  assert.equal(m.tour, true);
+  assert.equal(m.letterQuiz, 90);
+});

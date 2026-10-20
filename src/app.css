@@ -257,3 +257,24 @@ input[type=text] { border-radius: var(--r-sm); border: 1px solid var(--line); ba
 .lt-line.fresh { border-left: 3px solid var(--red); padding-left: 10px; }
 .letter-szymek .krasnal svg { width: 44px; height: 50px; }
 .lt-line .grow, .letter-szymek .grow { flex: 1; min-width: 0; }
+
+/* Version 2.0: Mission, Hören, Fehler melden, Konfetti, Abgleich-Anzeige, Tour, Szymek */
+.mission { border-left: 4px solid var(--t-green); }
+a.ext { font-weight: 700; color: var(--ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.report { margin-top: 10px; }
+.report summary { cursor: pointer; color: var(--muted); min-height: 32px; display: inline-flex; align-items: center; }
+.report textarea { min-height: 72px; }
+.chip.net { display: inline-flex; align-items: center; gap: 6px; border: 0; cursor: pointer; font: inherit; }
+.chip.net i { width: 9px; height: 9px; border-radius: 50%; background: var(--good); display: inline-block; }
+.chip.net.busy i { background: var(--amber); }
+.chip.net.err i, .chip.net.off i { background: var(--bad); }
+.szymek { align-items: start; gap: 10px; background: var(--card); border: 1px dashed var(--line); border-radius: 14px; padding: 10px; margin: 6px 0 10px; }
+.szymek .krasnal svg { width: 34px; height: 40px; }
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+.confetti i { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px; animation-name: ps-fall; animation-timing-function: cubic-bezier(.25,.6,.5,1); animation-fill-mode: forwards; }
+@keyframes ps-fall { to { top: 105%; transform: rotate(540deg) translateX(30px); opacity: .85; } }
+.tour { position: fixed; left: 12px; right: 12px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 55; max-width: 520px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.tour-hl { outline: 3px solid var(--red); outline-offset: 4px; border-radius: 12px; position: relative; z-index: 2; }
+@media (prefers-reduced-motion: reduce) { .confetti { display: none; } }
+@media (max-width: 440px) { .chip.net span { display: none; } .chip.net { padding-left: 10px; padding-right: 10px; } }

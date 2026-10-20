@@ -279,11 +279,12 @@
     function each(k, f) { var A = obj(nw[k]), B = obj(ol[k]), r = {}; Object.keys(A).concat(Object.keys(B)).forEach(function (i) { r[i] = i in A ? (i in B ? f(A[i], B[i]) : A[i]) : B[i]; }); o[k] = r; }
     function max(x, y) { return Math.max(+x || 0, +y || 0); }
     o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked); o.letterSeen = max(nw.letterSeen, ol.letterSeen);
-    o.onboarded = !!(nw.onboarded || ol.onboarded);
+    o.onboarded = !!(nw.onboarded || ol.onboarded); o.tour = !!(nw.tour || ol.tour); o.letterQuiz = max(nw.letterQuiz, ol.letterQuiz);
     if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
     ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
     ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
     each('done', function (x, y) { return Object.assign({}, y, x); });
+    each('missions', function (x, y) { return x || y; });
     each('daily', function (x, y) { return ((y && y.score) || 0) > ((x && x.score) || 0) ? y : x; });
     each('rank', function (x, y) { return ((y && y.g) || 0) > ((x && x.g) || 0) ? y : x; });
     /* eigene Wörter: vom neueren Stand, fehlende vom älteren hinten anhängen */

@@ -132,5 +132,16 @@
 - [x] core.js `letterRead(lines, S)` (lesbar = boss bestanden oder Stadt übersprungen), `S.letterSeen` (max beim Merge). app.js: `letterCard()` auf Home, Tab `letter` → `renderLetter()`, `letterNewBox(uid)` im Ergebnis der ersten bestandenen Stadtprüfung. CSS `.letter*`, `.lt-*`. content_check prüft den Brief, check_features hat zwei neue Einträge.
 - [x] Im Browser getestet: echte Warschau-Prüfung bestanden → „Neu im Brief“ + Ausblick; Home-Abzeichen; Briefseite 1/12 mit 11 verschwommenen Sätzen; alle Städte → Finale; 375 px ohne Querscrollen. Alle Checks grün, 36 Tests. Cache v1-10.
 - [ ] Empfohlen: polnische Briefsätze von Muttersprachler/in gegenlesen lassen.
-- [ ] Nächstes (wenn gewünscht): H, I, K, N; später J, M, L.
+- [x] H, I, J, K, L (Technik), M, N → Version 2.0.
+- [ ] Offen beim Nutzer weiterhin: Registrierung/Login auf Handy und Laptop testen.
+
+## 20.10.2026: Version 2.0 (alle Vorschläge + Brief-Abschluss)
+
+- [x] Auftrag: „setze alle Vorschläge um, auch den Brief“ (H, I, J, K, L, M, N + Konfetti, Offline-Anzeige, Tour, Szymek in Szenen, Brief-Quiz). Ausgelassen wie besprochen: Kinder-Modus, „Für dich“.
+- [x] data.json: `missions`, `listen` (radio je Stadt, learn), `aspects` (16), `letterQuiz` (10, o[0] = richtig), `audio` ({} – Text → Datei).
+- [x] app.js: missionBox/radioBox (Stadt), extLink, qAspect/qLetter + Modi `aspect`/`letterquiz`, reportHtml/bindReport (ps_feedback, Fallback Mail ohne Text in der URL), shareOut, confetti, recHtml/bindRec, startTour (S.tour), netChip/updateNet, szymekBubble, audioFor in speak(). APP_VER 2.0.
+- [x] SEO in shell.html, robots.txt, sitemap.xml, Dockerfile kopiert beide + `audio/`. Datenschutz ergänzt.
+- [x] Browser-Test: Tour 5 Schritte, Mission +15 XP, Aspekt-Übung, Fehler melden (Fallback, weil Tabelle fehlt), Szymek-Blasen, Brief-Quiz 10/10 mit Teilen, Hörliste, 375 px ohne Querscrollen (Offline-Chip auf Handy nur als Punkt). Spielstand wiederhergestellt.
+- [ ] **Beim Nutzer:** `deploy/supabase_ps_feedback.sql` im Supabase Studio ausführen (sonst geht „Fehler melden“ nur per Mail).
+- [ ] Empfohlen: Muttersprachler-Aufnahmen besorgen (Anleitung docs/AUDIO_AUFNAHMEN.md); Brief, Missionen und Aspekt-Sätze gegenlesen lassen.
 - [ ] Offen beim Nutzer weiterhin: Registrierung/Login auf Handy und Laptop testen.

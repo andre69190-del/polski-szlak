@@ -100,7 +100,7 @@
       rule_ou: 'ó und u klingen gleich. Die Schreibweise muss man sich merken.', rule_rz: 'rz und ż klingen gleich. Tipp: Wechselt das r in verwandten Wörtern (morze → morski), schreibt man rz.',
       rule_ch: 'ch und h klingen heute gleich. ch ist viel häufiger, h steht oft in Lehnwörtern (herbata, hotel).', rule_dia: 'Ohne Akzent ist es ein anderer Laut, manchmal sogar ein anderes Wort.', rule_nasal: 'ą und ę sind eigene Nasallaute und werden nicht als om/en geschrieben.', rule_soft: 'ś/ć/ź sind weich (Zunge vorn), sz/cz/ż hart. Vor Vokal schreibt man si/ci/zi statt ś/ć/ź.', rule_final: 'Am Wortende werden b, d, g, w, z stimmlos gesprochen (chleb klingt wie „chlep“), geschrieben bleibt der Originalbuchstabe.',
       sync: 'Geräte-Abgleich', sync_d: 'Mit einem Konto ist dein Fortschritt auf Handy, Tablet und Laptop gleich. Ohne Konto bleibt alles nur auf diesem Gerät.', sync_email: 'E-Mail', sync_pw: 'Passwort (mind. 8 Zeichen)', sync_login: 'Anmelden', sync_signup: 'Konto anlegen', sync_forgot: 'Passwort vergessen?', sync_as: 'Angemeldet als', sync_now: 'Jetzt abgleichen', sync_last: 'Zuletzt abgeglichen', sync_never: 'noch nicht', sync_busy: 'Gleiche ab …', sync_done: 'Abgeglichen ✓', sync_logout: 'Abmelden', sync_del: 'Meine Daten vom Server löschen', sync_del_q: 'Wirklich löschen? Nochmal tippen', sync_deleted: 'Daten auf dem Server gelöscht. Auf diesem Gerät bleibt alles.', sync_mail_sent: 'Fast fertig: Öffne den Link in der E-Mail. Danach bist du angemeldet.', sync_reset_sent: 'Wenn es das Konto gibt, kommt gleich eine E-Mail zum Zurücksetzen.', sync_newpw: 'Neues Passwort', sync_setpw: 'Passwort speichern', sync_pw_saved: 'Neues Passwort gespeichert ✓', sync_shared: 'Ein Konto für alle Apps auf arndt-software.de (z. B. auch GeoQuest).', sync_err_cred: 'E-Mail oder Passwort stimmt nicht.', sync_err_confirm: 'Bitte zuerst den Link in der Bestätigungs-Mail öffnen.', sync_err_exists: 'Für diese E-Mail gibt es schon ein Konto. Bitte anmelden.', sync_err_pw: 'Das Passwort ist zu kurz oder zu einfach.', sync_err_rate: 'Zu viele Versuche. Bitte später nochmal.', sync_err_net: 'Keine Verbindung zum Server. Dein Fortschritt bleibt auf dem Gerät und wird später abgeglichen.', sync_err: 'Das hat nicht geklappt', sync_ob: 'Schon ein Konto? Anmelden und Fortschritt laden', bk_more: 'Ohne Konto: Spielstand als Text übertragen', bk_copy: 'Text kopieren', inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
-      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.', letter: 'Der Brief', letter_start: 'Szymek, ein Krasnal aus Wrocław, hat dir einen Brief auf Polnisch gebracht. Noch kannst du ihn nicht lesen, aber nach jeder Stadt wird ein Satz lesbar.', letter_d: '{n} von {t} Sätzen kannst du schon lesen.', letter_new: 'Neu im Brief', letter_open: 'Brief lesen', letter_locked: 'lesbar nach {c}', letter_done: 'Du hast den ganzen Brief gelesen.', letter_from: 'Ein Brief aus Wrocław'
+      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.', letter: 'Der Brief', letter_start: 'Szymek, ein Krasnal aus Wrocław, hat dir einen Brief auf Polnisch gebracht. Noch kannst du ihn nicht lesen, aber nach jeder Stadt wird ein Satz lesbar.', letter_d: '{n} von {t} Sätzen kannst du schon lesen.', letter_new: 'Neu im Brief', letter_open: 'Brief lesen', letter_locked: 'lesbar nach {c}', letter_done: 'Du hast den ganzen Brief gelesen.', letter_from: 'Ein Brief aus Wrocław', mission: 'Mini-Mission', mission_d: 'Freiwillig und im echten Leben. Hak ab, wenn du es gemacht hast.', mission_done: 'Erledigt', mission_ok: 'Mission erledigt', mission_xp: 'Mission erledigt: +15 XP', hear: 'Echtes Polnisch hören', hear_d: 'Hör ein paar Minuten das Radio dieser Region. Du musst nicht alles verstehen: Melodie und einzelne Wörter reichen.', hear_more: 'Polnisch hören', hear_more_d: 'Echte Stimmen, echtes Tempo. Ausgewählte, frei zugängliche Angebote (externe Seiten).', ext: 'externe Seite', aspect: 'Verb-Aspekt', aspect_d: 'Vollendet oder unvollendet? piję oder wypiję', aspect_q: 'Welche Form passt?', asp_pf: 'vollendet (Ergebnis, einmal, fertig)', asp_ipf: 'unvollendet (Verlauf, Dauer, Gewohnheit)', rep: 'Fehler melden', rep_ph: 'Was stimmt nicht? (ohne persönliche Daten)', rep_send: 'Senden', rep_thanks: 'Danke! Die Meldung ist angekommen.', rep_fail: 'Senden hat nicht geklappt. Der Text ist kopiert, du kannst ihn per Mail schicken:', rep_empty: 'Bitte kurz beschreiben, was nicht stimmt.', rep_d: 'Ein Wort falsch übersetzt, ein Satz komisch? Sag Bescheid. Gesendet werden nur dein Text, die Übung und die App-Version.', share_boss: 'Ich habe die Stadtprüfung in {c} geschafft ({p} %)! Polnisch lernen Stadt für Stadt:', share_lq: 'Ich kann den Brief aus Wrocław auf Polnisch lesen ({p} %)! Polski Szlak:', rec: 'Mich aufnehmen und vergleichen', rec_stop: 'Aufnahme stoppen', offline: 'Offline', net_ok: 'Abgeglichen', net_busy: 'Gleiche ab …', net_err: 'Abgleich gestört', tour_next: 'Weiter', tour_skip: 'Überspringen', tour_done: 'Los geht’s', tour_again: 'Kurze Tour wiederholen', tour1: 'Hier geht deine Reise weiter. Der Knopf führt dich immer zum nächsten sinnvollen Schritt.', tour2: 'Die Karte: 12 Städte, jede mit eigenem Thema. Tippe eine Stadt an, um sie zu öffnen.', tour3: 'Der Brief: Nach jeder Stadt kannst du einen Satz mehr lesen.', tour4: 'Üben: Wiederholung, Tagesrätsel, Fälle, Verb-Aspekt und Spiele.', tour5: 'Ich: Einstellungen, Geräte-Abgleich und was du schon kannst.', lq: 'Brief selbst lesen', lq_d: 'Jetzt ohne Übersetzung: Lies jeden Satz und beantworte die Frage dazu.', lq_start: 'Verständnisfragen starten', lq_best: 'Bestes Ergebnis', lq_pass: 'Du verstehst Anias Brief auf Polnisch!'
     },
     en: {
       nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
@@ -193,7 +193,7 @@
       rule_ou: 'ó and u sound the same. You have to remember the spelling.', rule_rz: 'rz and ż sound the same. Tip: if related words have an r (morze → morski), write rz.',
       rule_ch: 'ch and h sound the same today. ch is much more common; h appears mostly in loanwords (herbata, hotel).', rule_dia: 'Without the accent it is a different sound, sometimes even a different word.', rule_nasal: 'ą and ę are nasal vowels of their own and are not written om/en.', rule_soft: 'ś/ć/ź are soft (tongue forward), sz/cz/ż hard. Before a vowel you write si/ci/zi instead of ś/ć/ź.', rule_final: 'At the end of a word b, d, g, w, z are pronounced voiceless (chleb sounds like "chlep"), but the spelling keeps the original letter.',
       sync: 'Device sync', sync_d: 'With an account your progress is the same on phone, tablet and laptop. Without one, everything stays on this device only.', sync_email: 'Email', sync_pw: 'Password (min. 8 characters)', sync_login: 'Sign in', sync_signup: 'Create account', sync_forgot: 'Forgot password?', sync_as: 'Signed in as', sync_now: 'Sync now', sync_last: 'Last synced', sync_never: 'not yet', sync_busy: 'Syncing …', sync_done: 'Synced ✓', sync_logout: 'Sign out', sync_del: 'Delete my data from the server', sync_del_q: 'Really delete? Tap again', sync_deleted: 'Server data deleted. Everything stays on this device.', sync_mail_sent: 'Almost done: open the link in the email. Then you are signed in.', sync_reset_sent: 'If the account exists, a reset email is on its way.', sync_newpw: 'New password', sync_setpw: 'Save password', sync_pw_saved: 'New password saved ✓', sync_shared: 'One account for all apps on arndt-software.de (e.g. GeoQuest too).', sync_err_cred: 'Email or password is wrong.', sync_err_confirm: 'Please open the link in the confirmation email first.', sync_err_exists: 'This email already has an account. Please sign in.', sync_err_pw: 'The password is too short or too simple.', sync_err_rate: 'Too many attempts. Please try again later.', sync_err_net: 'No connection to the server. Your progress stays on this device and will sync later.', sync_err: 'That did not work', sync_ob: 'Already have an account? Sign in and load progress', bk_more: 'Without an account: transfer progress as text', bk_copy: 'Copy text', inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
-      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.', letter: 'The letter', letter_start: 'Szymek, a Krasnal from Wrocław, has brought you a letter in Polish. You can’t read it yet, but after every city one more sentence becomes readable.', letter_d: 'You can already read {n} of {t} sentences.', letter_new: 'New in the letter', letter_open: 'Read the letter', letter_locked: 'readable after {c}', letter_done: 'You have read the whole letter.', letter_from: 'A letter from Wrocław'
+      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.', letter: 'The letter', letter_start: 'Szymek, a Krasnal from Wrocław, has brought you a letter in Polish. You can’t read it yet, but after every city one more sentence becomes readable.', letter_d: 'You can already read {n} of {t} sentences.', letter_new: 'New in the letter', letter_open: 'Read the letter', letter_locked: 'readable after {c}', letter_done: 'You have read the whole letter.', letter_from: 'A letter from Wrocław', mission: 'Mini mission', mission_d: 'Optional, in real life. Tick it off when you have done it.', mission_done: 'Done', mission_ok: 'Mission done', mission_xp: 'Mission done: +15 XP', hear: 'Hear real Polish', hear_d: 'Listen to this region\'s radio for a few minutes. You don\'t have to understand everything: the melody and a few words are enough.', hear_more: 'Listen to Polish', hear_more_d: 'Real voices, real speed. Selected, freely available resources (external sites).', ext: 'external site', aspect: 'Verb aspect', aspect_d: 'Perfective or imperfective? piję or wypiję', aspect_q: 'Which form fits?', asp_pf: 'perfective (result, once, finished)', asp_ipf: 'imperfective (in progress, duration, habit)', rep: 'Report a mistake', rep_ph: 'What is wrong? (no personal data)', rep_send: 'Send', rep_thanks: 'Thank you! Your report has arrived.', rep_fail: 'Sending failed. The text has been copied, you can send it by email:', rep_empty: 'Please describe briefly what is wrong.', rep_d: 'A word translated wrongly, an odd sentence? Let us know. Only your text, the exercise and the app version are sent.', share_boss: 'I passed the city test in {c} ({p}%)! Learn Polish city by city:', share_lq: 'I can read the letter from Wrocław in Polish ({p}%)! Polski Szlak:', rec: 'Record myself and compare', rec_stop: 'Stop recording', offline: 'Offline', net_ok: 'Synced', net_busy: 'Syncing …', net_err: 'Sync problem', tour_next: 'Next', tour_skip: 'Skip', tour_done: 'Let’s go', tour_again: 'Repeat the short tour', tour1: 'Your journey continues here. This button always takes you to the next sensible step.', tour2: 'The map: 12 cities, each with its own topic. Tap a city to open it.', tour3: 'The letter: after every city you can read one more sentence.', tour4: 'Practice: review, daily puzzle, cases, verb aspect and games.', tour5: 'Me: settings, device sync and what you can already do.', lq: 'Read the letter yourself', lq_d: 'Now without translation: read each sentence and answer the question.', lq_start: 'Start the questions', lq_best: 'Best result', lq_pass: 'You understand Ania\'s letter in Polish!'
     }
   };
 
@@ -201,7 +201,7 @@
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '' }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0 }; /* PATCH002 PATCH004 */
   }
   var S = load();
   function load() {
@@ -244,7 +244,18 @@
   var voice = null;
   function pickVoice() { try { var vs = speechSynthesis.getVoices(); voice = vs.filter(function (v) { return /^pl/i.test(v.lang); })[0] || null; } catch (e) {} }
   try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
+  /* Muttersprachler-Aufnahmen (Vorschlag L): data.json "audio" ordnet Text -> Datei unter audio/ zu. Fehlt eine Aufnahme, spricht die Gerätestimme. */
+  var curAudio = null;
+  function audioFor(text) { var m = D.audio || {}, k = String(text).replace(/…/g, '').trim(); return m[k] || m[k.toLowerCase()] || null; }
   function speak(text, slow) {
+    var src = !slow && !S.slow && audioFor(text);
+    if (src) {
+      try { if (curAudio) curAudio.pause(); speechSynthesis.cancel(); } catch (e) {}
+      try { curAudio = new Audio(src); curAudio.play().catch(function () { curAudio = null; ttsSpeak(text, slow); }); return; } catch (e) {}
+    }
+    ttsSpeak(text, slow);
+  }
+  function ttsSpeak(text, slow) {
     try {
       speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(String(text).replace(/…/g, ''));
@@ -290,13 +301,13 @@
 
   /* ---------- Routing ---------- */
   var tab = 'home', view = null;
-  function go(name, arg) { view = null; tab = name; polUI = name === 'polacy'; render(arg); window.scrollTo(0, 0); }
+  function go(name, arg) { var tb = document.getElementById('tour'); if (tb) { tb.remove(); document.querySelectorAll('.tour-hl').forEach(function (e) { e.classList.remove('tour-hl'); }); } view = null; tab = name; polUI = name === 'polacy'; render(arg); window.scrollTo(0, 0); }
 
   function shell(inner, showNav) {
     var lv = C.levelFromXp(S.xp);
     var html = '<header class="top"><div class="top-in"><button type="button" class="brand" id="brand" title="' + esc(t('to_start')) + '" aria-label="Polski Szlak – ' + esc(t('to_start')) + '">' + blaze('red') + 'Polski Szlak</button>' +
       '<span class="chip num" title="' + t('level') + '">' + t('level') + ' ' + lv.level + '</span>' +
-      '<span class="chip amber num">' + S.xp + ' ' + t('xp') + '</span></div></header><main id="main">' + inner + '</main>';
+      '<span class="chip amber num">' + S.xp + ' ' + t('xp') + '</span>' + netChip() + '</div></header><main id="main">' + inner + '</main>';
     if (showNav !== false) {
       html += '<nav class="nav" aria-label="Navigation"><div class="nav-in">' +
         navBtn('home', I.map, t('nav_home')) + navBtn('practice', I.dumb, t('nav_practice')) + navBtn('land', I.flag, t('nav_land')) + navBtn('album', I.book, t('nav_album')) + navBtn('me', I.user, t('nav_me')) +
@@ -306,7 +317,18 @@
     $app.innerHTML = html;
     $app.querySelectorAll('[data-nav]').forEach(function (b) { b.onclick = function () { go(b.getAttribute('data-nav')); }; });
     document.getElementById('brand').onclick = function () { if (G) { stopTimer(); G = null; } go('home'); };
+    bindNet();
   }
+  /* Kleine Anzeige im Kopf: offline, oder (mit Konto) Stand des Geräte-Abgleichs */
+  function netChip() {
+    var off = !navigator.onLine, st = off ? 'off' : (A && A.uid ? (syncBusy ? 'busy' : (syncErr ? 'err' : 'ok')) : '');
+    if (!st) return '<span id="net" hidden></span>';
+    var lab = t(st === 'off' ? 'offline' : 'net_' + st);
+    return '<button type="button" id="net" class="chip net ' + st + '" title="' + esc(lab) + '" aria-label="' + esc(lab) + '"><i aria-hidden="true"></i>' + (st === 'off' ? '<span>' + esc(lab) + '</span>' : '') + '</button>';
+  }
+  function bindNet() { var n = document.getElementById('net'); if (n && n.tagName === 'BUTTON') n.onclick = function () { if (G) return; go('me'); setTimeout(function () { var y = document.getElementById('sync'); if (y) y.scrollIntoView({ block: 'center' }); }, 50); }; }
+  function updateNet() { var n = document.getElementById('net'); if (!n) return; var tmp = document.createElement('div'); tmp.innerHTML = netChip(); n.replaceWith(tmp.firstChild); bindNet(); }
+  try { window.addEventListener('online', function () { updateNet(); syncSoon(); }); window.addEventListener('offline', updateNet); } catch (e) {}
   function navBtn(k, ic, label) { return '<button data-nav="' + k + '"' + (tab === k ? ' aria-current="page"' : '') + '>' + ic + '<span>' + esc(label) + '</span></button>'; }
 
   function render(arg) {
@@ -425,6 +447,7 @@
     var wg = document.getElementById('wb-go'); if (wg) wg.onclick = function () { startMode('welcome'); };
     var wl = document.getElementById('wb-later'); if (wl) wl.onclick = function () { var w = document.getElementById('wb'); if (w) w.remove(); };
     bindTiles();
+    if (!S.tour && !banner) setTimeout(function () { if (tab === 'home' && !view) startTour(); }, 400);
     document.querySelectorAll('[data-city]').forEach(function (g) {
       var open = function () { go('city', +g.getAttribute('data-city')); };
       g.onclick = open; g.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
@@ -454,8 +477,9 @@
         tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : nx('boss')) +
         '</section>';
       if (!S.boss[u.id] && ui < U.length - 1) html += '<button class="btn ghost" id="skip-city" style="justify-self:start">' + esc(t('skip_city')) + ' →</button>';
+      html += missionBox(u);
     }
-    html += '<section class="tip"><span class="eyebrow">' + esc(t('tip')) + '</span><p>' + esc(L(u.tip)) + '</p></section>' +
+    html += '<section class="tip"><span class="eyebrow">' + esc(t('tip')) + '</span><p>' + esc(L(u.tip)) + '</p></section>' + radioBox(u) +
       '<section class="card"><span class="eyebrow">' + esc(t('words')) + '</span><div class="list">' +
       list.map(function (x) {
         var c = S.cards[x.id], b = c ? c.box : 0, dots = '';
@@ -468,6 +492,24 @@
     document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
     bindTiles(ui);
     var sk = document.getElementById('skip-city'); if (sk) sk.onclick = function () { skipCity(ui); };
+    var mi = document.getElementById('mis'); if (mi) mi.onclick = function () {
+      if (S.missions[u.id]) return;
+      S.missions[u.id] = today(); addXp(15); markActive(); save(); toast(t('mission_xp')); confetti(); renderCity(ui);
+    };
+  }
+  /* Mini-Mission (Vorschlag H): freiwillige Aufgabe im echten Leben, eine pro Stadt */
+  function missionBox(u) {
+    var m = D.missions && D.missions[u.id]; if (!m) return '';
+    var done = S.missions && S.missions[u.id];
+    return '<section class="card stack mission"><div class="row" style="justify-content:space-between"><span class="eyebrow">' + esc(t('mission')) + '</span>' + (done ? '<span class="badge good">✓ ' + esc(t('mission_ok')) + '</span>' : '') + '</div>' +
+      '<p class="lt-pl" lang="pl">' + esc(m.pl) + '</p><p class="small">' + esc(L(m.d)) + '</p>' +
+      (done ? '' : '<p class="small muted">' + esc(t('mission_d')) + '</p><button class="btn" id="mis" style="justify-self:start">✓ ' + esc(t('mission_done')) + ' · +15 XP</button>') + '</section>';
+  }
+  /* Echtes Polnisch hören (Vorschlag I): Radio der Region, externe Seite */
+  function extLink(name, url, cls) { return '<a class="' + (cls || 'btn') + '" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(name) + ' <span aria-hidden="true">↗</span><span class="sr-only"> (' + esc(t('ext')) + ')</span></a>'; }
+  function radioBox(u) {
+    var r = D.listen && D.listen.radio && D.listen.radio[u.id]; if (!r) return '';
+    return '<section class="card stack"><span class="eyebrow">' + esc(t('hear')) + '</span><p class="small">' + esc(t('hear_d')) + '</p>' + extLink(r[0], r[1]).replace('class="btn"', 'class="btn" style="justify-self:start"') + '</section>';
   }
   function skipCity(ui) {
     for (var i = 0; i <= ui; i++) if (!S.boss[U[i].id]) S.skipped[U[i].id] = true;
@@ -480,7 +522,7 @@
     var due = dueList().length;
     var html = '<h1>' + esc(t('nav_practice')) + '</h1><section class="tiles">' +
       tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
-      tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
+      tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
       tileBtn('sounds', t('sounds'), t('sounds_d')) + tileBtn('prices', t('prices'), t('prices_d')) +
       tileBtn('twister', t('twister'), t('twister_d')) + tileBtn('memo_w', t('memo_w'), t('memo_w_d')) + tileBtn('duel', t('duel'), t('duel_d')) + tileBtn('face', t('face'), t('face_d')) +
       tileBtn('mistakes', t('mistakes'), t('mistakes_d'), S.mistakes.length ? '<span class="badge num">' + S.mistakes.length + '</span>' : '') +
@@ -499,7 +541,9 @@
       tileBtn('pin', t('pin'), t('pin_d')) + tileBtn('hl', t('hl'), t('hl_d')) + tileBtn('literki', t('literki'), t('literki_d')) +
       tileBtn('memo_p', t('memo_p'), t('memo_p_d')) + tileBtn('memo_y', t('memo_y'), t('memo_y_d')) + '</section>' +
       '<section class="card"><span class="eyebrow">' + esc(t('facts')) + '</span><div class="list">' +
-      K.facts.map(function (f) { return '<div class="li"><span class="grow muted small">' + esc(S.base === 'en' ? f[1] : f[0]) + '</span><b class="num" style="text-align:right">' + esc(f[2]) + '</b></div>'; }).join('') + '</div></section>';
+      K.facts.map(function (f) { return '<div class="li"><span class="grow muted small">' + esc(S.base === 'en' ? f[1] : f[0]) + '</span><b class="num" style="text-align:right">' + esc(f[2]) + '</b></div>'; }).join('') + '</div></section>' +
+      (D.listen && D.listen.learn ? '<section class="card stack" id="hear-more"><span class="eyebrow">' + esc(t('hear_more')) + '</span><p class="small muted">' + esc(t('hear_more_d')) + '</p><div class="list">' +
+        D.listen.learn.map(function (x) { return '<div class="li"><div class="grow">' + extLink(x[0], x[1], 'ext') + '<div class="small muted">' + esc(S.base === 'en' ? x[3] : x[2]) + '</div></div></div>'; }).join('') + '</div></section>' : '');
     shell(html); bindTiles();
   }
 
@@ -541,8 +585,11 @@
       '<section class="card row letter-szymek" style="align-items:start"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small scene-intro grow">' + esc(L(D.letter.prolog)) + '</p></section>' +
       '<article class="card stack letter" aria-label="' + esc(t('letter_from')) + '"><span class="eyebrow">' + esc(t('letter_from')) + ' · <span class="num">' + n + '/' + lines.length + '</span></span>' +
       lines.map(function (l, i) { var fresh = rd[i] && ++k > seen; return letterLineHtml(l, rd[i], fresh && seen > 0); }).join('') + '</article>' +
-      (all ? '<section class="card stack next-box pop"><span class="eyebrow">Wrocław</span><p>' + esc(L(D.letter.finale)) + '</p></section>' : '');
+      (all ? '<section class="card stack next-box pop"><span class="eyebrow">Wrocław</span><p>' + esc(L(D.letter.finale)) + '</p></section>' +
+        (D.letterQuiz ? '<section class="card stack letter-card"><span class="eyebrow">✉ ' + esc(t('lq')) + '</span><p class="small">' + esc(t('lq_d')) + '</p>' + (S.letterQuiz ? '<p class="small muted num">' + esc(t('lq_best')) + ': ' + S.letterQuiz + ' %</p>' : '') +
+          '<button class="btn primary" id="lq" style="justify-self:start">' + esc(t('lq_start')) + ' →</button></section>' : '') : '');
     shell(html);
+    var lqb = document.getElementById('lq'); if (lqb) lqb.onclick = function () { startMode('letterquiz'); };
     if (n !== seen) { S.letterSeen = n; save(); }
     document.getElementById('back').onclick = function () { go('home'); };
     document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
@@ -557,6 +604,94 @@
       '<p class="lt-pl" lang="pl">' + esc(l.pl) + '</p><p class="small muted">' + esc(L(l.tr)) + '</p>' +
       '<p class="small scene-intro">' + esc(L((all || !l.bridge) ? D.letter.finale : l.bridge)) + '</p>' +
       '<button class="btn" id="letter-res" style="justify-self:start">' + esc(t('letter_open')) + ' →</button></div>';
+  }
+
+  /* Szymek am Anfang jeder Stadt-Szene: sein Ausblick aus der vorigen Stadt (in Warschau: der Prolog) */
+  function szymekBubble(ui) {
+    if (!D.letter) return '';
+    var txt = null;
+    if (ui === 0) txt = D.letter.prolog;
+    else { var pu = U[ui - 1].id; letterLines().forEach(function (l) { if (l.u === pu && l.bridge) txt = l.bridge; }); }
+    if (!txt) return '';
+    return '<div class="szymek row pop"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small grow">' + (ui ? '<b>Szymek:</b> ' : '') + esc(L(txt)) + '</p></div>';
+  }
+
+  /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
+  var APP_VER = '2.0', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  function reportHtml(id) {
+    return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
+      '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
+      '<button type="button" class="btn" style="justify-self:start">' + esc(t('rep_send')) + '</button><p class="small muted" role="status"></p></div></details>';
+  }
+  function bindReport(id, ctx) {
+    var el = document.getElementById(id); if (!el) return;
+    var ta = el.querySelector('textarea'), b = el.querySelector('button'), st = el.querySelector('[role=status]');
+    ta.onkeydown = function (e) { e.stopPropagation(); };
+    b.onclick = function () {
+      var msg = ta.value.trim(); if (!msg) { st.textContent = t('rep_empty'); return; }
+      b.disabled = true; st.textContent = t('sync_busy');
+      sbFetch('/rest/v1/ps_feedback', { method: 'POST', prefer: 'return=minimal', body: { msg: msg.slice(0, 1000), ctx: String(ctx).slice(0, 500), lang: S.base, ver: APP_VER } })
+        .then(function () { st.textContent = t('rep_thanks'); ta.value = ''; b.disabled = false; },
+          function () { b.disabled = false; copy(msg + '\n\n[' + ctx + ' · ' + APP_VER + ']'); st.innerHTML = esc(t('rep_fail')) + ' <a href="mailto:' + FB_MAIL + '?subject=Polski%20Szlak%20Feedback">' + FB_MAIL + '</a>'; });
+    };
+  }
+
+  /* ---------- Teilen (Vorschlag K): Teilen-Menü des Geräts, sonst kopieren ---------- */
+  function shareOut(text) {
+    if (navigator.share) { navigator.share({ text: text }).catch(function (e) { if (!e || e.name !== 'AbortError') copy(text); }); return; }
+    copy(text);
+  }
+
+  /* ---------- Konfetti bei Erfolgen (nicht bei „Bewegung reduzieren“) ---------- */
+  function confetti() {
+    try { if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch (e) {}
+    var box = document.createElement('div'), cols = ['var(--red)', 'var(--amber)', 'var(--t-green)', 'var(--t-blue)', 'var(--t-yellow)'], h = '';
+    box.className = 'confetti'; box.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < 46; i++) h += '<i style="left:' + Math.round(Math.random() * 100) + '%;background:' + cols[i % cols.length] + ';animation-delay:' + (Math.random() * 0.5).toFixed(2) + 's;animation-duration:' + (1.6 + Math.random() * 1.2).toFixed(2) + 's;transform:rotate(' + Math.round(Math.random() * 360) + 'deg)"></i>';
+    box.innerHTML = h; document.body.appendChild(box);
+    setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 3200);
+  }
+
+  /* ---------- Aufnehmen und vergleichen (zu Vorschlag L): eigene Stimme, danach das Vorbild ---------- */
+  function recHtml() { return (window.MediaRecorder && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) ? '<button type="button" class="btn ghost" id="rec" style="justify-self:start">● ' + esc(t('rec')) + '</button>' : ''; }
+  function bindRec(text) {
+    var b = document.getElementById('rec'); if (!b) return; var mr = null;
+    b.onclick = function () {
+      if (mr && mr.state === 'recording') { mr.stop(); return; }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+        var chunks = []; mr = new MediaRecorder(stream);
+        mr.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+        mr.onstop = function () {
+          stream.getTracks().forEach(function (tr) { tr.stop(); });
+          b.textContent = '● ' + t('rec');
+          var url = URL.createObjectURL(new Blob(chunks, { type: mr.mimeType || 'audio/webm' })), au = new Audio(url);
+          au.onended = function () { URL.revokeObjectURL(url); setTimeout(function () { speak(text); }, 300); };
+          au.play().catch(function () { speak(text); });
+        };
+        mr.start(); b.textContent = '■ ' + t('rec_stop');
+        setTimeout(function () { if (mr && mr.state === 'recording') mr.stop(); }, 6000);
+      }, function () { toast(t('no_mic')); });
+    };
+  }
+
+  /* ---------- Kurze Einführungs-Tour (einmalig, unter „Ich“ wiederholbar) ---------- */
+  function startTour() {
+    var steps = [['#cta', 'tour1'], ['.map-wrap', 'tour2'], ['.letter-card', 'tour3'], ['[data-nav="practice"]', 'tour4'], ['[data-nav="me"]', 'tour5']], i = 0;
+    var old = document.getElementById('tour'); if (old) old.remove();
+    var box = document.createElement('div'); box.id = 'tour'; box.className = 'tour card stack pop'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Tour');
+    document.body.appendChild(box);
+    function clear() { document.querySelectorAll('.tour-hl').forEach(function (e) { e.classList.remove('tour-hl'); }); }
+    function end() { clear(); box.remove(); S.tour = true; save(); }
+    function paint() {
+      clear();
+      var el = document.querySelector(steps[i][0]), last = i === steps.length - 1;
+      if (el) { el.classList.add('tour-hl'); try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} }
+      box.innerHTML = '<span class="eyebrow num">' + (i + 1) + ' / ' + steps.length + '</span><p>' + esc(t(steps[i][1])) + '</p><div class="row"><button class="btn primary" id="tour-n">' + esc(last ? t('tour_done') : t('tour_next')) + '</button>' + (last ? '' : '<button class="btn ghost" id="tour-x">' + esc(t('tour_skip')) + '</button>') + '</div>';
+      document.getElementById('tour-n').onclick = function () { if (last) end(); else { i++; paint(); } };
+      var x = document.getElementById('tour-x'); if (x) x.onclick = end;
+      try { document.getElementById('tour-n').focus({ preventScroll: true }); } catch (e) {}
+    }
+    paint();
   }
 
   function candoBox() {
@@ -588,7 +723,7 @@
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
       '<section class="card"><details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_more')) + '</summary><div class="stack" style="margin-top:10px"><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
       '<div class="row"><button class="btn" id="bk-copy">' + esc(t('bk_copy')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></div></details></section>' +
-      '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><p class="small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p><button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
+      '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><p class="small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p><button class="btn ghost" id="tour-again" style="justify-self:start;padding-left:0">' + esc(t('tour_again')) + '</button><p class="small muted">' + esc(t('rep_d')) + '</p>' + reportHtml('rep-me') + '<button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
     shell(html);
     bindSeg('s-base', function (v) { S.base = v; save(); renderMe(); });
     bindSeg('s-goal', function (v) { S.goal = +v; save(); renderMe(); });
@@ -606,6 +741,8 @@
     document.getElementById('bk-restore').onclick = function () {
       try { var o = JSON.parse(document.getElementById('bk').value); if (!C.validateSave(o)) throw 0; S = Object.assign(fresh(), o); save(); toast(t('restored')); renderMe(); } catch (e) { toast(t('bad_backup')); }
     };
+    bindReport('rep-me', 'Ich / allgemein');
+    document.getElementById('tour-again').onclick = function () { S.tour = false; save(); go('home'); };
     document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); save(); render(); };
   }
 
@@ -700,6 +837,7 @@
     return h + '</section>';
   }
   function refreshSyncBox() {
+    updateNet();
     var el = document.getElementById('sync'); if (!el) return;
     var keep = {}; ['sy-mail', 'sy-pw', 'sy-npw'].forEach(function (id) { var i = document.getElementById(id); if (i) keep[id] = i.value; });
     var tmp = document.createElement('div'); tmp.innerHTML = syncBox(); el.replaceWith(tmp.firstChild);
@@ -831,6 +969,10 @@
     if (diff().clozeType) return { type: 'type', id: null, ask: t('fill'), sentence: shown, sub: L([s[1], s[2]]), a: ans, sayAfter: s[0], alt: others };
     return { type: 'mc', id: null, ask: t('fill'), sentence: shown, sub: L([s[1], s[2]]), a: ans, sayAfter: s[0], opts: C.shuffle([ans].concat(others), R) };
   }
+  /* Verb-Aspekt (Vorschlag M): vollendet / unvollendet im Satz */
+  function qAspect(c) { return { type: 'mc', id: null, plOpts: true, ask: t('aspect_q') + ' (' + c.base + ')', sentence: c.s, sub: L(c.tr), a: c.a, opts: C.shuffle(c.opts.slice(), R), explain: t(c.pf ? 'asp_pf' : 'asp_ipf') + ': ' + L(c.why), sayAfter: c.s.replace('___', c.a) }; }
+  /* Brief selbst lesen: polnischer Satz ohne Übersetzung, Frage in der Basissprache */
+  function qLetter(x) { var l = letterLines()[x.l]; return { type: 'mc', id: null, fixed: true, ask: L(x.q), sentence: l.pl, say: l.pl, a: L(x.o[0]), opts: C.shuffle(x.o.map(L), R), explain: L(l.tr) }; }
   function qCase(c) { if (diff().clozeType) return { type: 'type', id: null, ask: t('case_q') + ' (' + c.base + ')', sentence: c.s, sub: L(c.tr), a: c.a, alt: c.opts, explain: L(c.case) + ': ' + L(c.why), sayAfter: c.s.replace('___', c.a) }; return { type: 'mc', id: null, ask: t('case_q') + ' (' + c.base + ')', sentence: c.s, sub: L(c.tr), a: c.a, opts: C.shuffle(c.opts.slice(), R), explain: L(c.case) + ': ' + L(c.why), sayAfter: c.s.replace('___', c.a) }; }
   function qPrice() {
     var n = 1 + Math.floor(R() * 99), w = C.priceWords(n), opts = [n], guard = 0;
@@ -943,6 +1085,8 @@
       U.forEach(function (uu, i) { var w = C.sample(wordsOf(i), 2, R); var a = qMC(w[0], wordsOf(i), 'x2pl'), b = qType(w[1]); a.city = i; b.city = i; qs.push(a, b); });
       return runGame({ title: t('placement'), qs: qs, placement: true });
     }
+    if (mode === 'aspect') return runGame({ title: t('aspect'), qs: C.shuffle(D.aspects, R).slice(0, Math.min(n, D.aspects.length)).map(qAspect) });
+    if (mode === 'letterquiz') return runGame({ title: t('lq'), qs: C.shuffle(D.letterQuiz, R).map(qLetter), letterQuiz: true, back: 'letter' });
     if (mode === 'cases') return runGame({ title: t('cases'), qs: C.shuffle(D.cases, R).slice(0, Math.min(n, D.cases.length)).map(qCase) });
     if (mode === 'sounds') {
       qs = C.shuffle(D.sounds, R).slice(0, 6).map(qSound);
@@ -1188,6 +1332,7 @@
       document.getElementById('sr').onclick = function () { speak(q.a, true); };
     }
     speak(q.a);
+    area.insertAdjacentHTML('afterend', recHtml()); bindRec(q.a);
     if (!Rec) return selfRate(t('no_mic'));
     area.innerHTML = '<button class="btn primary block" id="mic">' + I.mic + esc(t('speak_tap')) + '</button><p id="heard" class="small muted"></p>';
     document.getElementById('mic').onclick = function () {
@@ -1222,8 +1367,9 @@
     if (solution) html += '<span>' + esc(t('solution')) + ': <b lang="pl">' + esc(solution) + '</b></span>';
     if (q.reveal) html += '<span lang="pl">' + esc(q.reveal) + '</span>';
     if (q.explain) html += '<span class="small">' + esc(q.explain) + '</span>';
-    html += '</div><button class="btn primary block" id="nx" style="margin-top:12px">' + esc(t('next')) + '</button>';
+    html += '</div><button class="btn primary block" id="nx" style="margin-top:12px">' + esc(t('next')) + '</button>' + (polUI || g.players ? '' : reportHtml('rep-q'));
     fb.innerHTML = html;
+    bindReport('rep-q', g.cfg.title + ' | ' + [q.ask, q.big, q.sentence, q.a].filter(function (v) { return v != null && v !== ''; }).map(String).join(' | ') + (solution ? ' | ' + solution : '') + ' | ' + (ok ? 'ok' : 'falsch'));
     var nx = document.getElementById('nx'); try { nx.focus({ preventScroll: true }); } catch (e) {}
     nx.onclick = function () {
       if (g.cfg.lives && g.lives <= 0) return endGame();
@@ -1235,7 +1381,7 @@
 
   function endGame() {
     var g = G; if (!g || g.ended) return; g.ended = true; stopTimer();
-    var total = g.right + g.wrong, pct = total ? Math.round(g.right / total * 100) : 0, extras = '';
+    var total = g.right + g.wrong, pct = total ? Math.round(g.right / total * 100) : 0, extras = '', shareTxt = '', party = false;
     if (!g.players) { addXp(g.xp); if (total >= 3 || g.cfg.timer) markActive(); }
     if (g.cfg.daily) { S.daily[g.cfg.daily] = { score: g.right, results: g.results }; }
     if (g.cfg.survival) { S.best = S.best || {}; if (g.right > (S.best.survival || 0)) { S.best.survival = g.right; extras += '<div class="banner pop"><strong>' + esc(t('best')) + ': ' + g.right + '</strong></div>'; } }
@@ -1246,6 +1392,7 @@
         S.boss[u.id] = Math.max(S.boss[u.id] || 0, pct);
         if (g.cfg.unit >= S.unlocked && g.cfg.unit < U.length - 1) { S.unlocked = g.cfg.unit + 1; extras += '<div class="banner pop"><strong>' + esc(t('unlocked')) + ': ' + esc(U[S.unlocked].city) + '</strong></div>'; }
         if (first) extras += '<div class="card stack pop"><span class="eyebrow">' + esc(t('postcard_new')) + '</span><b>' + esc(u.city) + '</b><p class="small">' + esc(L(u.fact)) + '</p></div>' + letterNewBox(u.id);
+        shareTxt = t('share_boss').replace('{c}', u.city).replace('{p}', pct) + ' ' + SITE; party = true;
         extras += maybeKrasnal(true);
       } else extras += '<p class="muted">' + esc(t('failed')) + '</p>';
     } else if (!g.players && !polUI && total >= 5) extras += maybeKrasnal(false);
@@ -1264,6 +1411,12 @@
       S.plv = newLv; save();
       extras += '<div class="banner pop" lang="pl"><strong>' + esc(up && newLv > 0 ? t('pol_res_up') : t('pol_res')) + ': ' + esc(t('pol_lv' + newLv)) + '</strong></div>';
     }
+    if (g.cfg.letterQuiz && total) {
+      S.letterQuiz = Math.max(S.letterQuiz || 0, pct); save();
+      if (pct >= 80) { extras += '<div class="banner pop"><strong>' + esc(t('lq_pass')) + '</strong></div>'; shareTxt = t('share_lq').replace('{p}', pct) + ' ' + SITE; party = true; }
+    }
+    if (g.cfg.daily) shareTxt = C.shareText(g.cfg.daily, g.results);
+    if (!g.players && total >= 5 && pct === 100) party = true;
     if (g.cfg.polKey && total) { S.plBest[g.cfg.polKey] = Math.max(S.plBest[g.cfg.polKey] || 0, pct); save(); }
     var title = g.cfg.boss ? (g.lives > 0 && pct >= (g.cfg.pass || 60) ? t('passed') : t('score')) : t('done');
     var learned = g.learned.length ? '<div class="card stack" style="text-align:left;width:100%"><span class="eyebrow">' + esc(t('learned_today')) + '</span>' + g.learned.map(function (w) { return '<div><b lang="pl">' + esc(w[0]) + '</b> <span class="muted">· ' + esc(meaning(w)) + '</span></div>'; }).join('') + '</div>' : '';
@@ -1278,13 +1431,14 @@
       (g.players ? duelRes : '<div class="score num">' + g.right + '/' + total + '</div>') +
       '<div class="stats3"><div class="stat"><b class="num">+' + g.xp + '</b><span class="small muted">' + t('xp') + '</span></div><div class="stat"><b class="num">' + pct + '%</b><span class="small muted">' + esc(t('right')) + '</span></div><div class="stat"><b class="num">×' + g.best + '</b><span class="small muted">' + esc(t('combo')) + '</span></div></div>' +
       extras + learned + outlook +
-      (g.cfg.daily ? '<button class="btn" id="share">' + esc(t('share')) + '</button>' : '') +
-      '<div class="row" style="width:100%"><button class="btn" id="again" style="flex:1">' + esc(t('again')) + '</button><button class="btn' + (outlook.indexOf('next-step') >= 0 ? '' : ' primary') + '" id="home" style="flex:1">' + esc(t('home')) + '</button></div></section>';
+      (shareTxt && !polUI ? '<button class="btn" id="share">' + esc(t(navigator.share ? 'd2_share' : 'share')) + '</button>' : '') +
+      '<div class="row" style="width:100%"><button class="btn" id="again" style="flex:1">' + esc(t('again')) + '</button><button class="btn' + (outlook.indexOf('next-step') >= 0 ? '' : ' primary') + '" id="home" style="flex:1">' + esc(t(g.cfg.back && g.cfg.unit == null ? 'back' : 'home')) + '</button></div></section>';
     shell(html);
     var cfg = g.cfg;
     document.getElementById('home').onclick = function () { G = null; go(cfg.unit != null ? 'city' : (cfg.back || 'home'), cfg.unit); };
     document.getElementById('again').onclick = function () { G = null; if (cfg.duel) { tab = 'duel'; return renderDuelSetup(); } if (cfg.players) return startDuel(cfg.players); if (cfg.rerun) return cfg.rerun(); var c2 = Object.assign({}, cfg); restart(c2); };
-    var sh = document.getElementById('share'); if (sh) sh.onclick = function () { copy(C.shareText(cfg.daily, g.results)); };
+    var sh = document.getElementById('share'); if (sh) sh.onclick = function () { shareOut(shareTxt); };
+    if (party) confetti();
     var nxb = document.getElementById('next-step'); if (nxb) nxb.onclick = function () { G = null; var nui = +nxb.getAttribute('data-ui'); if (isOpen(nui)) startMode(nxb.getAttribute('data-step'), nui); else go('city', nui); };
     var lr = document.getElementById('letter-res'); if (lr) lr.onclick = function () { G = null; go('letter'); };
     if (cfg.duel) bindDuelResult(g);
@@ -1364,7 +1518,7 @@
     G = { cfg: { title: t('scene') }, ended: false };
     function paint(fbHtml) {
       var html = '<section class="game"><div class="game-top"><button class="icon-btn" id="quit" aria-label="' + esc(t('back')) + '">' + I.x + '</button><div class="bar"><i style="width:' + (step / sc.steps.length * 100) + '%"></i></div></div>' +
-        '<p class="scene-intro">' + esc(L(sc.intro)) + '</p>' + log.join('');
+        '<p class="scene-intro">' + esc(L(sc.intro)) + '</p>' + (step === 0 && !log.length ? szymekBubble(ui) : '') + log.join('');
       if (step < sc.steps.length) {
         var st = sc.steps[step];
         html += '<div class="npc pop"><div class="row" style="flex-wrap:nowrap"><button class="icon-btn" id="say" aria-label="' + esc(t('listen_again')) + '">' + I.spk + '</button><b lang="pl">' + esc(st.npc[0]) + '</b></div>' + (diff().hideTr ? '<button class="btn ghost small" id="show-tr" style="justify-self:start;min-height:36px;padding:4px 0">' + esc(t('show_tr')) + '</button><span class="small muted" id="npc-tr" hidden>' : '<span class="small muted">') + esc(L([st.npc[1], st.npc[2]])) + '</span></div>' +

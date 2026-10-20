@@ -104,6 +104,43 @@ for li, l in enumerate(LT.get('lines', [])):
     pair(l.get('tr'), f'Brief Satz {li + 1}.tr')
     if li < len(D['units']) - 1: pair(l.get('bridge'), f'Brief Satz {li + 1}.bridge')
 
+# Version 2.0: Missionen, Hören, Verb-Aspekt, Brief-Quiz, Aufnahmen
+UIDS = [u['id'] for u in D['units']]
+PL_MIS = re.compile(r"^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ,.!?\-–…/()'„“:]+$")
+MI = D.get('missions') or {}
+for uid in UIDS:
+    m = MI.get(uid)
+    if not m: e(f'Mission für {uid} fehlt'); continue
+    if not PL_MIS.match(m.get('pl', '')): e(f'Mission {uid}: ungültiger polnischer Text')
+    pair(m.get('d'), f'Mission {uid}.d')
+LS = D.get('listen') or {}
+for uid in UIDS:
+    r = (LS.get('radio') or {}).get(uid)
+    if not (isinstance(r, list) and len(r) == 2 and r[0].strip() and r[1].startswith('https://')): e(f'Radio für {uid}: braucht [Name, https-URL]')
+if len(LS.get('learn') or []) < 3: e('listen.learn: mindestens 3 Angebote')
+for li, x in enumerate(LS.get('learn') or []):
+    if len(x) != 4 or not x[1].startswith('https://') or not all(str(v).strip() for v in x): e(f'listen.learn {li}: braucht [Name, https-URL, de, en]')
+AS = D.get('aspects') or []
+if len(AS) < 10: e(f'Verb-Aspekt: nur {len(AS)} Aufgaben (min. 10)')
+for ai, c in enumerate(AS):
+    W = f'Aspekt {ai + 1} ({c.get("s")})'
+    if c['s'].count('___') != 1: e(f'{W}: genau eine Lücke ___ nötig')
+    if len(c['opts']) != 2 or len(set(c['opts'])) != 2: e(f'{W}: braucht 2 verschiedene Optionen')
+    if c['a'] not in c['opts']: e(f'{W}: Antwort fehlt in den Optionen')
+    if c.get('pf') not in (0, 1): e(f'{W}: pf muss 0 oder 1 sein')
+    if not PL_OK.match(c['s'].replace('___', 'x')): e(f'{W}: ungültige Zeichen')
+    for k in ('why', 'tr'): pair(c.get(k), f'{W}.{k}')
+LQ = D.get('letterQuiz') or []
+nl_ = len((D.get('letter') or {}).get('lines', []))
+if len(LQ) < 6: e('Brief-Quiz: zu wenige Fragen')
+for qi, q in enumerate(LQ):
+    if not (0 <= q.get('l', -1) < nl_): e(f'Brief-Quiz {qi + 1}: Satz-Index außerhalb')
+    pair(q.get('q'), f'Brief-Quiz {qi + 1}.q')
+    if len(q.get('o', [])) != 3: e(f'Brief-Quiz {qi + 1}: braucht 3 Optionen')
+    for o in q.get('o', []): pair(o, f'Brief-Quiz {qi + 1}.o')
+for k, v in (D.get('audio') or {}).items():
+    if not (isinstance(v, str) and v.startswith('audio/') and os.path.exists(os.path.join(ROOT, v))): e(f'Aufnahme für „{k}“ fehlt: {v}')
+
 total = sum(len(u['words']) for u in D['units'])
 print(f'  Städte {len(D["units"])} · Wörter {total} · Sätze {sum(len(u["sentences"]) for u in D["units"])} · '
       f'Szenen {sum(1 for u in D["units"] if u.get("scene"))} · Fälle {len(D["cases"])} · Laute {len(D["sounds"])}')
