@@ -19,6 +19,7 @@
       prices: 'Preise hören', prices_d: 'Złoty-Beträge verstehen', duel: 'Familienduell', duel_d: '2–4 Leute an einem Handy',
       face: 'Gegenüber', face_d: '2 Leute, 1 Handy: wer tippt zuerst?', face_rules: 'Legt das Handy flach zwischen euch – jeder hat seine Bildschirmhälfte. Beide sehen dieselbe Frage. Wer zuerst richtig tippt, bekommt den Punkt. Falsch getippt = für diese Frage gesperrt.', face_n: 'Fragen', face_fast: 'war schneller', face_wrong: 'Falsch – gesperrt', face_point: '+1 Punkt!', face_nobody: 'Keiner wusste es', face_win: 'Gewonnen!', face_lose: 'Knapp verloren', face_quit: 'Beenden',
       mistakes: 'Fehlerheft', mistakes_d: 'Deine Stolpersteine gezielt', mywords: 'Meine Wörter', mywords_d: 'Eigene Vokabeln, z. B. aus deinem Beruf',
+      lex: 'Wortschatz', lex_d: 'Alle Wörter aus deinen Lektionen nachschlagen', lex_ph: 'Suchen: Polnisch oder Deutsch', lex_seen: 'Schon gelernt', lex_all: 'Alle offenen Städte', lex_count: '{n} Wörter', lex_one: '1 Wort', lex_none: 'Nichts gefunden.', lex_more: 'In allen offenen Städten suchen', lex_empty: 'Noch keine Wörter gelernt. Starte in einer Stadt mit „Neue Wörter“.', lex_mic_pl: 'Polnisch sprechen', lex_mic_x: 'Deutsch sprechen', lex_listen: 'Ich höre zu …',
       learn: 'Neue Wörter', learn_d: 'Hören, sehen, merken', quiz: 'Quiz', quiz_d: 'Gemischte Fragen', listen: 'Hören', listen_d: 'Nur das Ohr zählt',
       type: 'Schreiben', type_d: 'Selbst tippen statt wählen', build: 'Satzbau', build_d: 'Sätze aus Wörtern bauen', cloze: 'Lückensatz', cloze_d: 'Das fehlende Wort finden',
       match: 'Paare', match_d: 'Memory gegen die Uhr', speak: 'Sprechen', speak_d: 'Laut nachsprechen', scene: 'Szene', scene_d: 'Ein echtes Gespräch vor Ort',
@@ -112,6 +113,7 @@
       prices: 'Hear prices', prices_d: 'Understand złoty amounts', duel: 'Family duel', duel_d: '2–4 people, one phone',
       face: 'Face-off', face_d: '2 people, 1 phone: who taps first?', face_rules: 'Lay the phone flat between you – each of you has one half of the screen. Both see the same question. The first correct tap wins the point. A wrong tap locks you out of that question.', face_n: 'Questions', face_fast: 'was faster', face_wrong: 'Wrong – locked', face_point: '+1 point!', face_nobody: 'Nobody knew it', face_win: 'You win!', face_lose: 'Close – you lose', face_quit: 'Quit',
       mistakes: 'Mistake book', mistakes_d: 'Target your stumbling blocks', mywords: 'My words', mywords_d: 'Your own vocabulary, e.g. from your job',
+      lex: 'Vocabulary', lex_d: 'Look up every word from your lessons', lex_ph: 'Search: Polish or English', lex_seen: 'Already learnt', lex_all: 'All open cities', lex_count: '{n} words', lex_one: '1 word', lex_none: 'Nothing found.', lex_more: 'Search all open cities', lex_empty: 'No words learnt yet. Start in a city with “New words”.', lex_mic_pl: 'Speak Polish', lex_mic_x: 'Speak English', lex_listen: 'Listening …',
       learn: 'New words', learn_d: 'Hear, see, remember', quiz: 'Quiz', quiz_d: 'Mixed questions', listen: 'Listening', listen_d: 'Only your ears count',
       type: 'Writing', type_d: 'Type it yourself', build: 'Sentence builder', build_d: 'Build sentences from words', cloze: 'Fill the gap', cloze_d: 'Find the missing word',
       match: 'Pairs', match_d: 'Memory against the clock', speak: 'Speaking', speak_d: 'Say it out loud', scene: 'Scene', scene_d: 'A real conversation on location',
@@ -342,6 +344,7 @@
     if (tab === 'me') return renderMe();
     if (tab === 'land') return renderLand();
     if (tab === 'mywords') return renderMyWords();
+    if (tab === 'lex') return renderLex();
     if (tab === 'duel') return renderDuelSetup();
     if (tab === 'face') return renderFaceSetup();
     if (tab === 'polacy') return renderPolacy();
@@ -522,6 +525,7 @@
     var due = dueList().length;
     var html = '<h1>' + esc(t('nav_practice')) + '</h1><section class="tiles">' +
       tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
+      tileBtn('lex', t('lex'), t('lex_d'), '<span class="badge num">' + allWords().filter(function (x) { return S.cards[x.id]; }).length + '</span>') +
       tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
       tileBtn('sounds', t('sounds'), t('sounds_d')) + tileBtn('prices', t('prices'), t('prices_d')) +
       tileBtn('twister', t('twister'), t('twister_d')) + tileBtn('memo_w', t('memo_w'), t('memo_w_d')) + tileBtn('duel', t('duel'), t('duel_d')) + tileBtn('face', t('face'), t('face_d')) +
@@ -935,6 +939,73 @@
     var pr = document.getElementById('mw-practice'); if (pr) pr.onclick = function () { startMode('mine'); };
   }
 
+  /* ---------- Wortschatz: alle Wörter aus den Lektionen nachschlagen (Suche tippen oder sprechen) ---------- */
+  var lexAll = false, lexQ = '';
+  function lexSource() {
+    return allWords().filter(function (x) { return x.u < 0 || (lexAll ? isOpen(x.u) : !!S.cards[x.id]); });
+  }
+  function lexMatch(list, query) {
+    var q = C.norm(query, true); if (!q) return list;
+    var hay = function (x) { return [C.norm(x.w[0], true), C.norm(meaning(x.w), true)]; };
+    var hits = list.filter(function (x) { return hay(x).some(function (h) { return h.indexOf(q) >= 0; }); });
+    /* Gesprochene Sätze: wenn der ganze Text nichts findet, die einzelnen Wörter suchen */
+    var parts = q.split(' ').filter(function (p) { return p.length >= 3; });
+    if (!hits.length && parts.length > 1) hits = list.filter(function (x) { return hay(x).some(function (h) { return parts.some(function (p) { return h.indexOf(p) >= 0; }); }); });
+    return hits;
+  }
+  function lexRows(list) {
+    var groups = [], cur = null;
+    list.forEach(function (x) { if (!cur || cur.u !== x.u) { cur = { u: x.u, items: [] }; groups.push(cur); } cur.items.push(x); });
+    return groups.map(function (g) {
+      return '<section class="card"><span class="eyebrow">' + esc(g.u < 0 ? t('mywords') : U[g.u].city + ' · ' + cityName(U[g.u])) + '</span><div class="list">' + g.items.map(function (x) {
+        var c = S.cards[x.id], b = c ? c.box : 0, dots = '';
+        for (var i = 1; i <= C.MASTERED_BOX; i++) dots += '<i class="' + (b >= i ? 'on' : '') + '"></i>';
+        return '<div class="li"><button class="icon-btn" data-say="' + esc(x.w[0]) + '" aria-label="' + esc(t('listen_again')) + '">' + I.spk + '</button>' +
+          '<div class="grow"><div class="pl-word" lang="pl">' + esc(x.w[0]) + '</div><div class="small muted">' + esc(meaning(x.w)) + '</div></div><span class="box-dots" aria-hidden="true">' + dots + '</span></div>';
+      }).join('') + '</div></section>';
+    }).join('');
+  }
+  function renderLex() {
+    var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('back')) + '</button><h1>' + esc(t('lex')) + '</h1>' +
+      '<section class="card stack"><input type="search" id="lex-q" class="lex-q" autocomplete="off" enterkeyhint="search" placeholder="' + esc(t('lex_ph')) + '" aria-label="' + esc(t('lex_ph')) + '" value="' + esc(lexQ) + '">' +
+      (Rec ? '<div class="row"><button class="btn" id="lex-mic-pl" style="flex:1">' + I.mic + esc(t('lex_mic_pl')) + '</button><button class="btn" id="lex-mic-x" style="flex:1">' + I.mic + esc(t('lex_mic_x')) + '</button></div>' : '') +
+      '<p id="lex-heard" class="small muted" aria-live="polite"' + (Rec ? '' : ' hidden') + '></p>' +
+      '<div class="seg" id="lex-f">' + segBtn('seen', t('lex_seen'), !lexAll) + segBtn('all', t('lex_all'), lexAll) + '</div></section>' +
+      '<p class="small muted num" id="lex-n"></p><div class="stack" id="lex-list"></div>';
+    shell(html);
+    var inp = document.getElementById('lex-q');
+    function draw() {
+      var src = lexSource(), hits = lexMatch(src, lexQ), box = document.getElementById('lex-list');
+      document.getElementById('lex-n').textContent = hits.length === 1 ? t('lex_one') : t('lex_count').replace('{n}', hits.length);
+      if (!src.length) box.innerHTML = '<p class="muted">' + esc(t('lex_empty')) + '</p>';
+      else if (!hits.length) box.innerHTML = '<p class="muted">' + esc(t('lex_none')) + '</p>' + (!lexAll && lexMatch(allWords().filter(function (x) { return x.u >= 0 && isOpen(x.u); }), lexQ).length ? '<button class="btn" id="lex-more">' + esc(t('lex_more')) + '</button>' : '');
+      else box.innerHTML = lexRows(hits);
+      box.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
+      var more = document.getElementById('lex-more'); if (more) more.onclick = function () { lexAll = true; renderLex(); };
+    }
+    inp.oninput = function () { lexQ = inp.value; draw(); };
+    document.getElementById('back').onclick = function () { go('practice'); };
+    document.querySelectorAll('#lex-f button').forEach(function (b) { b.onclick = function () { lexAll = b.getAttribute('data-v') === 'all'; renderLex(); }; });
+    function listen(lang, btn) {
+      var heard = document.getElementById('lex-heard');
+      try {
+        var rec = new Rec(); rec.lang = lang; rec.interimResults = false; rec.maxAlternatives = 1;
+        btn.disabled = true; heard.textContent = t('lex_listen');
+        rec.onresult = function (e) { var s = e.results[0][0].transcript || ''; heard.textContent = t('you_said') + ': ' + s; inp.value = lexQ = s; draw(); };
+        rec.onerror = function () { heard.textContent = t('no_mic'); };
+        rec.onend = function () { btn.disabled = false; if (heard.textContent === t('lex_listen')) heard.textContent = ''; };
+        rec.start();
+      } catch (e) { btn.disabled = false; heard.textContent = t('no_mic'); }
+    }
+    if (Rec) {
+      var bp = document.getElementById('lex-mic-pl'), bx = document.getElementById('lex-mic-x');
+      bp.onclick = function () { listen('pl-PL', bp); };
+      bx.onclick = function () { listen(S.base === 'en' ? 'en-GB' : 'de-DE', bx); };
+    }
+    draw();
+  }
+
   /* ================================================================
      Fragen bauen
      ================================================================ */
@@ -1100,6 +1171,7 @@
     if (mode === 'face') { tab = 'face'; return renderFaceSetup(); }
     if (mode === 'polacy') { tab = 'polacy'; return renderPolacy(); }
     if (mode === 'mywords') { tab = 'mywords'; return renderMyWords(); }
+    if (mode === 'lex') { tab = 'lex'; return renderLex(); }
   }
 
   /* ================================================================
