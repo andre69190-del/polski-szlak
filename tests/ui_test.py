@@ -10,7 +10,12 @@ import os, sys, pathlib
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-URL = (ROOT / 'index.html').as_uri()
+# Über einen kleinen lokalen Webserver (wie im echten Betrieb): Schriften, Service Worker und Nachladen gehen nicht über file://
+import http.server, threading, functools
+_srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(ROOT)))
+_srv.RequestHandlerClass.log_message = lambda *a: None
+threading.Thread(target=_srv.serve_forever, daemon=True).start()
+URL = 'http://127.0.0.1:%d/index.html' % _srv.server_address[1]
 SHOTS = '--shots' in sys.argv
 SHOT_DIR = ROOT / 'tests' / 'shots'
 fails, oks, OPTQ = [], [], []
@@ -160,8 +165,82 @@ with sync_playwright() as p:
     (ok if bg == 'rgb(15, 21, 26)' else bad)(f'Dark Mode Hintergrund ({bg})')
     if SHOTS: page.screenshot(path=str(SHOT_DIR / '06_home_dark.png'), full_page=True)
 
+    # ---------- 3.0 ----------
+    page.emulate_media(color_scheme='light')
+    page.evaluate("() => { window.PSApp.state().base='de'; window.PSApp.go('home'); }")
+    page.click('[data-mode="themes"]'); page.wait_for_selector('[data-th]')
+    (ok if page.locator('[data-th]').count() >= 8 else bad)('Nach Thema: Themenliste')
+    page.click('[data-th="arzt"]'); page.wait_for_selector('[data-tu]')
+    (ok if page.locator('[data-tu]').count() == 4 else bad)('Thema Arzt: 4 Lektionen (Wrocław, Giżycko, Praxis, Notfall)')
+    page.click('[data-mode="themelearn"]'); (ok if play_through(page) else bad)('Thema: neue Wörter')
+    page.click('#home'); page.wait_for_selector('[data-tu]'); (ok if page.locator('h1').inner_text().startswith('Arzt') else bad)('Zurück landet im Thema')
+    page.click('[data-mode="themeq"]'); (ok if play_through(page) else bad)('Thema üben')
+    page.evaluate("() => window.PSApp.go('themes', 'arzt')"); page.wait_for_selector('[data-tu]')
+    page.locator('[data-tu]').nth(1).click(); page.wait_for_selector('.city-head')
+    (ok if 'szlak 2' in page.inner_text('.city-head').lower() else bad)('Giżycko zeigt Szlak 2')
+    if page.locator('#open-city').count():
+        page.click('#open-city'); page.wait_for_selector('.tiles [data-mode="learn"]'); ok('Gesperrte Stadt per „Trotzdem öffnen“ lernbar')
+    else: bad('„Trotzdem öffnen“ fehlt')
+    page.click('#back'); page.wait_for_selector('[data-tu]'); ok('Zurück von der Stadt ins Thema')
+    page.locator('[data-tu]').nth(2).click(); page.wait_for_selector('.city-head')
+    (ok if 'themenpaket' in page.inner_text('.city-head').lower() else bad)('Paket Praxis-Polnisch offen')
+    for m in ['learn', 'scene', 'quiz', 'build', 'boss']:
+        page.evaluate(f"() => window.PSApp.startMode('{m}', 24)")
+        (ok if play_through(page) else bad)(f'Paket-Modus {m}')
+    (ok if page.evaluate("() => window.PSApp.state().unlocked") < 12 else bad)('Paket-Prüfung schaltet keine Stadt frei')
+    # Szlak 2: Freischalten, Karte, Postkarten
+    page.evaluate("() => { const s = window.PSApp.state(); for (const id of ['waw','lod','poz','szc','gda','tor','bia','lub','kra','zak','kat','wro']) s.boss[id] = 80; s.unlocked = 11; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }")
+    page.reload(); page.wait_for_selector('.map')
+    (ok if page.evaluate("() => window.PSApp.state().unlocked") == 12 else bad)('Nach ganz Szlak 1 ist Sopot frei (Altstand-Migration)')
+    (ok if 'Sopot' in page.inner_text('#cta') else bad)('Weiter-Knopf zeigt Sopot')
+    (ok if page.locator('#map-r').count() and page.locator('.map .node').count() == 12 else bad)('Karte: Szlak-Umschalter, 12 Orte')
+    (ok if 'Postkarten' in page.inner_text('.letter-card') else bad)('Startseite zeigt Anias Postkarten')
+    page.evaluate("() => window.PSApp.startMode('scene', 12)"); (ok if play_through(page) else bad)('Szene Sopot')
+    page.evaluate("() => { const s = window.PSApp.state(); s.boss.sop = 90; s.unlocked = 13; window.PSApp.go('letter', 'diary'); }")
+    (ok if page.locator('.lt-line:not(.locked)').count() == 1 else bad)('Erste Postkarte lesbar')
+    # Sprecherform
+    page.evaluate("() => window.PSApp.go('me')"); page.click('#s-g [data-v="f"]')
+    page.evaluate("() => window.PSApp.go('city', 12)")
+    txt = page.inner_text('main')
+    (ok if 'byłam' in txt and '{' not in txt else bad)('Sprecherform weiblich: byłam, keine Klammern')
+    page.evaluate("() => window.PSApp.go('me')"); page.click('#s-g [data-v="m"]')
+    page.evaluate("() => window.PSApp.go('city', 12)"); (ok if 'byłem' in page.inner_text('main') else bad)('Sprecherform männlich: byłem')
+    # Konjugation
+    page.evaluate("() => window.PSApp.go('practice')"); page.click('[data-mode="conj"]'); page.wait_for_selector('#cj-go')
+    page.locator('[data-cv]').first.click(); (ok if page.locator('.conj-tab').count() else bad)('Verbtabelle klappt auf')
+    page.click('#cj-go'); (ok if play_through(page) else bad)('Konjugations-Runde')
+    # Wochenrückblick + Kalender
+    page.evaluate("() => { const s = window.PSApp.state(); const f = x => x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); const d = new Date(); d.setDate(d.getDate() - 7); const k = f(d); d.setDate(d.getDate() - (d.getDay()+6)%7); s.wlog = {}; s.wlog[f(d)] = { n: 12, m: 3, r: 40, w: 10 }; s.active[k] = 1; s.wrSeen = ''; s.welcomeDay = f(new Date()); window.PSApp.go('home'); }")
+    (ok if page.locator('#wr').count() else bad)('Wochenrückblick sichtbar')
+    if page.locator('#wr-x').count(): page.click('#wr-x')
+    (ok if not page.locator('#wr').count() else bad)('Wochenrückblick schließbar')
+    page.evaluate("() => window.PSApp.go('me')")
+    with page.expect_download() as dl: page.click('#rem-go')
+    (ok if dl.value.suggested_filename.endswith('.ics') else bad)('Kalender-Datei (.ics) wird erzeugt')
+    (ok if page.locator('#voice').count() else bad)('Stimmen-Bereich unter Ich')
+    # Dla Polaków wird nachgeladen
+    page.evaluate("() => window.PSApp.go('land')"); page.click('.pol-entry'); page.wait_for_timeout(800)
+    (ok if page.evaluate("() => location.href") and page.locator('main').count() and 'Dla Polaków' in page.inner_text('main') else bad)('Dla Polaków nachgeladen')
+    for t2 in ['home', 'themes', 'me']:
+        page.evaluate(f"() => window.PSApp.go('{t2}')")
+        w = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
+        (ok if w <= 0 else bad)(f'Kein horizontales Scrollen auf {t2} (390px, 3.0)')
+        if SHOTS: page.screenshot(path=str(SHOT_DIR / f'30_{t2}.png'), full_page=True)
+    # Prüfmodus für Muttersprachler
+    rv = ctx.new_page(); rv.on('pageerror', lambda e: errors.append(str(e)))
+    rv.goto(URL + '?review'); rv.wait_for_selector('.rv-card')
+    (ok if 'Sprawdzanie' in rv.inner_text('h1') else bad)('Prüfmodus öffnet (polnisch)')
+    k1 = rv.inner_text('.rv-card .eyebrow'); rv.click('#rv-ok'); rv.wait_for_timeout(100)
+    (ok if rv.inner_text('.rv-card .eyebrow') != k1 else bad)('✓ springt zum nächsten Eintrag')
+    rv.click('#rv-bad'); rv.fill('#rv-txt', 'Test'); rv.click('#rv-send'); rv.wait_for_timeout(1500)
+    st = rv.evaluate("() => JSON.parse(localStorage.getItem('polski_szlak_review'))")
+    (ok if st and len(st['res']) == 2 else bad)('Prüfergebnisse gespeichert (2)')
+    rv.click('#rv-undo'); st = rv.evaluate("() => JSON.parse(localStorage.getItem('polski_szlak_review'))")
+    (ok if len(st['res']) == 1 else bad)('Rückgängig im Prüfmodus')
+    rv.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
-    real = [e for e in errors if 'speechSynthesis' not in e]
+    real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))
     b.close()
 

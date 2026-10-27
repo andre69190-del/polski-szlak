@@ -6,10 +6,10 @@
 Projekt: Polski Szlak – Single-File Polnisch-Lern-App (PWA), Basissprache DE oder EN
 Ordner:  C:\Users\Andre\Desktop\Cowork\PolskiSzlak
 
-Stand: Version 1.0 (18.10.2026)
+Stand: Version 3.0 (28.10.2026) – aktueller Stand immer in docs/ARBEITSSTAND.md
 - build.py ist die EINZIGE Build-Quelle → index.html (+ dist/polski_szlak_artifact.html)
 - Inhalte NUR in src/data.json, Logik in src/core.js (ohne DOM), UI in src/app.js, CSS in src/app.css
-- 12 Städte, 218 Wörter, 108 Sätze, 12 Szenen, 108 Fall-Übungen, 24 Laute, 19 Zungenbrecher
+- Szlak 1 (12 Städte, A1) + Szlak 2 (12 Orte, A2, "r": 2) + 4 Themenpakete ("pack": 1): 728 Wörter, 252 Sätze, 28 Szenen; 40 Verben (Konjugation); Sprecherform {m|f} in Inhalten
 - Polska: 110 Wahr/Falsch, 100 Personen, 100 Jahreszahlen, 100 Orte, 6 Höher/Tiefer-Sets; Państwa-Miasta 8 Kategorien
 - Mehrspieler: Familienduell (gleiche Fragen im Block), Duell-Code (2 Handys), Gegenüber (1 Handy, geteilt)
 - Laufender Stand: docs/ARBEITSSTAND.md

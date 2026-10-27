@@ -15,7 +15,17 @@ import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = json.load(open(os.path.join(ROOT, 'src', 'data.json'), encoding='utf-8'))
 ERR, WARN = [], []
-PL_OK = re.compile(r"^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ,.!?\-–…/()'„“]+$")
+PL_OK = re.compile(r"^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ,.!?\-–…/()'„“{}|]+$")
+GM = re.compile(r"\{([^{}|]*)\|([^{}|]*)\}")
+
+
+def gok(s, where):
+    """Sprecherform {männlich|weiblich}: Klammern vollständig, beide Seiten nicht leer, nach dem Ersetzen keine Reste"""
+    if '{' not in s and '}' not in s and '|' not in s: return
+    rest = GM.sub('x', s)
+    if any(c in rest for c in '{}|'): e(f'{where}: Sprecherform-Klammern fehlerhaft: {s}')
+    for a, b in GM.findall(s):
+        if not a.strip() or not b.strip(): e(f'{where}: leere Sprecherform in {s}')
 TRAILS = {'red', 'blue', 'green', 'yellow', 'black'}
 
 
@@ -29,10 +39,16 @@ def pair(x, where):
 
 
 ids = set()
+ROUTE = [u for u in D['units'] if not u.get('pack')]
+R1 = [u for u in ROUTE if u.get('r', 1) == 1]
+R2 = [u for u in ROUTE if u.get('r') == 2]
+if D['units'][:len(ROUTE)] != ROUTE: e('Einheiten-Reihenfolge: erst Route (Szlak 1, dann 2), Pakete am Ende')
+if D['units'][:len(R1)] != R1: e('Einheiten-Reihenfolge: Szlak 1 muss vor Szlak 2 stehen')
 for ui, u in enumerate(D['units']):
     W = f"Stadt {ui + 1} ({u.get('city')})"
     if u['id'] in ids: e(f'{W}: doppelte id {u["id"]}')
     ids.add(u['id'])
+    if u.get('pack') and not u.get('ico'): e(f'{W}: Paket ohne Symbol (ico)')
     if not (14 <= u['lon'] <= 24.2 and 49 <= u['lat'] <= 54.9): e(f'{W}: Koordinaten außerhalb Polens')
     if u['trail'] not in TRAILS: e(f'{W}: unbekannte Szlak-Farbe {u["trail"]}')
     for k in ('title', 'can', 'tip', 'fact'): pair(u.get(k), f'{W}.{k}')
@@ -44,6 +60,7 @@ for ui, u in enumerate(D['units']):
         if wd[0].lower() in seen: e(f'{W}: Wort doppelt: {wd[0]}')
         seen.add(wd[0].lower())
         if not PL_OK.match(wd[0]): e(f'{W}: ungültige Zeichen in „{wd[0]}“')
+        gok(wd[0], W)
         if wd[0] != wd[0].strip(): e(f'{W}: Leerzeichen am Rand in „{wd[0]}“')
     if len(u['sentences']) < 3: e(f'{W}: zu wenige Sätze')
     for s in u['sentences']:
@@ -51,6 +68,7 @@ for ui, u in enumerate(D['units']):
         if not re.search(r'[.!?]$', s[0]): e(f'{W}: Satz ohne Satzzeichen am Ende: {s[0]}')
         if len(s[0].split()) < 3: e(f'{W}: Satz zu kurz für Satzbau: {s[0]}')
         if not PL_OK.match(s[0]): e(f'{W}: ungültige Zeichen in Satz „{s[0]}“')
+        gok(s[0], W)
     sc = u.get('scene')
     if not sc: e(f'{W}: keine Szene'); continue
     pair(sc.get('intro'), f'{W}.scene.intro'); pair(sc.get('outro'), f'{W}.scene.outro')
@@ -61,8 +79,10 @@ for ui, u in enumerate(D['units']):
         wrongs = [o for o in st['opts'] if o[3] == 0]
         if not rights: e(f'{W} Szene {si}: keine richtige Antwort')
         if not wrongs: e(f'{W} Szene {si}: keine falsche Antwort')
+        gok(st['npc'][0], W)
         for o in st['opts']:
             if len(o) != 4: e(f'{W} Szene {si}: Option braucht [pl, de, en, 0/1]')
+            else: gok(o[0], W)
         pair(st.get('hint'), f'{W} Szene {si}.hint')
 
 for ci, c in enumerate(D['cases']):
@@ -98,15 +118,18 @@ if len(D['outline']) < 20 or D['outline'][0] != D['outline'][-1]: e('Umriss: zu 
 # Der Brief: genau ein Satz pro Stadt in Reiseroute-Reihenfolge, Ausblick (bridge) überall außer in der letzten Stadt
 LT = D.get('letter') or {}
 pair(LT.get('prolog'), 'Brief.prolog'); pair(LT.get('finale'), 'Brief.finale')
-if [l.get('u') for l in LT.get('lines', [])] != [u['id'] for u in D['units']]: e('Brief: braucht genau einen Satz pro Stadt in Routen-Reihenfolge')
-for li, l in enumerate(LT.get('lines', [])):
-    if not PL_OK.match(l.get('pl', '')) or l.get('pl', '')[-1:] not in '.!?a': e(f'Brief Satz {li + 1}: ungültiger polnischer Text')
-    pair(l.get('tr'), f'Brief Satz {li + 1}.tr')
-    if li < len(D['units']) - 1: pair(l.get('bridge'), f'Brief Satz {li + 1}.bridge')
+for name, LT, RU in (('Brief', LT, R1), ('Tagebuch', D.get('diary') or {}, R2)):
+    if not RU: continue
+    pair(LT.get('prolog'), f'{name}.prolog'); pair(LT.get('finale'), f'{name}.finale')
+    if [l.get('u') for l in LT.get('lines', [])] != [u['id'] for u in RU]: e(f'{name}: braucht genau einen Satz pro Stadt in Routen-Reihenfolge')
+    for li, l in enumerate(LT.get('lines', [])):
+        if not PL_OK.match(l.get('pl', '')) or l.get('pl', '')[-1:] not in '.!?a': e(f'{name} Satz {li + 1}: ungültiger polnischer Text')
+        pair(l.get('tr'), f'{name} Satz {li + 1}.tr')
+        if li < len(RU) - 1: pair(l.get('bridge'), f'{name} Satz {li + 1}.bridge')
 
 # Version 2.0: Missionen, Hören, Verb-Aspekt, Brief-Quiz, Aufnahmen
-UIDS = [u['id'] for u in D['units']]
-PL_MIS = re.compile(r"^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ,.!?\-–…/()'„“:]+$")
+UIDS = [u['id'] for u in ROUTE]
+PL_MIS = re.compile(r"^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ,.!?\-–…/()'„“:{}|]+$")
 MI = D.get('missions') or {}
 for uid in UIDS:
     m = MI.get(uid)
@@ -140,6 +163,25 @@ for qi, q in enumerate(LQ):
     for o in q.get('o', []): pair(o, f'Brief-Quiz {qi + 1}.o')
 for k, v in (D.get('audio') or {}).items():
     if not (isinstance(v, str) and v.startswith('audio/') and os.path.exists(os.path.join(ROOT, v))): e(f'Aufnahme für „{k}“ fehlt: {v}')
+
+# 3.0: Themen, Verben
+UALL = {u['id'] for u in D['units']}
+seen_in_theme = set()
+for ti, th in enumerate(D.get('themes') or []):
+    pair(th.get('t'), f'Thema {ti + 1}.t')
+    if not th.get('ico') or not th.get('id'): e(f'Thema {ti + 1}: id/ico fehlt')
+    for x in th.get('u', []):
+        if x not in UALL: e(f'Thema {th.get("id")}: unbekannte Einheit {x}')
+        seen_in_theme.add(x)
+for x in sorted(UALL - seen_in_theme): w(f'Einheit {x} gehört zu keinem Thema')
+for vi, v in enumerate(D.get('verbs') or []):
+    W = f'Verb {vi + 1} ({v.get("inf")})'
+    if len(v.get('pres', [])) != 6 or len(v.get('past', [])) != 5: e(f'{W}: braucht 6 Präsens- und 5 Vergangenheitsformen')
+    if v.get('cls') not in ('am', 'i', 'uje', 'e', 'irr'): e(f'{W}: unbekannte Verbklasse {v.get("cls")}')
+    for f in v.get('pres', []) + v.get('past', []) + [v.get('inf', '')]:
+        if not PL_OK.match(f): e(f'{W}: ungültige Form {f}')
+    if len(set(v.get('pres', []))) != 6: e(f'{W}: doppelte Präsensformen')
+    if not v.get('de') or not v.get('en'): e(f'{W}: Übersetzung fehlt')
 
 total = sum(len(u['words']) for u in D['units'])
 print(f'  Städte {len(D["units"])} · Wörter {total} · Sätze {sum(len(u["sentences"]) for u in D["units"])} · '

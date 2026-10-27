@@ -28,10 +28,21 @@ def put(doc, placeholder, value):
 
 def main():
     data = json.loads(read('data.json'))          # validiert JSON beim Build
-    data_txt = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
-    shell = read('shell.html')
-    for ph, val in [('/*CSS*/', read('app.css')), ('/*DATA*/', data_txt), ('/*CORE*/', read('core.js')), ('/*APP*/', read('app.js'))]:
-        shell = put(shell, ph, val)
+    full_txt = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+    # 3.0: „Dla Polaków“ wird nachgeladen (data-polacy.json) – die Deploy-Version bleibt so unter dem Größenbudget
+    lazy = dict(data); pol = lazy.pop('polacy', None)
+    if pol is not None:
+        lazy['polacyLazy'] = 'data-polacy.json'
+        with open(os.path.join(ROOT, 'data-polacy.json'), 'w', encoding='utf-8') as f:
+            json.dump(pol, f, ensure_ascii=False, separators=(',', ':'))
+    data_txt = json.dumps(lazy, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+    shell0 = read('shell.html')
+    def fill(dtxt):
+        s = shell0
+        for ph, val in [('/*CSS*/', read('app.css')), ('/*DATA*/', dtxt), ('/*CORE*/', read('core.js')), ('/*APP*/', read('app.js'))]:
+            s = put(s, ph, val)
+        return s
+    shell = fill(data_txt)
 
     pwa = ('<link rel="manifest" href="manifest.json">\n'
            '<link rel="icon" href="icon.svg" type="image/svg+xml">\n'
@@ -42,7 +53,7 @@ def main():
               '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
               '<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>\n'
               + put(put(shell, '<!--PWA-->', pwa), '<div id="app"', '</head>\n<body>\n<div id="app"') + '\n</body>\n</html>\n')
-    artifact = put(shell, '<!--PWA-->', '')
+    artifact = put(fill(full_txt), '<!--PWA-->', '')   # Vorschau ohne Server: alles eingebettet
 
     with open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(deploy)

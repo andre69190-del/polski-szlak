@@ -1,5 +1,21 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.0 · 28.10.2026 · Szlak 2 (A2), Themen, Konjugation
+
+- **Szlak 2 (A2):** zwölf neue Orte von Sopot bis Karpacz (Sopot, Malbork, Giżycko, Olsztyn, Płock, Częstochowa, Sandomierz, Ustrzyki Górne, Przemyśl, Tarnów, Opole, Karpacz), je **30 Wörter**, 9 Sätze, eine Szene, Grammatik-Tipp, Fakt, Mission und Regionalradio. Alltagsthemen: Urlaub erzählen, Sehenswürdigkeiten, **beim Arzt**, Wohnung, Verabredungen, Post/Bank/Amt, Meinung und Gefühle, Wandern und Notfall, Telefonieren, Restaurant und Kochen, Feste, Hobbys. Grammatik: Vergangenheit, Zukunft, Aspekt, Lokativ, Instrumental, Imperativ. Die Karte hat einen Umschalter Szlak 1 / Szlak 2. Wer Szlak 1 schon fertig hatte, bekommt Sopot automatisch frei.
+- **Anias Postkarten:** Fortsetzung der Rahmengeschichte. Nach jeder Stadt auf Szlak 2 wird eine Karte lesbar (in der Vergangenheit erzählt), Finale auf der Śnieżka.
+- **Themenpakete** (immer offen, nicht auf der Karte): Praxis-Polnisch (Physiotherapie, 40 Wörter), Notfall & Sicherheit, Kleine Wörter, Die 40 wichtigsten Verben.
+- **Nach Thema:** Alle Lektionen aus Szlak 1, Szlak 2 und den Paketen nach Alltagsthemen gebündelt (z. B. Arztbesuch = Wrocław + Giżycko + Praxis + Notfall), mit „Neue Wörter“ und „Thema üben“. Gesperrte Städte lassen sich zum Lernen „trotzdem öffnen“, die Reihenfolge auf dem Szlak bleibt. Der Fortschritt zählt in beiden Ansichten.
+- **Wortschatz:** 218 → **728 Wörter**, 108 → 252 Sätze.
+- **Konjugations-Trainer** (Üben): 40 Verben, Gegenwart und Vergangenheit, nach Verbklassen, mit Verbtabellen zum Nachschlagen.
+- **Sprecherform:** „Ich spreche als Mann / Frau“ (Onboarding und Ich). Inhalte schreiben Formen als {byłem|byłam}; die App zeigt die passende, beim Antworten gelten beide.
+- **Aussprache je Wort:** Bei der Spracherkennung werden erkannte Wörter grün und fehlende rot markiert.
+- **Prüfmodus für Muttersprachler:** polski.arndt-software.de/?review – alle polnischen Inhalte nacheinander mit ✓ / ✗ und Vorschlag (komplett auf Polnisch), Ergebnisse in ps_feedback. Link zum Teilen unter Ich.
+- **Wochenrückblick** am Wochenanfang (Lerntage, neue und neu sichere Wörter, Vergleich zur Vorwoche, die 3 kniffligsten Wörter üben).
+- **Kalender-Erinnerung:** wiederkehrender Termin als .ics-Datei für den eigenen Kalender (keine Push-Nachrichten).
+- **Stimmen:** beste polnische Stimme wird automatisch gewählt, eigene Wahl unter Ich, Anleitung falls keine polnische Stimme installiert ist.
+- **Technik:** Schriften selbst gehostet (keine Verbindung zu Google mehr); „Dla Polaków“ wird erst beim Öffnen geladen (data-polacy.json, danach offline); Duell-Code bleibt kompatibel (nur Szlak 1); GitHub Actions führt bei jedem Push alle Checks und den Browser-Test aus; Reife-Bremse vor der Stadtprüfung (8 von 10 Wörtern an zwei Tagen). 45 Logik-Tests, 72 Browser-Prüfungen. Service Worker Cache v3-0.
+
 ## 2.0 · 20.10.2026 · Alle Vorschläge umgesetzt
 
 - **Mini-Missionen (H):** pro Stadt eine freiwillige Aufgabe im echten Leben (z. B. Warschau: „Dzień dobry! Dziękuję!“). Abhaken gibt einmalig +15 XP und Konfetti, danach Abzeichen „Mission erledigt“.

@@ -2,8 +2,36 @@
 (function () {
   'use strict';
   var C = window.PSCore;
-  var D = JSON.parse(document.getElementById('ps-data').textContent);
-  var U = D.units;
+  /* Rohdaten bleiben unverändert (Duell: gleiche Fragen auf allen Handys); D = Anzeige mit Sprecherform (3.0) */
+  var RAW = JSON.parse(document.getElementById('ps-data').textContent);
+  var D = RAW, U = RAW.units, ALTG = {}, WALT = {};
+  function gwalk(x, g) {
+    if (typeof x === 'string') {
+      if (x.indexOf('{') < 0 || !C.hasG(x)) return x;
+      var a = C.gform(x, g), b = C.gform(x, g === 'f' ? 'm' : 'f');
+      ALTG[C.norm(a)] = b;
+      x.replace(/\{([^{}|]*)\|([^{}|]*)\}/g, function (m, mm, ff) { var mine = g === 'f' ? ff : mm, other = g === 'f' ? mm : ff; WALT[C.norm(mine)] = other; return m; });
+      return a;
+    }
+    if (Array.isArray(x)) return x.map(function (y) { return gwalk(y, g); });
+    if (x && typeof x === 'object') { var o = {}; Object.keys(x).forEach(function (k) { o[k] = gwalk(x[k], g); }); return o; }
+    return x;
+  }
+  /* 3.0: „Dla Polaków“ (600 Fragen) wird erst bei Bedarf geladen (data-polacy.json, offline aus dem Service-Worker-Cache) */
+  var POL_URL = 'data-polacy.json', polWait = null;
+  function needPolacy(cb, quiet) {
+    if (RAW.polacy) return cb();
+    if (!polWait) polWait = fetch(POL_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (j) { RAW.polacy = j; loadData(); }, function (e) { polWait = null; throw e; });
+    polWait.then(cb, function () { if (!quiet) toast(t('lazy_fail')); });
+  }
+  function loadData() { ALTG = {}; WALT = {}; D = gwalk(RAW, S.gender === 'f' ? 'f' : 'm'); U = D.units; }
+  /* Antwort prüfen; die andere Sprecherform gilt immer auch als richtig */
+  function chk(input, target, opts) {
+    var r = C.checkAnswer(input, target, opts); if (r.ok) return r;
+    var alts = [ALTG[C.norm(target)], String(target).split(' ').map(function (w) { var k = C.norm(w); return WALT[k] ? w.replace(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), WALT[k]) : w; }).join(' ')];
+    for (var i = 0; i < alts.length; i++) { if (!alts[i] || alts[i] === target) continue; var r2 = C.checkAnswer(input, alts[i], opts); if (r2.ok || (r.kind === 'wrong' && r2.kind !== 'wrong')) return r2; }
+    return r;
+  }
   var KEY = 'polski_szlak_v1';
   var $app = document.getElementById('app');
 
@@ -101,7 +129,15 @@
       rule_ou: 'ó und u klingen gleich. Die Schreibweise muss man sich merken.', rule_rz: 'rz und ż klingen gleich. Tipp: Wechselt das r in verwandten Wörtern (morze → morski), schreibt man rz.',
       rule_ch: 'ch und h klingen heute gleich. ch ist viel häufiger, h steht oft in Lehnwörtern (herbata, hotel).', rule_dia: 'Ohne Akzent ist es ein anderer Laut, manchmal sogar ein anderes Wort.', rule_nasal: 'ą und ę sind eigene Nasallaute und werden nicht als om/en geschrieben.', rule_soft: 'ś/ć/ź sind weich (Zunge vorn), sz/cz/ż hart. Vor Vokal schreibt man si/ci/zi statt ś/ć/ź.', rule_final: 'Am Wortende werden b, d, g, w, z stimmlos gesprochen (chleb klingt wie „chlep“), geschrieben bleibt der Originalbuchstabe.',
       sync: 'Geräte-Abgleich', sync_d: 'Mit einem Konto ist dein Fortschritt auf Handy, Tablet und Laptop gleich. Ohne Konto bleibt alles nur auf diesem Gerät.', sync_email: 'E-Mail', sync_pw: 'Passwort (mind. 8 Zeichen)', sync_login: 'Anmelden', sync_signup: 'Konto anlegen', sync_forgot: 'Passwort vergessen?', sync_as: 'Angemeldet als', sync_now: 'Jetzt abgleichen', sync_last: 'Zuletzt abgeglichen', sync_never: 'noch nicht', sync_busy: 'Gleiche ab …', sync_done: 'Abgeglichen ✓', sync_logout: 'Abmelden', sync_del: 'Meine Daten vom Server löschen', sync_del_q: 'Wirklich löschen? Nochmal tippen', sync_deleted: 'Daten auf dem Server gelöscht. Auf diesem Gerät bleibt alles.', sync_mail_sent: 'Fast fertig: Öffne den Link in der E-Mail. Danach bist du angemeldet.', sync_reset_sent: 'Wenn es das Konto gibt, kommt gleich eine E-Mail zum Zurücksetzen.', sync_newpw: 'Neues Passwort', sync_setpw: 'Passwort speichern', sync_pw_saved: 'Neues Passwort gespeichert ✓', sync_shared: 'Ein Konto für alle Apps auf arndt-software.de (z. B. auch GeoQuest).', sync_err_cred: 'E-Mail oder Passwort stimmt nicht.', sync_err_confirm: 'Bitte zuerst den Link in der Bestätigungs-Mail öffnen.', sync_err_exists: 'Für diese E-Mail gibt es schon ein Konto. Bitte anmelden.', sync_err_pw: 'Das Passwort ist zu kurz oder zu einfach.', sync_err_rate: 'Zu viele Versuche. Bitte später nochmal.', sync_err_net: 'Keine Verbindung zum Server. Dein Fortschritt bleibt auf dem Gerät und wird später abgeglichen.', sync_err: 'Das hat nicht geklappt', sync_ob: 'Schon ein Konto? Anmelden und Fortschritt laden', bk_more: 'Ohne Konto: Spielstand als Text übertragen', bk_copy: 'Text kopieren', inst: 'Als App installieren', inst_hint: 'Tipp: Als App installieren', inst_btn: 'Jetzt installieren', inst_d: 'Dann startet Polski Szlak wie eine App vom Startbildschirm, ohne Browserleiste, und läuft offline.', inst_done: 'Polski Szlak läuft schon als App. Gut so!', inst_ios: 'iPhone/iPad: In Safari unten auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“.', inst_other: 'Im Browsermenü (⋮ oder ⋯) „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen. Am Laptop: Symbol rechts in der Adressleiste.', legal: 'Impressum', privacy: 'Datenschutz',
-      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.', letter: 'Der Brief', letter_start: 'Szymek, ein Krasnal aus Wrocław, hat dir einen Brief auf Polnisch gebracht. Noch kannst du ihn nicht lesen, aber nach jeder Stadt wird ein Satz lesbar.', letter_d: '{n} von {t} Sätzen kannst du schon lesen.', letter_new: 'Neu im Brief', letter_open: 'Brief lesen', letter_locked: 'lesbar nach {c}', letter_done: 'Du hast den ganzen Brief gelesen.', letter_from: 'Ein Brief aus Wrocław', mission: 'Mini-Mission', mission_d: 'Freiwillig und im echten Leben. Hak ab, wenn du es gemacht hast.', mission_done: 'Erledigt', mission_ok: 'Mission erledigt', mission_xp: 'Mission erledigt: +15 XP', hear: 'Echtes Polnisch hören', hear_d: 'Hör ein paar Minuten das Radio dieser Region. Du musst nicht alles verstehen: Melodie und einzelne Wörter reichen.', hear_more: 'Polnisch hören', hear_more_d: 'Echte Stimmen, echtes Tempo. Ausgewählte, frei zugängliche Angebote (externe Seiten).', ext: 'externe Seite', aspect: 'Verb-Aspekt', aspect_d: 'Vollendet oder unvollendet? piję oder wypiję', aspect_q: 'Welche Form passt?', asp_pf: 'vollendet (Ergebnis, einmal, fertig)', asp_ipf: 'unvollendet (Verlauf, Dauer, Gewohnheit)', rep: 'Fehler melden', rep_ph: 'Was stimmt nicht? (ohne persönliche Daten)', rep_send: 'Senden', rep_thanks: 'Danke! Die Meldung ist angekommen.', rep_fail: 'Senden hat nicht geklappt. Der Text ist kopiert, du kannst ihn per Mail schicken:', rep_empty: 'Bitte kurz beschreiben, was nicht stimmt.', rep_d: 'Ein Wort falsch übersetzt, ein Satz komisch? Sag Bescheid. Gesendet werden nur dein Text, die Übung und die App-Version.', share_boss: 'Ich habe die Stadtprüfung in {c} geschafft ({p} %)! Polnisch lernen Stadt für Stadt:', share_lq: 'Ich kann den Brief aus Wrocław auf Polnisch lesen ({p} %)! Polski Szlak:', rec: 'Mich aufnehmen und vergleichen', rec_stop: 'Aufnahme stoppen', offline: 'Offline', net_ok: 'Abgeglichen', net_busy: 'Gleiche ab …', net_err: 'Abgleich gestört', tour_next: 'Weiter', tour_skip: 'Überspringen', tour_done: 'Los geht’s', tour_again: 'Kurze Tour wiederholen', tour1: 'Hier geht deine Reise weiter. Der Knopf führt dich immer zum nächsten sinnvollen Schritt.', tour2: 'Die Karte: 12 Städte, jede mit eigenem Thema. Tippe eine Stadt an, um sie zu öffnen.', tour3: 'Der Brief: Nach jeder Stadt kannst du einen Satz mehr lesen.', tour4: 'Üben: Wiederholung, Tagesrätsel, Fälle, Verb-Aspekt und Spiele.', tour5: 'Ich: Einstellungen, Geräte-Abgleich und was du schon kannst.', lq: 'Brief selbst lesen', lq_d: 'Jetzt ohne Übersetzung: Lies jeden Satz und beantworte die Frage dazu.', lq_start: 'Verständnisfragen starten', lq_best: 'Bestes Ergebnis', lq_pass: 'Du verstehst Anias Brief auf Polnisch!'
+      about: 'Über die App', about_d: 'Lern-Grundlagen: verteilte Wiederholung, aktives Abrufen, Sätze statt Listen, Wochenziel statt Tagesdruck. Läuft offline. Ohne Konto bleibt alles auf diesem Gerät; mit Konto wird dein Fortschritt zusätzlich zwischen deinen Geräten abgeglichen.', to_start: 'Zur Startseite', next_up: 'Als Nächstes', next_station: 'Nächste Station', go_on: 'Weiter', view_city: 'Stadt ansehen', trip_done: 'Du hast alle Städte geschafft. Gratulacje! Wiederholen hilft jetzt, damit alles sitzt.', step_learn: 'Neue Wörter kennenlernen', step_scene: 'Ein echtes Gespräch vor Ort führen', step_quiz: 'Die neuen Wörter festigen', step_build: 'Eigene Sätze bauen', step_boss: 'Die Stadtprüfung – danach geht die Reise weiter', step_ripen: 'Die Wörter von gestern festigen', step_wait: 'Pause bis morgen – dann die Wörter festigen', ripen: 'Festigen', wait: 'Morgen weiter',
+      ripe_title: 'Bereit für die Prüfung?', ripe_d: 'Die Prüfung wird frei, wenn 8 von 10 Wörtern an zwei verschiedenen Tagen gesessen haben. Abstand hilft dem Gedächtnis mehr als Tempo.', ripe_learn: 'Noch {n} neue Wörter kennenlernen, dann geht es ans Festigen.', ripe_wait: 'Für heute ist alles gefestigt. Morgen sind die Wörter wieder dran – dann ist die Prüfung frei.', ripe_ok: 'Die Wörter sitzen. Die Prüfung ist frei.', boss_early_q: 'Die Wörter dieser Stadt sitzen noch nicht an zwei Tagen. Prüfung trotzdem jetzt machen?', wb_title: 'Willkommen zurück!', wb_d: 'Schön, dass du wieder da bist. Pausen gehören dazu, nichts ist verloren. Wir frischen kurz 5 Wörter auf, dann geht die Reise weiter.', wb_go: '5 Wörter auffrischen', wb_later: 'Später', cando: 'Das kann ich schon', cando_empty: 'Nach deiner ersten Stadtprüfung steht hier, was du auf Polnisch schon kannst.', cando_stats: '{w} Wörter sicher · {s} Gespräche geführt · {c} Städte geschafft', cando_next: 'Als Nächstes lernst du', ob_inp: 'Wie möchtest du antworten?', ob_inp_d: 'Kannst du jederzeit unter „Ich“ ändern. Bei jeder Schreibfrage gibt es außerdem „Lieber: …“.', letter: 'Der Brief', letter_start: 'Szymek, ein Krasnal aus Wrocław, hat dir einen Brief auf Polnisch gebracht. Noch kannst du ihn nicht lesen, aber nach jeder Stadt wird ein Satz lesbar.', letter_d: '{n} von {t} Sätzen kannst du schon lesen.', letter_new: 'Neu im Brief', letter_open: 'Brief lesen', letter_locked: 'lesbar nach {c}', letter_done: 'Du hast den ganzen Brief gelesen.', letter_from: 'Ein Brief aus Wrocław', mission: 'Mini-Mission', mission_d: 'Freiwillig und im echten Leben. Hak ab, wenn du es gemacht hast.', mission_done: 'Erledigt', mission_ok: 'Mission erledigt', mission_xp: 'Mission erledigt: +15 XP', hear: 'Echtes Polnisch hören', hear_d: 'Hör ein paar Minuten das Radio dieser Region. Du musst nicht alles verstehen: Melodie und einzelne Wörter reichen.', hear_more: 'Polnisch hören', hear_more_d: 'Echte Stimmen, echtes Tempo. Ausgewählte, frei zugängliche Angebote (externe Seiten).', ext: 'externe Seite', aspect: 'Verb-Aspekt', aspect_d: 'Vollendet oder unvollendet? piję oder wypiję', aspect_q: 'Welche Form passt?', asp_pf: 'vollendet (Ergebnis, einmal, fertig)', asp_ipf: 'unvollendet (Verlauf, Dauer, Gewohnheit)', rep: 'Fehler melden', rep_ph: 'Was stimmt nicht? (ohne persönliche Daten)', rep_send: 'Senden', rep_thanks: 'Danke! Die Meldung ist angekommen.', rep_fail: 'Senden hat nicht geklappt. Der Text ist kopiert, du kannst ihn per Mail schicken:', rep_empty: 'Bitte kurz beschreiben, was nicht stimmt.', rep_d: 'Ein Wort falsch übersetzt, ein Satz komisch? Sag Bescheid. Gesendet werden nur dein Text, die Übung und die App-Version.', share_boss: 'Ich habe die Stadtprüfung in {c} geschafft ({p} %)! Polnisch lernen Stadt für Stadt:', share_lq: 'Ich kann den Brief aus Wrocław auf Polnisch lesen ({p} %)! Polski Szlak:', rec: 'Mich aufnehmen und vergleichen', rec_stop: 'Aufnahme stoppen', offline: 'Offline', net_ok: 'Abgeglichen', net_busy: 'Gleiche ab …', net_err: 'Abgleich gestört', tour_next: 'Weiter', tour_skip: 'Überspringen', tour_done: 'Los geht’s', tour_again: 'Kurze Tour wiederholen', tour1: 'Hier geht deine Reise weiter. Der Knopf führt dich immer zum nächsten sinnvollen Schritt.', tour2: 'Die Karte: 12 Städte, jede mit eigenem Thema. Tippe eine Stadt an, um sie zu öffnen.', tour3: 'Der Brief: Nach jeder Stadt kannst du einen Satz mehr lesen.', tour4: 'Üben: Wiederholung, Tagesrätsel, Fälle, Verb-Aspekt und Spiele.', tour5: 'Ich: Einstellungen, Geräte-Abgleich und was du schon kannst.', lq: 'Brief selbst lesen', lq_d: 'Jetzt ohne Übersetzung: Lies jeden Satz und beantworte die Frage dazu.', lq_start: 'Verständnisfragen starten', lq_best: 'Bestes Ergebnis', lq_pass: 'Du verstehst Anias Brief auf Polnisch!',
+      wd_miss: 'nicht erkannt', wd_hint: '{n} Wort/Wörter nicht erkannt (rot). Hör sie dir langsam an und versuch es noch einmal.', g_title: 'Ich spreche als …', g_d: 'Für Formen wie „byłem / byłam“ (ich war) oder „zmęczony / zmęczona“ (müde). Beide Formen gelten beim Antworten immer als richtig.', g_m: 'Mann (byłem)', g_f: 'Frau (byłam)',
+      rv_me: 'Polnisch gegenlesen lassen', rv_me_d: 'Kennst du jemanden mit Polnisch als Muttersprache? Schick ihr oder ihm den Prüf-Link: Dort lassen sich alle polnischen Inhalte Stück für Stück mit ✓ oder ✗ prüfen (komplett auf Polnisch). Die Hinweise kommen direkt beim Entwickler an.', rv_me_btn: 'Prüf-Link teilen', rv_me_share: 'Hilfst du mir? Bitte prüf kurz die polnischen Sätze dieser Lern-App (Pomożesz? Sprawdź proszę polskie zdania w tej aplikacji):',
+      wr_title: 'Deine Woche', wr_close: 'Schließen', wr_days: 'Lerntage', wr_new: 'neue Wörter', wr_sure: 'neu sicher', wr_more: 'mehr als die Woche davor', wr_less: 'weniger als die Woche davor', wr_goal_ok: 'Wochenziel geschafft – stark!', wr_goal_no: 'Neue Woche, neuer Anfang.', wr_pct: '{p} % deiner Antworten waren richtig.', wr_hard: 'Am kniffligsten', wr_go: 'Diese 3 kurz üben', rem: 'Erinnerung im Kalender', rem_d: 'Keine Push-Nachrichten: Du legst dir selbst einen wiederkehrenden Termin in deinen Kalender. Ändern oder löschen kannst du ihn jederzeit dort.', rem_days: 'Tage', rem_time: 'Uhrzeit', rem_btn: 'Kalender-Termin erstellen', rem_title: 'Polski Szlak – 5 Minuten Polnisch', rem_desc: 'Kurz üben, kein Druck. Do zobaczenia!', rem_none: 'Bitte mindestens einen Tag wählen.', dn: 'Mo,Di,Mi,Do,Fr,Sa,So',
+      conj: 'Konjugation', conj_d: '40 wichtige Verben: Gegenwart und Vergangenheit', conj_intro: 'Polnische Verben ändern ihre Endung je nach Person. Die meisten folgen wenigen Mustern (Verbklassen). Wer die Muster kennt, kann auch neue Verben bilden.', conj_tense: 'Zeit', conj_pres: 'Gegenwart', conj_past: 'Vergangenheit', conj_mix: 'Gemischt', conj_cls: 'Verbklasse', conj_all: 'Alle', conj_all_d: 'Alle Verbklassen gemischt.', conj_verbs: 'Verben', conj_list: 'Verbtabellen zum Nachschlagen', conj_q: 'Welche Form passt?', conj_q_past: 'Vergangenheit: welche Form passt?', clsn_am: '-am, -asz', clsn_i: '-ę, -isz', clsn_uje: '-uję', clsn_e: '-ę, -esz', clsn_irr: 'unregelmäßig', cls_am: 'Muster -am: ja czytam, ty czytasz, on czyta, my czytamy, wy czytacie, oni czytają.', cls_i: 'Muster -ę/-isz: ja robię, ty robisz, on robi, my robimy, wy robicie, oni robią (nach cz, sz, rz, ż: -ysz, -y).', cls_uje: 'Verben auf -ować: -ow- wird zu -uj-: pracować → pracuję, pracujesz, pracuje … pracują.', cls_e: 'Muster -ę/-esz: ja piszę, ty piszesz, on pisze, my piszemy, wy piszecie, oni piszą. Oft ändert sich der Stamm (pisać → pisz-).', cls_irr: 'Unregelmäßig – einfach auswendig lernen: jestem, jem, wiem, rozumiem …', conj_past_tip: 'Vergangenheit: Stamm + -łem (Mann) / -łam (Frau) für „ich“, -ł (er), -ła (sie), -li (Männer oder gemischt).',
+      themes: 'Nach Thema', themes_d: 'Alles zu Arzt, Essen, Amt … gebündelt', themes_intro: 'Dieselben Lektionen wie auf dem Szlak, nur nach Alltagsthemen sortiert – zum Beispiel alles, was du für einen Arztbesuch brauchst. Dein Fortschritt zählt in beiden Ansichten.', theme_stats: '{n} Wörter · {s} schon gesehen · {m} sicher', theme_learn: 'Neue Wörter', theme_learn_d: 'Die nächsten 6 Wörter aus diesem Thema', theme_quiz: 'Thema üben', theme_quiz_d: 'Gemischte Runde mit deinen Wörtern aus dem Thema', theme_lessons: 'Lektionen in diesem Thema', theme_note: 'Gesperrte Städte kannst du auf ihrer Seite trotzdem öffnen – die Reihenfolge auf dem Szlak bleibt davon unberührt.', pack: 'Themenpaket', open_city: 'Trotzdem öffnen (zum Lernen)', open_city_d: 'Für Themen außer der Reihe: Du kannst hier lernen und üben. Die Stadtprüfung schaltet auf dem Szlak nur die nächste Stadt der Reihe frei.', diary: 'Anias Postkarten', diary_new: 'Neue Postkarte', diary_d: '{n} von {t} Karten lesbar. Jede geschaffte Stadt auf Szlak 2 bringt eine neue.', diary_done: 'Alle Postkarten gelesen – wir sehen uns auf der Śnieżka!', diary_start: 'Ania reist dir voraus. Schaffe die erste Stadt auf Szlak 2, um ihre erste Karte zu lesen.', diary_open: 'Postkarten lesen', diary_from: 'Postkarten von Ania',
+      lazy_fail: 'Dieser Bereich wird beim ersten Öffnen geladen. Bitte einmal mit Internet öffnen – danach geht er auch offline.',
+      vc: 'Stimme', vc_pick: 'Polnische Stimme', vc_test: 'Stimme testen', vc_d: 'Natürliche oder „verbesserte“ Stimmen klingen deutlich besser. Mehr Stimmen bekommst du in den Einstellungen deines Geräts.', vc_none: 'Auf diesem Gerät ist keine polnische Stimme installiert.', vc_none_toast: 'Keine polnische Stimme gefunden – Tipp unter Ich → Stimme.', vc_ios: 'iPhone/iPad: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Polnisch → „Zosia (verbessert)“ laden. Danach die App neu öffnen.', vc_and: 'Android: Einstellungen → Bedienungshilfen bzw. System → Sprache → Sprachausgabe → Google-Sprachausgabe → Sprachdaten installieren → Polnisch. Danach die App neu öffnen.', vc_pc: 'Windows: Einstellungen → Zeit und Sprache → Sprache → Polnisch hinzufügen (mit Sprachausgabe). Chrome und Edge bringen oft eigene Online-Stimmen mit.'
     },
     en: {
       nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
@@ -195,7 +231,15 @@
       rule_ou: 'ó and u sound the same. You have to remember the spelling.', rule_rz: 'rz and ż sound the same. Tip: if related words have an r (morze → morski), write rz.',
       rule_ch: 'ch and h sound the same today. ch is much more common; h appears mostly in loanwords (herbata, hotel).', rule_dia: 'Without the accent it is a different sound, sometimes even a different word.', rule_nasal: 'ą and ę are nasal vowels of their own and are not written om/en.', rule_soft: 'ś/ć/ź are soft (tongue forward), sz/cz/ż hard. Before a vowel you write si/ci/zi instead of ś/ć/ź.', rule_final: 'At the end of a word b, d, g, w, z are pronounced voiceless (chleb sounds like "chlep"), but the spelling keeps the original letter.',
       sync: 'Device sync', sync_d: 'With an account your progress is the same on phone, tablet and laptop. Without one, everything stays on this device only.', sync_email: 'Email', sync_pw: 'Password (min. 8 characters)', sync_login: 'Sign in', sync_signup: 'Create account', sync_forgot: 'Forgot password?', sync_as: 'Signed in as', sync_now: 'Sync now', sync_last: 'Last synced', sync_never: 'not yet', sync_busy: 'Syncing …', sync_done: 'Synced ✓', sync_logout: 'Sign out', sync_del: 'Delete my data from the server', sync_del_q: 'Really delete? Tap again', sync_deleted: 'Server data deleted. Everything stays on this device.', sync_mail_sent: 'Almost done: open the link in the email. Then you are signed in.', sync_reset_sent: 'If the account exists, a reset email is on its way.', sync_newpw: 'New password', sync_setpw: 'Save password', sync_pw_saved: 'New password saved ✓', sync_shared: 'One account for all apps on arndt-software.de (e.g. GeoQuest too).', sync_err_cred: 'Email or password is wrong.', sync_err_confirm: 'Please open the link in the confirmation email first.', sync_err_exists: 'This email already has an account. Please sign in.', sync_err_pw: 'The password is too short or too simple.', sync_err_rate: 'Too many attempts. Please try again later.', sync_err_net: 'No connection to the server. Your progress stays on this device and will sync later.', sync_err: 'That did not work', sync_ob: 'Already have an account? Sign in and load progress', bk_more: 'Without an account: transfer progress as text', bk_copy: 'Copy text', inst: 'Install as app', inst_hint: 'Tip: install as an app', inst_btn: 'Install now', inst_d: 'Polski Szlak then starts like an app from your home screen, without the browser bar, and works offline.', inst_done: 'Polski Szlak is already running as an app. Nice!', inst_ios: 'iPhone/iPad: in Safari tap the Share icon (square with arrow), then “Add to Home Screen”.', inst_other: 'In the browser menu (⋮ or ⋯) choose “Install app” or “Add to Home screen”. On a laptop: icon on the right of the address bar.', legal: 'Legal notice', privacy: 'Privacy',
-      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.', letter: 'The letter', letter_start: 'Szymek, a Krasnal from Wrocław, has brought you a letter in Polish. You can’t read it yet, but after every city one more sentence becomes readable.', letter_d: 'You can already read {n} of {t} sentences.', letter_new: 'New in the letter', letter_open: 'Read the letter', letter_locked: 'readable after {c}', letter_done: 'You have read the whole letter.', letter_from: 'A letter from Wrocław', mission: 'Mini mission', mission_d: 'Optional, in real life. Tick it off when you have done it.', mission_done: 'Done', mission_ok: 'Mission done', mission_xp: 'Mission done: +15 XP', hear: 'Hear real Polish', hear_d: 'Listen to this region\'s radio for a few minutes. You don\'t have to understand everything: the melody and a few words are enough.', hear_more: 'Listen to Polish', hear_more_d: 'Real voices, real speed. Selected, freely available resources (external sites).', ext: 'external site', aspect: 'Verb aspect', aspect_d: 'Perfective or imperfective? piję or wypiję', aspect_q: 'Which form fits?', asp_pf: 'perfective (result, once, finished)', asp_ipf: 'imperfective (in progress, duration, habit)', rep: 'Report a mistake', rep_ph: 'What is wrong? (no personal data)', rep_send: 'Send', rep_thanks: 'Thank you! Your report has arrived.', rep_fail: 'Sending failed. The text has been copied, you can send it by email:', rep_empty: 'Please describe briefly what is wrong.', rep_d: 'A word translated wrongly, an odd sentence? Let us know. Only your text, the exercise and the app version are sent.', share_boss: 'I passed the city test in {c} ({p}%)! Learn Polish city by city:', share_lq: 'I can read the letter from Wrocław in Polish ({p}%)! Polski Szlak:', rec: 'Record myself and compare', rec_stop: 'Stop recording', offline: 'Offline', net_ok: 'Synced', net_busy: 'Syncing …', net_err: 'Sync problem', tour_next: 'Next', tour_skip: 'Skip', tour_done: 'Let’s go', tour_again: 'Repeat the short tour', tour1: 'Your journey continues here. This button always takes you to the next sensible step.', tour2: 'The map: 12 cities, each with its own topic. Tap a city to open it.', tour3: 'The letter: after every city you can read one more sentence.', tour4: 'Practice: review, daily puzzle, cases, verb aspect and games.', tour5: 'Me: settings, device sync and what you can already do.', lq: 'Read the letter yourself', lq_d: 'Now without translation: read each sentence and answer the question.', lq_start: 'Start the questions', lq_best: 'Best result', lq_pass: 'You understand Ania\'s letter in Polish!'
+      about: 'About', about_d: 'Built on spaced repetition, active recall, sentences instead of lists, and a weekly goal instead of daily pressure. Works offline. Without an account everything stays on this device; with an account your progress is also synced between your devices.', to_start: 'Go to home screen', next_up: 'Up next', next_station: 'Next stop', go_on: 'Continue', view_city: 'View city', trip_done: 'You have completed every city. Gratulacje! Reviewing now helps everything stick.', step_learn: 'Get to know new words', step_scene: 'Have a real conversation on location', step_quiz: 'Practise the new words', step_build: 'Build your own sentences', step_boss: 'The city test – then the journey goes on', step_ripen: "Reinforce yesterday's words", step_wait: 'Pause until tomorrow – then reinforce the words', ripen: 'Reinforce', wait: 'Tomorrow',
+      ripe_title: 'Ready for the test?', ripe_d: 'The test opens once 8 out of 10 words have stuck on two different days. Spacing helps memory more than speed.', ripe_learn: '{n} more new words to meet, then it is time to reinforce.', ripe_wait: 'All done for today. Tomorrow the words come back – then the test opens.', ripe_ok: 'The words have stuck. The test is open.', boss_early_q: "This city's words have not stuck on two days yet. Take the test now anyway?", wb_title: 'Welcome back!', wb_d: 'Great to see you again. Breaks are part of it, nothing is lost. Let us refresh 5 words, then the journey continues.', wb_go: 'Refresh 5 words', wb_later: 'Later', cando: 'What I can already do', cando_empty: 'After your first city test, this shows what you can already do in Polish.', cando_stats: '{w} words mastered · {s} conversations · {c} cities done', cando_next: 'Next you will learn', ob_inp: 'How would you like to answer?', ob_inp_d: 'You can change this any time under “Me”. Every typing question also offers “Rather: …”.', letter: 'The letter', letter_start: 'Szymek, a Krasnal from Wrocław, has brought you a letter in Polish. You can’t read it yet, but after every city one more sentence becomes readable.', letter_d: 'You can already read {n} of {t} sentences.', letter_new: 'New in the letter', letter_open: 'Read the letter', letter_locked: 'readable after {c}', letter_done: 'You have read the whole letter.', letter_from: 'A letter from Wrocław', mission: 'Mini mission', mission_d: 'Optional, in real life. Tick it off when you have done it.', mission_done: 'Done', mission_ok: 'Mission done', mission_xp: 'Mission done: +15 XP', hear: 'Hear real Polish', hear_d: 'Listen to this region\'s radio for a few minutes. You don\'t have to understand everything: the melody and a few words are enough.', hear_more: 'Listen to Polish', hear_more_d: 'Real voices, real speed. Selected, freely available resources (external sites).', ext: 'external site', aspect: 'Verb aspect', aspect_d: 'Perfective or imperfective? piję or wypiję', aspect_q: 'Which form fits?', asp_pf: 'perfective (result, once, finished)', asp_ipf: 'imperfective (in progress, duration, habit)', rep: 'Report a mistake', rep_ph: 'What is wrong? (no personal data)', rep_send: 'Send', rep_thanks: 'Thank you! Your report has arrived.', rep_fail: 'Sending failed. The text has been copied, you can send it by email:', rep_empty: 'Please describe briefly what is wrong.', rep_d: 'A word translated wrongly, an odd sentence? Let us know. Only your text, the exercise and the app version are sent.', share_boss: 'I passed the city test in {c} ({p}%)! Learn Polish city by city:', share_lq: 'I can read the letter from Wrocław in Polish ({p}%)! Polski Szlak:', rec: 'Record myself and compare', rec_stop: 'Stop recording', offline: 'Offline', net_ok: 'Synced', net_busy: 'Syncing …', net_err: 'Sync problem', tour_next: 'Next', tour_skip: 'Skip', tour_done: 'Let’s go', tour_again: 'Repeat the short tour', tour1: 'Your journey continues here. This button always takes you to the next sensible step.', tour2: 'The map: 12 cities, each with its own topic. Tap a city to open it.', tour3: 'The letter: after every city you can read one more sentence.', tour4: 'Practice: review, daily puzzle, cases, verb aspect and games.', tour5: 'Me: settings, device sync and what you can already do.', lq: 'Read the letter yourself', lq_d: 'Now without translation: read each sentence and answer the question.', lq_start: 'Start the questions', lq_best: 'Best result', lq_pass: 'You understand Ania\'s letter in Polish!',
+      wd_miss: 'not recognised', wd_hint: '{n} word(s) not recognised (red). Listen to them slowly and try again.', g_title: 'I speak as …', g_d: 'For forms like “byłem / byłam” (I was) or “zmęczony / zmęczona” (tired). Both forms are always accepted as answers.', g_m: 'man (byłem)', g_f: 'woman (byłam)',
+      rv_me: 'Have the Polish checked', rv_me_d: 'Do you know a native Polish speaker? Send them the review link: they can check all Polish content piece by piece with ✓ or ✗ (entirely in Polish). Their notes go straight to the developer.', rv_me_btn: 'Share review link', rv_me_share: 'Can you help me? Please check the Polish sentences in this learning app (Pomożesz? Sprawdź proszę polskie zdania w tej aplikacji):',
+      wr_title: 'Your week', wr_close: 'Close', wr_days: 'learning days', wr_new: 'new words', wr_sure: 'newly solid', wr_more: 'more than the week before', wr_less: 'less than the week before', wr_goal_ok: 'Weekly goal reached – great!', wr_goal_no: 'New week, fresh start.', wr_pct: '{p}% of your answers were correct.', wr_hard: 'Trickiest', wr_go: 'Practise these 3', rem: 'Calendar reminder', rem_d: 'No push notifications: you add a recurring event to your own calendar. Change or delete it there any time.', rem_days: 'Days', rem_time: 'Time', rem_btn: 'Create calendar event', rem_title: 'Polski Szlak – 5 minutes of Polish', rem_desc: 'Quick practice, no pressure. Do zobaczenia!', rem_none: 'Please choose at least one day.', dn: 'Mon,Tue,Wed,Thu,Fri,Sat,Sun',
+      conj: 'Conjugation', conj_d: '40 key verbs: present and past', conj_intro: 'Polish verbs change their ending for each person. Most follow a few patterns (verb classes). Once you know them, you can form new verbs too.', conj_tense: 'Tense', conj_pres: 'Present', conj_past: 'Past', conj_mix: 'Mixed', conj_cls: 'Verb class', conj_all: 'All', conj_all_d: 'All verb classes mixed.', conj_verbs: 'verbs', conj_list: 'Verb tables for reference', conj_q: 'Which form fits?', conj_q_past: 'Past tense: which form fits?', clsn_am: '-am, -asz', clsn_i: '-ę, -isz', clsn_uje: '-uję', clsn_e: '-ę, -esz', clsn_irr: 'irregular', cls_am: 'Pattern -am: ja czytam, ty czytasz, on czyta, my czytamy, wy czytacie, oni czytają.', cls_i: 'Pattern -ę/-isz: ja robię, ty robisz, on robi, my robimy, wy robicie, oni robią (after cz, sz, rz, ż: -ysz, -y).', cls_uje: 'Verbs in -ować: -ow- becomes -uj-: pracować → pracuję, pracujesz, pracuje … pracują.', cls_e: 'Pattern -ę/-esz: ja piszę, ty piszesz, on pisze, my piszemy, wy piszecie, oni piszą. The stem often changes (pisać → pisz-).', cls_irr: 'Irregular – just learn them by heart: jestem, jem, wiem, rozumiem …', conj_past_tip: 'Past tense: stem + -łem (man) / -łam (woman) for “I”, -ł (he), -ła (she), -li (men or mixed group).',
+      themes: 'By topic', themes_d: 'Everything for the doctor, food, offices … bundled', themes_intro: 'The same lessons as on the Szlak, sorted by everyday topic – for example everything you need for a visit to the doctor. Your progress counts in both views.', theme_stats: '{n} words · {s} seen · {m} solid', theme_learn: 'New words', theme_learn_d: 'The next 6 words from this topic', theme_quiz: 'Practise topic', theme_quiz_d: 'Mixed round with your words from this topic', theme_lessons: 'Lessons in this topic', theme_note: 'You can still open locked cities on their page – the order on the Szlak stays the same.', pack: 'Topic pack', open_city: 'Open anyway (to learn)', open_city_d: 'For topics out of order: you can learn and practise here. On the Szlak the city test only unlocks the next city in line.', diary: 'Ania’s postcards', diary_new: 'New postcard', diary_d: '{n} of {t} cards readable. Every city you complete on Szlak 2 brings a new one.', diary_done: 'All postcards read – see you on Śnieżka!', diary_start: 'Ania is travelling ahead of you. Complete the first city on Szlak 2 to read her first card.', diary_open: 'Read postcards', diary_from: 'Postcards from Ania',
+      lazy_fail: 'This section is loaded the first time you open it. Please open it once while online – after that it works offline too.',
+      vc: 'Voice', vc_pick: 'Polish voice', vc_test: 'Test voice', vc_d: 'Natural or “enhanced” voices sound much better. You can add more voices in your device settings.', vc_none: 'No Polish voice is installed on this device.', vc_none_toast: 'No Polish voice found – see Me → Voice for a tip.', vc_ios: 'iPhone/iPad: Settings → Accessibility → Spoken Content → Voices → Polish → download “Zosia (Enhanced)”. Then reopen the app.', vc_and: 'Android: Settings → Accessibility or System → Language → Text-to-speech → Google Speech Services → Install voice data → Polish. Then reopen the app.', vc_pc: 'Windows: Settings → Time & language → Language → add Polish (with text-to-speech). Chrome and Edge often include their own online voices.'
     }
   };
 
@@ -203,9 +247,12 @@
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0 }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '' }; /* PATCH002 PATCH004 */
   }
   var S = load();
+  loadData();
+  fixUnlock();
+  try { pickVoice(); } catch (e) {}
   function load() {
     try { var raw = localStorage.getItem(KEY); if (raw) { var o = JSON.parse(raw); if (C.validateSave(o)) return Object.assign(fresh(), o); } } catch (e) {}
     try { var h = window.claude && window.claude.hot && window.claude.hot.data; if (h && C.validateSave(h)) return Object.assign(fresh(), h); } catch (e) {}
@@ -216,7 +263,15 @@
   try { if (window.claude && window.claude.hot) window.claude.hot.snapshot(function () { return S; }); } catch (e) {}
 
   function diff() { return C.diffCfg(S.diff); }
-  function isOpen(i) { return S.free || i <= S.unlocked; }
+  /* 3.0: Route = Szlak 1 (r fehlt/1) + Szlak 2 (r = 2), danach Themenpakete (pack = 1, immer offen, nicht auf der Karte) */
+  function isPack(i) { return !!(U[i] && U[i].pack); }
+  function routeIdx() { var a = []; for (var i = 0; i < U.length; i++) if (!U[i].pack) a.push(i); return a; }
+  function lastRoute() { return routeIdx().length - 1; }
+  function szlakOf(i) { return (U[i] && U[i].r) || 1; }
+  function szlakUnits(r) { return routeIdx().filter(function (i) { return szlakOf(i) === r; }); }
+  function isOpen(i) { return S.free || i <= S.unlocked || isPack(i) || !!(S.opened && U[i] && S.opened[U[i].id]); }
+  /* Wer alle Städte bis zur Grenze geschafft hat (z. B. vor 3.0 ganz Szlak 1), bekommt die nächste Stadt frei */
+  function fixUnlock() { var lr = lastRoute(); while (S.unlocked < lr && U[S.unlocked] && (S.boss[U[S.unlocked].id] || S.skipped[U[S.unlocked].id])) S.unlocked++; }
   /* Dla Polaków: Spieloberfläche komplett Polnisch (polUI an, solange man im Bereich ist) */
   var polUI = false, PLX = { again: 'Jeszcze raz', back: 'Wróć', best: 'Rekord', combo: 'Seria', done: 'Koniec', failed: 'Tym razem się nie udało.', home: 'Wróć', next: 'Dalej', passed: 'Zaliczone', right: 'Dobrze', score: 'Wynik', skip: 'Pomiń', skip_q: 'Pomiń pytanie', solution: 'Odpowiedź', wrong: 'Niestety nie', check: 'Sprawdź', share: 'Kopiuj wynik', copied: 'Skopiowano', start: 'Start', j_hint: 'Podpowiedź', jokers_d: 'Co poniedziałek znowu po 3 sztuki. 50:50 usuwa dwie złe odpowiedzi, +10 s zatrzymuje zegar.' };
   function t(k) { if (polUI && PLX[k] != null) return PLX[k]; var v = TX[S.base][k]; return v == null ? k : v; }
@@ -238,14 +293,22 @@
   function byId(id) { var a = allWords(); for (var i = 0; i < a.length; i++) if (a[i].id === id) return a[i]; return null; }
   function masteredCount(list) { return (list || allWords()).filter(function (x) { var c = S.cards[x.id]; return c && c.box >= C.MASTERED_BOX; }).length; }
   function dueList() { var d = today(); return allWords().filter(function (x) { return C.isDue(S.cards[x.id], d); }); }
-  function openUnits() { var a = []; for (var i = 0; i < U.length; i++) if (isOpen(i)) a.push(i); return a; }
-  function nextUnit() { for (var i = 0; i < U.length; i++) if (isOpen(i) && !S.boss[U[i].id] && !S.skipped[U[i].id]) return i; return Math.min(S.unlocked, U.length - 1); }
+  function packStarted(i) { return U[i].words.some(function (w, k) { return !!S.cards[U[i].id + ':' + k]; }); }
+  function openUnits() { var a = []; for (var i = 0; i < U.length; i++) if (isPack(i) ? packStarted(i) : isOpen(i)) a.push(i); return a; }
+  /* Wörter der Stadt, die heute zum Festigen fällig sind (noch nicht an zwei Tagen gesessen) */
+  function ripenList(ui) { var d = today(); return wordsOf(ui).filter(function (x) { var c = S.cards[x.id]; return c && c.box < 2 && C.isDue(c, d); }); }
+  /* Nächster Schritt einer Stadt; 'ripen' ohne fällige Wörter wird zu 'wait' (morgen geht es weiter) */
+  function cityStep(ui) { var s = C.nextStep(S, U[ui].id, U[ui].words.length); return s === 'ripen' && !ripenList(ui).length ? 'wait' : s; }
+  function nextUnit() { var ri = routeIdx(); for (var k = 0; k < ri.length; k++) { var i = ri[k]; if (isOpen(i) && !S.boss[U[i].id] && !S.skipped[U[i].id]) return i; } return Math.min(S.unlocked, lastRoute()); }
   function poolOpen() { var p = []; openUnits().forEach(function (ui) { p = p.concat(wordsOf(ui)); }); return p; }
 
   /* ---------- Sprachausgabe ---------- */
   var voice = null;
-  function pickVoice() { try { var vs = speechSynthesis.getVoices(); voice = vs.filter(function (v) { return /^pl/i.test(v.lang); })[0] || null; } catch (e) {} }
-  try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
+  /* 3.0: beste polnische Stimme wählen (natürliche / verbesserte Stimmen bevorzugt), eigene Wahl unter „Ich“ */
+  function plVoices() { try { return speechSynthesis.getVoices().filter(function (v) { return /^pl/i.test(v.lang); }); } catch (e) { return []; } }
+  function voiceScore(v) { var n = v.name || ''; return (/natural|neural|online/i.test(n) ? 4 : 0) + (/premium|enhanced|verbessert|wavenet/i.test(n) ? 3 : 0) + (/google/i.test(n) ? 2 : 0) + (/zosia|ewa|marek|agnieszka/i.test(n) ? 1 : 0) + (v.localService ? 0 : 1); }
+  function pickVoice() { var vs = plVoices(); voice = (S && S.voice && vs.filter(function (v) { return v.name === S.voice; })[0]) || vs.slice().sort(function (a, b) { return voiceScore(b) - voiceScore(a); })[0] || null; if (tab === 'me' && document.getElementById('voice')) refreshVoiceBox(); }
+  try { speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
   /* Muttersprachler-Aufnahmen (Vorschlag L): data.json "audio" ordnet Text -> Datei unter audio/ zu. Fehlt eine Aufnahme, spricht die Gerätestimme. */
   var curAudio = null;
   function audioFor(text) { var m = D.audio || {}, k = String(text).replace(/…/g, '').trim(); return m[k] || m[k.toLowerCase()] || null; }
@@ -257,7 +320,9 @@
     }
     ttsSpeak(text, slow);
   }
+  var vcWarned = false;
   function ttsSpeak(text, slow) {
+    if (!voice && !vcWarned && typeof speechSynthesis !== 'undefined' && speechSynthesis.getVoices().length && !plVoices().length) { vcWarned = true; toast(t('vc_none_toast')); }
     try {
       speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(String(text).replace(/…/g, ''));
@@ -286,9 +351,13 @@
   /* ---------- Fortschritt buchen ---------- */
   function markActive() { var d = today(); S.active[d] = (S.active[d] || 0) + 1; }
   function addXp(n) { S.xp += n; var wk = C.weekKey(today()); S.weekXp[wk] = (S.weekXp[wk] || 0) + n; }
+  /* Wochenlog für den Wochenrückblick (3.0): n = neue Wörter, m = neu sicher, r/w = richtig/falsch */
+  function wlog(f, n) { var wk = C.weekKey(today()); S.wlog = S.wlog || {}; var e = S.wlog[wk] = S.wlog[wk] || {}; e[f] = (e[f] || 0) + (n || 1); }
   function grade(id, ok) {
     if (!id) return;
+    var before = S.cards[id]; if (!before) wlog('n');
     S.cards[id] = C.srsUpdate(S.cards[id], ok, today());
+    wlog(ok ? 'r' : 'w'); if ((!before || before.box < C.MASTERED_BOX) && S.cards[id].box >= C.MASTERED_BOX) wlog('m');
     if (!ok) { S.mistakes = S.mistakes.filter(function (m) { return m !== id; }); S.mistakes.unshift(id); S.mistakes = S.mistakes.slice(0, 60); }
     else if (S.cards[id].box >= 3) S.mistakes = S.mistakes.filter(function (m) { return m !== id; });
   }
@@ -347,8 +416,10 @@
     if (tab === 'lex') return renderLex();
     if (tab === 'duel') return renderDuelSetup();
     if (tab === 'face') return renderFaceSetup();
-    if (tab === 'polacy') return renderPolacy();
-    if (tab === 'letter') return renderLetter();
+    if (tab === 'polacy') return RAW.polacy ? renderPolacy() : needPolacy(function () { renderPolacy(); });
+    if (tab === 'letter') return renderLetter(arg);
+    if (tab === 'themes') return renderThemes(arg);
+    if (tab === 'conj') return renderConj();
   }
 
   /* ---------- Onboarding ---------- */
@@ -368,6 +439,7 @@
         [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div><p class="small muted">' + esc(t('pause_ok')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('ob_diff')) + '</b><div class="seg" id="ob-diff">' + ['easy', 'medium', 'hard'].map(function (k) { return segBtn(k, t('diff_' + k), S.diff === k); }).join('') + '</div><p class="small muted">' + esc(t('diff_' + S.diff + '_d')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('ob_inp')) + '</b><div class="seg" id="ob-inp">' + ['write', 'speak', 'tap'].map(function (k) { return segBtn(k, t('inp_' + k), S.input === k); }).join('') + '</div><p class="small muted">' + esc(t('inp_' + S.input + '_d')) + ' ' + esc(t('ob_inp_d')) + '</p></div>' +
+      '<div class="stack"><b>' + esc(t('g_title')) + '</b><div class="seg" id="ob-g">' + segBtn('m', t('g_m'), S.gender === 'm') + segBtn('f', t('g_f'), S.gender === 'f') + '</div><p class="small muted">' + esc(t('g_d')) + '</p></div>' +
       '<button class="btn primary block" id="ob-go">' + esc(t('ob_go')) + '</button><button class="btn block" id="ob-place">' + esc(t('ob_place')) + '</button><button class="btn ghost block" id="ob-sync">' + esc(t('sync_ob')) + '</button></section>', false);
     document.getElementById('ob-sync').onclick = function () { obSync = true; renderOnboarding(); };
     bindSeg('ob-base', function (v) { S.base = v; renderOnboarding(); });
@@ -375,6 +447,7 @@
     bindSeg('ob-goal', function (v) { S.goal = +v; renderOnboarding(); });
     bindSeg('ob-diff', function (v) { S.diff = v; renderOnboarding(); });
     bindSeg('ob-inp', function (v) { S.input = v; renderOnboarding(); });
+    bindSeg('ob-g', function (v) { S.gender = v; loadData(); renderOnboarding(); });
     document.getElementById('ob-place').onclick = function () { S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); tab = 'home'; startMode('placement'); };
     document.getElementById('ob-go').onclick = function () { S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); go('city', 0); };
   }
@@ -385,23 +458,26 @@
   function proj(lon, lat) { return C.proj(lon, lat); } /* PATCH003 */
   function mapSvg() {
     var pts = D.outline.map(function (p) { var q = proj(p[0], p[1]); return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' ');
-    var route = U.map(function (u) { return proj(u.lon, u.lat); });
+    var idx = szlakUnits(mapR()), route = idx.map(function (i) { return proj(U[i].lon, U[i].lat); });
     var routeAll = route.map(function (q) { return q.join(','); }).join(' ');
-    var doneUpTo = Math.min(S.unlocked, U.length - 1);
-    var routeDone = route.slice(0, doneUpTo + 1).map(function (q) { return q.join(','); }).join(' ');
-    var nodes = U.map(function (u, i) {
-      var q = route[i], cls = 'node ' + (S.boss[u.id] ? 'done' : (isOpen(i) ? 'open' : 'locked')) + (i === nextUnit() && !S.boss[u.id] ? ' next' : '');
+    var doneN = idx.filter(function (i) { return i <= S.unlocked; }).length;
+    var routeDone = route.slice(0, doneN).map(function (q) { return q.join(','); }).join(' ');
+    var nodes = idx.map(function (i, k) {
+      var u = U[i], q = route[k], cls = 'node ' + (S.boss[u.id] ? 'done' : (isOpen(i) ? 'open' : 'locked')) + (i === nextUnit() && !S.boss[u.id] ? ' next' : '');
       var lx = q[0] + 16, anchor = 'start';
-      if (q[0] > 520 || u.id === 'kat') { lx = q[0] - 16; anchor = 'end'; }
+      if (q[0] > 520 || u.id === 'kat' || u.id === 'tar') { lx = q[0] - 16; anchor = 'end'; }
       return '<g class="' + cls + '" data-city="' + i + '" role="button" tabindex="0" aria-label="' + esc(u.city) + '">' +
         '<circle class="halo" cx="' + q[0] + '" cy="' + q[1] + '" r="24" fill="transparent"/>' +
         '<circle class="dot" cx="' + q[0] + '" cy="' + q[1] + '" r="10"/>' +
         '<text x="' + lx + '" y="' + (q[1] + 7) + '" text-anchor="' + anchor + '">' + esc(u.city) + '</text></g>';
     }).join('');
     return '<svg class="map" viewBox="-10 0 680 650" role="img" aria-label="' + esc(t('all_cities')) + '"><polygon class="land" points="' + pts + '"/>' +
-      '<polyline class="route" points="' + routeAll + '"/>' + (doneUpTo > 0 ? '<polyline class="route-done" points="' + routeDone + '"/>' : '') + nodes + '</svg>';
+      '<polyline class="route" points="' + routeAll + '"/>' + (doneN > 1 ? '<polyline class="route-done" points="' + routeDone + '"/>' : '') + nodes + '</svg>';
   }
 
+  var mapSel = null;
+  function mapR() { return mapSel || (szlakOf(nextUnit()) === 2 ? 2 : 1); }
+  function mapSeg() { return szlakUnits(2).length ? '<div class="seg map-seg" id="map-r">' + segBtn('1', 'Szlak 1 · A1', mapR() === 1) + segBtn('2', 'Szlak 2 · A2', mapR() === 2) + '</div>' : ''; }
   function weekRing() {
     var wk = C.weekKey(today()), n = C.daysInWeek(S.active, wk), g = S.goal, r = 38, cx = 46, cy = 46, segs = '';
     for (var i = 0; i < g; i++) {
@@ -417,7 +493,7 @@
   function renderHome() {
     var d = today(), wk = C.weekKey(d), nUnit = nextUnit(), u = U[nUnit];
     var due = dueList().length, ws = C.weekStreak(S.active, S.goal, d);
-    var banner = '', gap = C.daysSince(S.active, d), step = C.nextStep(S, u.id);
+    var banner = '', gap = C.daysSince(S.active, d), step = cityStep(nUnit);
     if (gap >= 7 && S.welcomeDay !== d && Object.keys(S.cards).length) {
       banner = '<section class="card stack pop welcome" id="wb"><b class="big">' + esc(t('wb_title')) + '</b><p>' + esc(t('wb_d')) + '</p>' +
         '<div class="row"><button class="btn primary" id="wb-go">' + esc(t('wb_go')) + '</button><button class="btn ghost" id="wb-later">' + esc(t('wb_later')) + '</button></div></section>';
@@ -427,15 +503,16 @@
       banner = '<div class="banner pop"><strong>' + esc(t('fresh')) + '</strong><span>' + esc(lastN >= S.goal ? t('fresh_ok') : t('fresh_d').replace('{a}', lastN).replace('{g}', S.goal)) + '</span></div>';
       S.seenWeek = wk; save();
     }
+    var wr = weekReviewBox(wk);
     var lastXp = S.weekXp[C.prevWeek(wk)] || 0, thisXp = S.weekXp[wk] || 0, mx = Math.max(lastXp, thisXp, 1);
-    var html = banner +
+    var html = banner + wr +
       '<section class="card hero"><div class="hero-top">' + weekRing() + '<div class="stack" style="gap:4px;min-width:0"><span class="eyebrow">' + esc(t('week')) + '</span>' +
       '<b class="num">' + ws + ' ' + esc(t('wk_streak')) + '</b><span class="small muted num">' + C.totalDays(S.active) + ' ' + esc(t('total_days')) + ' · ' + masteredCount() + ' ' + esc(t('mastered')) + '</span></div></div>' +
       '<button class="btn primary block" id="cta">' + blaze(u.trail) + esc(t('continue')) + ': ' + esc(u.city) + (step ? ' · ' + esc(t(step)) : '') + '</button>' +
       (step ? '<div class="row small" style="justify-content:space-between"><span class="muted">' + esc(t('next_up')) + ': ' + esc(t('step_' + step)) + '</span><button class="btn ghost small" id="cta-city" style="min-height:36px;padding:4px 0">' + esc(t('view_city')) + ' →</button></div>' : '') + '</section>' +
-      letterCard() +
-      '<section class="map-wrap card" style="padding:8px">' + mapSvg() + '</section>' +
-      '<section class="tiles">' +
+      storyCard() +
+      '<section class="map-wrap card" style="padding:8px">' + mapSeg() + mapSvg() + '</section>' +
+      '<section class="tiles">' + tileBtn('themes', t('themes'), t('themes_d')) +
         tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
         tileBtn('daily', t('daily'), t('daily_d'), S.daily[d] ? '<span class="badge good num">' + S.daily[d].score + '/10</span>' : '') +
       '</section>' +
@@ -446,8 +523,12 @@
     shell(html);
     document.getElementById('cta').onclick = function () { if (step && isOpen(nUnit)) startMode(step, nUnit); else go('city', nUnit); };
     var cc = document.getElementById('cta-city'); if (cc) cc.onclick = function () { go('city', nUnit); };
-    var lo = document.getElementById('letter-open'); if (lo) lo.onclick = function () { go('letter'); };
+    var lo = document.getElementById('letter-open'); if (lo) lo.onclick = function () { go('letter', lo.getAttribute('data-story')); };
+    bindSeg('map-r', function (v) { mapSel = +v; renderHome(); });
+    var lold = document.getElementById('letter-old'); if (lold) lold.onclick = function () { go('letter', 'letter'); };
     var wg = document.getElementById('wb-go'); if (wg) wg.onclick = function () { startMode('welcome'); };
+    var wrx = document.getElementById('wr-x'); if (wrx) wrx.onclick = function () { S.wrSeen = wk; save(); var e = document.getElementById('wr'); if (e) e.remove(); };
+    var wrg = document.getElementById('wr-go'); if (wrg) wrg.onclick = function () { S.wrSeen = wk; save(); startMode('wr3'); };
     var wl = document.getElementById('wb-later'); if (wl) wl.onclick = function () { var w = document.getElementById('wb'); if (w) w.remove(); };
     bindTiles();
     if (!S.tour && !banner) setTimeout(function () { if (tab === 'home' && !view) startTour(); }, 400);
@@ -455,6 +536,18 @@
       var open = function () { go('city', +g.getAttribute('data-city')); };
       g.onclick = open; g.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
     });
+  }
+  /* Wochenrückblick (3.0): in der neuen Woche einmal oben, bis man ihn schließt. Vergleich mit der Woche davor, die 3 kniffligsten Wörter */
+  function weekReviewBox(wk) {
+    var pw = C.prevWeek(wk), L0 = (S.wlog || {})[pw];
+    if (S.wrSeen === wk || !L0 || !((L0.r || 0) + (L0.w || 0) + (L0.n || 0))) return '';
+    var L1 = (S.wlog || {})[C.prevWeek(pw)] || {}, days = C.daysInWeek(S.active, pw), pct = (L0.r || 0) + (L0.w || 0) ? Math.round((L0.r || 0) / ((L0.r || 0) + (L0.w || 0)) * 100) : 0;
+    var arrow = function (a, b) { return a > b ? ' <span class="good-t" aria-label="' + esc(t('wr_more')) + '">▲</span>' : (a < b ? ' <span class="muted" aria-label="' + esc(t('wr_less')) + '">▼</span>' : ''); };
+    var hard = S.mistakes.map(byId).filter(Boolean).slice(0, 3);
+    return '<section class="card stack pop wr" id="wr"><div class="row" style="justify-content:space-between"><span class="eyebrow">' + esc(t('wr_title')) + '</span><button class="icon-btn" id="wr-x" aria-label="' + esc(t('wr_close')) + '">' + I.x + '</button></div>' +
+      '<div class="stats3"><div class="stat"><b class="num">' + days + '/' + S.goal + '</b><span class="small muted">' + esc(t('wr_days')) + '</span></div><div class="stat"><b class="num">' + (L0.n || 0) + arrow(L0.n || 0, L1.n || 0) + '</b><span class="small muted">' + esc(t('wr_new')) + '</span></div><div class="stat"><b class="num">' + (L0.m || 0) + arrow(L0.m || 0, L1.m || 0) + '</b><span class="small muted">' + esc(t('wr_sure')) + '</span></div></div>' +
+      '<p class="small">' + esc((days >= S.goal ? t('wr_goal_ok') : t('wr_goal_no')) + ' ' + t('wr_pct').replace('{p}', pct)) + '</p>' +
+      (hard.length ? '<p class="small"><b>' + esc(t('wr_hard')) + ':</b> ' + hard.map(function (x) { return '<span lang="pl">' + esc(x.w[0]) + '</span>'; }).join(' · ') + '</p><button class="btn primary" id="wr-go" style="justify-self:start">' + esc(t('wr_go')) + '</button>' : '') + '</section>';
   }
   function tileBtn(k, title, desc, extra) { return '<button class="tile" data-mode="' + k + '"><span class="t">' + esc(title) + '</span><span class="d">' + esc(desc) + '</span>' + (extra || '') + '</button>'; }
   function bindTiles(ui) { document.querySelectorAll('[data-mode]').forEach(function (b) { b.onclick = function () { startMode(b.getAttribute('data-mode'), ui); }; }); }
@@ -464,22 +557,26 @@
     ui = ui == null ? 0 : ui; var u = U[ui], locked = !isOpen(ui);
     var list = wordsOf(ui), m = masteredCount(list);
     var html = '<section class="city-head"><button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button>' +
-      '<div class="row">' + blaze(u.trail) + '<span class="eyebrow">' + (ui + 1) + ' / ' + U.length + ' · ' + esc(cityName(u)) + '</span></div>' +
+      '<div class="row">' + (u.pack ? '<span aria-hidden="true">' + esc(u.ico) + '</span><span class="eyebrow">' + esc(t('pack')) + ' · ' + esc(cityName(u)) + '</span>' : blaze(u.trail) + '<span class="eyebrow">Szlak ' + szlakOf(ui) + ' · ' + (szlakUnits(szlakOf(ui)).indexOf(ui) + 1) + ' / ' + szlakUnits(szlakOf(ui)).length + ' · ' + esc(cityName(u)) + '</span>') + '</div>' +
       '<div class="pl">' + esc(u.city) + '</div><h2>' + esc(L(u.title)) + '</h2>' +
       '<div class="row small muted num"><div class="bar" style="flex:1;max-width:240px"><i style="width:' + (m / list.length * 100) + '%"></i></div>' + m + '/' + list.length + ' ' + esc(t('city_progress')) + (S.boss[u.id] ? ' · <span class="badge good">' + esc(t('passed')) + '</span>' : (S.skipped[u.id] ? ' · <span class="badge">' + esc(t('skipped_city')) + '</span>' : '')) + '</div></section>' +
       '<section class="card stack"><span class="eyebrow">' + esc(t('can')) + '</span><p>' + esc(L(u.can)) + '</p></section>';
     if (locked) {
-      html += '<section class="card stack"><b>' + esc(t('locked')) + '</b><button class="btn primary" data-mode="boss">' + esc(t('test_out')) + '</button><button class="btn" id="skip-city">' + esc(t('skip_city')) + '</button><p class="small muted">' + esc(t('skip_city_d')) + '</p></section>';
+      html += '<section class="card stack"><b>' + esc(t('locked')) + '</b><button class="btn primary" data-mode="boss">' + esc(t('test_out')) + '</button><button class="btn" id="skip-city">' + esc(t('skip_city')) + '</button><p class="small muted">' + esc(t('skip_city_d')) + '</p>' +
+        '<button class="btn ghost" id="open-city" style="justify-self:start">' + esc(t('open_city')) + '</button><p class="small muted">' + esc(t('open_city_d')) + '</p></section>';
     } else {
-      var nst = C.nextStep(S, u.id), nx = function (k) { return k === nst ? '<span class="badge next">' + esc(t('next_up')) + '</span>' : ''; };
+      var nst = cityStep(ui), rp = C.cityRipe(S, u.id, list.length), ready = S.boss[u.id] || (rp.seen >= rp.n && rp.ripe >= rp.need), nx = function (k) { return k === nst ? '<span class="badge next">' + esc(t('next_up')) + '</span>' : ''; };
+      if (!S.boss[u.id]) html += '<section class="card stack ripe"><div class="row" style="justify-content:space-between"><span class="eyebrow">' + esc(t('ripe_title')) + '</span><span class="small num">' + rp.ripe + '/' + rp.need + '</span></div>' +
+        '<div class="bar"><i style="width:' + Math.min(100, rp.ripe / rp.need * 100) + '%"></i></div><p class="small muted">' + esc(ready ? t('ripe_ok') : rp.seen < rp.n ? t('ripe_learn').replace('{n}', rp.n - rp.seen) : nst === 'wait' ? t('ripe_wait') : t('ripe_d')) + '</p>' +
+        (nst === 'ripen' ? '<button class="btn primary" data-mode="ripen" style="justify-self:start">' + esc(t('ripen')) + ' · ' + ripenList(ui).length + '</button>' : '') + '</section>';
       html += '<section class="tiles">' +
         tileBtn('learn', t('learn'), t('learn_d'), nx('learn')) + tileBtn('scene', t('scene'), t('scene_d'), S.scenes[u.id] ? '<span class="badge good">✓</span>' : nx('scene')) +
         tileBtn('quiz', t('quiz'), t('quiz_d'), nx('quiz')) + tileBtn('listen', t('listen'), t('listen_d')) +
         tileBtn('type', t('type'), t('type_d')) + tileBtn('build', t('build'), t('build_d'), nx('build')) +
         tileBtn('cloze', t('cloze'), t('cloze_d')) + tileBtn('match', t('match'), t('match_d')) +
-        tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : nx('boss')) +
+        tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : ready ? nx('boss') : '<span class="badge num">🔒 ' + rp.ripe + '/' + rp.need + '</span>') +
         '</section>';
-      if (!S.boss[u.id] && ui < U.length - 1) html += '<button class="btn ghost" id="skip-city" style="justify-self:start">' + esc(t('skip_city')) + ' →</button>';
+      if (!S.boss[u.id] && !u.pack && ui < lastRoute()) html += '<button class="btn ghost" id="skip-city" style="justify-self:start">' + esc(t('skip_city')) + ' →</button>';
       html += missionBox(u);
     }
     html += '<section class="tip"><span class="eyebrow">' + esc(t('tip')) + '</span><p>' + esc(L(u.tip)) + '</p></section>' + radioBox(u) +
@@ -491,9 +588,12 @@
           '<div class="grow"><div class="pl-word">' + esc(x.w[0]) + '</div><div class="small muted">' + esc(meaning(x.w)) + '</div></div><span class="box-dots" aria-hidden="true">' + dots + '</span></div>';
       }).join('') + '</div></section>';
     shell(html);
-    document.getElementById('back').onclick = function () { go('home'); };
+    document.getElementById('back').onclick = function () { if (cityBack) { var th = cityBack; cityBack = null; go('themes', th); } else go('home'); };
+    var oc = document.getElementById('open-city'); if (oc) oc.onclick = function () { S.opened = S.opened || {}; S.opened[u.id] = today(); save(); renderCity(ui); };
     document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
     bindTiles(ui);
+    var bt = !locked && !ready && document.querySelector('.tiles [data-mode="boss"]');
+    if (bt) bt.onclick = function () { if (window.confirm(t('boss_early_q'))) startMode('boss', ui); };
     var sk = document.getElementById('skip-city'); if (sk) sk.onclick = function () { skipCity(ui); };
     var mi = document.getElementById('mis'); if (mi) mi.onclick = function () {
       if (S.missions[u.id]) return;
@@ -516,8 +616,8 @@
   }
   function skipCity(ui) {
     for (var i = 0; i <= ui; i++) if (!S.boss[U[i].id]) S.skipped[U[i].id] = true;
-    if (ui < U.length - 1) S.unlocked = Math.max(S.unlocked, ui + 1);
-    save(); toast(t('skipped_toast') + ' ' + U[Math.min(ui + 1, U.length - 1)].city); go('city', Math.min(ui + 1, U.length - 1));
+    var lr = lastRoute(); if (ui < lr) S.unlocked = Math.max(S.unlocked, ui + 1);
+    save(); toast(t('skipped_toast') + ' ' + U[Math.min(ui + 1, lr)].city); go('city', Math.min(ui + 1, lr));
   }
 
   /* ---------- Üben ---------- */
@@ -526,7 +626,7 @@
     var html = '<h1>' + esc(t('nav_practice')) + '</h1><section class="tiles">' +
       tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
       tileBtn('lex', t('lex'), t('lex_d'), '<span class="badge num">' + allWords().filter(function (x) { return S.cards[x.id]; }).length + '</span>') +
-      tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
+      tileBtn('themes', t('themes'), t('themes_d')) + tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('conj', t('conj'), t('conj_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
       tileBtn('sounds', t('sounds'), t('sounds_d')) + tileBtn('prices', t('prices'), t('prices_d')) +
       tileBtn('twister', t('twister'), t('twister_d')) + tileBtn('memo_w', t('memo_w'), t('memo_w_d')) + tileBtn('duel', t('duel'), t('duel_d')) + tileBtn('face', t('face'), t('face_d')) +
       tileBtn('mistakes', t('mistakes'), t('mistakes_d'), S.mistakes.length ? '<span class="badge num">' + S.mistakes.length + '</span>' : '') +
@@ -539,7 +639,7 @@
   function renderLand() {
     var K = D.culture;
     var html = '<h1>' + esc(t('land')) + '</h1><p class="muted">' + esc(t('land_d')) + '</p>' +
-      (D.polacy ? '<button class="card pol-entry" data-mode="polacy" lang="pl"><span class="pol-flag" aria-hidden="true"></span><span class="stack" style="gap:2px;text-align:left"><b>' + esc(t('pol')) + '</b><span class="small muted">' + esc(t('pol_d')) + '</span>' +
+      (RAW.polacy || RAW.polacyLazy ? '<button class="card pol-entry" data-mode="polacy" lang="pl"><span class="pol-flag" aria-hidden="true"></span><span class="stack" style="gap:2px;text-align:left"><b>' + esc(t('pol')) + '</b><span class="small muted">' + esc(t('pol_d')) + '</span>' +
         (S.plv != null ? '<span class="small"><b>' + esc(t('pol_lv')) + ':</b> ' + esc(t('pol_lv' + S.plv)) + '</span>' : '') + '</span></button>' : '') +
       '<section class="tiles">' + tileBtn('whoami', t('whoami'), t('whoami_d')) + tileBtn('tf', t('tf'), t('tf_d')) + tileBtn('timeline', t('timeline'), t('timeline_d')) +
       tileBtn('pin', t('pin'), t('pin_d')) + tileBtn('hl', t('hl'), t('hl_d')) + tileBtn('literki', t('literki'), t('literki_d')) +
@@ -553,9 +653,9 @@
 
   /* ---------- Album ---------- */
   function renderAlbum() {
-    var html = '<h1>' + esc(t('nav_album')) + '</h1><section class="stack"><h2>' + esc(t('postcards')) + ' <span class="muted num">' + Object.keys(S.boss).length + '/' + U.length + '</span></h2><div class="grid2">' +
-      U.map(function (u, i) {
-        var got = !!S.boss[u.id];
+    var html = '<h1>' + esc(t('nav_album')) + '</h1><section class="stack"><h2>' + esc(t('postcards')) + ' <span class="muted num">' + routeIdx().filter(function (i) { return S.boss[U[i].id]; }).length + '/' + routeIdx().length + '</span></h2><div class="grid2">' +
+      routeIdx().map(function (i) {
+        var u = U[i], got = !!S.boss[u.id];
         return '<article class="postcard tr-' + u.trail + (got ? '' : ' locked') + '"><div class="pc-top"><div class="row" style="justify-content:space-between;align-items:start"><div><div class="pl">' + esc(u.city) + '</div><div class="small muted">' + esc(L(u.title)) + '</div></div><div class="stamp">' + (got ? 'PL' : (i + 1)) + '</div></div></div>' +
           '<div class="pc-bot">' + (got ? esc(L(u.fact)) : '<span class="muted">' + esc(t('locked')) + '</span>') + '</div></article>';
       }).join('') + '</div></section>' +
@@ -569,59 +669,69 @@
 
   /* ---------- Ich / Einstellungen ---------- */
   /* ---------- Der Brief (Rahmengeschichte) ---------- */
-  function letterLines() { return (D.letter && D.letter.lines) || []; }
+  function storyOf(w) { return w === 'diary' ? D.diary : D.letter; }
+  function letterLines(w) { var s = storyOf(w); return (s && s.lines) || []; }
+  function seenKey(w) { return w === 'diary' ? 'diarySeen' : 'letterSeen'; }
+  /* Startseite: der Brief (Szlak 1), ab Szlak 2 Anias Postkarten */
+  function storyCard() { var r2 = szlakUnits(2); return letterCard(D.diary && r2.length && S.unlocked >= r2[0] ? 'diary' : 'letter'); }
   function unitById(id) { for (var i = 0; i < U.length; i++) if (U[i].id === id) return U[i]; return null; }
-  function letterCard() {
-    var lines = letterLines(), n = C.letterRead(lines, S).filter(Boolean).length, tot = lines.length, isNew = n > (S.letterSeen || 0);
+  function letterCard(w) {
+    var dy = w === 'diary', lines = letterLines(w), n = C.letterRead(lines, S).filter(Boolean).length, tot = lines.length, isNew = n > (S[seenKey(w)] || 0);
     if (!tot) return '';
-    return '<section class="card stack letter-card"><div class="row" style="justify-content:space-between"><span class="eyebrow">✉ ' + esc(t('letter')) + '</span>' +
-      (isNew ? '<span class="badge next">' + esc(t('letter_new')) + '</span>' : '<span class="small muted num">' + n + '/' + tot + '</span>') + '</div>' +
-      '<p class="small">' + esc(n ? (n === tot && !isNew ? t('letter_done') : t('letter_d').replace('{n}', n).replace('{t}', tot)) : t('letter_start')) + '</p>' +
-      '<div class="bar"><i style="width:' + (n / tot * 100) + '%"></i></div><button class="btn" id="letter-open" style="justify-self:start">' + esc(t('letter_open')) + ' →</button></section>';
+    return '<section class="card stack letter-card"><div class="row" style="justify-content:space-between"><span class="eyebrow">✉ ' + esc(t(dy ? 'diary' : 'letter')) + '</span>' +
+      (isNew ? '<span class="badge next">' + esc(t(dy ? 'diary_new' : 'letter_new')) + '</span>' : '<span class="small muted num">' + n + '/' + tot + '</span>') + '</div>' +
+      '<p class="small">' + esc(n ? (n === tot && !isNew ? t(dy ? 'diary_done' : 'letter_done') : t(dy ? 'diary_d' : 'letter_d').replace('{n}', n).replace('{t}', tot)) : t(dy ? 'diary_start' : 'letter_start')) + '</p>' +
+      '<div class="bar"><i style="width:' + (n / tot * 100) + '%"></i></div><button class="btn" id="letter-open" data-story="' + (dy ? 'diary' : 'letter') + '" style="justify-self:start">' + esc(t(dy ? 'diary_open' : 'letter_open')) + ' →</button>' +
+      (dy ? '<button class="btn ghost small" id="letter-old" style="justify-self:start;min-height:36px;padding:4px 0">✉ ' + esc(t('letter')) + ' →</button>' : '') + '</section>';
   }
   function letterLineHtml(l, readable, fresh) {
     if (!readable) { var u = unitById(l.u); return '<div class="lt-line locked"><p class="lt-pl" aria-hidden="true">' + esc(l.pl) + '</p><p class="small muted">' + esc(t('letter_locked').replace('{c}', u ? u.city : '')) + '</p></div>'; }
     return '<div class="lt-line' + (fresh ? ' fresh' : '') + '"><div class="row" style="align-items:start"><p class="lt-pl grow" lang="pl">' + esc(l.pl) + '</p><button class="icon-btn" data-say="' + esc(l.pl) + '" aria-label="' + esc(t('listen_again')) + '">' + I.spk + '</button></div><p class="small muted">' + esc(L(l.tr)) + '</p></div>';
   }
-  function renderLetter() {
-    var lines = letterLines(), rd = C.letterRead(lines, S), n = rd.filter(Boolean).length, seen = S.letterSeen || 0, all = n === lines.length, k = 0;
-    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button><h1>' + esc(t('letter')) + '</h1>' +
-      '<section class="card row letter-szymek" style="align-items:start"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small scene-intro grow">' + esc(L(D.letter.prolog)) + '</p></section>' +
-      '<article class="card stack letter" aria-label="' + esc(t('letter_from')) + '"><span class="eyebrow">' + esc(t('letter_from')) + ' · <span class="num">' + n + '/' + lines.length + '</span></span>' +
+  function renderLetter(w) {
+    w = w === 'diary' && D.diary ? 'diary' : 'letter';
+    var dy = w === 'diary', ST = storyOf(w), lines = letterLines(w), rd = C.letterRead(lines, S), n = rd.filter(Boolean).length, seen = S[seenKey(w)] || 0, all = n === lines.length, k = 0;
+    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button><h1>' + esc(t(dy ? 'diary' : 'letter')) + '</h1>' +
+      (D.diary ? '<div class="seg" id="story-sw">' + segBtn('letter', t('letter'), !dy) + segBtn('diary', t('diary'), dy) + '</div>' : '') +
+      '<section class="card row letter-szymek" style="align-items:start"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small scene-intro grow">' + esc(L(ST.prolog)) + '</p></section>' +
+      '<article class="card stack letter" aria-label="' + esc(t(dy ? 'diary_from' : 'letter_from')) + '"><span class="eyebrow">' + esc(t(dy ? 'diary_from' : 'letter_from')) + ' · <span class="num">' + n + '/' + lines.length + '</span></span>' +
       lines.map(function (l, i) { var fresh = rd[i] && ++k > seen; return letterLineHtml(l, rd[i], fresh && seen > 0); }).join('') + '</article>' +
-      (all ? '<section class="card stack next-box pop"><span class="eyebrow">Wrocław</span><p>' + esc(L(D.letter.finale)) + '</p></section>' +
-        (D.letterQuiz ? '<section class="card stack letter-card"><span class="eyebrow">✉ ' + esc(t('lq')) + '</span><p class="small">' + esc(t('lq_d')) + '</p>' + (S.letterQuiz ? '<p class="small muted num">' + esc(t('lq_best')) + ': ' + S.letterQuiz + ' %</p>' : '') +
+      (all ? '<section class="card stack next-box pop"><span class="eyebrow">' + esc(unitById(lines[lines.length - 1].u).city) + '</span><p>' + esc(L(ST.finale)) + '</p></section>' +
+        (!dy && D.letterQuiz ? '<section class="card stack letter-card"><span class="eyebrow">✉ ' + esc(t('lq')) + '</span><p class="small">' + esc(t('lq_d')) + '</p>' + (S.letterQuiz ? '<p class="small muted num">' + esc(t('lq_best')) + ': ' + S.letterQuiz + ' %</p>' : '') +
           '<button class="btn primary" id="lq" style="justify-self:start">' + esc(t('lq_start')) + ' →</button></section>' : '') : '');
     shell(html);
     var lqb = document.getElementById('lq'); if (lqb) lqb.onclick = function () { startMode('letterquiz'); };
-    if (n !== seen) { S.letterSeen = n; save(); }
+    if (n !== seen) { S[seenKey(w)] = n; save(); }
+    bindSeg('story-sw', function (v) { renderLetter(v); });
     document.getElementById('back').onclick = function () { go('home'); };
     document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
   }
   /* Nach der ersten bestandenen Stadtprüfung: der neue Satz, dazu Szymeks Ausblick oder das Finale */
   function letterNewBox(uid) {
-    var lines = letterLines(), i = -1;
-    for (var j = 0; j < lines.length; j++) if (lines[j].u === uid) i = j;
+    var w = 'letter', lines = letterLines(w), i = -1, j;
+    for (j = 0; j < lines.length; j++) if (lines[j].u === uid) i = j;
+    if (i < 0 && D.diary) { w = 'diary'; lines = letterLines(w); for (j = 0; j < lines.length; j++) if (lines[j].u === uid) i = j; }
     if (i < 0) return '';
-    var l = lines[i], all = C.letterRead(lines, S).every(Boolean);
-    return '<div class="card stack letter-card pop" style="text-align:left;width:100%"><span class="eyebrow">✉ ' + esc(t('letter_new')) + '</span>' +
+    var l = lines[i], all = C.letterRead(lines, S).every(Boolean), dy = w === 'diary';
+    return '<div class="card stack letter-card pop" style="text-align:left;width:100%"><span class="eyebrow">✉ ' + esc(t(dy ? 'diary_new' : 'letter_new')) + '</span>' +
       '<p class="lt-pl" lang="pl">' + esc(l.pl) + '</p><p class="small muted">' + esc(L(l.tr)) + '</p>' +
-      '<p class="small scene-intro">' + esc(L((all || !l.bridge) ? D.letter.finale : l.bridge)) + '</p>' +
-      '<button class="btn" id="letter-res" style="justify-self:start">' + esc(t('letter_open')) + ' →</button></div>';
+      '<p class="small scene-intro">' + esc(L((all || !l.bridge) ? storyOf(w).finale : l.bridge)) + '</p>' +
+      '<button class="btn" id="letter-res" data-story="' + w + '" style="justify-self:start">' + esc(t(dy ? 'diary_open' : 'letter_open')) + ' →</button></div>';
   }
 
   /* Szymek am Anfang jeder Stadt-Szene: sein Ausblick aus der vorigen Stadt (in Warschau: der Prolog) */
   function szymekBubble(ui) {
-    if (!D.letter) return '';
-    var txt = null;
+    if (!D.letter || isPack(ui)) return '';
+    var txt = null, r2 = szlakUnits(2);
     if (ui === 0) txt = D.letter.prolog;
-    else { var pu = U[ui - 1].id; letterLines().forEach(function (l) { if (l.u === pu && l.bridge) txt = l.bridge; }); }
+    else if (D.diary && ui === r2[0]) txt = D.diary.prolog;
+    else { var pu = U[ui - 1].id; letterLines('letter').concat(letterLines('diary')).forEach(function (l) { if (l.u === pu && l.bridge) txt = l.bridge; }); }
     if (!txt) return '';
     return '<div class="szymek row pop"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small grow">' + (ui ? '<b>Szymek:</b> ' : '') + esc(L(txt)) + '</p></div>';
   }
 
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '2.0', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.0', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -699,12 +809,43 @@
   }
 
   function candoBox() {
-    var done = U.filter(function (u) { return S.boss[u.id]; }), nu = U[nextUnit()], ns = C.nextStep(S, nu.id);
+    var done = routeIdx().map(function (i) { return U[i]; }).filter(function (u) { return S.boss[u.id]; }), nu = U[nextUnit()], ns = cityStep(nextUnit());
     var stats = t('cando_stats').replace('{w}', masteredCount()).replace('{s}', Object.keys(S.scenes).length).replace('{c}', done.length);
     return '<section class="card stack" id="cando"><h2>' + esc(t('cando')) + '</h2><p class="small muted num">' + esc(stats) + '</p>' +
       (done.length ? '<div class="list">' + done.map(function (u) { return '<div class="li"><span class="badge good">✓</span><div class="grow"><b>' + esc(u.city) + '</b><div class="small">' + esc(L(u.can)) + '</div></div></div>'; }).join('') + '</div>'
         : '<p class="small muted">' + esc(t('cando_empty')) + '</p>') +
       (ns ? '<p class="small"><b>' + esc(t('cando_next')) + ' (' + esc(nu.city) + '):</b> ' + esc(L(nu.can)) + '</p>' : '') + '</section>';
+  }
+  function voiceBox() {
+    var vs = plVoices(), ios = isIOS(), and = /android/i.test(navigator.userAgent);
+    return '<section class="card stack" id="voice"><h2>' + esc(t('vc')) + '</h2>' +
+      (vs.length ? '<label class="fld">' + esc(t('vc_pick')) + '<select id="vc-sel">' + vs.map(function (v) { return '<option value="' + esc(v.name) + '"' + (voice && voice.name === v.name ? ' selected' : '') + '>' + esc(v.name) + '</option>'; }).join('') + '</select></label>' +
+        '<button class="btn" id="vc-test" style="justify-self:start">' + I.spk + esc(t('vc_test')) + '</button><p class="small muted">' + esc(t('vc_d')) + '</p>'
+        : '<p class="small"><b>' + esc(t('vc_none')) + '</b></p><p class="small muted">' + esc(ios ? t('vc_ios') : and ? t('vc_and') : t('vc_pc')) + '</p>') + '</section>';
+  }
+  function refreshVoiceBox() { var el = document.getElementById('voice'); if (!el) return; var tmp = document.createElement('div'); tmp.innerHTML = voiceBox(); el.replaceWith(tmp.firstChild); bindVoice(); }
+  function bindVoice() {
+    var sel = document.getElementById('vc-sel'); if (sel) sel.onchange = function () { S.voice = sel.value; save(); pickVoice(); };
+    var vt = document.getElementById('vc-test'); if (vt) vt.onclick = function () { ttsSpeak('Dzień dobry! Miło mi cię poznać. Jak się masz?'); };
+  }
+  var REM_DAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+  function remBox() {
+    var r = S.rem || { days: [], time: '19:00' }, dn = t('dn').split(',');
+    return '<section class="card stack" id="rem"><h2>' + esc(t('rem')) + '</h2><p class="small muted">' + esc(t('rem_d')) + '</p>' +
+      '<div class="stack"><b>' + esc(t('rem_days')) + '</b><div class="row" id="rem-days">' + REM_DAYS.map(function (d, i) { return '<button type="button" class="chip" data-d="' + d + '" aria-pressed="' + (r.days.indexOf(d) >= 0) + '">' + esc(dn[i]) + '</button>'; }).join('') + '</div></div>' +
+      '<label class="fld" style="max-width:160px">' + esc(t('rem_time')) + '<input type="time" id="rem-time" value="' + esc(r.time) + '"></label>' +
+      '<button class="btn" id="rem-go" style="justify-self:start">📅 ' + esc(t('rem_btn')) + '</button></section>';
+  }
+  function bindRem() {
+    var r = S.rem = S.rem || { days: [], time: '19:00' };
+    document.querySelectorAll('#rem-days [data-d]').forEach(function (b) { b.onclick = function () { var d = b.getAttribute('data-d'), i = r.days.indexOf(d); if (i >= 0) r.days.splice(i, 1); else r.days.push(d); r.days.sort(function (a, c) { return REM_DAYS.indexOf(a) - REM_DAYS.indexOf(c); }); b.setAttribute('aria-pressed', String(i < 0)); save(); }; });
+    document.getElementById('rem-time').onchange = function (e) { r.time = e.target.value || '19:00'; save(); };
+    document.getElementById('rem-go').onclick = function () {
+      var ics = C.icsReminder(r.days, r.time, t('rem_title'), t('rem_desc'), SITE, new Date());
+      if (!ics) { toast(t('rem_none')); return; }
+      var a = document.createElement('a'); a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics); a.download = 'polski-szlak-erinnerung.ics';
+      document.body.appendChild(a); a.click(); setTimeout(function () { a.remove(); }, 100);
+    };
   }
   var resetArmed = false;
   function renderMe() {
@@ -718,36 +859,41 @@
       '<div class="stack"><b>' + esc(t('goal')) + '</b><div class="seg" id="s-goal">' + [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div></div>' +
       '<div class="stack"><b>' + esc(t('diff')) + '</b><div class="seg" id="s-diff">' + ['easy', 'medium', 'hard'].map(function (k) { return segBtn(k, t('diff_' + k), S.diff === k); }).join('') + '</div><p class="small muted">' + esc(t('diff_' + S.diff + '_d')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('inp')) + '</b><div class="seg" id="s-inp">' + ['write', 'speak', 'tap'].map(function (k) { return segBtn(k, t('inp_' + k), S.input === k); }).join('') + '</div><p class="small muted">' + esc(t('inp_' + S.input + '_d')) + '</p></div>' +
+      '<div class="stack"><b>' + esc(t('g_title')) + '</b><div class="seg" id="s-g">' + segBtn('m', t('g_m'), S.gender !== 'f') + segBtn('f', t('g_f'), S.gender === 'f') + '</div><p class="small muted">' + esc(t('g_d')) + '</p></div>' +
       '<label class="row"><input type="checkbox" id="s-free"' + (S.free ? ' checked' : '') + '> ' + esc(t('free_roam')) + '</label>' +
       '<button class="btn" id="s-place" style="justify-self:start">' + esc(t('placement')) + '</button><p class="small muted">' + esc(t('placement_d')) + '</p>' +
       '<div class="stack"><b>' + esc(t('len')) + '</b><div class="seg" id="s-len">' + segBtn('6', t('short'), S.len === 6) + segBtn('10', t('medium'), S.len === 10) + segBtn('15', t('long'), S.len === 15) + '</div></div>' +
       '<div class="stack"><b>' + esc(t('theme')) + '</b><div class="seg" id="s-theme">' + segBtn('auto', t('auto'), S.theme === 'auto') + segBtn('light', t('light'), S.theme === 'light') + segBtn('dark', t('dark'), S.theme === 'dark') + '</div></div>' +
       '<label class="row"><input type="checkbox" id="s-hard"' + (S.hardcore ? ' checked' : '') + '> ' + esc(t('hardcore')) + '</label>' +
       '<label class="row"><input type="checkbox" id="s-slow"' + (S.slow ? ' checked' : '') + '> ' + esc(t('slow')) + ' (TTS)</label></section>' +
+      voiceBox() + remBox() +
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
       '<section class="card"><details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_more')) + '</summary><div class="stack" style="margin-top:10px"><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
       '<div class="row"><button class="btn" id="bk-copy">' + esc(t('bk_copy')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></div></details></section>' +
+      '<section class="card stack"><h2>' + esc(t('rv_me')) + '</h2><p class="small">' + esc(t('rv_me_d')) + '</p><button class="btn" id="rv-link" style="justify-self:start">' + esc(t('rv_me_btn')) + '</button></section>' +
       '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><p class="small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p><button class="btn ghost" id="tour-again" style="justify-self:start;padding-left:0">' + esc(t('tour_again')) + '</button><p class="small muted">' + esc(t('rep_d')) + '</p>' + reportHtml('rep-me') + '<button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
     shell(html);
     bindSeg('s-base', function (v) { S.base = v; save(); renderMe(); });
     bindSeg('s-goal', function (v) { S.goal = +v; save(); renderMe(); });
     bindSeg('s-len', function (v) { S.len = +v; save(); renderMe(); });
     bindSeg('s-theme', function (v) { S.theme = v; save(); renderMe(); });
-    bindSync();
+    bindSync(); bindRem(); bindVoice();
     var ib = document.getElementById('s-inst'); if (ib && ib.tagName === 'BUTTON') ib.onclick = doInstall;
     document.getElementById('s-hard').onchange = function (e) { S.hardcore = e.target.checked; save(); };
     document.getElementById('s-slow').onchange = function (e) { S.slow = e.target.checked; save(); };
     bindSeg('s-diff', function (v) { S.diff = v; save(); renderMe(); });
     bindSeg('s-inp', function (v) { S.input = v; save(); renderMe(); });
+    bindSeg('s-g', function (v) { S.gender = v; loadData(); save(); renderMe(); });
     document.getElementById('s-free').onchange = function (e) { S.free = e.target.checked; save(); };
     document.getElementById('s-place').onclick = function () { startMode('placement'); };
     document.getElementById('bk-copy').onclick = function () { copy(JSON.stringify(S)); };
     document.getElementById('bk-restore').onclick = function () {
-      try { var o = JSON.parse(document.getElementById('bk').value); if (!C.validateSave(o)) throw 0; S = Object.assign(fresh(), o); save(); toast(t('restored')); renderMe(); } catch (e) { toast(t('bad_backup')); }
+      try { var o = JSON.parse(document.getElementById('bk').value); if (!C.validateSave(o)) throw 0; S = Object.assign(fresh(), o); loadData(); save(); toast(t('restored')); renderMe(); } catch (e) { toast(t('bad_backup')); }
     };
     bindReport('rep-me', 'Ich / allgemein');
+    document.getElementById('rv-link').onclick = function () { shareOut(t('rv_me_share') + ' ' + SITE + '?review'); };
     document.getElementById('tour-again').onclick = function () { S.tour = false; save(); go('home'); };
-    document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); save(); render(); };
+    document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); loadData(); save(); render(); };
   }
 
   /* ---------- Geräte-Abgleich über das eigene Supabase (wie GeoQuest, gleiches Konto) ----------
@@ -799,7 +945,7 @@
     return sbToken().then(function () { return sbFetch('/rest/v1/ps_progress?select=data&user_id=eq.' + encodeURIComponent(A.uid), { auth: true }); })
       .then(function (rows) {
         var remote = rows && rows[0] && rows[0].data;
-        if (remote && C.validateSave(remote)) { S = Object.assign(fresh(), C.mergeSave(S, remote)); saveLocal(); }
+        if (remote && C.validateSave(remote)) { S = Object.assign(fresh(), C.mergeSave(S, remote)); loadData(); saveLocal(); }
         return sbFetch('/rest/v1/ps_progress?on_conflict=user_id', { method: 'POST', auth: true, prefer: 'resolution=merge-duplicates,return=minimal', body: { user_id: A.uid, data: S } });
       })
       .then(function () { A.last = Date.now(); saveAuth(); syncMsg = t('sync_done'); }, function (e) { syncErr = syncErrText(e); })
@@ -1043,7 +1189,7 @@
   /* Verb-Aspekt (Vorschlag M): vollendet / unvollendet im Satz */
   function qAspect(c) { return { type: 'mc', id: null, plOpts: true, ask: t('aspect_q') + ' (' + c.base + ')', sentence: c.s, sub: L(c.tr), a: c.a, opts: C.shuffle(c.opts.slice(), R), explain: t(c.pf ? 'asp_pf' : 'asp_ipf') + ': ' + L(c.why), sayAfter: c.s.replace('___', c.a) }; }
   /* Brief selbst lesen: polnischer Satz ohne Übersetzung, Frage in der Basissprache */
-  function qLetter(x) { var l = letterLines()[x.l]; return { type: 'mc', id: null, fixed: true, ask: L(x.q), sentence: l.pl, say: l.pl, a: L(x.o[0]), opts: C.shuffle(x.o.map(L), R), explain: L(l.tr) }; }
+  function qLetter(x) { var l = letterLines('letter')[x.l]; return { type: 'mc', id: null, fixed: true, ask: L(x.q), sentence: l.pl, say: l.pl, a: L(x.o[0]), opts: C.shuffle(x.o.map(L), R), explain: L(l.tr) }; }
   function qCase(c) { if (diff().clozeType) return { type: 'type', id: null, ask: t('case_q') + ' (' + c.base + ')', sentence: c.s, sub: L(c.tr), a: c.a, alt: c.opts, explain: L(c.case) + ': ' + L(c.why), sayAfter: c.s.replace('___', c.a) }; return { type: 'mc', id: null, ask: t('case_q') + ' (' + c.base + ')', sentence: c.s, sub: L(c.tr), a: c.a, opts: C.shuffle(c.opts.slice(), R), explain: L(c.case) + ': ' + L(c.why), sayAfter: c.s.replace('___', c.a) }; }
   function qPrice() {
     var n = 1 + Math.floor(R() * 99), w = C.priceWords(n), opts = [n], guard = 0;
@@ -1070,7 +1216,7 @@
   function qOrder(evts) { return { type: 'order', id: null, ask: t('tap_order'), items: C.shuffle(evts, R) }; }
   function qPin(pl) { return { type: 'pin', id: null, ask: t('tap_map'), big: pl.name, sub: pl.desc, target: pl }; }
   function qLetters(x) { return { type: 'type', id: x.id, ask: t('letters_q'), big: C.scramble(x.w[0].toUpperCase(), R).split('').join(' '), bigPl: true, sub: meaning(x.w), a: x.w[0] }; }
-  function placesAll() { return D.culture.places.map(function (p) { return { name: p[0], desc: L([p[1], p[2]]), lon: p[3], lat: p[4] }; }).concat(U.map(function (u) { return { name: u.city, desc: cityName(u), lon: u.lon, lat: u.lat }; })); }
+  function placesAll() { return D.culture.places.map(function (p) { return { name: p[0], desc: L([p[1], p[2]]), lon: p[3], lat: p[4] }; }).concat(routeIdx().map(function (i) { var u = U[i]; return { name: u.city, desc: cityName(u), lon: u.lon, lat: u.lat }; })); }
   function qSpell(x, pool) {
     var word = x.w[0], bad = C.misspell(word, diff().opts - 1, R, pool.map(function (y) { return y.w[0]; }));
     var rules = {}; bad.forEach(function (b) { rules[b.rule] = 1; });
@@ -1115,12 +1261,33 @@
     if (mode === 'cloze') return runGame({ title: t('cloze'), qs: C.shuffle(u.sentences, R).map(function (s) { return qCloze(s, list); }), unit: ui });
     if (mode === 'speak') return runGame({ title: t('speak'), qs: u.sentences.map(qSpeak), unit: ui });
     if (mode === 'match') return runMatch(list, ui);
+    if (mode === 'wait') return go('city', ui);
+    if (mode === 'ripen') {
+      var rl = ripenList(ui); if (!rl.length) { toast(t('ripe_wait')); return go('city', ui); }
+      rl = C.shuffle(rl, R).slice(0, Math.max(n, 6));
+      return runGame({ title: t('ripen') + ' · ' + u.city, qs: mixedFor(rl, list, Math.min(n, Math.max(rl.length, 4))), unit: ui });
+    }
     if (mode === 'scene') return runScene(ui);
     if (mode === 'boss') {
       var bc = diff().boss, ss = C.shuffle(u.sentences, R);
       qs = mixedFor(list, list, bc.n - 4).concat(ss.slice(0, 2).map(function (s) { return S.diff === 'easy' ? qBuild(s) : qTranslate(s); })).concat(ss.slice(2, 4).map(function (s) { return qCloze(s, list); }));
       return runGame({ title: t('boss') + ' · ' + u.city, qs: C.shuffle(qs, R), unit: ui, boss: true, lives: bc.lives, pass: bc.pass });
     }
+    if (mode === 'themes') { tab = 'themes'; return renderThemes(); }
+    if (mode === 'themelearn' || mode === 'themeq') {
+      var th = themeById(curTheme); if (!th) return go('themes');
+      var tw = themeWords(th);
+      if (mode === 'themelearn') {
+        var nw = tw.filter(function (x) { return !S.cards[x.id]; }), tp = (nw.length ? nw : C.shuffle(tw, R)).slice(0, 6);
+        qs = tp.map(function (x) { return { type: 'card', id: x.id, big: x.w[0], sub: meaning(x.w), say: x.w[0] }; }).concat(C.shuffle(tp, R).map(function (x) { return qMC(x, tw, 'pl2x'); })).concat(C.shuffle(tp, R).slice(0, 3).map(function (x) { return qMC(x, tw, 'x2pl'); }));
+        return runGame({ title: L(th.t), qs: qs, back: 'themes', rerun: function () { curTheme = th.id; startMode('themelearn'); } });
+      }
+      var ts = tw.filter(function (x) { return S.cards[x.id]; }); if (ts.length < 4) ts = tw;
+      return runGame({ title: L(th.t), qs: mixedFor(ts, tw, n), back: 'themes', rerun: function () { curTheme = th.id; startMode('themeq'); } });
+    }
+    if (mode === 'conj') { tab = 'conj'; return renderConj(); }
+    if (mode === 'conjgo') return runGame({ title: t('conj'), qs: conjQs(n), rerun: function () { startMode('conjgo'); }, back: 'conj' });
+    if (mode === 'wr3') { var w3 = S.mistakes.map(byId).filter(Boolean).slice(0, 3); if (!w3.length) return go('home'); return runGame({ title: t('wr_title'), qs: mixedFor(w3, pool.concat(w3), 6) }); }
     if (mode === 'welcome') {
       var wsrc = allWords().filter(function (x) { return S.cards[x.id]; }).sort(function (a, b) { return S.cards[a.id].box - S.cards[b.id].box; }).slice(0, 5);
       if (wsrc.length < 2) wsrc = pool.slice(0, 5);
@@ -1153,7 +1320,7 @@
     if (mode === 'literki') return runGame({ title: t('literki'), qs: C.sample(pool.filter(function (x) { return x.w[0].indexOf(' ') < 0 && x.w[0].length >= 4 && x.w[0].length <= 10; }), Math.min(n, 8), R).map(qLetters) });
     if (mode === 'placement') {
       qs = [];
-      U.forEach(function (uu, i) { var w = C.sample(wordsOf(i), 2, R); var a = qMC(w[0], wordsOf(i), 'x2pl'), b = qType(w[1]); a.city = i; b.city = i; qs.push(a, b); });
+      routeIdx().forEach(function (i) { var w = C.sample(wordsOf(i), 2, R); var a = qMC(w[0], wordsOf(i), 'x2pl'), b = qType(w[1]); a.city = i; b.city = i; qs.push(a, b); });
       return runGame({ title: t('placement'), qs: qs, placement: true });
     }
     if (mode === 'aspect') return runGame({ title: t('aspect'), qs: C.shuffle(D.aspects, R).slice(0, Math.min(n, D.aspects.length)).map(qAspect) });
@@ -1169,9 +1336,84 @@
     if (mode === 'twister') return runGame({ title: t('twister'), qs: C.sample(D.twisters, Math.min(6, D.twisters.length), R).map(qSpeak) });
     if (mode === 'duel') { tab = 'duel'; return renderDuelSetup(); }
     if (mode === 'face') { tab = 'face'; return renderFaceSetup(); }
-    if (mode === 'polacy') { tab = 'polacy'; return renderPolacy(); }
+    if (mode === 'polacy') return needPolacy(function () { tab = 'polacy'; renderPolacy(); });
     if (mode === 'mywords') { tab = 'mywords'; return renderMyWords(); }
     if (mode === 'lex') { tab = 'lex'; return renderLex(); }
+  }
+
+  /* ---------- Nach Thema (3.0): dieselben Lektionen aus Szlak 1, Szlak 2 und den Paketen, nach Alltagsthema gebündelt ---------- */
+  var cityBack = null, curTheme = null;
+  function themeById(id) { return (D.themes || []).filter(function (x) { return x.id === id; })[0] || null; }
+  function themeUnits(th) { return th.u.map(function (id) { for (var i = 0; i < U.length; i++) if (U[i].id === id) return i; return -1; }).filter(function (i) { return i >= 0; }); }
+  function themeWords(th) { var a = []; themeUnits(th).forEach(function (i) { a = a.concat(wordsOf(i)); }); return a; }
+  function renderThemes(id) {
+    var th = id ? themeById(id) : null, html;
+    if (!th) {
+      html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button><h1>' + esc(t('themes')) + '</h1><p class="muted">' + esc(t('themes_intro')) + '</p><section class="stack">' +
+        (D.themes || []).map(function (x) {
+          var ws = themeWords(x), m = masteredCount(ws), seen = ws.filter(function (w) { return S.cards[w.id]; }).length;
+          return '<button class="card theme-card" data-th="' + esc(x.id) + '"><span class="theme-ico" aria-hidden="true">' + esc(x.ico) + '</span><span class="stack grow" style="gap:4px;text-align:left"><b>' + esc(L(x.t)) + '</b>' +
+            '<span class="small muted">' + esc(themeUnits(x).map(function (i) { return U[i].pack ? cityName(U[i]) : U[i].city; }).join(' · ')) + '</span>' +
+            '<span class="bar"><i style="width:' + (ws.length ? seen / ws.length * 100 : 0) + '%"></i></span><span class="small muted num">' + esc(t('theme_stats').replace('{n}', ws.length).replace('{s}', seen).replace('{m}', m)) + '</span></span></button>';
+        }).join('') + '</section>';
+      shell(html);
+      document.getElementById('back').onclick = function () { go('home'); };
+      document.querySelectorAll('[data-th]').forEach(function (b) { b.onclick = function () { go('themes', b.getAttribute('data-th')); }; });
+      return;
+    }
+    var ws = themeWords(th), seen = ws.filter(function (w) { return S.cards[w.id]; }).length, fresh = ws.length - seen;
+    html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('themes')) + '</button><div class="row"><span class="theme-ico" aria-hidden="true">' + esc(th.ico) + '</span><h1>' + esc(L(th.t)) + '</h1></div>' +
+      '<p class="small muted num">' + esc(t('theme_stats').replace('{n}', ws.length).replace('{s}', seen).replace('{m}', masteredCount(ws))) + '</p>' +
+      '<section class="tiles">' + tileBtn('themelearn', t('theme_learn'), t('theme_learn_d'), fresh ? '<span class="badge num">' + fresh + '</span>' : '<span class="badge good">✓</span>') + tileBtn('themeq', t('theme_quiz'), t('theme_quiz_d')) + '</section>' +
+      '<section class="card"><span class="eyebrow">' + esc(t('theme_lessons')) + '</span><div class="list">' + themeUnits(th).map(function (i) {
+        var u = U[i], l = wordsOf(i), m = masteredCount(l), lab = u.pack ? t('pack') : 'Szlak ' + szlakOf(i);
+        return '<button class="li linkish theme-lesson" data-tu="' + i + '" style="width:100%"><span aria-hidden="true">' + (u.pack ? esc(u.ico) : blaze(u.trail)) + '</span><span class="grow" style="text-align:left"><b>' + esc(u.pack ? cityName(u) : u.city) + '</b> <span class="small muted">· ' + esc(L(u.title)) + '</span>' +
+          '<span class="row small muted num" style="flex-wrap:nowrap"><span class="badge">' + esc(lab) + '</span>' + (isOpen(i) ? '' : '<span class="badge">🔒</span>') + (S.boss[u.id] ? '<span class="badge good">✓</span>' : '') + '<span class="bar" style="flex:1"><i style="width:' + (m / l.length * 100) + '%"></i></span>' + m + '/' + l.length + '</span></span></button>';
+      }).join('') + '</div></section><p class="small muted">' + esc(t('theme_note')) + '</p>';
+    shell(html);
+    document.getElementById('back').onclick = function () { go('themes'); };
+    document.querySelectorAll('[data-tu]').forEach(function (b) { b.onclick = function () { cityBack = th.id; var i = +b.getAttribute('data-tu'); tab = 'city'; view = null; polUI = false; render(i); window.scrollTo(0, 0); }; });
+    document.querySelectorAll('[data-mode]').forEach(function (b) { b.onclick = function () { curTheme = th.id; startMode(b.getAttribute('data-mode')); }; });
+  }
+
+  /* ---------- Konjugations-Trainer (3.0): 40 Verben, Gegenwart + Vergangenheit, nach Verbklassen ---------- */
+  var PRON = ['ja', 'ty', 'on / ona', 'my', 'wy', 'oni / one'], PRON_P = ['ja (m)', 'ja (f)', 'on', 'ona', 'oni'], CLS = ['am', 'i', 'uje', 'e', 'irr'], conjOpen = null;
+  function verbsFor(cls) { return (D.verbs || []).filter(function (v) { return !cls || cls === 'all' || v.cls === cls; }); }
+  function conjQs(n) {
+    var cf = S.conj || { tense: 'mix', cls: 'all' }, vs = verbsFor(cf.cls), qs = [];
+    if (!vs.length) vs = D.verbs;
+    for (var i = 0; i < n; i++) {
+      var v = vs[Math.floor(R() * vs.length)], past = cf.tense === 'past' || (cf.tense === 'mix' && R() < 0.5);
+      var forms = past ? v.past : v.pres, pi = Math.floor(R() * forms.length), pron = past ? PRON_P[pi] : PRON[pi], a = forms[pi];
+      var ex = t(past ? 'conj_past_tip' : 'cls_' + v.cls);
+      var q = { type: diff().clozeType || S.diff === 'medium' ? 'type' : 'mc', id: null, ask: t(past ? 'conj_q_past' : 'conj_q'), big: pron + ' · ' + v.inf, bigPl: true, sub: L([v.de, v.en]), a: a, explain: ex, sayAfter: (pron.split(' ')[0]) + ' ' + a, plOpts: true };
+      if (q.type === 'mc') { var others = C.shuffle(forms.filter(function (f) { return f !== a; }), R).slice(0, diff().opts - 1); q.opts = C.shuffle([a].concat(others), R); }
+      else q.alt = forms.filter(function (f) { return f !== a; });
+      qs.push(q);
+    }
+    return qs;
+  }
+  function conjTable(v) {
+    return '<div class="conj-tab"><table><caption class="small muted">' + esc(t('conj_pres')) + '</caption>' + v.pres.map(function (f, i) { return '<tr><th scope="row">' + PRON[i] + '</th><td lang="pl"><button class="linkish" data-say="' + esc(PRON[i].split(' ')[0] + ' ' + f) + '">' + esc(f) + '</button></td></tr>'; }).join('') + '</table>' +
+      '<table><caption class="small muted">' + esc(t('conj_past')) + '</caption>' + v.past.map(function (f, i) { return '<tr><th scope="row">' + PRON_P[i] + '</th><td lang="pl"><button class="linkish" data-say="' + esc(PRON_P[i].split(' ')[0] + ' ' + f) + '">' + esc(f) + '</button></td></tr>'; }).join('') + '</table></div><p class="small muted">' + esc(t('cls_' + v.cls)) + '</p>';
+  }
+  function renderConj() {
+    var cf = S.conj = S.conj || { tense: 'mix', cls: 'all' };
+    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('back')) + '</button><h1>' + esc(t('conj')) + '</h1><p class="muted">' + esc(t('conj_intro')) + '</p>' +
+      '<section class="card stack"><b>' + esc(t('conj_tense')) + '</b><div class="seg" id="cj-t">' + segBtn('pres', t('conj_pres'), cf.tense === 'pres') + segBtn('past', t('conj_past'), cf.tense === 'past') + segBtn('mix', t('conj_mix'), cf.tense === 'mix') + '</div>' +
+      '<b>' + esc(t('conj_cls')) + '</b><div class="seg rv-secs" id="cj-c">' + segBtn('all', t('conj_all'), cf.cls === 'all') + CLS.map(function (c) { return segBtn(c, t('clsn_' + c), cf.cls === c); }).join('') + '</div>' +
+      '<p class="small muted">' + esc(cf.cls === 'all' ? t('conj_all_d') : t('cls_' + cf.cls)) + '</p><button class="btn primary" id="cj-go">' + esc(t('start')) + ' · ' + verbsFor(cf.cls).length + ' ' + esc(t('conj_verbs')) + '</button></section>' +
+      '<section class="card"><span class="eyebrow">' + esc(t('conj_list')) + '</span><div class="list">' + verbsFor(cf.cls).map(function (v) {
+        var open = conjOpen === v.inf;
+        return '<div class="li" style="display:block"><button class="row linkish" data-cv="' + esc(v.inf) + '" aria-expanded="' + open + '" style="width:100%;justify-content:space-between"><span><b lang="pl">' + esc(v.inf) + '</b> <span class="small muted">' + esc(L([v.de, v.en])) + '</span></span><span aria-hidden="true">' + (open ? '▾' : '▸') + '</span></button>' + (open ? conjTable(v) : '') + '</div>';
+      }).join('') + '</div></section>';
+    shell(html);
+    document.getElementById('back').onclick = function () { go('practice'); };
+    bindSeg('cj-t', function (v) { cf.tense = v; save(); renderConj(); });
+    bindSeg('cj-c', function (v) { cf.cls = v; save(); renderConj(); });
+    document.getElementById('cj-go').onclick = function () { startMode('conjgo'); };
+    document.querySelectorAll('[data-cv]').forEach(function (b) { b.onclick = function () { var k = b.getAttribute('data-cv'); conjOpen = conjOpen === k ? null : k; renderConj(); }; });
+    document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
   }
 
   /* ================================================================
@@ -1257,7 +1499,7 @@
 
   function drawCard(q, area) {
     area.innerHTML = '<button class="btn primary block" id="nx">' + esc(t('next')) + '</button>';
-    document.getElementById('nx').onclick = function () { if (!S.cards[q.id]) S.cards[q.id] = { box: 0, due: today(), seen: 0, wrong: 0 }; G.i++; drawQ(); };
+    document.getElementById('nx').onclick = function () { if (!S.cards[q.id]) { S.cards[q.id] = { box: 0, due: today(), seen: 0, wrong: 0 }; wlog('n'); } G.i++; drawQ(); };
   }
   function drawMC(q, area) {
     area.innerHTML = '<div class="opts">' + q.opts.map(function (o, i) { return '<button class="opt" data-i="' + i + '" lang="' + (looksPl(o, q) ? 'pl' : S.base) + '">' + esc(o) + '</button>'; }).join('') + '</div>';
@@ -1325,8 +1567,8 @@
         var rec = new Rec(); rec.lang = 'pl-PL'; rec.interimResults = false; rec.maxAlternatives = 3;
         rec.onresult = function (e) {
           var alts = []; for (var i = 0; i < e.results[0].length; i++) alts.push(e.results[0][i].transcript);
-          var ok = alts.some(function (a) { var r = C.checkAnswer(a, q.a, {}); return r.ok || C.lev(C.norm(a, true), C.norm(q.a, true)) <= Math.max(1, Math.round(q.a.length * 0.15)); });
-          document.getElementById('heard').textContent = t('you_said') + ': ' + (alts[0] || '');
+          var ok = alts.some(function (a) { var r = chk(a, q.a, {}); return r.ok || C.lev(C.norm(a, true), C.norm(q.a, true)) <= Math.max(1, Math.round(q.a.length * 0.15)); });
+          document.getElementById('heard').innerHTML = wdiffHtml(q.a, alts, ok);
           lock(); if (ok) speak(q.a);
           answer(q, ok, ok ? '' : q.a);
         };
@@ -1334,6 +1576,14 @@
         rec.start();
       } catch (e) { selfRate(); }
     };
+  }
+  /* Ausspracherückmeldung je Wort (3.0): erkannte Wörter grün, fehlende rot unterstrichen; beste der Erkennungs-Varianten */
+  function wdiffHtml(target, alts, ok) {
+    var best = null;
+    (alts.length ? alts : ['']).forEach(function (a) { var d = C.wordDiff(target, a), n = d.filter(function (x) { return x.ok; }).length; if (!best || n > best.n) best = { d: d, n: n, a: a }; });
+    var miss = best.d.filter(function (x) { return !x.ok; }).length;
+    return '<span class="small muted">' + esc(t('you_said')) + ': „' + esc(best.a) + '“</span><span class="wdiff" lang="pl">' + best.d.map(function (x) { return '<span class="wd ' + (x.ok ? 'ok' : 'no') + '">' + esc(x.w) + (x.ok ? '' : '<span class="sr-only"> (' + esc(t('wd_miss')) + ')</span>') + '</span>'; }).join(' ') + '</span>' +
+      (!ok && miss ? '<span class="small">' + esc(t('wd_hint').replace('{n}', miss)) + '</span>' : '');
   }
   function drawType(q, area) {
     area.innerHTML = '<form id="tf" class="stack"><input class="answer-in" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" lang="pl" aria-label="' + esc(t('type_pl')) + '">' + plKeys() +
@@ -1343,7 +1593,7 @@
     document.getElementById('skip').onclick = function () { lockForm(); answer(q, false, q.a); };
     document.getElementById('tf').onsubmit = function (e) {
       e.preventDefault(); if (!inp.value.trim()) return;
-      var r = C.checkAnswer(inp.value, q.a, { hardcore: G && G.cfg.duel ? C.diffCfg(G.cfg.duel.diff).strict : (S.hardcore || diff().strict) }); lockForm();
+      var r = chk(inp.value, q.a, { hardcore: G && G.cfg.duel ? C.diffCfg(G.cfg.duel.diff).strict : (S.hardcore || diff().strict) }); lockForm();
       var note = r.kind === 'diacritics' ? t('almost_dia') + ': ' + q.a : r.kind === 'typo' ? t('almost_typo') + ': ' + q.a : '';
       answer(q, r.ok, r.ok ? '' : q.a, note, r.kind === 'typo' ? 0.5 : 1);
     };
@@ -1412,8 +1662,8 @@
         var rec = new Rec(); rec.lang = 'pl-PL'; rec.interimResults = false; rec.maxAlternatives = 3;
         rec.onresult = function (e) {
           var alts = []; for (var i = 0; i < e.results[0].length; i++) alts.push(e.results[0][i].transcript);
-          var best = alts[0] || '', ok = alts.some(function (a) { var r = C.checkAnswer(a, q.a, {}); return r.ok || C.lev(C.norm(a, true), C.norm(q.a, true)) <= Math.max(2, Math.round(q.a.length * 0.15)); });
-          document.getElementById('heard').textContent = t('you_said') + ': ' + best;
+          var best = alts[0] || '', ok = alts.some(function (a) { var r = chk(a, q.a, {}); return r.ok || C.lev(C.norm(a, true), C.norm(q.a, true)) <= Math.max(2, Math.round(q.a.length * 0.15)); });
+          document.getElementById('heard').innerHTML = wdiffHtml(q.a, alts, ok);
           answer(q, ok, ok ? '' : q.a);
         };
         rec.onerror = function () { selfRate(t('no_mic')); };
@@ -1462,7 +1712,7 @@
       if (passed) {
         var first = !S.boss[u.id];
         S.boss[u.id] = Math.max(S.boss[u.id] || 0, pct);
-        if (g.cfg.unit >= S.unlocked && g.cfg.unit < U.length - 1) { S.unlocked = g.cfg.unit + 1; extras += '<div class="banner pop"><strong>' + esc(t('unlocked')) + ': ' + esc(U[S.unlocked].city) + '</strong></div>'; }
+        if (!isPack(g.cfg.unit) && g.cfg.unit < lastRoute() && (g.cfg.unit === S.unlocked || (S.free && g.cfg.unit > S.unlocked))) { S.unlocked = g.cfg.unit + 1; extras += '<div class="banner pop"><strong>' + esc(t('unlocked')) + ': ' + esc(U[S.unlocked].city) + '</strong></div>'; }
         if (first) extras += '<div class="card stack pop"><span class="eyebrow">' + esc(t('postcard_new')) + '</span><b>' + esc(u.city) + '</b><p class="small">' + esc(L(u.fact)) + '</p></div>' + letterNewBox(u.id);
         shareTxt = t('share_boss').replace('{c}', u.city).replace('{p}', pct) + ' ' + SITE; party = true;
         extras += maybeKrasnal(true);
@@ -1471,10 +1721,10 @@
     if (g.cfg.unit != null && !g.players && lastMode && lastMode.ui === g.cfg.unit && total >= 1) { var did = U[g.cfg.unit].id; S.done = S.done || {}; S.done[did] = S.done[did] || {}; S.done[did][lastMode.m] = 1; }
     save();
     if (g.cfg.placement) {
-      var per = U.map(function () { return []; });
+      var per = routeIdx().map(function () { return []; });
       g.qs.forEach(function (q, i) { if (i < g.results.length) per[q.city].push(g.results[i]); });
       var st = C.placementStart(per);
-      if (st >= U.length) { S.free = true; S.unlocked = U.length - 1; extras += '<div class="banner pop"><strong>' + esc(t('placement_all')) + '</strong></div>'; }
+      if (st >= per.length) { S.free = true; S.unlocked = lastRoute(); extras += '<div class="banner pop"><strong>' + esc(t('placement_all')) + '</strong></div>'; }
       else { for (var pi2 = 0; pi2 < st; pi2++) if (!S.boss[U[pi2].id]) S.skipped[U[pi2].id] = true; S.unlocked = Math.max(S.unlocked, st); extras += '<div class="banner pop"><strong>' + esc(t('placement_res')) + ': ' + esc(U[st].city) + '</strong><span>' + esc(L(U[st].title)) + '</span></div>'; }
       save();
     }
@@ -1507,18 +1757,18 @@
       '<div class="row" style="width:100%"><button class="btn" id="again" style="flex:1">' + esc(t('again')) + '</button><button class="btn' + (outlook.indexOf('next-step') >= 0 ? '' : ' primary') + '" id="home" style="flex:1">' + esc(t(g.cfg.back && g.cfg.unit == null ? 'back' : 'home')) + '</button></div></section>';
     shell(html);
     var cfg = g.cfg;
-    document.getElementById('home').onclick = function () { G = null; go(cfg.unit != null ? 'city' : (cfg.back || 'home'), cfg.unit); };
+    document.getElementById('home').onclick = function () { G = null; if (cfg.back === 'themes' && cfg.unit == null) return go('themes', curTheme); go(cfg.unit != null ? 'city' : (cfg.back || 'home'), cfg.unit); };
     document.getElementById('again').onclick = function () { G = null; if (cfg.duel) { tab = 'duel'; return renderDuelSetup(); } if (cfg.players) return startDuel(cfg.players); if (cfg.rerun) return cfg.rerun(); var c2 = Object.assign({}, cfg); restart(c2); };
     var sh = document.getElementById('share'); if (sh) sh.onclick = function () { shareOut(shareTxt); };
     if (party) confetti();
     var nxb = document.getElementById('next-step'); if (nxb) nxb.onclick = function () { G = null; var nui = +nxb.getAttribute('data-ui'); if (isOpen(nui)) startMode(nxb.getAttribute('data-step'), nui); else go('city', nui); };
-    var lr = document.getElementById('letter-res'); if (lr) lr.onclick = function () { G = null; go('letter'); };
+    var lr = document.getElementById('letter-res'); if (lr) lr.onclick = function () { G = null; go('letter', lr.getAttribute('data-story')); };
     if (cfg.duel) bindDuelResult(g);
   }
   /* Ausblick: was als Nächstes kommt – mit dem Szenen-Anfang der nächsten Stadt als kleiner Spannungsbogen */
   function outlookBox(g) {
-    var cu = g.cfg.unit, ui = (cu != null && !S.boss[U[cu].id]) ? cu : nextUnit(), u = U[ui], step = C.nextStep(S, u.id);
-    if (!step) return U.every(function (x) { return S.boss[x.id]; }) ? '<div class="card stack next-box" style="text-align:left;width:100%"><span class="eyebrow">' + esc(t('next_up')) + '</span><p>' + esc(t('trip_done')) + '</p></div>' : '';
+    var cu = g.cfg.unit, ui = (cu != null && !S.boss[U[cu].id]) ? cu : nextUnit(), u = U[ui], step = cityStep(ui);
+    if (!step) return routeIdx().every(function (i) { return S.boss[U[i].id]; }) ? '<div class="card stack next-box" style="text-align:left;width:100%"><span class="eyebrow">' + esc(t('next_up')) + '</span><p>' + esc(t('trip_done')) + '</p></div>' : '';
     var newCity = cu != null && ui !== cu, teaser = (newCity || step === 'scene') && u.scene ? '<p class="small scene-intro">' + esc(L(u.scene.intro)) + '</p>' : '';
     return '<div class="card stack next-box pop" style="text-align:left;width:100%"><span class="eyebrow">' + esc((newCity ? t('next_station') : t('next_up')) + ' · ' + u.city) + '</span>' + teaser +
       '<b>' + esc(t('step_' + step)) + '</b><button class="btn primary" id="next-step" data-ui="' + ui + '" data-step="' + esc(step) + '">' + esc(t('go_on')) + ' →</button></div>';
@@ -1689,7 +1939,7 @@
     document.getElementById('d2cmp').onclick = function () {
       var o = C.duelReadResult(document.getElementById('d2other').value), out = document.getElementById('d2verdict'), msg, mixed = false;
       if (o && !o.lv) o.lv = d.lv;
-      if (o && o.code && o.code !== d.code) { mixed = true; var op = C.duelPlan(D, o.code); if (o.check && (!op || op.check !== o.check)) o.badCheck = true; }
+      if (o && o.code && o.code !== d.code) { mixed = true; var op = C.duelPlan(RAW, o.code); if (o.check && (!op || op.check !== o.check)) o.badCheck = true; }
       if (!o) msg = '<p class="small">' + esc(t('d2_unreadable')) + '</p>';
       else if (o.base && o.base !== d.base) msg = '<p class="small">' + esc(t('d2_other_base')) + '</p>';
       else if (o.badCheck || (!mixed && o.check && o.check !== d.check)) msg = '<p class="small">' + esc(t('d2_other_check')) + '</p>';
@@ -1725,6 +1975,7 @@
   /* ---------- Familienduell ---------- */
   var duelMode = 'quiz';
   function renderDuelSetup() {
+    if (!RAW.polacy && RAW.polacyLazy) try { needPolacy(function () {}, true); } catch (e) {}
     if (!duelLevel) duelLevel = duelRecLv();
     if (!S.rank || typeof S.rank !== 'object') S.rank = {};
     if (!Array.isArray(S.rankSeen)) S.rankSeen = [];
@@ -1756,7 +2007,9 @@
     if (rc) rc.onclick = function () { if (!window.confirm(t('rank_clear_q'))) return; S.rank = {}; S.rankSeen = []; save(); renderDuelSetup(); };
     document.getElementById('d2go').onclick = function () {
       S.name = C.duelName(document.getElementById('d2name').value); save();
-      var pl = C.duelPlan(D, document.getElementById('d2code').value), er = document.getElementById('d2err');
+      var pc0 = C.duelParse(document.getElementById('d2code').value);
+      if (pc0 && pc0.pol && !RAW.polacy) { needPolacy(function () { document.getElementById('d2go').click(); }); return; }
+      var pl = C.duelPlan(RAW, document.getElementById('d2code').value), er = document.getElementById('d2err');
       if (!pl) { er.textContent = t('d2_bad'); er.hidden = false; return; }
       duelCodeDraft = pl.code; renderDuelReady(pl);
     };
@@ -2005,7 +2258,90 @@
   }
 
   /* ---------- Start ---------- */
-  function boot() { sbFromHash(); render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
+  /* ================================================================
+     Prüfmodus für Muttersprachler (3.0): polski.arndt-software.de/?review
+     Alle polnischen Inhalte nacheinander: ✓ poprawne / ✗ do poprawy (+ Vorschlag). Ergebnisse gehen in ps_feedback,
+     ✓ gesammelt in Paketen, ✗ sofort. Fortschritt bleibt im Browser (localStorage polski_szlak_review).
+     ================================================================ */
+  var REVIEW = /[?&]review\b/.test(location.search), RVK = 'polski_szlak_review', RV = null, rvSec = 'all', rvCur = null, rvBad = false;
+  var RVX = { title: 'Sprawdzanie treści', intro: 'Dziękujemy za pomoc! Sprawdź, czy polskie zdania są poprawne i naturalne, a tłumaczenia pasują. Formy w nawiasach {…|…} pokazujemy jako wersję męską i żeńską.', name: 'Twoje imię (opcjonalnie)', all: 'Wszystko', ok: '✓ Poprawne', bad: '✗ Do poprawy', skip: 'Pomiń', how: 'Jak powinno być? Co jest nie tak?', send: 'Wyślij uwagę', done: 'Gotowe! Wszystko w tej części sprawdzone.', prog: 'sprawdzone', sent: 'Wysłano', pend: 'czeka na wysłanie', flush: 'Wyślij teraz', export: 'Wyniki jako tekst (kopia zapasowa)', copy: 'Kopiuj', fail: 'Brak połączenia – wyniki są zapisane i zostaną wysłane później.', back: 'Do aplikacji', listen: 'Odsłuchaj', undo: 'Cofnij ostatnie',
+    secs: { w: 'Słówka', s: 'Zdania', sc: 'Scenki', l: 'List i pocztówki', m: 'Misje', c: 'Przypadki', a: 'Aspekt', v: 'Czasowniki', t: 'Łamańce językowe', k: 'Krasnale', p: 'Dla Polaków' } };
+  function rvLoad() { try { RV = JSON.parse(localStorage.getItem(RVK) || 'null'); } catch (e) {} if (!RV || typeof RV !== 'object') RV = { name: '', res: {}, pend: [], hist: [] }; RV.res = RV.res || {}; RV.pend = RV.pend || []; RV.hist = RV.hist || []; }
+  function rvSave() { try { localStorage.setItem(RVK, JSON.stringify(RV)); } catch (e) {} }
+  function rvShow(s) { return C.hasG(s) ? C.gform(s, 'm') + '  ·  ' + C.gform(s, 'f') : String(s); }
+  function rvItems() {
+    var it = [], R0 = RAW;
+    function add(k, sec, pl, de, en, note) { it.push({ k: k, sec: sec, pl: rvShow(pl), de: de ? rvShow(de) : '', en: en ? rvShow(en) : '', note: note || '' }); }
+    R0.units.forEach(function (u) {
+      u.words.forEach(function (w, i) { add('w:' + u.id + ':' + i, 'w', w[0], w[1], w[2], u.city); });
+      u.sentences.forEach(function (s, i) { add('s:' + u.id + ':' + i, 's', s[0], s[1], s[2], u.city); });
+      if (u.scene) u.scene.steps.forEach(function (st, si) {
+        add('sc:' + u.id + ':' + si + ':n', 'sc', st.npc[0], st.npc[1], st.npc[2], u.city + ' · NPC');
+        st.opts.forEach(function (o, oi) { add('sc:' + u.id + ':' + si + ':' + oi, 'sc', o[0], o[1], o[2], u.city + (o[3] ? ' · ✓' : ' · (zła odpowiedź – ma być poprawna polszczyzna, ale nie pasuje do sytuacji)')); });
+      });
+    });
+    [['l', R0.letter], ['d', R0.diary]].forEach(function (x) { if (x[1]) x[1].lines.forEach(function (l, i) { add(x[0] + ':' + i, 'l', l.pl, l.tr[0], l.tr[1]); }); });
+    Object.keys(R0.missions || {}).forEach(function (k) { add('m:' + k, 'm', R0.missions[k].pl, R0.missions[k].d[0], R0.missions[k].d[1]); });
+    (R0.cases || []).forEach(function (c, i) { add('c:' + i, 'c', c.s.replace('___', c.a), c.tr[0], c.tr[1], c.base + ' → ' + c.a + ' · ' + c.case[0]); });
+    (R0.aspects || []).forEach(function (c, i) { add('a:' + i, 'a', c.s.replace('___', c.a), c.tr[0], c.tr[1], c.base + ' → ' + c.a); });
+    (R0.verbs || []).forEach(function (v) { add('v:' + v.inf, 'v', v.inf + ': ' + v.pres.join(', ') + ' | ' + v.past.join(', '), v.de, v.en); });
+    (R0.twisters || []).forEach(function (x, i) { add('t:' + i, 't', x[0], x[1], x[2]); });
+    (R0.krasnale || []).forEach(function (x, i) { add('k:' + i, 'k', x[0] + ' – ' + x[1], x[2], x[3]); });
+    Object.keys(R0.polacy || {}).forEach(function (c) { R0.polacy[c].forEach(function (x, i) { add('p:' + c + ':' + i, 'p', (x.s ? x.s.replace('___', x.a) + '  —  ' : '') + x.q + ' → ' + x.a, '', '', 'Źle: ' + x.o.join(' / ') + (x.x ? ' · ' + x.x : '')); }); });
+    return it;
+  }
+  function rvSend(msg, ctx) { return sbFetch('/rest/v1/ps_feedback', { method: 'POST', prefer: 'return=minimal', body: { msg: String(msg).slice(0, 1000), ctx: String(ctx).slice(0, 500), lang: 'pl', ver: APP_VER } }); }
+  function rvFlush() {
+    if (!RV.pend.length) return Promise.resolve();
+    var batch = RV.pend.slice(0, 60);
+    return rvSend('REVIEW ✓ ' + batch.length + ': ' + batch.join(' '), 'review|' + (RV.name || '?')).then(function () { RV.pend = RV.pend.slice(batch.length); rvSave(); return rvFlush(); });
+  }
+  function renderReview() {
+    if (!RV) rvLoad();
+    var all = rvItems(), secs = {}, list = all.filter(function (x) { secs[x.sec] = secs[x.sec] || { n: 0, d: 0 }; secs[x.sec].n++; if (RV.res[x.k]) secs[x.sec].d++; return rvSec === 'all' || x.sec === rvSec; });
+    var done = list.filter(function (x) { return RV.res[x.k]; }).length;
+    if (!rvCur || !list.some(function (x) { return x.k === rvCur; }) || RV.res[rvCur]) { var nx = list.filter(function (x) { return !RV.res[x.k]; })[0]; rvCur = nx ? nx.k : null; rvBad = false; }
+    var cur = list.filter(function (x) { return x.k === rvCur; })[0];
+    var tot = all.filter(function (x) { return RV.res[x.k]; }).length;
+    var html = '<section class="stack" lang="pl"><h1>' + esc(RVX.title) + '</h1><p class="small">' + esc(RVX.intro) + '</p>' +
+      '<label class="fld">' + esc(RVX.name) + '<input type="text" id="rv-name" maxlength="30" autocomplete="name" value="' + esc(RV.name) + '"></label>' +
+      '<div class="seg rv-secs" id="rv-sec">' + segBtn('all', RVX.all + ' ' + tot + '/' + all.length, rvSec === 'all') + Object.keys(secs).map(function (k) { return segBtn(k, RVX.secs[k] + ' ' + secs[k].d + '/' + secs[k].n, rvSec === k); }).join('') + '</div>' +
+      '<div class="row small muted num"><div class="bar" style="flex:1"><i style="width:' + (list.length ? done / list.length * 100 : 0) + '%"></i></div>' + done + '/' + list.length + ' ' + esc(RVX.prog) + '</div>';
+    if (cur) {
+      html += '<article class="card stack rv-card"><span class="eyebrow">' + esc(RVX.secs[cur.sec]) + (cur.note ? ' · ' + esc(cur.note) : '') + ' · <span class="num">' + esc(cur.k) + '</span></span>' +
+        '<div class="row" style="align-items:start;flex-wrap:nowrap"><p class="rv-pl grow">' + esc(cur.pl) + '</p><button class="icon-btn" id="rv-say" aria-label="' + esc(RVX.listen) + '">' + I.spk + '</button></div>' +
+        (cur.de ? '<p class="small" lang="de">DE: ' + esc(cur.de) + '</p>' : '') + (cur.en ? '<p class="small" lang="en">EN: ' + esc(cur.en) + '</p>' : '') +
+        (rvBad ? '<label class="fld">' + esc(RVX.how) + '<textarea id="rv-txt" rows="3" maxlength="800"></textarea></label><div class="row"><button class="btn primary" id="rv-send">' + esc(RVX.send) + '</button><button class="btn ghost" id="rv-cancel">' + esc(RVX.skip) + '</button></div>'
+          : '<div class="row"><button class="btn primary" id="rv-ok" style="flex:1">' + esc(RVX.ok) + '</button><button class="btn" id="rv-bad" style="flex:1">' + esc(RVX.bad) + '</button></div><button class="btn ghost" id="rv-skip" style="justify-self:start">' + esc(RVX.skip) + ' →</button>') +
+        '<p class="small muted" id="rv-st" role="status"></p></article>';
+    } else html += '<div class="banner pop"><strong>' + esc(RVX.done) + '</strong></div>';
+    html += '<div class="row">' + (RV.hist.length ? '<button class="btn ghost" id="rv-undo">↶ ' + esc(RVX.undo) + '</button>' : '') + (RV.pend.length ? '<button class="btn" id="rv-flush">' + esc(RVX.flush) + ' (' + RV.pend.length + ' ' + esc(RVX.pend) + ')</button>' : '') + '</div>' +
+      '<details class="card"><summary class="small" style="cursor:pointer;font-weight:700">' + esc(RVX.export) + '</summary><textarea id="rv-exp" rows="6" style="width:100%;margin-top:8px">' + esc(Object.keys(RV.res).map(function (k) { return k + ' ' + RV.res[k]; }).join('\n')) + '</textarea><button class="btn" id="rv-copy">' + esc(RVX.copy) + '</button></details>' +
+      '<a class="btn ghost" href="./" style="justify-self:start">← ' + esc(RVX.back) + '</a></section>';
+    shell(html, false);
+    var st = function (m) { var e = document.getElementById('rv-st'); if (e) e.textContent = m; };
+    document.getElementById('rv-name').onchange = function (e) { RV.name = e.target.value.trim().slice(0, 30); rvSave(); };
+    bindSeg('rv-sec', function (v) { rvSec = v; rvCur = null; renderReview(); });
+    var b;
+    if ((b = document.getElementById('rv-say'))) b.onclick = function () { ttsSpeak(C.gform(cur.pl.split('  ·  ')[0].split(' → ')[0], 'm')); };
+    if ((b = document.getElementById('rv-ok'))) b.onclick = function () { RV.res[cur.k] = 'ok'; RV.pend.push(cur.k); RV.hist.push(cur.k); rvSave(); if (RV.pend.length >= 20) rvFlush().catch(function () {}); renderReview(); };
+    if ((b = document.getElementById('rv-bad'))) b.onclick = function () { rvBad = true; renderReview(); setTimeout(function () { var t2 = document.getElementById('rv-txt'); if (t2) t2.focus(); }, 30); };
+    if ((b = document.getElementById('rv-skip'))) b.onclick = function () { var idx = list.indexOf(cur), nx = list.slice(idx + 1).concat(list.slice(0, idx)).filter(function (x) { return !RV.res[x.k]; })[0]; rvCur = nx ? nx.k : null; renderReview(); };
+    if ((b = document.getElementById('rv-cancel'))) b.onclick = function () { rvBad = false; renderReview(); };
+    if ((b = document.getElementById('rv-send'))) b.onclick = function () {
+      var txt = document.getElementById('rv-txt').value.trim(), item = cur; if (!txt) return;
+      b.disabled = true; st('…');
+      RV.res[item.k] = 'bad: ' + txt.replace(/\s+/g, ' '); RV.hist.push(item.k); rvSave();
+      rvSend('REVIEW ✗ [' + item.k + '] ' + item.pl + ' → ' + txt, 'review|' + (RV.name || '?') + '|' + item.k).then(function () { toast(RVX.sent); rvBad = false; renderReview(); },
+        function () { copy('[' + item.k + '] ' + item.pl + ' → ' + txt); toast(RVX.fail); rvBad = false; renderReview(); });
+    };
+    if ((b = document.getElementById('rv-undo'))) b.onclick = function () { var k = RV.hist.pop(); if (k) { delete RV.res[k]; RV.pend = RV.pend.filter(function (x) { return x !== k; }); rvCur = k; rvBad = false; } rvSave(); renderReview(); };
+    if ((b = document.getElementById('rv-flush'))) b.onclick = function () { b.disabled = true; rvFlush().then(function () { toast(RVX.sent); renderReview(); }, function () { toast(RVX.fail); renderReview(); }); };
+    if ((b = document.getElementById('rv-copy'))) b.onclick = function () { copy(document.getElementById('rv-exp').value); };
+  }
+  if (REVIEW) document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && RV && RV.pend.length) rvFlush().catch(function () {}); });
+
+  function boot() { if (REVIEW) { renderReview(); if (!RAW.polacy && RAW.polacyLazy) needPolacy(function () { renderReview(); }); return; } sbFromHash(); render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
   if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(boot); else boot();
 
   /* Service Worker nur im eigenen Hosting (nicht in Vorschauen/iframes) */

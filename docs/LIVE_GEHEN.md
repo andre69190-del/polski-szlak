@@ -98,6 +98,18 @@ Dort laufen schon GeoQuest und BIOGLOW, deshalb ist das der kürzeste Weg. Detai
 
 Falls ein Handy trotzdem die alte Version zeigt: App komplett schließen und neu öffnen. Notfalls in den Browser-Einstellungen die Website-Daten **nur für den Cache** löschen, nicht „alle Daten“ (siehe Abschnitt 4).
 
+### Nur bei Grün veröffentlichen (ab 3.0, GitHub Actions)
+
+Seit 3.0 läuft bei jedem Push `.github/workflows/checks.yml`: Build, alle Checks, Logik-Tests und der Browser-Test. Das Ergebnis steht auf GitHub unter **Actions** (grüner Haken oder rotes Kreuz).
+
+Solange der direkte Webhook in Coolify aktiv ist, veröffentlicht Coolify **trotzdem sofort**, auch bei Rot. Damit nur geprüfte Stände live gehen (einmalig, ca. 5 Minuten):
+1. Coolify → Ressource **polski-szlak** → **Webhooks**: die **Deploy Webhook**-URL kopieren (sieht aus wie `https://<coolify>/api/v1/deploy?uuid=…&force=false`).
+2. Coolify → **Keys & Tokens** → **API tokens**: neues Token mit Recht **Deploy** anlegen.
+3. GitHub → Repo **polski-szlak** → **Settings → Secrets and variables → Actions** → zwei Secrets anlegen: `COOLIFY_DEPLOY_URL` (URL aus 1) und `COOLIFY_TOKEN` (Token aus 2).
+4. Den manuellen GitHub-Webhook abschalten: auf GitHub unter **Settings → Webhooks** löschen.
+
+Danach gilt: Push → Checks laufen (ca. 3–5 Minuten) → nur bei Grün wird veröffentlicht. Ohne die Secrets bleibt alles wie bisher.
+
 ---
 
 ## 4. Der Spielstand bleibt erhalten – so funktioniert es

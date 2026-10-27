@@ -14,7 +14,7 @@ checks = [
     ('polnischer Text mit lang="pl"', r'lang="pl"'),
     ('Mindestgröße Touch-Ziele 44px', r'min-height: 44px|height: 44px'),
     ('Tastatur auf Karte (Enter/Space)', r"e\.key === 'Enter'"),
-    ('Lesbare Schrift (Atkinson Hyperlegible)', r'Atkinson\+Hyperlegible'),
+    ('Lesbare Schrift (Atkinson Hyperlegible, selbst gehostet)', r"font-family:'Atkinson Hyperlegible'"),
 ]
 fail = 0
 for name, pat in checks:

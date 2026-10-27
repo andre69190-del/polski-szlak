@@ -1,9 +1,19 @@
 # Arbeitsstand (laufend gepflegt)
 
+## Aktuell: Version 3.0 (28.10.2026)
+- Auftrag (27.10.): alle Vorschläge umsetzen (Aufräumen, GitHub-Checks, Sprecherform, Aussprache je Wort, Prüfmodus, Konjugation, Themenpakete, Stimmen, Wochenrückblick, Kalender, Nachladen, Szlak 2). KI-Gespräch: erst nach Live-Gang, morgen. Ziel des Nutzers: **B1** → Vorschlag für den weiteren Weg kommt als docs/ROADMAP_B1.md.
+- Nutzerwunsch Themen: Orte mit Alltagsthemen (z. B. Arzt) UND alternative Ansicht „Nach Thema“ → umgesetzt als zweite Ansicht auf dieselben Lektionen (keine Kopien).
+- KI-Recherche: Handy-KI (Gemini Nano/Prompt API) nur Desktop-Chrome, kein Polnisch → nein. Gemini-Gratisstufe für EU-Nutzer nicht erlaubt; Mistral gratis nur Firmen + Training. Plan: anbieterneutrale Supabase-Edge-Function (OpenAI-kompatibel: Groq gratis zum Start, später Gemini Flash-Lite/Ministral für ca. 0,1–0,4 Cent pro Gespräch), Tageslimit pro Konto, nur mit Anmeldung.
+- Supabase: Tabellen ps_progress und ps_feedback existieren (anon-Abfrage → 42501 permission denied = Tabelle da, RLS greift).
+- Arbeitsweise: Arbeitskopie in der Cloud (/mnt/user-data/outputs/PolskiSzlak), Inhalte als Python-Module (Scratchpad content/s2a.py, s2b.py, packs.py, extras.py, verbs.py) eingemischt; danach in den Projektordner zurückgeschrieben.
+- Reihenfolge der Einheiten in data.json: Szlak 1 (12) → Szlak 2 (12, "r": 2) → Pakete ("pack": 1). content_check prüft das.
+- Offen: KI-Gespräch (morgen), B1-Roadmap, polnische Inhalte von Szlak 2 gegenlesen lassen (Prüfmodus!), optional GitHub-Secrets für „nur bei Grün veröffentlichen“.
+
+
 > Wird während jeder Session fortgeschrieben, damit bei einer Kontext-Komprimierung nichts verloren geht.
 > Neue Session: zuerst diese Datei + docs/CLAUDE_SESSION_STARTER.md lesen.
 
-## Aktuell: Version 1.3 (in Arbeit, 18.10.2026)
+## Verlauf: Version 1.3 (18.10.2026)
 
 ### Aufträge des Nutzers (wörtlich zusammengefasst)
 1. „Zu wenige Fragen überall, z. B. die Fälle. Gehe auf 100 Fragen, wo möglich; auch Memory oder weitere Kategorien.“

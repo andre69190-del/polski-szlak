@@ -18,7 +18,13 @@ for pat, msg in [(r'\beval\s*\(', 'eval()'), (r'new\s+Function\s*\(', 'new Funct
 if re.search(r'XMLHttpRequest|WebSocket\(', js): fail.append('XMLHttpRequest/WebSocket im App-Code')
 # Netzwerk nur zum eigenen Supabase (freiwilliger Geräte-Abgleich) – und dort nur mit dem öffentlichen anon-Schlüssel
 for m in re.finditer(r'\bfetch\s*\(([^,)]*)', js):
-    if not m.group(1).strip().startswith('SB_URL'): fail.append('Netzwerkaufruf an fremdes Ziel: fetch(%s)' % m.group(1).strip()[:40])
+    a = m.group(1).strip()
+    if a.startswith('SB_URL'): continue
+    if a == 'POL_URL':   # 3.0: Nachladen vom eigenen Server (relativer Pfad, gleiche Herkunft)
+        mp = re.search(r"POL_URL = '([^']+)'", js)
+        if mp and not re.match(r'^[a-z0-9_-]+\.json$', mp.group(1)): fail.append('POL_URL ist kein relativer Pfad: %s' % mp.group(1))
+        continue
+    fail.append('Netzwerkaufruf an fremdes Ziel: fetch(%s)' % a[:40])
 mu = re.search(r"SB_URL = '([^']+)'", js)
 if mu and mu.group(1) != 'https://supabase.arndt-software.de': fail.append('SB_URL zeigt nicht auf den eigenen Server')
 mk = re.search(r"SB_KEY = '([^']+)'", js)

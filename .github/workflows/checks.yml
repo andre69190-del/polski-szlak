@@ -1,0 +1,40 @@
+# Polski Szlak – bei jedem Push: Build, alle Checks, Logik-Tests und Browser-Test.
+# Optional (siehe docs/LIVE_GEHEN.md, Abschnitt „Nur bei Grün veröffentlichen“):
+# Sind die Secrets COOLIFY_DEPLOY_URL und COOLIFY_TOKEN gesetzt, stößt dieser Workflow das Deployment
+# erst NACH bestandenen Checks an. Dann den direkten GitHub-Webhook in Coolify abschalten.
+name: Checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Playwright installieren
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Alle Checks + Tests + Browser-Test
+        run: bash checks/run_all.sh --ui
+  deploy:
+    needs: checks
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coolify-Deployment anstoßen (nur wenn eingerichtet)
+        env:
+          URL: ${{ secrets.COOLIFY_DEPLOY_URL }}
+          TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+        run: |
+          if [ -z "$URL" ] || [ -z "$TOKEN" ]; then echo "Kein Coolify-Secret gesetzt – Deployment läuft weiter über den Webhook."; exit 0; fi
+          curl -fsS -H "Authorization: Bearer $TOKEN" "$URL"

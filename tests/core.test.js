@@ -56,6 +56,10 @@ test('Spaced Repetition: Aufstieg, Absturz, Fälligkeit', () => {
   c = C.srsUpdate(c, true, '2026-10-21'); c = C.srsUpdate(c, true, '2026-10-25'); assert.equal(c.box, 4);
   c = C.srsUpdate(c, false, '2026-11-02'); assert.equal(c.box, 2); assert.equal(c.due, '2026-11-03'); assert.equal(c.wrong, 1);
   assert.ok(C.isDue(c, '2026-11-03')); assert.ok(!C.isDue(c, '2026-11-02'));
+  // Richtig, aber noch nicht fällig: kein Aufstieg am selben Tag
+  let early = C.srsUpdate(null, true, '2026-10-18'); early = C.srsUpdate(early, true, '2026-10-18');
+  assert.equal(early.box, 1); assert.equal(early.due, '2026-10-19'); assert.equal(early.seen, 2);
+  early = C.srsUpdate(early, false, '2026-10-18'); assert.equal(early.box, 1); assert.equal(early.wrong, 1);
   let top = { box: 6, due: 'x', seen: 9, wrong: 0 }; top = C.srsUpdate(top, true, '2026-10-18'); assert.equal(top.box, 6);
 });
 
@@ -344,6 +348,13 @@ test('nextStep: roter Faden pro Stadt', () => {
   assert.equal(C.nextStep({ done: { waw: { learn: 1 } }, scenes: { waw: true } }, 'waw'), 'quiz');
   assert.equal(C.nextStep({ done: { waw: { learn: 1, quiz: 1, build: 1 } }, scenes: { waw: true } }, 'waw'), 'boss');
   assert.equal(C.nextStep({ boss: { waw: 80 } }, 'waw'), null);
+  // Reife-Bremse: mit Wortzahl erst alle Wörter kennen, dann 80 % an zwei Tagen (Box ≥ 2)
+  const all = { done: { waw: { learn: 1, quiz: 1, build: 1 } }, scenes: { waw: true } };
+  const cards = (box, k) => Object.fromEntries(Array.from({ length: k }, (_, i) => ['waw:' + i, { box, due: '2026-10-20' }]));
+  assert.equal(C.nextStep({ ...all, cards: cards(1, 6) }, 'waw', 10), 'learn');
+  assert.equal(C.nextStep({ ...all, cards: cards(1, 10) }, 'waw', 10), 'ripen');
+  assert.equal(C.nextStep({ ...all, cards: { ...cards(1, 10), ...cards(2, 8) } }, 'waw', 10), 'boss');
+  assert.deepEqual({ ...C.cityRipe({ cards: cards(2, 3) }, 'waw', 18) }, { n: 18, seen: 3, ripe: 3, need: 15 });
   const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, done: { waw: { learn: 1 } } }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, done: { waw: { quiz: 1 }, lod: { learn: 1 } } });
   assert.equal(JSON.stringify(m.done), JSON.stringify({ waw: { quiz: 1, learn: 1 }, lod: { learn: 1 } }));
 });
@@ -362,4 +373,55 @@ test('mergeSave: Missionen, Tour und Brief-Quiz gehen nicht verloren', () => {
   assert.deepEqual({ ...m.missions }, { waw: '2026-10-20', lod: '2026-10-19' });
   assert.equal(m.tour, true);
   assert.equal(m.letterQuiz, 90);
+});
+
+test('gform: Sprecherform männlich/weiblich', () => {
+  assert.equal(C.gform('Wczoraj {byłem|byłam} w kinie.', 'm'), 'Wczoraj byłem w kinie.');
+  assert.equal(C.gform('Wczoraj {byłem|byłam} w kinie.', 'f'), 'Wczoraj byłam w kinie.');
+  assert.equal(C.gform('Jestem {zmęczony|zmęczona}, {chciałbym|chciałabym} spać.', ''), 'Jestem zmęczony, chciałbym spać.');
+  assert.equal(C.gform('bez znaczników', 'f'), 'bez znaczników');
+  assert.equal(C.hasG('{a|b}'), true); assert.equal(C.hasG('a/b'), false);
+});
+
+test('wordDiff: Ausspracherückmeldung je Wort', () => {
+  const r = C.wordDiff('Proszę usiąść i wziąć głęboki wdech.', 'prosze usiasc i wziac gleboki');
+  assert.deepEqual([...r].map(x => x.ok), [true, true, true, true, true, false]);
+  assert.equal(r[5].w, 'wdech.');
+  assert.deepEqual([...C.wordDiff('Dzień dobry!', 'dobry dzien')].map(x => x.ok), [true, true]);
+  assert.deepEqual([...C.wordDiff('Dziękuję bardzo.', 'dziekuje')].map(x => x.ok), [true, false]);
+});
+
+test('icsReminder: wöchentliche Kalender-Erinnerung', () => {
+  const now = new Date(2026, 9, 27, 23, 0); // Di 27.10.2026, 23:00
+  const s = C.icsReminder(['MO', 'WE', 'FR'], '19:00', 'Polski Szlak; 5 Minuten', 'Kurz üben', 'https://polski.arndt-software.de/', now);
+  assert.match(s, /RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR\r\n/);
+  assert.match(s, /DTSTART:20261028T190000\r\n/);          // nächster passender Tag: Mi 28.10.
+  assert.ok(s.includes('SUMMARY:Polski Szlak' + String.fromCharCode(92) + '; 5 Minuten\r\n'));
+  assert.match(s, /BEGIN:VALARM/); assert.ok(s.endsWith('END:VCALENDAR\r\n'));
+  assert.equal(C.icsReminder([], '19:00', 'x', '', '', now), null);
+  assert.equal(C.icsReminder(['MO'], '25:00', 'x', '', '', now), null);
+  assert.match(C.icsReminder(['TU'], '23:30', 'x', '', '', now), /DTSTART:20261027T233000/); // heute noch
+});
+
+test('mergeSave: Wochenlog (Wochenrückblick) bleibt erhalten', () => {
+  const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, wlog: { '2026-10-19': { n: 5, r: 10 } } },
+    { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, wlog: { '2026-10-19': { n: 7, w: 2 }, '2026-10-12': { n: 1 } } });
+  assert.equal(m.wlog['2026-10-19'].n, 7); assert.equal(m.wlog['2026-10-19'].r, 10); assert.equal(m.wlog['2026-10-19'].w, 2);
+  assert.equal(m.wlog['2026-10-12'].n, 1);
+});
+
+test('Duell-Code: Szlak 2 und Pakete ändern die Fragen nicht', () => {
+  const p1 = C.duelPlan(DATA, 'KOT-472-2');
+  const only1 = JSON.parse(JSON.stringify(DATA)); only1.units = only1.units.filter(u => !u.r && !u.pack);
+  const p2 = C.duelPlan(only1, 'KOT-472-2');
+  assert.equal(p1.check, p2.check);
+});
+
+test('Inhalte 3.0: Szlak 2, Pakete, Tagebuch, Themen', () => {
+  const r2 = DATA.units.filter(u => u.r === 2), packs = DATA.units.filter(u => u.pack);
+  assert.equal(r2.length, 12); assert.ok(packs.length >= 3);
+  assert.equal(DATA.diary.lines.length, 12);
+  assert.ok(DATA.units.reduce((a, u) => a + u.words.length, 0) >= 700);
+  const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, diarySeen: 1, opened: { giz: '2026-10-28' } }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, diarySeen: 4, opened: { pra: '2026-10-27' } });
+  assert.equal(m.diarySeen, 4); assert.ok(m.opened.giz && m.opened.pra);
 });

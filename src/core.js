@@ -57,6 +57,43 @@
     return { ok: false, kind: 'wrong', expected: vs[0] };
   }
 
+  /* Sprecherform (3.0): Inhalte schreiben geschlechtsabhängige Formen als {männlich|weiblich}, z. B. „{byłem|byłam}“.
+     gform wählt die Form ('f' = weiblich, sonst männlich). */
+  var GRX = /\{([^{}|]*)\|([^{}|]*)\}/g;
+  function gform(text, g) { return String(text == null ? '' : text).replace(GRX, function (m, a, b) { return g === 'f' ? b : a; }); }
+  function hasG(text) { GRX.lastIndex = 0; var r = GRX.test(String(text)); GRX.lastIndex = 0; return r; }
+  /* Ausspracherückmeldung je Wort: welche Wörter des Zielsatzes wurden erkannt? Reihenfolge-tolerant, 1 Tippfehler ab 5 Buchstaben. */
+  function wordDiff(target, heard) {
+    var hs = norm(heard, true).split(' ').filter(Boolean), used = {};
+    return String(target).trim().split(/\s+/).map(function (w) {
+      var n = norm(w, true); if (!n) return { w: w, ok: true };
+      for (var i = 0; i < hs.length; i++) {
+        if (used[i]) continue;
+        if (hs[i] === n || (n.length >= 5 && lev(hs[i], n) <= 1)) { used[i] = 1; return { w: w, ok: true }; }
+      }
+      return { w: w, ok: false };
+    });
+  }
+
+  /* Kalender-Erinnerung (3.0): iCalendar-Datei mit wöchentlicher Wiederholung, ohne Push und ohne Server.
+     days = ['MO','WE',…], time = 'HH:MM' (Ortszeit, „floating“), now = Date für Startdatum und Zeitstempel */
+  var ICS_DAYS = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+  function icsEsc(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n'); }
+  function icsReminder(days, time, title, desc, url, now) {
+    days = (days || []).filter(function (d) { return ICS_DAYS.indexOf(d) >= 0; }); if (!days.length) return null;
+    var m = /^(\d{1,2}):(\d{2})$/.exec(time || ''); if (!m || +m[1] > 23 || +m[2] > 59) return null;
+    now = now || new Date();
+    var d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), +m[1], +m[2]);
+    for (var i = 0; i < 8 && (days.indexOf(ICS_DAYS[d.getDay()]) < 0 || d <= now); i++) d.setDate(d.getDate() + 1);
+    var p2 = function (n) { return (n < 10 ? '0' : '') + n; };
+    var loc = d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + 'T' + p2(d.getHours()) + p2(d.getMinutes()) + '00';
+    var st = now.getUTCFullYear() + p2(now.getUTCMonth() + 1) + p2(now.getUTCDate()) + 'T' + p2(now.getUTCHours()) + p2(now.getUTCMinutes()) + p2(now.getUTCSeconds()) + 'Z';
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Polski Szlak//Erinnerung//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
+      'UID:polski-szlak-' + hash(days.join() + time + st) + '@polski.arndt-software.de', 'DTSTAMP:' + st, 'DTSTART:' + loc, 'DURATION:PT10M',
+      'RRULE:FREQ=WEEKLY;BYDAY=' + days.join(','), 'SUMMARY:' + icsEsc(title), 'DESCRIPTION:' + icsEsc(desc + (url ? '\n' + url : '')), url ? 'URL:' + url : null,
+      'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc(title), 'TRIGGER:PT0M', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].filter(Boolean).join('\r\n') + '\r\n';
+  }
+
   /* Zahlen 0–999 auf Polnisch */
   var ONES = ['zero','jeden','dwa','trzy','cztery','pięć','sześć','siedem','osiem','dziewięć'];
   var TEENS = ['dziesięć','jedenaście','dwanaście','trzynaście','czternaście','piętnaście','szesnaście','siedemnaście','osiemnaście','dziewiętnaście'];
@@ -90,6 +127,8 @@
   function srsUpdate(card, correct, today) {
     card = card ? { box: card.box | 0, due: card.due, seen: (card.seen | 0), wrong: (card.wrong | 0) } : { box: 0, due: today, seen: 0, wrong: 0 };
     card.seen += 1;
+    /* Richtig, aber noch nicht fällig: zählt nicht als neuer Schritt – Wiederholung braucht Abstand */
+    if (correct && card.due > today) return card;
     if (correct) card.box = Math.min(card.box + 1, INTERVALS.length - 1);
     else { card.box = card.box > 2 ? 2 : 1; card.wrong += 1; }
     card.due = addDays(today, correct ? INTERVALS[card.box] : 1);
@@ -112,14 +151,26 @@
     return Math.round((parseDay(todayKey) - parseDay(last)) / 86400000);
   }
   /* Roter Faden pro Stadt: empfohlene Reihenfolge, nächster offener Schritt (null = Stadt geschafft) */
-  var STEPS = ['learn', 'scene', 'quiz', 'build', 'boss'];
-  function nextStep(st, uid) {
+  var STEPS = ['learn', 'scene', 'quiz', 'build'];
+  /* Reife einer Stadt: wie viele ihrer n Wörter gesehen sind und an zwei Tagen saßen (Box ≥ 2) */
+  var RIPE_BOX = 2, RIPE_SHARE = 0.8;
+  function cityRipe(st, uid, n) {
+    var seen = 0, ripe = 0, cards = st.cards || {};
+    for (var i = 0; i < n; i++) { var c = cards[uid + ':' + i]; if (c) { seen++; if (c.box >= RIPE_BOX) ripe++; } }
+    return { n: n, seen: seen, ripe: ripe, need: Math.ceil(n * RIPE_SHARE) };
+  }
+  /* n = Wortzahl der Stadt; ohne n entfällt die Reife-Bremse vor der Prüfung */
+  function nextStep(st, uid, n) {
     var d = (st.done && st.done[uid]) || {};
     if (st.boss && st.boss[uid]) return null;
     for (var i = 0; i < STEPS.length; i++) {
       var m = STEPS[i];
-      if (m === 'boss') return m;
       if (m === 'scene' ? !(st.scenes && st.scenes[uid]) : !d[m]) return m;
+    }
+    if (n) {
+      var r = cityRipe(st, uid, n);
+      if (r.seen < n) return 'learn';
+      if (r.ripe < r.need) return 'ripen';
     }
     return 'boss';
   }
@@ -226,7 +277,8 @@
       return { code: pc.code, base: pc.base, lv: pc.lv, level: pc.level, pol: true, diff: pc.diff, plan: plan, check: duelCheck(JSON.stringify(plan)) };
     }
     var words = [];
-    data.units.forEach(function (u, ui) { u.words.forEach(function (w, wi) { words.push([ui, wi]); }); });
+    /* nur Szlak 1 (ohne Szlak 2 und Pakete): neue Inhalte ändern die Duell-Fragen nicht */
+    data.units.forEach(function (u, ui) { if (u.r || u.pack) return; u.words.forEach(function (w, wi) { words.push([ui, wi]); }); });
     var W = function (x) { return data.units[x[0]].words[x[1]]; };
     var keys = function (w) { return ['p' + norm(w[0]), 'd' + norm(w[1]), 'e' + norm(w[2])]; };
     var idx = function (n) { var a = []; for (var k = 0; k < n; k++) a.push(k); return a; };
@@ -278,13 +330,15 @@
     function arr(x) { return Array.isArray(x) ? x : []; }
     function each(k, f) { var A = obj(nw[k]), B = obj(ol[k]), r = {}; Object.keys(A).concat(Object.keys(B)).forEach(function (i) { r[i] = i in A ? (i in B ? f(A[i], B[i]) : A[i]) : B[i]; }); o[k] = r; }
     function max(x, y) { return Math.max(+x || 0, +y || 0); }
-    o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked); o.letterSeen = max(nw.letterSeen, ol.letterSeen);
+    o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked); o.letterSeen = max(nw.letterSeen, ol.letterSeen); o.diarySeen = max(nw.diarySeen, ol.diarySeen);
     o.onboarded = !!(nw.onboarded || ol.onboarded); o.tour = !!(nw.tour || ol.tour); o.letterQuiz = max(nw.letterQuiz, ol.letterQuiz);
     if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
     ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
     ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
+    each('opened', function (x, y) { return x || y; });
     each('done', function (x, y) { return Object.assign({}, y, x); });
     each('missions', function (x, y) { return x || y; });
+    each('wlog', function (x, y) { var r = {}; [x, y].forEach(function (z) { Object.keys(obj(z)).forEach(function (f) { r[f] = Math.max(r[f] || 0, +z[f] || 0); }); }); return r; });
     each('daily', function (x, y) { return ((y && y.score) || 0) > ((x && x.score) || 0) ? y : x; });
     each('rank', function (x, y) { return ((y && y.g) || 0) > ((x && x.g) || 0) ? y : x; });
     /* eigene Wörter: vom neueren Stand, fehlende vom älteren hinten anhängen */
@@ -458,6 +512,7 @@
   }
 
   G.PSCore = {
+    gform: gform, hasG: hasG, wordDiff: wordDiff, icsReminder: icsReminder,
     pmLetterOk: pmLetterOk, pmKnown: pmKnown, pmScore: pmScore,
     misspell: misspell, spellWorthy: spellWorthy,
     proj: proj, unproj: unproj, distKm: distKm, hlPair: hlPair, orderOk: orderOk, scramble: scramble,
@@ -465,7 +520,7 @@
     stripDia: stripDia, norm: norm, variants: variants, lev: lev, checkAnswer: checkAnswer,
     numToPl: numToPl, zlotyForm: zlotyForm, priceWords: priceWords,
     INTERVALS: INTERVALS, MASTERED_BOX: MASTERED_BOX, srsUpdate: srsUpdate, isDue: isDue,
-    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek, daysSince: daysSince, STEPS: STEPS, nextStep: nextStep, letterRead: letterRead,
+    dayKey: dayKey, addDays: addDays, weekKey: weekKey, prevWeek: prevWeek, daysInWeek: daysInWeek, daysSince: daysSince, STEPS: STEPS, nextStep: nextStep, cityRipe: cityRipe, letterRead: letterRead,
     weekStreak: weekStreak, totalDays: totalDays,
     duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,
