@@ -25380,6 +25380,7 @@
   }
  ],
  "news": [
+  {"v": "3.1.4", "date": "2026-10-28", "de": ["Ton auf iPhone und iPad, wenn die App installiert ist: Die Sprachausgabe ist jetzt auch zu hören, wenn das iPhone auf lautlos steht (wie bei Videos)."], "en": ["Sound on iPhone and iPad in the installed app: speech is now audible even when the iPhone is set to silent (like videos)."]},
   {
    "v": "3.1.3",
    "date": "2026-10-28",

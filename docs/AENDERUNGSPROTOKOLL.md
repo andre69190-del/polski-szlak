@@ -1,5 +1,11 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.1.4 · 28.10.2026 · Ton auf Apple (Ursache gefunden)
+
+- Diagnose vom iPhone (iOS 18.7, installierte App): Stimme „Zosia“ gewählt, `start` und `ende` kommen, Dauer ca. 1 s – die Sprachausgabe läuft also, ist aber nicht zu hören.
+- Ursache: Installierte Web-Apps laufen in der Audio-Sitzung „ambient“, die dem Stumm-Schalter folgt.
+- **Fix:** `navigator.audioSession.type = 'playback'` (Safari 17+) vor jeder Ausgabe – Ton auch bei lautlos, wie bei Videos. Diagnose zeigt die Audio-Sitzung an. Service Worker Cache v3-1-4.
+
 ## 3.1.3 · 28.10.2026 · Ton auf Apple (zweiter Anlauf)
 
 - Rückmeldung: Ton auf iPhone geht weiterhin nicht, „anfangs ging es“ (bis 2.0).

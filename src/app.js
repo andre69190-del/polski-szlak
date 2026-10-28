@@ -353,6 +353,7 @@
     if (typeof speechSynthesis === 'undefined' || typeof SpeechSynthesisUtterance === 'undefined') { tlog('keine Sprachausgabe im Browser'); toast(t('tts_missing')); return; }
     if (!voice && !retry) pickVoice();
     if (!voice && !vcWarned && speechSynthesis.getVoices().length && !plVoices().length) { vcWarned = true; toast(t('vc_none_toast')); }
+    audioPlayback();
     try {
       /* Lief noch etwas: abbrechen und kurz warten – Safari verschluckt sonst den neuen Satz oder bleibt „hängen“ */
       var busy = speechSynthesis.speaking || speechSynthesis.pending;
@@ -369,6 +370,11 @@
       if (!retry) setTimeout(function () { if (!started && !speechSynthesis.speaking) { tlog('nach 1,5 s kein Start – zweiter Versuch'); ttsSpeak(text, slow, true); } }, 1500);
     } catch (e) { tlog('ausnahme: ' + e); toast(t('tts_missing')); }
   }
+  /* iPhone/iPad: Web-Apps laufen sonst in der Audio-Sitzung „ambient“ – die folgt dem Stumm-Schalter, die Sprachausgabe
+     läuft dann (start/ende), ist aber nicht zu hören. „playback“ (Safari 17+) spielt wie ein Video auch bei Stumm-Schalter. */
+  function audioPlayback() {
+    try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') { navigator.audioSession.type = 'playback'; tlog('Audio-Sitzung: playback'); } } catch (e) { tlog('Audio-Sitzung: ' + e); }
+  }
   /* Ton-Test mit Diagnose (Ich → Stimme): zeigt, was der Browser meldet – für Fehlersuche per Bildschirmfoto */
   function ttsDiag() {
     var vs = []; try { vs = speechSynthesis.getVoices(); } catch (e) {}
@@ -378,6 +384,7 @@
       'Stimmen gesamt: ' + vs.length + ' · polnisch: ' + pl.length,
       pl.map(function (v) { return '  - ' + v.name + ' [' + v.lang + (v.localService ? ', lokal' : ', online') + (v['default'] ? ', Standard' : '') + ']'; }).join('\n') || '  (keine polnische Stimme)',
       'gewählt: ' + (voice ? voice.name : '(keine feste Stimme)') + (S.voice ? ' · eingestellt: ' + S.voice : ''),
+      'Audio-Sitzung: ' + (navigator.audioSession ? navigator.audioSession.type + ' / ' + navigator.audioSession.state : '(nicht vorhanden)'),
       'Status: speaking=' + speechSynthesis.speaking + ' pending=' + speechSynthesis.pending + ' paused=' + speechSynthesis.paused,
       '--- Ablauf ---'].concat(ttsLog).join('\n');
   }
@@ -801,7 +808,7 @@
   }
 
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.1.3', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.1.4', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -900,7 +907,7 @@
     var vd = document.getElementById('vc-diag'); if (vd) vd.onclick = function () {
       var out = document.getElementById('vc-out'); out.hidden = false; out.textContent = '…';
       ttsLog = []; ttsSpeak('Dzień dobry!');
-      setTimeout(function () { out.textContent = ttsDiag(); }, 2500);
+      setTimeout(function () { var o = document.getElementById('vc-out'); if (o) { o.hidden = false; o.textContent = ttsDiag(); } }, 2500);
     };
   }
   var REM_DAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
