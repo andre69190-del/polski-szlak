@@ -25381,6 +25381,24 @@
  ],
  "news": [
   {
+   "v": "3.1.2",
+   "date": "2026-10-28",
+   "de": [
+    "Eine neue Stadt gibt es erst, wenn alle Wörter der Stadt gelernt und an zwei verschiedenen Tagen gefestigt sind. Die Stadtprüfung lässt sich nicht mehr vorzeitig starten.",
+    "Der Weiter-Knopf führt immer zur ersten Stadt, deren Prüfung du noch nicht bestanden hast – auch wenn du Städte übersprungen hast.",
+    "Quiz, Hören, Schreiben und Paare fragen nur Wörter ab, die du schon kennengelernt hast.",
+    "Einstufungstest strenger: 3 Fragen pro Stadt.",
+    "Mac: Anleitung zum Installieren als App (Safari: Ablage → Zum Dock hinzufügen)."
+   ],
+   "en": [
+    "A new city only opens once all of its words are learned and consolidated on two different days. The city test can no longer be started early.",
+    "The continue button always leads to the first city whose test you haven’t passed yet – even if you skipped cities.",
+    "Quiz, listening, writing and pairs only ask words you have already met.",
+    "Stricter placement test: 3 questions per city.",
+    "Mac: how to install as an app (Safari: File → Add to Dock)."
+   ]
+  },
+  {
    "v": "3.1.1",
    "date": "2026-10-28",
    "de": [

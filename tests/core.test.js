@@ -353,8 +353,9 @@ test('nextStep: roter Faden pro Stadt', () => {
   const cards = (box, k) => Object.fromEntries(Array.from({ length: k }, (_, i) => ['waw:' + i, { box, due: '2026-10-20' }]));
   assert.equal(C.nextStep({ ...all, cards: cards(1, 6) }, 'waw', 10), 'learn');
   assert.equal(C.nextStep({ ...all, cards: cards(1, 10) }, 'waw', 10), 'ripen');
-  assert.equal(C.nextStep({ ...all, cards: { ...cards(1, 10), ...cards(2, 8) } }, 'waw', 10), 'boss');
-  assert.deepEqual({ ...C.cityRipe({ cards: cards(2, 3) }, 'waw', 18) }, { n: 18, seen: 3, ripe: 3, need: 15 });
+  assert.equal(C.nextStep({ ...all, cards: { ...cards(1, 10), ...cards(2, 8) } }, 'waw', 10), 'ripen');   // 8 von 10 reicht nicht mehr
+  assert.equal(C.nextStep({ ...all, cards: cards(2, 10) }, 'waw', 10), 'boss');
+  assert.deepEqual({ ...C.cityRipe({ cards: cards(2, 3) }, 'waw', 18) }, { n: 18, seen: 3, ripe: 3, need: 18 });
   const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, done: { waw: { learn: 1 } } }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, done: { waw: { quiz: 1 }, lod: { learn: 1 } } });
   assert.equal(JSON.stringify(m.done), JSON.stringify({ waw: { quiz: 1, learn: 1 }, lod: { learn: 1 } }));
 });

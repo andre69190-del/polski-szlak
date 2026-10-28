@@ -153,7 +153,7 @@
   /* Roter Faden pro Stadt: empfohlene Reihenfolge, nächster offener Schritt (null = Stadt geschafft) */
   var STEPS = ['learn', 'scene', 'quiz', 'build'];
   /* Reife einer Stadt: wie viele ihrer n Wörter gesehen sind und an zwei Tagen saßen (Box ≥ 2) */
-  var RIPE_BOX = 2, RIPE_SHARE = 0.8;
+  var RIPE_BOX = 2, RIPE_SHARE = 1;   /* 3.1.2: ALLE Wörter einer Stadt müssen an zwei Tagen gesessen haben (Wunsch des Nutzers) */
   function cityRipe(st, uid, n) {
     var seen = 0, ripe = 0, cards = st.cards || {};
     for (var i = 0; i < n; i++) { var c = cards[uid + ':' + i]; if (c) { seen++; if (c.box >= RIPE_BOX) ripe++; } }

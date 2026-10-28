@@ -6,3 +6,4 @@ backup_v1.0/
 content_neu/
 *.zip
 .claude/
+deploy/functions/ps-chat/stuecke/

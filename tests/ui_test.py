@@ -245,6 +245,13 @@ with sync_playwright() as p:
     (ok if len(st['res']) == 1 else bad)('Rückgängig im Prüfmodus')
     rv.close()
 
+    # 3.1.2: übersprungene Stadt bleibt Ziel des Weiter-Knopfs, Prüfung erst nach Festigen
+    page.evaluate("() => { const s = window.PSApp.state(); s._bk = JSON.stringify({b: s.boss, k: s.skipped, u: s.unlocked}); s.boss = {}; s.skipped = { waw: true, lod: true }; s.unlocked = 3; window.PSApp.go('home'); }")
+    (ok if 'Warszawa' in page.inner_text('#cta') else bad)('Weiter führt zur übersprungenen Stadt Warszawa')
+    page.evaluate("() => window.PSApp.go('city', 2)"); page.locator('.tiles [data-mode="boss"]').click(); page.wait_for_timeout(200)
+    (ok if not page.locator('.game').count() else bad)('Stadtprüfung vor dem Festigen gesperrt')
+    page.evaluate("() => { const s = window.PSApp.state(); const o = JSON.parse(s._bk); s.boss = o.b; s.skipped = o.k; s.unlocked = o.u; delete s._bk; }")
+
     # Was ist neu
     page.evaluate("() => { window.PSApp.state().seenVer = ''; window.PSApp.go('home'); }")
     (ok if page.locator('#nw').count() else bad)('Update-Hinweis auf der Startseite')

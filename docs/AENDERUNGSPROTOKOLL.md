@@ -1,5 +1,16 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.1.2 · 28.10.2026 · Erst festigen, dann weiter
+
+- Rückmeldung des Nutzers: Man kam in neue Städte, obwohl die Wörter der alten Stadt noch nicht vorkamen bzw. nicht gefestigt waren.
+- **Reife-Bremse auf 100 %:** Die Stadtprüfung öffnet erst, wenn **alle** Wörter der Stadt gelernt sind und an zwei verschiedenen Tagen gesessen haben (`RIPE_SHARE = 1`). Vorzeitiges Starten mit Rückfrage entfällt (Hinweis statt Prüfung).
+- **Weiter-Knopf:** führt immer zur ersten Stadt ohne bestandene Prüfung; übersprungene Städte zählen nicht mehr als geschafft.
+- **Abfragen nur mit Bekanntem:** Quiz, Hören, Schreiben und Paare nutzen nur Wörter, die man schon kennengelernt hat; bei weniger als 4 geht es zuerst zu „Neue Wörter“.
+- **Einstufungstest strenger:** 3 Fragen pro Stadt (1× Auswahl, 2× Schreiben), alle müssen stimmen.
+- **Konto anlegen:** verständliche Meldung, wenn der Server keine Bestätigungs-Mail senden kann (vorher Zeitüberschreitung ohne Erklärung). Server-Einrichtung siehe docs/LIVE_GEHEN.md, Abschnitt 4b.
+- **Mac:** Installationshinweis für Safari (Ablage → Zum Dock hinzufügen) und Chrome/Edge.
+- Service Worker Cache v3-1-2.
+
 ## 3.1.1 · 28.10.2026 · Ton auf Apple-Geräten, „Was ist neu“
 
 - **Behoben: kein Ton auf iPhone/iPad.** Die automatische Stimmenwahl aus 3.0 bevorzugte „verbesserte“ Stimmen; Apple listet im Browser auch nicht installierte Stimmen, die stumm bleiben. Auf Apple-Geräten wählt jetzt das System die polnische Stimme (nur `lang = pl-PL`), außer man wählt unter Ich → Stimme selbst. Zusätzlich Sicherheitsnetz: Bleibt eine Stimme stumm, wird sofort mit der Systemstimme wiederholt. Neue Option „Automatisch (empfohlen)“.
