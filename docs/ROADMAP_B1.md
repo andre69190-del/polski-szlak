@@ -1,4 +1,7 @@
-# Polski Szlak – Weg zu B1 (Vorschlag, Stand 28.10.2026)
+# Polski Szlak – Weg zu B1 (Stand 28.10.2026, abends)
+
+> **Umgesetzt in 3.3:** Etappe 1 (Szlak 3 „Die Bücher“, 12 Orte, 1208 Wörter gesamt, Buch „Klucz z Wieliczki“ mit Lesetexten, Beta bis zur Prüfung durch Magdalena) und ein erster **B1-Prüfungsmodus** (Etappe 4, Probeprüfung mit fünf Teilen).
+> **Entscheidungen von Andre:** Szlak 3 zuerst ✓ · Audio vorerst Gerätestimme, kostenlose Piper-Stimmen als Option (Hörproben verschickt) · Prüfungsmodus gewünscht, „soll immer Spaß machen“ ✓ · Gegenlesen: Magdalena (Kraków) ✓ · Wichtigstes Ziel: dranbleiben und echtes Sprechen.
 
 **Ziel des Nutzers:** B1. Auf diesem Niveau kann man sich im Alltag sicher verständigen, über Erfahrungen, Pläne und Meinungen sprechen, einfache Texte schreiben und Gesprächen zu vertrauten Themen folgen.
 

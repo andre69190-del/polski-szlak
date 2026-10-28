@@ -177,7 +177,7 @@ with sync_playwright() as p:
     page.click('[data-mode="themes"]'); page.wait_for_selector('[data-th]')
     (ok if page.locator('[data-th]').count() >= 8 else bad)('Nach Thema: Themenliste')
     page.click('[data-th="arzt"]'); page.wait_for_selector('[data-tu]')
-    (ok if page.locator('[data-tu]').count() == 4 else bad)('Thema Arzt: 4 Lektionen (Wrocław, Giżycko, Praxis, Notfall)')
+    (ok if page.locator('[data-tu]').count() == 5 else bad)('Thema Arzt: 5 Lektionen (Wrocław, Giżycko, Elbląg, Praxis, Notfall)')
     page.click('[data-mode="themelearn"]'); (ok if play_through(page) else bad)('Thema: neue Wörter')
     page.click('#home'); page.wait_for_selector('[data-tu]'); (ok if page.locator('h1').inner_text().startswith('Arzt') else bad)('Zurück landet im Thema')
     page.click('[data-mode="themeq"]'); (ok if play_through(page) else bad)('Thema üben')
@@ -341,6 +341,52 @@ with sync_playwright() as p:
         (ok if st == ['bc', 2, 5, False] else bad)('Eigenes Wort löschen: Fortschritt der anderen bleibt richtig zugeordnet: %s' % st)
     else: bad('Eigene Wörter: Löschen-Knopf nicht gefunden')
     sx.close()
+
+    # ---------- 3.3 Szlak 3 „Die Bücher“ und B1-Probeprüfung ----------
+    tx = b.new_context(); tp = tx.new_page(); tp.on('pageerror', lambda e: errors.append(str(e)))
+    tp.goto(URL); tp.wait_for_selector('#app')
+    # Lernende am Ende von Szlak 2 (Spielstand von 3.2): nach dem Laden geht es in Jelenia Góra weiter, nichts geht verloren
+    R2 = ['waw','lod','poz','szc','gda','tor','bia','lub','kra','zak','kat','wro','sop','mal','giz','ols','plo','cze','san','bie','prz','tar','opo','kar']
+    tp.evaluate("(ids) => { const s = { app: 'polski-szlak', v: 1, base: 'de', onboarded: true, tour: true, xp: 5000, cards: { 'kar:3': { box: 4, seen: 7 } }, unlocked: 23, boss: {}, appVer: '3.2', seenVer: '3.3' }; ids.forEach(i => s.boss[i] = 80); localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }", R2)
+    tp.reload(); tp.wait_for_selector('.map')
+    st = tp.evaluate("() => { const s = window.PSApp.state(), D = window.PSApp.data(); return [D.units.length, D.units.findIndex(u => u.id === 'jel'), D.units.findIndex(u => u.id === 'kar'), D.units.findIndex(u => u.pack), s.unlocked, s.xp, s.cards['kar:3'].box]; }")
+    (ok if st == [40, 24, 23, 36, 24, 5000, 4] else bad)('Szlak 3 nachgeladen, Reihenfolge stimmt, Stand von 3.2 bleibt, Jelenia Góra frei: %s' % st)
+    (ok if tp.locator('#map-r button').count() == 3 and 'B1' in tp.inner_text('#map-r') else bad)('Karte: Szlak 1 · 2 · 3 (B1)')
+    (ok if tp.locator('#book-open').count() == 1 and 'Klucz z Wieliczki' in tp.inner_text('main') else bad)('Startseite: Anias Buch mit Kapitel 1')
+    tp.click('#book-open'); tp.wait_for_selector('.rd-pl')
+    (ok if tp.locator('.rd-pl').count() == 9 and tp.locator('.rd-trl:not([hidden])').count() == 0 else bad)('Kapitel 1: 9 Sätze, Übersetzung zunächst verborgen')
+    tp.click('#rd-tr'); (ok if tp.locator('.rd-trl:not([hidden])').count() == 9 else bad)('Übersetzung einblendbar')
+    for qi in range(3):
+        tp.evaluate("(qi) => { const u = window.PSApp.data().units.find(x => x.id === 'jel'); const a = u.read.q[qi].a; document.querySelector('.rd-q .opt[data-q=\"' + qi + '\"][data-k=\"' + a + '\"]').click(); }", qi)
+    tp.click('#rd-check'); tp.wait_for_selector('.banner')
+    st = tp.evaluate("() => [window.PSApp.state().read.jel, window.PSApp.state().xp]")
+    (ok if st[0] == 100 and st[1] == 5040 else bad)('Verständnisfragen: 100 %%, +40 XP: %s' % st)
+    tp.click('#back'); tp.wait_for_selector('.city-head')
+    (ok if 'Beta' in tp.inner_text('.city-head') and tp.locator('[data-mode="read"] .badge').inner_text() == '100%' else bad)('Stadt: Beta-Hinweis und Kapitel-Ergebnis')
+    # Spielstand mitten in Szlak 2: Szlak 3 bleibt zu
+    tp.evaluate("() => { const s = window.PSApp.state(); s.unlocked = 15; s.boss = { waw: 80 }; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }"); tp.reload(); tp.wait_for_selector('.map')
+    (ok if tp.evaluate("() => window.PSApp.state().unlocked") == 15 and tp.locator('#book-open').count() == 0 else bad)('Mitten in Szlak 2: Szlak 3 noch zu, kein Buch')
+    # B1-Probeprüfung komplett durchspielen
+    tp.evaluate("() => window.PSApp.go('exam')"); tp.wait_for_selector('#ex-go'); tp.click('#ex-go')
+    for _ in range(11):
+        tp.wait_for_selector('[data-o]'); tp.locator('[data-o]').first.click(); tp.click('#ex-next')
+    tp.wait_for_selector('.rd-q')
+    for qi in range(3): tp.locator('.rd-q .opt[data-q="%d"]' % qi).first.click()
+    tp.click('#ex-rcheck'); tp.click('#ex-next'); tp.wait_for_selector('#ex-txt')
+    tp.fill('#ex-txt', 'Dzień dobry, od tygodnia nie działa ogrzewanie w moim mieszkaniu i jest bardzo zimno. Wczoraj dzwoniłem do hydraulika, ale nie odebrał. Czy mógłby Pan przysłać kogoś jutro rano, bo pracuję po południu? Pozdrawiam serdecznie, Andre')
+    tp.click('#ex-wcheck'); tp.wait_for_selector('.ex-crit')
+    (ok if tp.locator('.ex-crit li.ok').count() == 5 else bad)('Schreiben: alle 5 Kriterien erkannt')
+    tp.click('#ex-next'); tp.wait_for_selector('[data-r]'); tp.click('[data-r="100"]'); tp.wait_for_selector('.ex-result')
+    st = tp.evaluate("() => { const e = window.PSApp.state().exam; return [e.n, e.best > 0, Object.keys(e.last.sc).length]; }")
+    (ok if st == [1, True, 5] else bad)('B1-Probeprüfung: fünf Teile, Ergebnis gespeichert: %s' % st)
+    w = tp.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
+    (ok if w <= 0 else bad)('Probeprüfung ohne horizontales Scrollen')
+    if SHOTS: tp.screenshot(path=str(SHOT_DIR / '50_exam_result.png'), full_page=True)
+    # Prüfmodus enthält die Buchkapitel
+    tp.goto(URL + '?review'); tp.wait_for_selector('#rv-sec')
+    tp.wait_for_function("() => document.querySelector('#rv-sec') && /Książka/.test(document.querySelector('#rv-sec').innerText)")
+    ok('Prüfmodus: Abschnitt „Książka (Szlak 3)“')
+    tx.close()
 
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]

@@ -458,3 +458,19 @@ test('3.2 Zurückholen per Zusammenführen verliert nie Fortschritt', () => {
   assert.equal(m.xp, 50); assert.equal(m.unlocked, 3); assert.equal(m.boss.waw, 90);
   assert.equal(m.cards['waw:0'].box, 4); assert.ok(m.cards['waw:5']);
 });
+
+test('3.3 Zusammenführen: Buchkapitel und B1-Probeprüfung gehen nicht verloren', () => {
+  const a = { app: 'polski-szlak', xp: 1, cards: {}, ts: 2, read: { jel: 67 }, exam: { n: 1, best: 55, last: { tot: 55 } } };
+  const b = { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, read: { jel: 100, klo: 33 }, exam: { n: 3, best: 72, passed: '2026-10-20' } };
+  const m = C.mergeSave(a, b);
+  assert.equal(m.read.jel, 100); assert.equal(m.read.klo, 33);
+  assert.equal(m.exam.n, 3); assert.equal(m.exam.best, 72); assert.equal(m.exam.passed, '2026-10-20'); assert.equal(m.exam.last.tot, 55);
+});
+
+test('3.3 Szlak 3: 12 Orte nach Szlak 2, je 40 Wörter, Kapitel mit 3 Fragen', () => {
+  const r3 = DATA.units.filter(u => u.r === 3), ids = DATA.units.map(u => u.id);
+  assert.equal(r3.length, 12);
+  assert.equal(ids.indexOf('jel'), ids.indexOf('kar') + 1);
+  r3.forEach(u => { assert.equal(u.words.length, 40); assert.equal(u.read.q.length, 3); assert.ok(DATA.missions[u.id]); });
+  assert.ok(DATA.book && DATA.book.prolog && DATA.book.finale);
+});

@@ -95,6 +95,9 @@ chk "3.2 Rettung beschädigter Spielstände" "repairSave"
 chk "3.2 Zurückholen per Zusammenführen" "function mergeIn"
 chk "3.2 Sicherung als Datei" "polski-szlak-sicherung-"
 chk "3.2 Zwei Tabs überschreiben sich nicht" "addEventListener('storage'"
+chk "3.3 Szlak 3 nachgeladen" "data-szlak.json"
+chk "3.3 Buchkapitel mit Verständnisfragen" "function renderRead"
+chk "3.3 B1-Probeprüfung" "function renderExam"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL

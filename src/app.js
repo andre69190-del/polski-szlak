@@ -19,6 +19,19 @@
   }
   /* 3.0: „Dla Polaków“ (600 Fragen) wird erst bei Bedarf geladen (data-polacy.json, offline aus dem Service-Worker-Cache) */
   var POL_URL = 'data-polacy.json', polWait = null;
+  /* 3.3: Szlak 2 (A2) und 3 (B1) kommen aus data-szlak.json und werden direkt nach Szlak 1 eingefügt – Fortschritt hängt nur an den IDs */
+  var S3_URL = 'data-szlak.json', s3Wait = null;
+  function addUnits(arr) {
+    var u = RAW.units, k = 0, have = {}; while (k < u.length && !u[k].pack) k++;
+    u.forEach(function (x) { have[x.id] = 1; });
+    RAW.units = u.slice(0, k).concat(arr.filter(function (x) { return x && x.id && !have[x.id]; }), u.slice(k)); delete RAW.unitsLazy;
+    loadData(); fixUnlock();
+  }
+  function needS3(cb) {
+    if (!RAW.unitsLazy) { if (cb) cb(); return; }
+    if (!s3Wait) s3Wait = fetch(S3_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(addUnits, function (e) { s3Wait = null; throw e; });
+    s3Wait.then(function () { if (cb) cb(); }, function () {});
+  }
   function needPolacy(cb, quiet) {
     if (RAW.polacy) return cb();
     if (!polWait) polWait = fetch(POL_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (j) { RAW.polacy = j; loadData(); }, function (e) { polWait = null; throw e; });
@@ -145,6 +158,10 @@
       learn_first: 'Lerne zuerst ein paar neue Wörter dieser Stadt kennen.',
       inst_mac: 'Mac mit Safari: Menü Ablage → „Zum Dock hinzufügen“. Mac mit Chrome oder Edge: Installieren-Symbol rechts in der Adressleiste. Danach startet Polski Szlak wie ein eigenes Programm.', sync_err_mail: 'Das Konto konnte gerade nicht angelegt werden: Der Server kann keine Bestätigungs-Mail senden. Bitte später noch einmal versuchen – wir kümmern uns darum.',
       bk_title: 'Dein Fortschritt ist sicher', bk_d_local: 'Die App sichert deinen Stand automatisch auf diesem Gerät (die letzten 7 Tage und vor jedem Update). Zurückholen fügt nur hinzu – es geht nie etwas verloren.', bk_d_acc: 'Dein Stand liegt auf diesem Gerät, in automatischen Sicherungen (7 Tage, vor jedem Update) und zusätzlich auf dem Server. Zurückholen fügt nur hinzu – es geht nie etwas verloren.', bk_acc_tip: 'Tipp: Mit einem kostenlosen Konto ist dein Fortschritt auch sicher, wenn das Handy verloren geht.', bk_now: 'Jetzt', bk_words: 'Wörter', bk_cities: 'Städte geschafft', bk_list: 'Automatische Sicherungen', bk_get: 'Zurückholen', bk_get_d: 'Zurückholen führt die Sicherung mit deinem jetzigen Stand zusammen: Es kommt nur dazu, was fehlt.', bk_file: 'Als Datei speichern', bk_load: 'Datei laden', bk_w_auto: 'automatisch', bk_w_update: 'vor Update', bk_w_reset: 'vor Neustart', bk_w_restore: 'vor Zurückholen', bk_w_sync: 'vor erstem Abgleich', save_full: 'Der Speicher des Browsers ist voll. Bitte „Als Datei speichern“ nutzen oder ein Konto anlegen.', rescue_repaired: 'Dein Spielstand war beschädigt und wurde repariert.', rescue_backup: 'Dein Spielstand fehlte oder war beschädigt – die letzte Sicherung wurde geladen.', rescue_lost: 'Dein Spielstand war beschädigt. Das Original ist aufbewahrt – bitte melde dich über „Problem melden“.',
+      beta_d: 'Neu – wird gerade von einer Muttersprachlerin geprüft.', rd_tile: 'Kapitel lesen', rd_tile_d: 'Ein Kapitel aus Anias Buch, mit Fragen', rd_new: 'Neues Kapitel', rd_card_d: '{n} von {t} Kapiteln gelesen. Jede Stadt auf Szlak 3 schaltet ein neues Kapitel frei.', rd_open: 'Kapitel {n} lesen', rd_chapter: 'Kapitel', rd_listen: 'Ganzes Kapitel vorlesen', rd_tr: 'Übersetzung zeigen', rd_hint: 'Tipp: Tippe auf einen Satz – er wird vorgelesen und übersetzt.', rd_q: 'Hast du alles verstanden?', rd_perfect: 'Alles verstanden – super!', rd_ok: 'Gut! Lies die Stelle noch einmal nach.', rd_talk: 'Über das Kapitel sprechen',
+      ex_title: 'B1-Probeprüfung', ex_tile_d: 'Fünf Teile wie die echte Prüfung – ohne Stress', ex_start_btn: 'Zur B1-Probeprüfung', ex_intro: 'Wie weit bist du auf dem Weg zu B1? Die Probeprüfung hat fünf Teile wie die staatliche Prüfung – nur kürzer, ohne Zeitdruck und mit Rückmeldung sofort. Jedes Mal kommen andere Aufgaben.', ex_p_listen: 'Hören', ex_p_gram: 'Grammatik', ex_p_read: 'Lesen', ex_p_write: 'Schreiben', ex_p_speak: 'Sprechen', ex_pd_listen: '5 Sätze hören und verstehen', ex_pd_gram: '6 Lücken mit der richtigen Form', ex_pd_read: 'ein kurzer Text mit Fragen', ex_pd_write: 'eine kurze Nachricht oder E-Mail', ex_pd_speak: 'eine Minute frei sprechen', ex_note: 'Bestanden: im Schnitt mindestens 60 % und jeder Teil mindestens 50 %. Dauer etwa 15 Minuten.', ex_passed_once: 'schon bestanden', ex_tries: 'Versuche', ex_go: 'Los geht’s', ex_l_ask: 'Hör zu: Was bedeutet der Satz?', ex_g_ask: 'Welche Form passt in die Lücke?', ex_words: 'Wörter',
+      ex_w_len: 'mindestens 30 Wörter', ex_w_hi: 'Anrede (z. B. Dzień dobry, Cześć, Szanowni Państwo)', ex_w_ask: 'eine Frage oder Bitte', ex_w_bye: 'Gruß am Ende (z. B. Pozdrawiam)', ex_w_gram: 'Vergangenheit oder Konditional und ein Verbindungswort (bo, ale, że …)', ex_ai_fix: 'Text von der KI korrigieren lassen', ex_ai_login: 'Mit Konto kann die KI deinen Text korrigieren.', ex_ai_sc: 'Bitte korrigiere meinen Text Satz für Satz und erkläre kurz die Fehler.', ex_ai_open: 'Wklej swój tekst, a ja go poprawię.', ex_s_how: 'Sprich laut etwa eine Minute (5–8 Sätze) – allein, mit jemandem oder im KI-Gespräch. Danach schätzt du dich ehrlich ein.', ex_s_ai: 'Mit der KI sprechen', ex_s_rate: 'Wie ist es gelaufen?', ex_s_r1: 'Ich habe eine Minute gesprochen, fast ohne Pausen', ex_s_r2: 'Es ging, mit ein paar Pausen und Lücken', ex_s_r3: 'Schwierig – nur einzelne Sätze',
+      ex_result: 'Ergebnis', ex_pass: 'Zdane! Bestanden!', ex_fail: 'Noch nicht ganz – aber du bist auf dem Weg!', ex_pass_d: 'Gratulacje! Das ist eine Probeprüfung der App, kein offizielles Zertifikat – aber ein richtig gutes Zeichen. Probier es ruhig noch einmal mit neuen Aufgaben.', ex_tip_listen: 'Tipp: Hören übst du am besten mit den Szenen und dem Radio-Link der Städte – und mit „Langsam sprechen“ aus.', ex_tip_gram: 'Tipp: Die Grammatik-Lücken kommen aus „Fälle“ und „Aspekt“. Ein paar Runden davon helfen sofort.', ex_tip_read: 'Tipp: Lies die Kapitel aus Anias Buch zuerst ohne Übersetzung.', ex_tip_write: 'Tipp: Achte auf Anrede, Bitte oder Frage, Gruß – und schreib mindestens 30 Wörter.', ex_tip_speak: 'Tipp: Erledige die Sprech-Missionen der Städte – am besten mit echten Menschen.', ex_disclaimer: 'Hinweis: Die echte staatliche Prüfung (certyfikatpolski.pl) ist länger und anders bewertet.',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -255,6 +272,10 @@
       learn_first: 'First get to know a few new words of this city.',
       inst_mac: 'Mac with Safari: File menu → “Add to Dock”. Mac with Chrome or Edge: install icon on the right of the address bar. Polski Szlak then starts like its own app.', sync_err_mail: 'The account couldn’t be created right now: the server can’t send the confirmation email. Please try again later – we’re on it.',
       bk_title: 'Your progress is safe', bk_d_local: 'The app backs up your progress automatically on this device (the last 7 days and before every update). Restoring only adds – nothing is ever lost.', bk_d_acc: 'Your progress is on this device, in automatic backups (7 days, before every update) and also on the server. Restoring only adds – nothing is ever lost.', bk_acc_tip: 'Tip: with a free account your progress is safe even if you lose your phone.', bk_now: 'Now', bk_words: 'words', bk_cities: 'cities done', bk_list: 'Automatic backups', bk_get: 'Restore', bk_get_d: 'Restoring merges the backup with your current progress: only what is missing is added.', bk_file: 'Save as file', bk_load: 'Load file', bk_w_auto: 'automatic', bk_w_update: 'before update', bk_w_reset: 'before reset', bk_w_restore: 'before restore', bk_w_sync: 'before first sync', save_full: 'The browser storage is full. Please use “Save as file” or create an account.', rescue_repaired: 'Your save was damaged and has been repaired.', rescue_backup: 'Your save was missing or damaged – the latest backup was loaded.', rescue_lost: 'Your save was damaged. The original has been kept – please use “Report a problem”.',
+      beta_d: 'New – currently being checked by a native speaker.', rd_tile: 'Read a chapter', rd_tile_d: 'A chapter of Ania’s book, with questions', rd_new: 'New chapter', rd_card_d: '{n} of {t} chapters read. Every town on Szlak 3 unlocks a new chapter.', rd_open: 'Read chapter {n}', rd_chapter: 'Chapter', rd_listen: 'Read the whole chapter aloud', rd_tr: 'Show translation', rd_hint: 'Tip: tap a sentence – it is read aloud and translated.', rd_q: 'Did you understand everything?', rd_perfect: 'You understood everything – great!', rd_ok: 'Good! Have another look at that part.', rd_talk: 'Talk about the chapter',
+      ex_title: 'B1 practice exam', ex_tile_d: 'Five parts like the real exam – without the stress', ex_start_btn: 'Go to the B1 practice exam', ex_intro: 'How far along are you on the way to B1? The practice exam has five parts like the state exam – just shorter, with no time pressure and instant feedback. You get different tasks every time.', ex_p_listen: 'Listening', ex_p_gram: 'Grammar', ex_p_read: 'Reading', ex_p_write: 'Writing', ex_p_speak: 'Speaking', ex_pd_listen: 'hear and understand 5 sentences', ex_pd_gram: '6 gaps with the right form', ex_pd_read: 'a short text with questions', ex_pd_write: 'a short message or email', ex_pd_speak: 'speak freely for a minute', ex_note: 'Pass: at least 60 % on average and at least 50 % in every part. Takes about 15 minutes.', ex_passed_once: 'already passed', ex_tries: 'attempts', ex_go: 'Let’s go', ex_l_ask: 'Listen: what does the sentence mean?', ex_g_ask: 'Which form fits the gap?', ex_words: 'words',
+      ex_w_len: 'at least 30 words', ex_w_hi: 'a greeting (e.g. Dzień dobry, Cześć, Szanowni Państwo)', ex_w_ask: 'a question or request', ex_w_bye: 'a closing (e.g. Pozdrawiam)', ex_w_gram: 'past tense or conditional plus a linking word (bo, ale, że …)', ex_ai_fix: 'Have the AI correct your text', ex_ai_login: 'With an account, the AI can correct your text.', ex_ai_sc: 'Please correct my text sentence by sentence and briefly explain the mistakes.', ex_ai_open: 'Wklej swój tekst, a ja go poprawię.', ex_s_how: 'Speak out loud for about a minute (5–8 sentences) – on your own, with someone or in the AI conversation. Then rate yourself honestly.', ex_s_ai: 'Talk to the AI', ex_s_rate: 'How did it go?', ex_s_r1: 'I spoke for a minute, almost without pauses', ex_s_r2: 'It went OK, with a few pauses and gaps', ex_s_r3: 'Difficult – only single sentences',
+      ex_result: 'Result', ex_pass: 'Zdane! Passed!', ex_fail: 'Not quite yet – but you’re on your way!', ex_pass_d: 'Gratulacje! This is the app’s practice exam, not an official certificate – but a really good sign. Feel free to try again with new tasks.', ex_tip_listen: 'Tip: practise listening with the scenes and each town’s radio link – and with “Speak slowly” switched off.', ex_tip_gram: 'Tip: the grammar gaps come from “Cases” and “Aspect”. A few rounds of those help straight away.', ex_tip_read: 'Tip: read the chapters of Ania’s book without the translation first.', ex_tip_write: 'Tip: remember the greeting, a request or question, a closing – and write at least 30 words.', ex_tip_speak: 'Tip: do the towns’ speaking missions – ideally with real people.', ex_disclaimer: 'Note: the real state exam (certyfikatpolski.pl) is longer and marked differently.',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -263,7 +284,7 @@
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', seenVer: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '' }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', seenVer: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '', read: {}, exam: {} }; /* PATCH002 PATCH004 */
   }
   var BAK_KEY = 'polski_szlak_bak', RESCUE_KEY = 'polski_szlak_rescue', RESCUE = '', saveFailed = false;
   var S = load();
@@ -509,6 +530,8 @@
     if (tab === 'face') return renderFaceSetup();
     if (tab === 'polacy') return RAW.polacy ? renderPolacy() : needPolacy(function () { renderPolacy(); });
     if (tab === 'letter') return renderLetter(arg);
+    if (tab === 'read') return renderRead(arg);
+    if (tab === 'exam') return renderExam();
     if (tab === 'themes') return renderThemes(arg);
     if (tab === 'chat') return renderChat(arg);
     if (tab === 'news') return renderNews();
@@ -558,7 +581,7 @@
     var nodes = idx.map(function (i, k) {
       var u = U[i], q = route[k], cls = 'node ' + (S.boss[u.id] ? 'done' : (isOpen(i) ? 'open' : 'locked')) + (i === nextUnit() && !S.boss[u.id] ? ' next' : '');
       var lx = q[0] + 16, anchor = 'start';
-      if (q[0] > 520 || u.id === 'kat' || u.id === 'tar') { lx = q[0] - 16; anchor = 'end'; }
+      if (q[0] > 520 || u.id === 'kat' || u.id === 'tar' || u.id === 'kaz' || u.id === 'wie') { lx = q[0] - 16; anchor = 'end'; }
       return '<g class="' + cls + '" data-city="' + i + '" role="button" tabindex="0" aria-label="' + esc(u.city) + '">' +
         '<circle class="halo" cx="' + q[0] + '" cy="' + q[1] + '" r="24" fill="transparent"/>' +
         '<circle class="dot" cx="' + q[0] + '" cy="' + q[1] + '" r="10"/>' +
@@ -569,8 +592,12 @@
   }
 
   var mapSel = null;
-  function mapR() { return mapSel || (szlakOf(nextUnit()) === 2 ? 2 : 1); }
-  function mapSeg() { return szlakUnits(2).length ? '<div class="seg map-seg" id="map-r">' + segBtn('1', 'Szlak 1 · A1', mapR() === 1) + segBtn('2', 'Szlak 2 · A2', mapR() === 2) + '</div>' : ''; }
+  var LV = { 1: 'A1', 2: 'A2', 3: 'B1' };
+  function mapR() { var r = mapSel || szlakOf(nextUnit()); return szlakUnits(r).length ? r : 1; }
+  function mapSeg() {
+    var rs = [1, 2, 3].filter(function (r) { return szlakUnits(r).length; });
+    return rs.length > 1 ? '<div class="seg map-seg" id="map-r">' + rs.map(function (r) { return segBtn(String(r), 'Szlak ' + r + ' · ' + LV[r], mapR() === r); }).join('') + '</div>' : '';
+  }
   function weekRing() {
     var wk = C.weekKey(today()), n = C.daysInWeek(S.active, wk), g = S.goal, r = 38, cx = 46, cy = 46, segs = '';
     for (var i = 0; i < g; i++) {
@@ -617,6 +644,8 @@
     document.getElementById('cta').onclick = function () { if (step && isOpen(nUnit)) startMode(step, nUnit); else go('city', nUnit); };
     var cc = document.getElementById('cta-city'); if (cc) cc.onclick = function () { go('city', nUnit); };
     var lo = document.getElementById('letter-open'); if (lo) lo.onclick = function () { go('letter', lo.getAttribute('data-story')); };
+    var bo = document.getElementById('book-open'); if (bo) bo.onclick = function () { startMode('read', +bo.getAttribute('data-ui')); window.scrollTo(0, 0); };
+    var eo = document.getElementById('exam-open'); if (eo) eo.onclick = function () { go('exam'); };
     bindSeg('map-r', function (v) { mapSel = +v; renderHome(); });
     var lold = document.getElementById('letter-old'); if (lold) lold.onclick = function () { go('letter', 'letter'); };
     var wg = document.getElementById('wb-go'); if (wg) wg.onclick = function () { startMode('welcome'); };
@@ -665,7 +694,7 @@
     ui = ui == null ? 0 : ui; var u = U[ui], locked = !isOpen(ui);
     var list = wordsOf(ui), m = masteredCount(list);
     var html = '<section class="city-head"><button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button>' +
-      '<div class="row">' + (u.pack ? '<span aria-hidden="true">' + esc(u.ico) + '</span><span class="eyebrow">' + esc(t('pack')) + ' · ' + esc(cityName(u)) + '</span>' : blaze(u.trail) + '<span class="eyebrow">Szlak ' + szlakOf(ui) + ' · ' + (szlakUnits(szlakOf(ui)).indexOf(ui) + 1) + ' / ' + szlakUnits(szlakOf(ui)).length + ' · ' + esc(cityName(u)) + '</span>') + '</div>' +
+      '<div class="row">' + (u.pack ? '<span aria-hidden="true">' + esc(u.ico) + '</span><span class="eyebrow">' + esc(t('pack')) + ' · ' + esc(cityName(u)) + '</span>' : blaze(u.trail) + '<span class="eyebrow">Szlak ' + szlakOf(ui) + ' · ' + (szlakUnits(szlakOf(ui)).indexOf(ui) + 1) + ' / ' + szlakUnits(szlakOf(ui)).length + ' · ' + esc(cityName(u)) + '</span>' + (u.beta ? '<span class="badge" title="' + esc(t('beta_d')) + '">Beta</span>' : '')) + '</div>' +
       '<div class="pl">' + esc(u.city) + '</div><h2>' + esc(L(u.title)) + '</h2>' +
       '<div class="row small muted num"><div class="bar" style="flex:1;max-width:240px"><i style="width:' + (m / list.length * 100) + '%"></i></div>' + m + '/' + list.length + ' ' + esc(t('city_progress')) + (S.boss[u.id] ? ' · <span class="badge good">' + esc(t('passed')) + '</span>' : (S.skipped[u.id] ? ' · <span class="badge">' + esc(t('skipped_city')) + '</span>' : '')) + '</div></section>' +
       '<section class="card stack"><span class="eyebrow">' + esc(t('can')) + '</span><p>' + esc(L(u.can)) + '</p></section>';
@@ -679,6 +708,7 @@
         (nst === 'ripen' ? '<button class="btn primary" data-mode="ripen" style="justify-self:start">' + esc(t('ripen')) + ' · ' + ripenList(ui).length + '</button>' : '') + '</section>';
       html += '<section class="tiles">' +
         tileBtn('learn', t('learn'), t('learn_d'), nx('learn')) + tileBtn('scene', t('scene'), t('scene_d'), S.scenes[u.id] ? '<span class="badge good">✓</span>' : nx('scene')) +
+        (u.read ? tileBtn('read', t('rd_tile'), t('rd_tile_d'), S.read && S.read[u.id] != null ? '<span class="badge good num">' + S.read[u.id] + '%</span>' : '<span class="badge next">📖</span>') : '') +
         tileBtn('quiz', t('quiz'), t('quiz_d'), nx('quiz')) + tileBtn('listen', t('listen'), t('listen_d')) +
         tileBtn('type', t('type'), t('type_d')) + tileBtn('build', t('build'), t('build_d'), nx('build')) +
         tileBtn('cloze', t('cloze'), t('cloze_d')) + tileBtn('match', t('match'), t('match_d')) +
@@ -734,6 +764,7 @@
     var html = '<h1>' + esc(t('nav_practice')) + '</h1><section class="tiles">' +
       tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
       tileBtn('lex', t('lex'), t('lex_d'), '<span class="badge num">' + allWords().filter(function (x) { return S.cards[x.id]; }).length + '</span>') +
+      tileBtn('exam', '🎓 ' + t('ex_title'), t('ex_tile_d'), S.exam && S.exam.best ? '<span class="badge ' + (S.exam.passed ? 'good' : '') + ' num">' + S.exam.best + '%</span>' : '') +
       tileBtn('themes', t('themes'), t('themes_d')) + tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('chat', t('chat'), t('chat_d'), '<span class="badge">Beta</span>') + tileBtn('conj', t('conj'), t('conj_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
       tileBtn('sounds', t('sounds'), t('sounds_d')) + tileBtn('prices', t('prices'), t('prices_d')) +
       tileBtn('twister', t('twister'), t('twister_d')) + tileBtn('memo_w', t('memo_w'), t('memo_w_d')) + tileBtn('duel', t('duel'), t('duel_d')) + tileBtn('face', t('face'), t('face_d')) +
@@ -781,7 +812,56 @@
   function letterLines(w) { var s = storyOf(w); return (s && s.lines) || []; }
   function seenKey(w) { return w === 'diary' ? 'diarySeen' : 'letterSeen'; }
   /* Startseite: der Brief (Szlak 1), ab Szlak 2 Anias Postkarten */
-  function storyCard() { var r2 = szlakUnits(2); return letterCard(D.diary && r2.length && S.unlocked >= r2[0] ? 'diary' : 'letter'); }
+  function storyCard() { var r2 = szlakUnits(2), r3 = szlakUnits(3); if (D.book && r3.length && S.unlocked >= r3[0]) return bookCard(); return letterCard(D.diary && r2.length && S.unlocked >= r2[0] ? 'diary' : 'letter'); }
+  /* 3.3 Szlak 3: Anias Buch „Klucz z Wieliczki“ – ein Kapitel pro Stadt (Lesetext + Verständnisfragen) */
+  function bookCard() {
+    var r3 = szlakUnits(3), rd = S.read || {}, n = r3.filter(function (i) { return rd[U[i].id] != null; }).length;
+    var nx = r3.filter(function (i) { return isOpen(i) && rd[U[i].id] == null; })[0];
+    return '<section class="card stack letter-card"><div class="row" style="justify-content:space-between"><span class="eyebrow">📖 ' + esc(D.book.title) + '</span>' +
+      (nx != null ? '<span class="badge next">' + esc(t('rd_new')) + '</span>' : '<span class="small muted num">' + n + '/' + r3.length + '</span>') + '</div>' +
+      '<p class="small">' + esc(n ? t('rd_card_d').replace('{n}', n).replace('{t}', r3.length) : L(D.book.prolog)) + '</p>' +
+      '<div class="bar"><i style="width:' + (n / r3.length * 100) + '%"></i></div>' +
+      (nx != null ? '<button class="btn" id="book-open" data-ui="' + nx + '" style="justify-self:start">' + esc(t('rd_open').replace('{n}', r3.indexOf(nx) + 1)) + ' →</button>' : '') +
+      (n === r3.length ? '<p class="small">' + esc(L(D.book.finale)) + '</p><button class="btn primary" id="exam-open" style="justify-self:start">🎓 ' + esc(t('ex_start_btn')) + ' →</button>' : '') + '</section>';
+  }
+  var rdShow = false, rdAns = null;
+  function renderRead(ui) {
+    var u = U[ui]; if (!u || !u.read) return go('home');
+    var rd = u.read, r3 = szlakUnits(3), no = r3.indexOf(ui) + 1, best = S.read && S.read[u.id];
+    if (!rdAns || rdAns.ui !== ui) rdAns = { ui: ui, pick: {}, done: false, order: rd.q.map(function (q) { return C.shuffle(q.o.map(function (o, k) { return k; }), R); }) };
+    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(u.city) + '</button>' +
+      '<span class="eyebrow">📖 ' + esc(D.book ? D.book.title : '') + ' · ' + esc(t('rd_chapter')) + ' ' + no + '/' + r3.length + (u.beta ? ' · Beta' : '') + '</span><h1>' + esc(L(rd.t)) + '</h1>' +
+      (no === 1 && D.book ? '<section class="card row letter-szymek" style="align-items:start"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small scene-intro grow">' + esc(L(D.book.prolog)) + '</p></section>' : '') +
+      '<div class="row"><button class="btn" id="rd-all">' + I.spk + esc(t('rd_listen')) + '</button><label class="row small"><input type="checkbox" id="rd-tr"' + (rdShow ? ' checked' : '') + '> ' + esc(t('rd_tr')) + '</label></div>' +
+      '<article class="card stack book" lang="pl">' + rd.lines.map(function (l, i) {
+        return '<div class="rd-line"><p><button class="rd-pl" data-i="' + i + '">' + esc(l.pl) + '</button></p><p class="small muted rd-trl" lang="' + S.base + '"' + (rdShow ? '' : ' hidden') + '>' + esc(L(l.tr)) + '</p></div>';
+      }).join('') + '</article><p class="small muted">' + esc(t('rd_hint')) + '</p>' +
+      '<section class="card stack"><h2>' + esc(t('rd_q')) + '</h2>' + rd.q.map(function (q, qi) {
+        var pk = rdAns.pick[qi];
+        return '<fieldset class="rd-q stack"><legend><b lang="pl">' + esc(q.q) + '</b> <span class="small muted">(' + esc(L(q.tr)) + ')</span></legend>' + rdAns.order[qi].map(function (k) {
+          var cls = rdAns.done ? (k === q.a ? ' right' : pk === k ? ' wrong' : '') : (pk === k ? ' sel' : '');
+          return '<button class="opt' + cls + '" data-q="' + qi + '" data-k="' + k + '" lang="pl"' + (rdAns.done ? ' disabled' : '') + '>' + esc(q.o[k]) + '</button>';
+        }).join('') + '</fieldset>';
+      }).join('') +
+      (rdAns.done ? '<div class="banner pop"><strong class="num">' + rdAns.score + ' %</strong> · ' + esc(rdAns.score === 100 ? t('rd_perfect') : t('rd_ok')) + '</div><div class="row"><button class="btn" id="rd-again">' + esc(t('again')) + '</button><button class="btn primary" id="rd-chat">💬 ' + esc(t('rd_talk')) + '</button></div>'
+        : '<button class="btn primary" id="rd-check" style="justify-self:start"' + (Object.keys(rdAns.pick).length < rd.q.length ? ' disabled' : '') + '>' + esc(t('check')) + '</button>') +
+      (best != null ? '<p class="small muted num">' + esc(t('best')) + ': ' + best + ' %</p>' : '') + '</section>' +
+      (rdAns.done && no === r3.length && D.book ? '<section class="card stack next-box pop"><p>' + esc(L(D.book.finale)) + '</p><button class="btn primary" id="exam-open2" style="justify-self:start">🎓 ' + esc(t('ex_start_btn')) + ' →</button></section>' : '');
+    shell(html);
+    document.getElementById('back').onclick = function () { rdAns = null; tab = 'city'; render(ui); window.scrollTo(0, 0); };
+    document.getElementById('rd-all').onclick = function () { speak(rd.lines.map(function (l) { return l.pl; }).join(' ')); };
+    document.getElementById('rd-tr').onchange = function (e) { rdShow = e.target.checked; document.querySelectorAll('.rd-trl').forEach(function (x) { x.hidden = !rdShow; }); };
+    document.querySelectorAll('.rd-pl').forEach(function (b) { b.onclick = function () { var i = +b.getAttribute('data-i'); speak(rd.lines[i].pl); var tr = b.parentNode.nextSibling; if (tr) tr.hidden = false; }; });
+    document.querySelectorAll('.rd-q .opt').forEach(function (b) { b.onclick = function () { rdAns.pick[+b.getAttribute('data-q')] = +b.getAttribute('data-k'); renderRead(ui); }; });
+    var ck = document.getElementById('rd-check'); if (ck) ck.onclick = function () {
+      var ok = rd.q.filter(function (q, qi) { return rdAns.pick[qi] === q.a; }).length, sc = Math.round(ok / rd.q.length * 100), first = !(S.read && S.read[u.id] != null);
+      rdAns.done = true; rdAns.score = sc; S.read = S.read || {}; S.read[u.id] = Math.max(S.read[u.id] || 0, sc);
+      addXp(first ? 10 + ok * 10 : ok * 3); markActive(); save(); renderRead(ui); toast('+' + (first ? 10 + ok * 10 : ok * 3) + ' XP');
+    };
+    var ag = document.getElementById('rd-again'); if (ag) ag.onclick = function () { rdAns = null; renderRead(ui); };
+    var tc = document.getElementById('rd-chat'); if (tc) tc.onclick = function () { rdAns = null; startMode('chat', ui); };
+    ['exam-open2'].forEach(function (id) { var b = document.getElementById(id); if (b) b.onclick = function () { go('exam'); }; });
+  }
   function unitById(id) { for (var i = 0; i < U.length; i++) if (U[i].id === id) return U[i]; return null; }
   function letterCard(w) {
     var dy = w === 'diary', lines = letterLines(w), n = C.letterRead(lines, S).filter(Boolean).length, tot = lines.length, isNew = n > (S[seenKey(w)] || 0);
@@ -833,13 +913,144 @@
     var txt = null, r2 = szlakUnits(2);
     if (ui === 0) txt = D.letter.prolog;
     else if (D.diary && ui === r2[0]) txt = D.diary.prolog;
+    else if (D.book && ui === szlakUnits(3)[0]) txt = D.book.prolog;
     else { var pu = U[ui - 1].id; letterLines('letter').concat(letterLines('diary')).forEach(function (l) { if (l.u === pu && l.bridge) txt = l.bridge; }); }
     if (!txt) return '';
     return '<div class="szymek row pop"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small grow">' + (ui ? '<b>Szymek:</b> ' : '') + esc(L(txt)) + '</p></div>';
   }
 
+
+  /* ---------- 3.3 B1-Probeprüfung: fünf Teile wie die staatliche Prüfung (Hören, Grammatik, Lesen, Schreiben, Sprechen) ----------
+     Spielerisch: kein Zeitdruck, sofortige Rückmeldung, jedes Mal andere Aufgaben. Bestanden: im Schnitt ≥ 60 % und jeder Teil ≥ 50 %. */
+  var EX = null;
+  var EX_WRITE = [
+    { pl: 'Napisz e-mail do właściciela mieszkania: od tygodnia nie działa ogrzewanie. Opisz problem i poproś o pomoc.', d: ['E-Mail an den Vermieter: Die Heizung geht seit einer Woche nicht. Problem beschreiben, um Hilfe bitten.', 'Email to your landlord: the heating hasn’t worked for a week. Describe the problem and ask for help.'] },
+    { pl: 'Napisz wiadomość do koleżanki: opowiedz, co robiłeś albo robiłaś w weekend, i zaproś ją na kawę.', d: ['Nachricht an eine Freundin: Erzähl vom Wochenende und lade sie auf einen Kaffee ein.', 'Message to a friend: tell her about your weekend and invite her for coffee.'] },
+    { pl: 'Napisz krótką opinię o filmie albo książce: o czym jest i czy ci się podobał. Dlaczego?', d: ['Kurze Meinung zu einem Film oder Buch: Worum geht es, hat es dir gefallen, warum?', 'A short opinion on a film or book: what it’s about, whether you liked it, why.'] },
+    { pl: 'Napisz e-mail do hotelu: chcesz zarezerwować pokój na dwie noce i masz dwa pytania.', d: ['E-Mail an ein Hotel: Du willst ein Zimmer für zwei Nächte buchen und hast zwei Fragen.', 'Email to a hotel: you want to book a room for two nights and have two questions.'] }];
+  var EX_SPEAK = [
+    { pl: 'Opowiedz o swojej ostatniej podróży: gdzie byłeś albo byłaś i co się wydarzyło?', d: ['Erzähl von deiner letzten Reise: Wo warst du, was ist passiert?', 'Talk about your last trip: where were you and what happened?'] },
+    { pl: 'Jakie jest twoje ulubione miejsce w Polsce albo w twoim kraju? Dlaczego?', d: ['Was ist dein Lieblingsort in Polen oder in deinem Land? Warum?', 'What is your favourite place in Poland or your country? Why?'] },
+    { pl: 'Co byś zrobił albo zrobiła, gdybyś miał albo miała rok wolnego?', d: ['Was würdest du tun, wenn du ein Jahr frei hättest?', 'What would you do if you had a year off?'] },
+    { pl: 'Czy lepiej mieszkać w mieście czy na wsi? Podaj argumenty.', d: ['Lebt man besser in der Stadt oder auf dem Land? Nenne Argumente.', 'Is it better to live in the city or the countryside? Give reasons.'] }];
+  var EX_PARTS = ['listen', 'gram', 'read', 'write', 'speak'];
+  function exNew() {
+    var pool = []; routeIdx().forEach(function (i) { if (szlakOf(i) >= 2) U[i].sentences.forEach(function (x) { pool.push(x); }); });
+    if (pool.length < 10) U.forEach(function (u) { u.sentences.forEach(function (x) { pool.push(x); }); });
+    var ls = C.sample(pool, 5, R).map(function (x) {
+      var wrong = C.sample(pool.filter(function (y) { return y !== x && L(y.slice(1)) !== L(x.slice(1)); }), 2, R);
+      return { pl: x[0], a: L(x.slice(1)), o: C.shuffle([L(x.slice(1))].concat(wrong.map(function (y) { return L(y.slice(1)); })), R) };
+    });
+    var gr = C.sample(D.cases || [], 4, R).concat(C.sample(D.aspects || [], 2, R)).map(function (c) { return { s: c.s, a: c.a, o: C.shuffle(c.opts.slice(), R), tr: L(c.tr), why: L(c.why) }; });
+    var rus = U.map(function (u, i) { return u.read ? i : -1; }).filter(function (i) { return i >= 0; }), ru = rus.length ? rus[Math.floor(R() * rus.length)] : null;
+    EX = { step: 0, i: 0, pick: null, sc: {}, ls: ls, gr: gr, ru: ru, rpick: {}, rorder: ru == null ? [] : U[ru].read.q.map(function (q) { return C.shuffle(q.o.map(function (o, k) { return k; }), R); }),
+      wt: EX_WRITE[Math.floor(R() * EX_WRITE.length)], st: EX_SPEAK[Math.floor(R() * EX_SPEAK.length)], txt: '', wres: null };
+    if (ru == null) EX.sc.read = null;
+  }
+  /* Schreiben: einfache, nachvollziehbare Kriterien (Länge, Anrede, Bitte/Frage, Gruß, Zeitformen) */
+  function exWriteScore(txt) {
+    var tx = String(txt || ''), w = tx.trim().split(/\s+/).filter(Boolean).length, low = tx.toLowerCase();
+    var crit = [
+      ['ex_w_len', w >= 30],
+      ['ex_w_hi', /\b(dzień dobry|szanown|cześć|witaj|hej|droga|drogi|kochana|kochany)/.test(low)],
+      ['ex_w_ask', /\?|proszę|czy mógłby|czy mogłaby|czy możesz|chciałbym|chciałabym|zapraszam/.test(low)],
+      ['ex_w_bye', /(pozdrawiam|pozdrowienia|z poważaniem|do zobaczenia|całuję|ściskam|trzymaj się|na razie)/.test(low)],
+      ['ex_w_gram', /\b\w+(łem|łam|łeś|łaś|ł|ła|ło|liśmy|łyśmy|bym|byś)\b/.test(low) && /\b(bo|ponieważ|ale|więc|dlatego|że|który|która|które|kiedy|jeśli)\b/.test(low)]];
+    return { w: w, crit: crit, score: Math.round(crit.filter(function (c) { return c[1]; }).length / crit.length * 100) };
+  }
+  function exTotal() { var v = EX_PARTS.map(function (k) { return EX.sc[k]; }).filter(function (x) { return x != null; }); return v.length ? Math.round(v.reduce(function (a, b) { return a + b; }, 0) / v.length) : 0; }
+  function exPassed() { return exTotal() >= 60 && EX_PARTS.every(function (k) { return EX.sc[k] == null || EX.sc[k] >= 50; }); }
+  function renderExam() {
+    if (RAW.unitsLazy) return needS3(function () { renderExam(); });
+    if (!EX) exNew();
+    var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('back')) + '</button><h1>🎓 ' + esc(t('ex_title')) + '</h1>';
+    var prog = '<div class="ex-steps" aria-hidden="true">' + EX_PARTS.map(function (k, i) { return '<span class="' + (i + 1 < EX.step ? 'done' : i + 1 === EX.step ? 'cur' : '') + '">' + esc(t('ex_p_' + k)) + '</span>'; }).join('') + '</div>';
+    var step = EX.step, part = EX_PARTS[step - 1];
+    if (step === 0) {
+      var ex = S.exam || {};
+      html += '<section class="card stack"><p>' + esc(t('ex_intro')) + '</p><ul class="small ex-list">' + EX_PARTS.map(function (k) { return '<li><b>' + esc(t('ex_p_' + k)) + '</b> – ' + esc(t('ex_pd_' + k)) + '</li>'; }).join('') + '</ul>' +
+        '<p class="small muted">' + esc(t('ex_note')) + '</p>' + (ex.best ? '<p class="small num">' + esc(t('best')) + ': ' + ex.best + ' %' + (ex.passed ? ' · ✓ ' + esc(t('ex_passed_once')) : '') + ' · ' + esc(t('ex_tries')) + ': ' + (ex.n || 0) + '</p>' : '') +
+        '<button class="btn primary" id="ex-go" style="justify-self:start">' + esc(t('ex_go')) + ' →</button></section>';
+    } else if (part === 'listen' || part === 'gram') {
+      var list = part === 'listen' ? EX.ls : EX.gr, q = list[EX.i];
+      html += prog + '<section class="card stack"><span class="eyebrow">' + esc(t('ex_p_' + part)) + ' · <span class="num">' + (EX.i + 1) + '/' + list.length + '</span></span>' +
+        (part === 'listen' ? '<p>' + esc(t('ex_l_ask')) + '</p><button class="btn" id="ex-say">' + I.spk + esc(t('listen_again')) + '</button>' + (EX.pick != null ? '<p class="lt-pl" lang="pl">' + esc(q.pl) + '</p>' : '')
+          : '<p>' + esc(t('ex_g_ask')) + '</p><p class="lt-pl" lang="pl">' + esc(q.s.replace('___', EX.pick != null ? q.a : '___')) + '</p>') +
+        '<div class="stack">' + q.o.map(function (o) {
+          var cls = EX.pick == null ? '' : (o === q.a ? ' right' : o === EX.pick ? ' wrong' : '');
+          return '<button class="opt' + cls + '" data-o="' + esc(o) + '"' + (EX.pick != null ? ' disabled' : '') + (part === 'gram' ? ' lang="pl"' : '') + '>' + esc(o) + '</button>';
+        }).join('') + '</div>' +
+        (EX.pick != null ? (part === 'gram' ? '<p class="small muted">' + esc(q.tr) + (q.why ? ' · ' + esc(q.why) : '') + '</p>' : '') + '<button class="btn primary" id="ex-next" style="justify-self:start">' + esc(t('next')) + ' →</button>' : '') + '</section>';
+    } else if (part === 'read') {
+      var u = U[EX.ru], rd = u.read, done = EX.rdone;
+      html += prog + '<section class="card stack"><span class="eyebrow">' + esc(t('ex_p_read')) + ' · ' + esc(L(rd.t)) + '</span><article class="stack book" lang="pl">' + rd.lines.map(function (l) { return '<p>' + esc(l.pl) + '</p>'; }).join('') + '</article></section>' +
+        '<section class="card stack">' + rd.q.map(function (qq, qi) {
+          var pk = EX.rpick[qi];
+          return '<fieldset class="rd-q stack"><legend><b lang="pl">' + esc(qq.q) + '</b></legend>' + EX.rorder[qi].map(function (k) {
+            var cls = done ? (k === qq.a ? ' right' : pk === k ? ' wrong' : '') : (pk === k ? ' sel' : '');
+            return '<button class="opt' + cls + '" data-q="' + qi + '" data-k="' + k + '" lang="pl"' + (done ? ' disabled' : '') + '>' + esc(qq.o[k]) + '</button>';
+          }).join('') + '</fieldset>';
+        }).join('') + (done ? '<button class="btn primary" id="ex-next" style="justify-self:start">' + esc(t('next')) + ' →</button>' : '<button class="btn primary" id="ex-rcheck" style="justify-self:start"' + (Object.keys(EX.rpick).length < rd.q.length ? ' disabled' : '') + '>' + esc(t('check')) + '</button>') + '</section>';
+    } else if (part === 'write') {
+      var wr = EX.wres;
+      html += prog + '<section class="card stack"><span class="eyebrow">' + esc(t('ex_p_write')) + '</span><p class="lt-pl" lang="pl">' + esc(EX.wt.pl) + '</p><p class="small muted">' + esc(L(EX.wt.d)) + '</p>' +
+        '<textarea id="ex-txt" rows="7" lang="pl" maxlength="1500" aria-label="' + esc(t('ex_p_write')) + '"' + (wr ? ' readonly' : '') + '>' + esc(EX.txt) + '</textarea>' + (wr ? '' : plKeys()) +
+        '<p class="small muted num" id="ex-wc">' + exWriteScore(EX.txt).w + ' ' + esc(t('ex_words')) + '</p>' +
+        (wr ? '<ul class="ex-crit">' + wr.crit.map(function (c) { return '<li class="' + (c[1] ? 'ok' : 'no') + '">' + (c[1] ? '✓ ' : '○ ') + esc(t(c[0])) + '</li>'; }).join('') + '</ul><p class="num"><b>' + wr.score + ' %</b></p>' +
+          (A && A.uid ? '<button class="btn" id="ex-ai">💬 ' + esc(t('ex_ai_fix')) + '</button>' : '<p class="small muted">' + esc(t('ex_ai_login')) + '</p>') +
+          '<button class="btn primary" id="ex-next" style="justify-self:start">' + esc(t('next')) + ' →</button>'
+          : '<button class="btn primary" id="ex-wcheck" style="justify-self:start">' + esc(t('check')) + '</button>') + '</section>';
+    } else if (part === 'speak') {
+      html += prog + '<section class="card stack"><span class="eyebrow">' + esc(t('ex_p_speak')) + '</span><p class="lt-pl" lang="pl">' + esc(EX.st.pl) + '</p><p class="small muted">' + esc(L(EX.st.d)) + '</p>' +
+        '<p class="small">' + esc(t('ex_s_how')) + '</p>' +
+        (A && A.uid ? '<button class="btn" id="ex-sai" style="justify-self:start">💬 ' + esc(t('ex_s_ai')) + '</button>' : '') +
+        '<p><b>' + esc(t('ex_s_rate')) + '</b></p><div class="stack">' + [['100', 'ex_s_r1'], ['70', 'ex_s_r2'], ['40', 'ex_s_r3']].map(function (r) { return '<button class="opt" data-r="' + r[0] + '">' + esc(t(r[1])) + '</button>'; }).join('') + '</div></section>';
+    } else {
+      var tot = exTotal(), ok = exPassed();
+      html += '<section class="card stack ex-result' + (ok ? ' pass' : '') + ' pop"><div class="row" style="align-items:center"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><div class="stack grow" style="gap:4px"><span class="eyebrow">' + esc(t('ex_result')) + '</span><b class="num" style="font-size:2rem">' + tot + ' %</b><b>' + esc(ok ? t('ex_pass') : t('ex_fail')) + '</b></div></div>' +
+        EX_PARTS.map(function (k) { var v = EX.sc[k]; return '<div class="stack" style="gap:2px"><div class="row small" style="justify-content:space-between"><span>' + esc(t('ex_p_' + k)) + '</span><span class="num">' + (v == null ? '–' : v + ' %') + '</span></div><div class="bar"><i style="width:' + (v || 0) + '%"></i></div></div>'; }).join('') +
+        '<p class="small">' + esc(ok ? t('ex_pass_d') : t('ex_tip_' + EX_PARTS.filter(function (k) { return EX.sc[k] != null; }).sort(function (a, b) { return EX.sc[a] - EX.sc[b]; })[0])) + '</p>' +
+        '<p class="small muted">' + esc(t('ex_disclaimer')) + '</p><div class="row"><button class="btn primary" id="ex-again">' + esc(t('again')) + '</button><button class="btn" id="ex-home">' + esc(t('home')) + '</button></div></section>';
+    }
+    shell(html);
+    document.getElementById('back').onclick = function () { go('practice'); };
+    var b;
+    if ((b = document.getElementById('ex-go'))) b.onclick = function () { EX.step = 1; EX.i = 0; EX.pick = null; renderExam(); setTimeout(function () { if (EX.ls[0]) speak(EX.ls[0].pl); }, 300); };
+    if ((b = document.getElementById('ex-say'))) b.onclick = function () { speak(EX.ls[EX.i].pl); };
+    document.querySelectorAll('[data-o]').forEach(function (x) { x.onclick = function () {
+      var list = part === 'listen' ? EX.ls : EX.gr, q = list[EX.i]; EX.pick = x.getAttribute('data-o');
+      EX['n_' + part] = (EX['n_' + part] || 0) + (EX.pick === q.a ? 1 : 0); renderExam();
+    }; });
+    if ((b = document.getElementById('ex-next'))) b.onclick = function () {
+      if (part === 'listen' || part === 'gram') {
+        var list = part === 'listen' ? EX.ls : EX.gr;
+        if (EX.i + 1 < list.length) { EX.i++; EX.pick = null; renderExam(); if (part === 'listen') setTimeout(function () { speak(EX.ls[EX.i].pl); }, 250); return; }
+        EX.sc[part] = Math.round((EX['n_' + part] || 0) / list.length * 100);
+      }
+      EX.step++; EX.i = 0; EX.pick = null;
+      if (EX_PARTS[EX.step - 1] === 'read' && EX.ru == null) EX.step++;
+      if (EX.step > EX_PARTS.length) exFinish();
+      renderExam(); window.scrollTo(0, 0);
+    };
+    document.querySelectorAll('.rd-q .opt').forEach(function (x) { x.onclick = function () { EX.rpick[+x.getAttribute('data-q')] = +x.getAttribute('data-k'); renderExam(); }; });
+    if ((b = document.getElementById('ex-rcheck'))) b.onclick = function () { var q = U[EX.ru].read.q; EX.rdone = true; EX.sc.read = Math.round(q.filter(function (qq, qi) { return EX.rpick[qi] === qq.a; }).length / q.length * 100); renderExam(); };
+    var ta = document.getElementById('ex-txt');
+    if (ta && !EX.wres) { ta.oninput = function () { EX.txt = ta.value; var wc = document.getElementById('ex-wc'); if (wc) wc.textContent = exWriteScore(ta.value).w + ' ' + t('ex_words'); }; document.querySelectorAll('.pl-keys [data-k]').forEach(function (k) { k.onclick = function () { var p0 = ta.selectionStart || ta.value.length; ta.value = ta.value.slice(0, p0) + k.getAttribute('data-k') + ta.value.slice(ta.selectionEnd || p0); ta.focus(); ta.selectionStart = ta.selectionEnd = p0 + 1; ta.oninput(); }; }); }
+    if ((b = document.getElementById('ex-wcheck'))) b.onclick = function () { EX.txt = ta.value; EX.wres = exWriteScore(EX.txt); EX.sc.write = EX.wres.score; renderExam(); };
+    if ((b = document.getElementById('ex-ai'))) b.onclick = function () { startMode('chat', { txt: 'B1: ' + EX.wt.pl + ' – ' + t('ex_ai_sc'), open: t('ex_ai_open') }); setTimeout(function () { var i = document.getElementById('ch-in'); if (i) i.value = EX.txt.slice(0, 400); }, 60); };
+    if ((b = document.getElementById('ex-sai'))) b.onclick = function () { startMode('chat', { txt: 'B1: ' + EX.st.pl, open: EX.st.pl }); };
+    document.querySelectorAll('[data-r]').forEach(function (x) { x.onclick = function () { EX.sc.speak = +x.getAttribute('data-r'); EX.step++; exFinish(); renderExam(); window.scrollTo(0, 0); }; });
+    if ((b = document.getElementById('ex-again'))) b.onclick = function () { exNew(); renderExam(); window.scrollTo(0, 0); };
+    if ((b = document.getElementById('ex-home'))) b.onclick = function () { EX = null; go('home'); };
+  }
+  function exFinish() {
+    if (EX.finished) return; EX.finished = true;
+    var tot = exTotal(), ok = exPassed(), ex = S.exam = S.exam || {}, first = ok && !ex.passed;
+    ex.n = (ex.n || 0) + 1; ex.best = Math.max(ex.best || 0, tot); ex.last = { d: today(), tot: tot, sc: EX.sc }; if (ok) ex.passed = today();
+    addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
+  }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.2', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.3', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1433,12 +1644,14 @@
       return runGame({ title: t('ripen') + ' · ' + u.city, qs: mixedFor(rl, list, Math.min(n, Math.max(rl.length, 4))), unit: ui });
     }
     if (mode === 'scene') return runScene(ui);
+    if (mode === 'read') { tab = 'read'; view = null; polUI = false; return renderRead(ui); }
     if (mode === 'boss') {
       var bc = diff().boss, ss = C.shuffle(u.sentences, R);
       qs = mixedFor(list, list, bc.n - 4).concat(ss.slice(0, 2).map(function (s) { return S.diff === 'easy' ? qBuild(s) : qTranslate(s); })).concat(ss.slice(2, 4).map(function (s) { return qCloze(s, list); }));
       return runGame({ title: t('boss') + ' · ' + u.city, qs: C.shuffle(qs, R), unit: ui, boss: true, lives: bc.lives, pass: bc.pass });
     }
     if (mode === 'themes') { tab = 'themes'; return renderThemes(); }
+    if (mode === 'exam') { go('exam'); return; }
     if (mode === 'chat') { tab = 'chat'; view = null; polUI = false; return renderChat(ui != null ? ui : null); }
     if (mode === 'themelearn' || mode === 'themeq') {
       var th = themeById(curTheme); if (!th) return go('themes');
@@ -1547,9 +1760,10 @@
      Nur mit Konto (Tageslimit pro Konto) und online. Der KI-Schlüssel liegt auf dem Server, nie in der App. */
   var CH = { ui: null, msgs: [], busy: false, err: '', used: 0, limit: 0, avail: null, talk: true };
   function chatScenario(ui) {
-    if (ui == null || !U[ui]) return { txt: t('chat_free_sc'), lv: szlakOf(nextUnit()) === 2 ? 'A2' : 'A1', open: 'Cześć! Jak się masz?' };
+    if (ui && typeof ui === 'object') return { txt: ui.txt, lv: 'A2', open: ui.open };
+    if (ui == null || !U[ui]) return { txt: t('chat_free_sc'), lv: szlakOf(nextUnit()) >= 2 ? 'A2' : 'A1', open: 'Cześć! Jak się masz?' };
     var u = U[ui], sc = u.scene;
-    return { txt: (u.pack ? cityName(u) : u.city) + ': ' + L(u.title) + (sc ? ' – ' + L(sc.intro) : ''), lv: u.pack || szlakOf(ui) === 2 ? 'A2' : 'A1', open: sc ? sc.steps[0].npc[0] : 'Cześć! Jak się masz?' };
+    return { txt: (u.pack ? cityName(u) : u.city) + ': ' + L(u.title) + (sc ? ' – ' + L(sc.intro) : ''), lv: u.pack || szlakOf(ui) >= 2 ? 'A2' : 'A1', open: sc ? sc.steps[0].npc[0] : 'Cześć! Jak się masz?' };
   }
   function chatReset(ui) { CH.ui = ui; CH.err = ''; CH.msgs = [{ role: 'assistant', content: chatScenario(ui).open }]; }
   function renderChat(arg) {
@@ -1572,7 +1786,7 @@
         '<button class="btn ghost" id="ch-new" style="justify-self:start">↺ ' + esc(t('chat_new')) + '</button><p class="small muted">' + esc(t('chat_note')) + '</p>';
     }
     shell(html);
-    document.getElementById('back').onclick = function () { if (CH.ui != null && !U[CH.ui].pack && arg != null) go('city', CH.ui); else go('practice'); };
+    document.getElementById('back').onclick = function () { if (CH.ui && typeof CH.ui === 'object') go('exam'); else if (CH.ui != null && U[CH.ui] && !U[CH.ui].pack && arg != null) go('city', CH.ui); else go('practice'); };
     var lg = document.getElementById('ch-login'); if (lg) lg.onclick = function () { go('me'); setTimeout(function () { var y = document.getElementById('sync'); if (y) y.scrollIntoView({ block: 'center' }); }, 50); };
     if (logged && navigator.onLine && CH.avail === null) {
       sbToken().then(function () { return sbFetch('/functions/v1/ps-chat', { method: 'POST', auth: true, body: { ping: true } }); }).then(function (j) { CH.avail = !!(j && j.configured); CH.limit = (j && j.limit) || 0; if (tab === 'chat') renderChat(); }, function () { CH.avail = false; if (tab === 'chat') renderChat(); });
@@ -2501,7 +2715,7 @@
      ================================================================ */
   var REVIEW = /[?&]review\b/.test(location.search), RVK = 'polski_szlak_review', RV = null, rvSec = 'new', rvCur = null, rvBad = false;
   var RVX = { title: 'Sprawdzanie treści', intro: 'Dziękujemy za pomoc! Sprawdź, czy polskie zdania są poprawne i naturalne, a tłumaczenia pasują. Formy w nawiasach {…|…} pokazujemy jako wersję męską i żeńską.', name: 'Twoje imię (opcjonalnie)', all: 'Wszystko', newer: 'Najpierw: Szlak 2, 3 i pakiety', ok: '✓ Poprawne', bad: '✗ Do poprawy', skip: 'Pomiń', how: 'Jak powinno być? Co jest nie tak?', send: 'Wyślij uwagę', done: 'Gotowe! Wszystko w tej części sprawdzone.', prog: 'sprawdzone', sent: 'Wysłano', pend: 'czeka na wysłanie', flush: 'Wyślij teraz', export: 'Wyniki jako tekst (kopia zapasowa)', copy: 'Kopiuj', fail: 'Brak połączenia – wyniki są zapisane i zostaną wysłane później.', back: 'Do aplikacji', listen: 'Odsłuchaj', undo: 'Cofnij ostatnie',
-    secs: { w: 'Słówka', s: 'Zdania', sc: 'Scenki', l: 'List i pocztówki', m: 'Misje', c: 'Przypadki', a: 'Aspekt', v: 'Czasowniki', t: 'Łamańce językowe', k: 'Krasnale', p: 'Dla Polaków' } };
+    secs: { rd: 'Książka (Szlak 3)', w: 'Słówka', s: 'Zdania', sc: 'Scenki', l: 'List i pocztówki', m: 'Misje', c: 'Przypadki', a: 'Aspekt', v: 'Czasowniki', t: 'Łamańce językowe', k: 'Krasnale', p: 'Dla Polaków' } };
   function rvLoad() { try { RV = JSON.parse(localStorage.getItem(RVK) || 'null'); } catch (e) {} if (!RV || typeof RV !== 'object') RV = { name: '', res: {}, pend: [], hist: [] }; RV.res = RV.res || {}; RV.pend = RV.pend || []; RV.hist = RV.hist || []; }
   function rvSave() { try { localStorage.setItem(RVK, JSON.stringify(RV)); } catch (e) {} }
   function rvShow(s) { return C.hasG(s) ? C.gform(s, 'm') + '  ·  ' + C.gform(s, 'f') : String(s); }
@@ -2512,6 +2726,10 @@
     R0.units.forEach(function (u) { rvR = u.pack ? 2 : (u.r || 1);
       u.words.forEach(function (w, i) { add('w:' + u.id + ':' + i, 'w', w[0], w[1], w[2], u.city); });
       u.sentences.forEach(function (s, i) { add('s:' + u.id + ':' + i, 's', s[0], s[1], s[2], u.city); });
+      if (u.read) {
+        u.read.lines.forEach(function (l, i) { add('r:' + u.id + ':' + i, 'rd', l.pl, l.tr[0], l.tr[1], u.city + ' · ' + L(u.read.t)); });
+        u.read.q.forEach(function (q, i) { add('rq:' + u.id + ':' + i, 'rd', q.q + '  →  ' + q.o.join(' / '), q.tr[0], q.tr[1], u.city + ' · ✓ ' + q.o[q.a]); });
+      }
       if (u.scene) u.scene.steps.forEach(function (st, si) {
         add('sc:' + u.id + ':' + si + ':n', 'sc', st.npc[0], st.npc[1], st.npc[2], u.city + ' · NPC');
         st.opts.forEach(function (o, oi) { add('sc:' + u.id + ':' + si + ':' + oi, 'sc', o[0], o[1], o[2], u.city + (o[3] ? ' · ✓' : ' · (zła odpowiedź – ma być poprawna polszczyzna, ale nie pasuje do sytuacji)')); });
@@ -2581,7 +2799,15 @@
   }
   if (REVIEW) document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && RV && RV.pend.length) rvFlush().catch(function () {}); });
 
-  function boot() { if (REVIEW) { renderReview(); if (!RAW.polacy && RAW.polacyLazy) needPolacy(function () { renderReview(); }); return; } startSafety(); sbFromHash(); render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
+  function boot() {
+    if (REVIEW) { needS3(function () { renderReview(); }); renderReview(); if (!RAW.polacy && RAW.polacyLazy) needPolacy(function () { renderReview(); }); return; }
+    startSafety(); sbFromHash();
+    /* Erst zeichnen, wenn Szlak 2/3 da sind (aus dem Cache: Millisekunden) – spätestens nach 1,2 s; kommt es später, Startseite neu zeichnen */
+    var first = false;
+    function go1() { if (first) return; first = true; render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
+    needS3(function () { if (first) { if (!G && tab === 'home') render(); } else go1(); });
+    setTimeout(go1, 1200);
+  }
   if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(boot); else boot();
 
   /* Service Worker nur im eigenen Hosting (nicht in Vorschauen/iframes) */

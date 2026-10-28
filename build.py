@@ -35,6 +35,14 @@ def main():
         lazy['polacyLazy'] = 'data-polacy.json'
         with open(os.path.join(ROOT, 'data-polacy.json'), 'w', encoding='utf-8') as f:
             json.dump(pol, f, ensure_ascii=False, separators=(',', ':'))
+    # 3.3: Szlak 2 und 3 werden nachgeladen (data-szlak.json, offline aus dem Service-Worker-Cache) – gleiche Reihenfolge,
+    # die App fügt die Orte direkt nach Szlak 1 ein. Fortschritt hängt nur an den IDs (checks/progress_lock.py).
+    s3 = [u for u in data['units'] if (u.get('r') or 1) >= 2 and not u.get('pack')]
+    if s3:
+        lazy['units'] = [u for u in data['units'] if u not in s3]
+        lazy['unitsLazy'] = 1
+        with open(os.path.join(ROOT, 'data-szlak.json'), 'w', encoding='utf-8') as f:
+            json.dump(s3, f, ensure_ascii=False, separators=(',', ':'))
     data_txt = json.dumps(lazy, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     shell0 = read('shell.html')
     def fill(dtxt):

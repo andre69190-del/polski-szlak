@@ -183,6 +183,26 @@ for vi, v in enumerate(D.get('verbs') or []):
     if len(set(v.get('pres', []))) != 6: e(f'{W}: doppelte Präsensformen')
     if not v.get('de') or not v.get('en'): e(f'{W}: Übersetzung fehlt')
 
+# 3.3: Szlak 3 – Buchkapitel (read) mit Verständnisfragen, Rahmen „book“
+R3 = [u for u in ROUTE if u.get('r') == 3]
+PL_READ = re.compile(r"^[A-Za-ząćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9 ,.!?\-–…/()'„“”:{}|]+$")
+if R3:
+    if D['units'][:len(R1) + len(R2) + len(R3)] != R1 + R2 + R3: e('Einheiten-Reihenfolge: Szlak 1, 2, 3, dann Pakete')
+    BK = D.get('book') or {}
+    pair(BK.get('prolog'), 'book.prolog'); pair(BK.get('finale'), 'book.finale')
+    for u in R3:
+        W = f'Szlak 3 {u["id"]}'; rd = u.get('read')
+        if not rd: e(f'{W}: Buchkapitel (read) fehlt'); continue
+        pair(rd.get('t'), f'{W}.read.t')
+        if len(rd.get('lines', [])) < 6: e(f'{W}: Kapitel zu kurz')
+        for li, l in enumerate(rd.get('lines', [])):
+            if not PL_READ.match(l.get('pl', '')): e(f'{W} Kapitel Satz {li + 1}: ungültige Zeichen: {l.get("pl")}')
+            pair(l.get('tr'), f'{W} Kapitel Satz {li + 1}.tr')
+        if len(rd.get('q', [])) < 3: e(f'{W}: mindestens 3 Verständnisfragen')
+        for qi, q in enumerate(rd.get('q', [])):
+            o = q.get('o', [])
+            if len(o) != 3 or len(set(o)) != 3 or q.get('a') not in (0, 1, 2): e(f'{W} Frage {qi + 1}: braucht 3 verschiedene Optionen und a')
+            pair(q.get('tr'), f'{W} Frage {qi + 1}.tr')
 total = sum(len(u['words']) for u in D['units'])
 print(f'  Städte {len(D["units"])} · Wörter {total} · Sätze {sum(len(u["sentences"]) for u in D["units"])} · '
       f'Szenen {sum(1 for u in D["units"] if u.get("scene"))} · Fälle {len(D["cases"])} · Laute {len(D["sounds"])}')

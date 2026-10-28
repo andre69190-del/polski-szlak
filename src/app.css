@@ -318,3 +318,19 @@ a.ext { font-weight: 700; color: var(--ink); }
 .bk-list { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 8px; }
 .bk-list li { display: flex; gap: 10px; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; }
 .bk-list li .btn { flex: none; }
+/* 3.3 Szlak 3: Buchkapitel und B1-Probeprüfung */
+.book { font-size: 1.05rem; line-height: 1.6; }
+.rd-line p { margin: 0; }
+.rd-pl { all: unset; cursor: pointer; border-radius: 6px; }
+.rd-pl:hover, .rd-pl:focus-visible { background: var(--tint, rgba(220, 20, 60, .08)); outline: 2px solid transparent; }
+.rd-q { border: 0; padding: 0; margin: 0 0 12px; }
+.rd-q legend { margin-bottom: 6px; }
+.opt.sel { outline: 2px solid var(--red); }
+.ex-steps { display: flex; gap: 6px; flex-wrap: wrap; }
+.ex-steps span { font-size: .8rem; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.ex-steps span.cur { border-color: var(--red); color: var(--ink, inherit); font-weight: 700; }
+.ex-steps span.done { background: var(--line); }
+.ex-list { margin: 0; padding-left: 18px; }
+.ex-crit { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+.ex-crit li.no { color: var(--muted); }
+.ex-result.pass { border-color: var(--good, #2e7d32); }

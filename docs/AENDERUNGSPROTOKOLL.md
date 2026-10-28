@@ -1,5 +1,16 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.3 · 28.10.2026 · Szlak 3 „Die Bücher“ und B1-Probeprüfung
+
+- Ziel des Nutzers: B1, „es soll immer Spaß machen“; Motivation (Geschichte, Missionen) und echtes Sprechen.
+- **Szlak 3 (B1-Einstieg, Beta):** 12 Orte (Jelenia Góra, Kłodzko, Zielona Góra, Gniezno, Bydgoszcz, Łeba, Hel, Elbląg, Augustów, Kazimierz Dolny, Ojców, Wieliczka) mit je 40 Wörtern, 9 Sätzen, Szene, Grammatik-Tipp (Konditional, Bewegungsverben, Steigerung, gdyby, który), Fakt, Radio und Sprech-Mission. Quelle: `content/szlak3/*.py`, eingefügt mit `content/szlak3/merge.py`.
+- **Anias Buch „Klucz z Wieliczki“:** pro Stadt ein Kapitel (9 Sätze) mit Vorlesen, Übersetzung auf Antippen und 3 Verständnisfragen (`S.read`); Prolog/Finale; Startseite zeigt das nächste Kapitel.
+- **B1-Probeprüfung** (Üben): Hören (5), Grammatik (6, aus Fälle/Aspekt), Lesen (Buchkapitel), Schreiben (Kriterien: Länge, Anrede, Bitte/Frage, Gruß, Zeitform + Verbindungswort; optional KI-Korrektur), Sprechen (Aufgabe + Selbsteinschätzung, optional KI-Gespräch). Bestanden: Schnitt ≥ 60 %, jeder Teil ≥ 50 %. `S.exam`.
+- **Nachladen:** Szlak 2 und 3 kommen aus `data-szlak.json` (Service-Worker-Cache), index.html bleibt unter dem Budget (608 KB). Erste Anzeige wartet max. 1,2 s auf die Daten.
+- **Fortschritt:** `read` und `exam` werden beim Abgleich zusammengeführt; Wort-IDs gesperrt (`progress_lock.json` aktualisiert, 1208 Wörter). Spielstand von 3.2 am Ende von Szlak 2 → Jelenia Góra frei (getestet).
+- **Prüfmodus:** neuer Abschnitt „Książka (Szlak 3)“; Szlak 3 steht unter „Najpierw“.
+- Karte: Szlak 1 · 2 · 3 (B1). Thema „Natur & Umwelt“ neu. Tests: core 48, UI 106. Service Worker Cache v3-3; nginx no-cache auch für `data-szlak.json`.
+
 ## 3.2 · 28.10.2026 · Lernstände sind sicher
 
 - Anforderung: Erreichte Ergebnisse dürfen nie verloren gehen (es gibt bereits Lernende). Details: docs/DATENSICHERUNG.md.

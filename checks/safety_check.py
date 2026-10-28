@@ -20,8 +20,8 @@ if re.search(r'XMLHttpRequest|WebSocket\(', js): fail.append('XMLHttpRequest/Web
 for m in re.finditer(r'\bfetch\s*\(([^,)]*)', js):
     a = m.group(1).strip()
     if a.startswith('SB_URL'): continue
-    if a == 'POL_URL':   # 3.0: Nachladen vom eigenen Server (relativer Pfad, gleiche Herkunft)
-        mp = re.search(r"POL_URL = '([^']+)'", js)
+    if a in ('POL_URL', 'S3_URL'):   # 3.0: Nachladen vom eigenen Server (relativer Pfad, gleiche Herkunft)
+        mp = re.search(a + r" = '([^']+)'", js)
         if mp and not re.match(r'^[a-z0-9_-]+\.json$', mp.group(1)): fail.append('POL_URL ist kein relativer Pfad: %s' % mp.group(1))
         continue
     fail.append('Netzwerkaufruf an fremdes Ziel: fetch(%s)' % a[:40])

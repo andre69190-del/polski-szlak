@@ -7278,6 +7278,6012 @@
    }
   },
   {
+   "id": "jel",
+   "city": "Jelenia Góra",
+   "cityDe": "Jelenia Góra (Hirschberg)",
+   "cityEn": "Jelenia Góra",
+   "lon": 15.73,
+   "lat": 50.9,
+   "trail": "blue",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Arbeit suchen: Bewerbung und Vorstellungsgespräch",
+    "Looking for work: applications and interviews"
+   ],
+   "can": [
+    "Ich kann über meine Arbeit und Erfahrung sprechen und höflich sagen, was ich möchte.",
+    "I can talk about my work and experience and politely say what I would like."
+   ],
+   "tip": [
+    "Höflich mit dem Konditional: Vergangenheitsform + -bym. chciał → chciałbym (Mann), chciała → chciałabym (Frau): „ich möchte gern“. Zu anderen: Czy mógłby Pan …? / Czy mogłaby Pani …? (Könnten Sie …?)",
+    "Polite with the conditional: past form + -bym. chciał → chciałbym (man), chciała → chciałabym (woman): “I would like”. To others: Czy mógłby Pan …? / Czy mogłaby Pani …? (Could you …?)"
+   ],
+   "fact": [
+    "Zu Jelenia Góra gehört Cieplice, einer der ältesten Kurorte Polens – schon im Mittelalter badete man dort in den warmen Quellen.",
+    "Cieplice, one of Poland’s oldest spa towns, is part of Jelenia Góra – people bathed in its warm springs back in the Middle Ages."
+   ],
+   "words": [
+    [
+     "szukać pracy",
+     "Arbeit suchen",
+     "to look for work"
+    ],
+    [
+     "ogłoszenie",
+     "Anzeige, Inserat",
+     "advertisement"
+    ],
+    [
+     "oferta pracy",
+     "Stellenangebot",
+     "job offer"
+    ],
+    [
+     "stanowisko",
+     "Stelle, Position",
+     "position"
+    ],
+    [
+     "CV",
+     "Lebenslauf",
+     "CV"
+    ],
+    [
+     "list motywacyjny",
+     "Anschreiben",
+     "cover letter"
+    ],
+    [
+     "rozmowa kwalifikacyjna",
+     "Vorstellungsgespräch",
+     "job interview"
+    ],
+    [
+     "doświadczenie",
+     "Erfahrung",
+     "experience"
+    ],
+    [
+     "umiejętności",
+     "Fähigkeiten",
+     "skills"
+    ],
+    [
+     "wykształcenie",
+     "Ausbildung, Bildungsweg",
+     "education"
+    ],
+    [
+     "studia",
+     "Studium",
+     "university studies"
+    ],
+    [
+     "zawód",
+     "Beruf",
+     "profession"
+    ],
+    [
+     "wynagrodzenie",
+     "Gehalt, Vergütung",
+     "pay, salary"
+    ],
+    [
+     "pensja",
+     "Monatsgehalt",
+     "monthly salary"
+    ],
+    [
+     "na pełen etat",
+     "in Vollzeit",
+     "full-time"
+    ],
+    [
+     "na pół etatu",
+     "in Teilzeit",
+     "part-time"
+    ],
+    [
+     "umowa o pracę",
+     "Arbeitsvertrag",
+     "employment contract"
+    ],
+    [
+     "okres próbny",
+     "Probezeit",
+     "probation period"
+    ],
+    [
+     "pracodawca",
+     "Arbeitgeber",
+     "employer"
+    ],
+    [
+     "pracownik",
+     "Mitarbeiter, Arbeitnehmer",
+     "employee"
+    ],
+    [
+     "kolega z pracy",
+     "Arbeitskollege",
+     "colleague"
+    ],
+    [
+     "firma",
+     "Firma",
+     "company"
+    ],
+    [
+     "zatrudnić",
+     "einstellen",
+     "to hire"
+    ],
+    [
+     "zwolnić",
+     "entlassen",
+     "to dismiss"
+    ],
+    [
+     "stracić pracę",
+     "die Arbeit verlieren",
+     "to lose one’s job"
+    ],
+    [
+     "bezrobotny",
+     "arbeitslos",
+     "unemployed"
+    ],
+    [
+     "zmiana",
+     "Schicht; Änderung",
+     "shift; change"
+    ],
+    [
+     "nadgodziny",
+     "Überstunden",
+     "overtime"
+    ],
+    [
+     "dzień wolny",
+     "freier Tag",
+     "day off"
+    ],
+    [
+     "obowiązki",
+     "Aufgaben, Pflichten",
+     "duties"
+    ],
+    [
+     "odpowiedzialny",
+     "verantwortlich, verantwortungsvoll",
+     "responsible"
+    ],
+    [
+     "punktualny",
+     "pünktlich",
+     "punctual"
+    ],
+    [
+     "samodzielny",
+     "selbstständig",
+     "independent"
+    ],
+    [
+     "{chciałbym|chciałabym}",
+     "ich möchte gern",
+     "I would like"
+    ],
+    [
+     "{mógłbym|mogłabym}",
+     "ich könnte",
+     "I could"
+    ],
+    [
+     "czy mógłby Pan …?",
+     "Könnten Sie …? (zu einem Mann)",
+     "Could you …? (to a man)"
+    ],
+    [
+     "czy mogłaby Pani …?",
+     "Könnten Sie …? (zu einer Frau)",
+     "Could you …? (to a woman)"
+    ],
+    [
+     "szczerze mówiąc",
+     "ehrlich gesagt",
+     "to be honest"
+    ],
+    [
+     "mocna strona",
+     "Stärke",
+     "strength"
+    ],
+    [
+     "słaba strona",
+     "Schwäche",
+     "weakness"
+    ]
+   ],
+   "sentences": [
+    [
+     "Szukam pracy w hotelu albo w biurze podróży.",
+     "Ich suche Arbeit in einem Hotel oder in einem Reisebüro.",
+     "I’m looking for work in a hotel or a travel agency."
+    ],
+    [
+     "{Przeczytałem|Przeczytałam} ogłoszenie w internecie.",
+     "Ich habe die Anzeige im Internet gelesen.",
+     "I read the advert online."
+    ],
+    [
+     "Mam pięć lat doświadczenia w obsłudze klienta.",
+     "Ich habe fünf Jahre Erfahrung im Kundenservice.",
+     "I have five years of customer service experience."
+    ],
+    [
+     "{Chciałbym|Chciałabym} pracować na pełen etat.",
+     "Ich möchte gern in Vollzeit arbeiten.",
+     "I would like to work full-time."
+    ],
+    [
+     "Jakie są moje obowiązki na tym stanowisku?",
+     "Was sind meine Aufgaben auf dieser Stelle?",
+     "What are my duties in this position?"
+    ],
+    [
+     "Moją mocną stroną jest dobra organizacja.",
+     "Meine Stärke ist gute Organisation.",
+     "My strength is good organisation."
+    ],
+    [
+     "Ile wynosi wynagrodzenie na początku?",
+     "Wie hoch ist das Gehalt am Anfang?",
+     "What is the starting salary?"
+    ],
+    [
+     "Czy mógłby Pan wysłać mi umowę mailem?",
+     "Könnten Sie mir den Vertrag per Mail schicken?",
+     "Could you send me the contract by email?"
+    ],
+    [
+     "Kiedy mogę zacząć pracę?",
+     "Wann kann ich mit der Arbeit anfangen?",
+     "When can I start work?"
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Jelenia Góra, ein Hotel am Marktplatz. Heute hast du ein Vorstellungsgespräch für die Rezeption. Die Managerin, Pani Renata, bittet dich herein.",
+     "Jelenia Góra, a hotel on the market square. Today you have an interview for a job at reception. The manager, Pani Renata, invites you in."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Dzień dobry, proszę usiąść. Dlaczego {chce Pan|chce Pani} pracować w naszym hotelu?",
+       "Guten Tag, bitte setzen Sie sich. Warum möchten Sie in unserem Hotel arbeiten?",
+       "Good morning, please sit down. Why do you want to work in our hotel?"
+      ],
+      "opts": [
+       [
+        "Lubię pracować z ludźmi i znam trzy języki.",
+        "Ich arbeite gern mit Menschen und spreche drei Sprachen.",
+        "I like working with people and I speak three languages.",
+        1
+       ],
+       [
+        "Nie lubię hoteli.",
+        "Ich mag keine Hotels.",
+        "I don’t like hotels.",
+        0
+       ],
+       [
+        "Jutro jadę nad morze.",
+        "Morgen fahre ich ans Meer.",
+        "Tomorrow I’m going to the seaside.",
+        0
+       ]
+      ],
+      "hint": [
+       "Nenne einen Grund: Lubię … / Znam …",
+       "Give a reason: Lubię … / Znam …"
+      ]
+     },
+     {
+      "npc": [
+       "Jakie ma {Pan|Pani} doświadczenie?",
+       "Welche Erfahrung haben Sie?",
+       "What experience do you have?"
+      ],
+      "opts": [
+       [
+        "{Pracowałem|Pracowałam} trzy lata w biurze podróży.",
+        "Ich habe drei Jahre in einem Reisebüro gearbeitet.",
+        "I worked in a travel agency for three years.",
+        1
+       ],
+       [
+        "Mam dwa koty i psa.",
+        "Ich habe zwei Katzen und einen Hund.",
+        "I have two cats and a dog.",
+        0
+       ]
+      ],
+      "hint": [
+       "Erzähl in der Vergangenheit, wo du gearbeitet hast: Pracowałem / Pracowałam …",
+       "Say in the past tense where you worked: Pracowałem / Pracowałam …"
+      ]
+     },
+     {
+      "npc": [
+       "A jaka jest {Pana|Pani} słaba strona?",
+       "Und was ist Ihre Schwäche?",
+       "And what is your weakness?"
+      ],
+      "opts": [
+       [
+        "Szczerze mówiąc, czasem jestem zbyt {niecierpliwy|niecierpliwa}.",
+        "Ehrlich gesagt bin ich manchmal zu ungeduldig.",
+        "To be honest, I’m sometimes too impatient.",
+        1
+       ],
+       [
+        "Nie mam słabych stron, jestem {idealny|idealna}.",
+        "Ich habe keine Schwächen, ich bin perfekt.",
+        "I have no weaknesses, I’m perfect.",
+        0
+       ]
+      ],
+      "hint": [
+       "Ehrlich, aber freundlich: Szczerze mówiąc …",
+       "Honest but friendly: Szczerze mówiąc …"
+      ]
+     },
+     {
+      "npc": [
+       "Dobrze. Od kiedy {mógłby Pan|mogłaby Pani} zacząć?",
+       "Gut. Ab wann könnten Sie anfangen?",
+       "Good. When could you start?"
+      ],
+      "opts": [
+       [
+        "{Mógłbym|Mogłabym} zacząć od przyszłego miesiąca.",
+        "Ich könnte ab nächstem Monat anfangen.",
+        "I could start next month.",
+        1
+       ],
+       [
+        "Wczoraj wieczorem.",
+        "Gestern Abend.",
+        "Yesterday evening.",
+        0
+       ]
+      ],
+      "hint": [
+       "Antworte im Konditional: Mógłbym / Mogłabym …",
+       "Answer with the conditional: Mógłbym / Mogłabym …"
+      ]
+     }
+    ],
+    "outro": [
+     "Pani Renata lächelt: „Wir melden uns bis Freitag.“ Draußen vibriert dein Handy. Szymek: „Und? Hast du den Job?“",
+     "Pani Renata smiles: “We’ll be in touch by Friday.” Outside your phone buzzes. Szymek: “Well? Did you get the job?”"
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 1: Der Koffer auf dem Dachboden",
+     "Chapter 1: The suitcase in the attic"
+    ],
+    "lines": [
+     {
+      "pl": "Ewa ma dwadzieścia dziewięć lat i mieszka w Jeleniej Górze.",
+      "tr": [
+       "Ewa ist neunundzwanzig und wohnt in Jelenia Góra.",
+       "Ewa is twenty-nine and lives in Jelenia Góra."
+      ]
+     },
+     {
+      "pl": "W zeszłym miesiącu straciła pracę w hucie szkła.",
+      "tr": [
+       "Letzten Monat hat sie ihre Arbeit in der Glashütte verloren.",
+       "Last month she lost her job at the glassworks."
+      ]
+     },
+     {
+      "pl": "Dzisiaj miała rozmowę kwalifikacyjną w hotelu i bardzo się denerwowała.",
+      "tr": [
+       "Heute hatte sie ein Vorstellungsgespräch im Hotel und war sehr nervös.",
+       "Today she had a job interview at a hotel and was very nervous."
+      ]
+     },
+     {
+      "pl": "Wieczorem pojechała do babci, żeby trochę odpocząć.",
+      "tr": [
+       "Am Abend fuhr sie zu ihrer Oma, um sich ein bisschen zu erholen.",
+       "In the evening she went to her grandmother’s to rest a little."
+      ]
+     },
+     {
+      "pl": "Na strychu znalazła starą walizkę dziadka Józefa.",
+      "tr": [
+       "Auf dem Dachboden fand sie den alten Koffer von Opa Józef.",
+       "In the attic she found Grandpa Józef’s old suitcase."
+      ]
+     },
+     {
+      "pl": "W środku był mały klucz i list.",
+      "tr": [
+       "Darin waren ein kleiner Schlüssel und ein Brief.",
+       "Inside there was a small key and a letter."
+      ]
+     },
+     {
+      "pl": "Ewa przeczytała: „Ten klucz otwiera to, co najważniejsze. Zacznij w Kłodzku.”",
+      "tr": [
+       "Ewa las: „Dieser Schlüssel öffnet das, was am wichtigsten ist. Fang in Kłodzko an.“",
+       "Ewa read: “This key opens what matters most. Start in Kłodzko.”"
+      ]
+     },
+     {
+      "pl": "Babcia uśmiechnęła się: „Dziadek zawsze lubił tajemnice.”",
+      "tr": [
+       "Oma lächelte: „Opa hat Geheimnisse immer geliebt.“",
+       "Grandma smiled: “Grandpa always loved secrets.”"
+      ]
+     },
+     {
+      "pl": "Następnego dnia Ewa kupiła bilet na pociąg.",
+      "tr": [
+       "Am nächsten Tag kaufte Ewa eine Zugfahrkarte.",
+       "The next day Ewa bought a train ticket."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Gdzie Ewa straciła pracę?",
+      "tr": [
+       "Wo hat Ewa ihre Arbeit verloren?",
+       "Where did Ewa lose her job?"
+      ],
+      "o": [
+       "w hucie szkła",
+       "w hotelu",
+       "w banku"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co Ewa znalazła na strychu?",
+      "tr": [
+       "Was hat Ewa auf dem Dachboden gefunden?",
+       "What did Ewa find in the attic?"
+      ],
+      "o": [
+       "starą walizkę dziadka",
+       "nowy telefon",
+       "mapę Polski"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Gdzie ma zacząć szukać?",
+      "tr": [
+       "Wo soll sie anfangen zu suchen?",
+       "Where should she start looking?"
+      ],
+      "o": [
+       "w Kłodzku",
+       "w Krakowie",
+       "w Jeleniej Górze"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "klo",
+   "city": "Kłodzko",
+   "cityDe": "Kłodzko (Glatz)",
+   "cityEn": "Kłodzko",
+   "lon": 16.65,
+   "lat": 50.44,
+   "trail": "red",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Unterwegs mit Pannen: Verspätung und Gepäck",
+    "Travel trouble: delays and luggage"
+   ],
+   "can": [
+    "Ich kann Probleme auf der Reise erklären und um Hilfe, Bestätigung oder Geld zurück bitten.",
+    "I can explain problems on a journey and ask for help, confirmation or a refund."
+   ],
+   "tip": [
+    "Bewegungsverben mit Vorsilben: wy- = hinaus/weg (wysiąść, wyjechać), przy- = an (przyjechać), do- = bis zum Ziel (dojechać), od- = ab (odjechać), prze- = um (przesiąść się). Pociąg odjechał = Der Zug ist abgefahren.",
+    "Verbs of motion with prefixes: wy- = out/away (wysiąść, wyjechać), przy- = arrive (przyjechać), do- = reach (dojechać), od- = depart (odjechać), prze- = change (przesiąść się). Pociąg odjechał = The train has left."
+   ],
+   "fact": [
+    "Die Festung Kłodzko ist eine der größten erhaltenen Festungen Polens. Unter ihr verlaufen lange unterirdische Gänge, die man besichtigen kann.",
+    "Kłodzko Fortress is one of the largest surviving fortresses in Poland. Long underground passages run beneath it, and you can visit them."
+   ],
+   "words": [
+    [
+     "opóźnienie",
+     "Verspätung",
+     "delay"
+    ],
+    [
+     "pociąg jest opóźniony",
+     "der Zug hat Verspätung",
+     "the train is delayed"
+    ],
+    [
+     "odwołany",
+     "gestrichen, abgesagt",
+     "cancelled"
+    ],
+    [
+     "przesiadka",
+     "Umstieg",
+     "change (of trains)"
+    ],
+    [
+     "przesiąść się",
+     "umsteigen",
+     "to change trains"
+    ],
+    [
+     "wysiąść",
+     "aussteigen",
+     "to get off"
+    ],
+    [
+     "wsiąść",
+     "einsteigen",
+     "to get on"
+    ],
+    [
+     "dojechać",
+     "ankommen (am Ziel)",
+     "to reach, get to"
+    ],
+    [
+     "odjechać",
+     "abfahren",
+     "to depart"
+    ],
+    [
+     "wyjechać",
+     "wegfahren, verreisen",
+     "to leave, go away"
+    ],
+    [
+     "pociąg mi uciekł",
+     "mir ist der Zug weggefahren",
+     "I missed the train"
+    ],
+    [
+     "konduktor",
+     "Schaffner",
+     "conductor"
+    ],
+    [
+     "kasa biletowa",
+     "Fahrkartenschalter",
+     "ticket office"
+    ],
+    [
+     "rozkład jazdy",
+     "Fahrplan",
+     "timetable"
+    ],
+    [
+     "tor",
+     "Gleis",
+     "track"
+    ],
+    [
+     "informacja",
+     "Auskunft",
+     "information desk"
+    ],
+    [
+     "komunikat",
+     "Durchsage, Mitteilung",
+     "announcement"
+    ],
+    [
+     "bagaż",
+     "Gepäck",
+     "luggage"
+    ],
+    [
+     "zgubiony bagaż",
+     "verlorenes Gepäck",
+     "lost luggage"
+    ],
+    [
+     "bagaż podręczny",
+     "Handgepäck",
+     "hand luggage"
+    ],
+    [
+     "uszkodzony",
+     "beschädigt",
+     "damaged"
+    ],
+    [
+     "reklamacja",
+     "Reklamation",
+     "complaint, claim"
+    ],
+    [
+     "złożyć reklamację",
+     "eine Reklamation einreichen",
+     "to make a complaint"
+    ],
+    [
+     "odszkodowanie",
+     "Entschädigung",
+     "compensation"
+    ],
+    [
+     "zwrot pieniędzy",
+     "Rückerstattung",
+     "refund"
+    ],
+    [
+     "paragon",
+     "Kassenbon",
+     "receipt"
+    ],
+    [
+     "potwierdzenie",
+     "Bestätigung",
+     "confirmation"
+    ],
+    [
+     "kłopot",
+     "Ärger, Schwierigkeit",
+     "trouble"
+    ],
+    [
+     "wściekły",
+     "wütend",
+     "furious"
+    ],
+    [
+     "cierpliwość",
+     "Geduld",
+     "patience"
+    ],
+    [
+     "korek",
+     "Stau",
+     "traffic jam"
+    ],
+    [
+     "objazd",
+     "Umleitung",
+     "detour"
+    ],
+    [
+     "remont",
+     "Bauarbeiten, Renovierung",
+     "renovation, works"
+    ],
+    [
+     "taksówka",
+     "Taxi",
+     "taxi"
+    ],
+    [
+     "autobus zastępczy",
+     "Ersatzbus",
+     "replacement bus"
+    ],
+    [
+     "twierdza",
+     "Festung",
+     "fortress"
+    ],
+    [
+     "podziemia",
+     "unterirdische Gänge",
+     "underground passages"
+    ],
+    [
+     "po drodze",
+     "unterwegs",
+     "on the way"
+    ],
+    [
+     "w ostatniej chwili",
+     "in letzter Minute",
+     "at the last minute"
+    ],
+    [
+     "na piśmie",
+     "schriftlich",
+     "in writing"
+    ]
+   ],
+   "sentences": [
+    [
+     "Pociąg z Wrocławia jest opóźniony o dziewięćdziesiąt minut.",
+     "Der Zug aus Wrocław hat neunzig Minuten Verspätung.",
+     "The train from Wrocław is ninety minutes late."
+    ],
+    [
+     "Przepraszam, gdzie muszę się przesiąść?",
+     "Entschuldigung, wo muss ich umsteigen?",
+     "Excuse me, where do I have to change?"
+    ],
+    [
+     "Pociąg mi uciekł, bo autobus stał w korku.",
+     "Mir ist der Zug weggefahren, weil der Bus im Stau stand.",
+     "I missed the train because the bus was stuck in traffic."
+    ],
+    [
+     "Mój bagaż nie dojechał do Kłodzka.",
+     "Mein Gepäck ist nicht in Kłodzko angekommen.",
+     "My luggage didn’t make it to Kłodzko."
+    ],
+    [
+     "{Chciałbym|Chciałabym} złożyć reklamację.",
+     "Ich möchte gern eine Reklamation einreichen.",
+     "I would like to make a complaint."
+    ],
+    [
+     "Walizka jest uszkodzona, a w środku był laptop.",
+     "Der Koffer ist beschädigt, und darin war ein Laptop.",
+     "The suitcase is damaged, and there was a laptop inside."
+    ],
+    [
+     "Czy dostanę zwrot pieniędzy za bilet?",
+     "Bekomme ich das Geld für die Fahrkarte zurück?",
+     "Will I get a refund for the ticket?"
+    ],
+    [
+     "Z powodu remontu jedzie autobus zastępczy.",
+     "Wegen Bauarbeiten fährt ein Ersatzbus.",
+     "Because of the works there is a replacement bus."
+    ],
+    [
+     "Proszę o potwierdzenie na piśmie.",
+     "Ich bitte um eine schriftliche Bestätigung.",
+     "I’d like a written confirmation, please."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Bahnhof Kłodzko Główne. Deine Reisetasche ist nicht mitgekommen, und der Anschlusszug fällt aus. Am Schalter sitzt ein Bahnmitarbeiter.",
+     "Kłodzko Główne station. Your bag didn’t arrive, and your connecting train is cancelled. A railway employee sits at the counter."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Dzień dobry, słucham. W czym mogę pomóc?",
+       "Guten Tag, bitte. Wie kann ich helfen?",
+       "Good afternoon, yes? How can I help?"
+      ],
+      "opts": [
+       [
+        "Mój bagaż nie dojechał. Co mam zrobić?",
+        "Mein Gepäck ist nicht angekommen. Was soll ich tun?",
+        "My luggage hasn’t arrived. What should I do?",
+        1
+       ],
+       [
+        "Poproszę kawę z mlekiem.",
+        "Einen Kaffee mit Milch, bitte.",
+        "A coffee with milk, please.",
+        0
+       ]
+      ],
+      "hint": [
+       "Erkläre das Problem: Mój bagaż nie dojechał.",
+       "Explain the problem: Mój bagaż nie dojechał."
+      ]
+     },
+     {
+      "npc": [
+       "Proszę wypełnić ten formularz. Jak wygląda walizka?",
+       "Bitte füllen Sie dieses Formular aus. Wie sieht der Koffer aus?",
+       "Please fill in this form. What does the suitcase look like?"
+      ],
+      "opts": [
+       [
+        "Jest duża, czerwona i ma czarne kółka.",
+        "Er ist groß, rot und hat schwarze Rollen.",
+        "It’s big and red and has black wheels.",
+        1
+       ],
+       [
+        "Jestem bardzo {zmęczony|zmęczona}.",
+        "Ich bin sehr müde.",
+        "I’m very tired.",
+        0
+       ]
+      ],
+      "hint": [
+       "Beschreibe den Koffer: Jest duża, czerwona …",
+       "Describe the suitcase: Jest duża, czerwona …"
+      ]
+     },
+     {
+      "npc": [
+       "Pociąg do Wałbrzycha jest odwołany. Jedzie autobus zastępczy.",
+       "Der Zug nach Wałbrzych fällt aus. Es fährt ein Ersatzbus.",
+       "The train to Wałbrzych is cancelled. There’s a replacement bus."
+      ],
+      "opts": [
+       [
+        "O której odjeżdża autobus i skąd?",
+        "Um wie viel Uhr fährt der Bus ab und von wo?",
+        "What time does the bus leave and from where?",
+        1
+       ],
+       [
+        "Super, bardzo lubię pociągi.",
+        "Super, ich mag Züge sehr.",
+        "Great, I really like trains.",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag nach Zeit und Ort: O której …? Skąd …?",
+       "Ask about time and place: O której …? Skąd …?"
+      ]
+     },
+     {
+      "npc": [
+       "Za dwadzieścia minut, sprzed dworca. Przepraszamy za kłopot.",
+       "In zwanzig Minuten, vor dem Bahnhof. Entschuldigen Sie die Unannehmlichkeiten.",
+       "In twenty minutes, from outside the station. Sorry for the trouble."
+      ],
+      "opts": [
+       [
+        "Rozumiem. Czy mogę dostać potwierdzenie na piśmie?",
+        "Verstehe. Kann ich eine schriftliche Bestätigung bekommen?",
+        "I see. Can I get a written confirmation?",
+        1
+       ],
+       [
+        "Dobranoc i smacznego!",
+        "Gute Nacht und guten Appetit!",
+        "Good night and enjoy your meal!",
+        0
+       ]
+      ],
+      "hint": [
+       "Bitte um eine Bestätigung – wichtig für das Geld zurück.",
+       "Ask for a confirmation – you need it for the refund."
+      ]
+     }
+    ],
+    "outro": [
+     "Mit dem Formular in der Hand gehst du hinaus. Szymek sitzt schon im Ersatzbus – ganz vorne, natürlich.",
+     "Form in hand, you walk outside. Szymek is already sitting in the replacement bus – right at the front, of course."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 2: Der verspätete Zug",
+     "Chapter 2: The late train"
+    ],
+    "lines": [
+     {
+      "pl": "Pociąg do Kłodzka miał półtorej godziny opóźnienia.",
+      "tr": [
+       "Der Zug nach Kłodzko hatte anderthalb Stunden Verspätung.",
+       "The train to Kłodzko was an hour and a half late."
+      ]
+     },
+     {
+      "pl": "Ewa siedziała na peronie i była coraz bardziej zła.",
+      "tr": [
+       "Ewa saß auf dem Bahnsteig und wurde immer wütender.",
+       "Ewa sat on the platform, getting more and more annoyed."
+      ]
+     },
+     {
+      "pl": "Obok niej usiadł młody konduktor, który miał akurat przerwę.",
+      "tr": [
+       "Neben sie setzte sich ein junger Schaffner, der gerade Pause hatte.",
+       "A young conductor who was on his break sat down next to her."
+      ]
+     },
+     {
+      "pl": "Nazywał się Tomek i opowiadał zabawne historie o pasażerach.",
+      "tr": [
+       "Er hieß Tomek und erzählte lustige Geschichten über Fahrgäste.",
+       "His name was Tomek and he told funny stories about passengers."
+      ]
+     },
+     {
+      "pl": "W Kłodzku Ewa poszła prosto do twierdzy.",
+      "tr": [
+       "In Kłodzko ging Ewa direkt zur Festung.",
+       "In Kłodzko Ewa went straight to the fortress."
+      ]
+     },
+     {
+      "pl": "Stary przewodnik przeczytał list i zrobił wielkie oczy.",
+      "tr": [
+       "Ein alter Führer las den Brief und machte große Augen.",
+       "An old guide read the letter and his eyes widened."
+      ]
+     },
+     {
+      "pl": "„Józef Nowak? Znałem go! Pracował tu w 1968 roku.”",
+      "tr": [
+       "„Józef Nowak? Den kannte ich! Er hat 1968 hier gearbeitet.“",
+       "“Józef Nowak? I knew him! He worked here in 1968.”"
+      ]
+     },
+     {
+      "pl": "„Przed wyjazdem zostawił coś u przyjaciółki w Zielonej Górze.”",
+      "tr": [
+       "„Bevor er wegging, hat er etwas bei einer Freundin in Zielona Góra gelassen.“",
+       "“Before he left, he left something with a friend in Zielona Góra.”"
+      ]
+     },
+     {
+      "pl": "Ewa zapisała adres, a Tomek dał jej swój numer telefonu.",
+      "tr": [
+       "Ewa schrieb sich die Adresse auf, und Tomek gab ihr seine Telefonnummer.",
+       "Ewa wrote down the address, and Tomek gave her his phone number."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Dlaczego Ewa czekała na peronie?",
+      "tr": [
+       "Warum wartete Ewa auf dem Bahnsteig?",
+       "Why was Ewa waiting on the platform?"
+      ],
+      "o": [
+       "Pociąg był opóźniony.",
+       "Zgubiła bilet.",
+       "Czekała na babcię."
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kim jest Tomek?",
+      "tr": [
+       "Wer ist Tomek?",
+       "Who is Tomek?"
+      ],
+      "o": [
+       "konduktorem",
+       "przewodnikiem",
+       "lekarzem"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Dokąd Ewa pojedzie dalej?",
+      "tr": [
+       "Wohin fährt Ewa als Nächstes?",
+       "Where will Ewa go next?"
+      ],
+      "o": [
+       "do Zielonej Góry",
+       "do Warszawy",
+       "do Gdańska"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "zie",
+   "city": "Zielona Góra",
+   "cityDe": "Zielona Góra (Grünberg)",
+   "cityEn": "Zielona Góra",
+   "lon": 15.51,
+   "lat": 51.94,
+   "trail": "green",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Liebe, Freundschaft, Streit: Beziehungen",
+    "Love, friendship, arguments: relationships"
+   ],
+   "can": [
+    "Ich kann über Beziehungen und Gefühle erzählen: verliebt sein, streiten, sich versöhnen.",
+    "I can talk about relationships and feelings: falling in love, arguing, making up."
+   ],
+   "tip": [
+    "Verben mit festem Fall: zakochać się w kimś (Lokativ: w Marku), kłócić się z kimś (Instrumental: z siostrą), tęsknić za kimś (Instrumental: za tobą). Heiraten: Mann ożenić się z kimś, Frau wyjść za mąż za kogoś (Akkusativ).",
+    "Verbs with a fixed case: zakochać się w kimś (locative: w Marku), kłócić się z kimś (instrumental: z siostrą), tęsknić za kimś (instrumental: za tobą). Marrying: a man ożenić się z kimś, a woman wyjść za mąż za kogoś (accusative)."
+   ],
+   "fact": [
+    "In Zielona Góra wird seit dem 19. Jahrhundert jeden September das Weinfest „Winobranie“ gefeiert. Überall in der Stadt sitzen kleine Bacchus-Figuren aus Bronze.",
+    "Zielona Góra has celebrated its “Winobranie” wine festival every September since the 19th century. Little bronze Bacchus figures sit all over town."
+   ],
+   "words": [
+    [
+     "miłość",
+     "Liebe",
+     "love"
+    ],
+    [
+     "zakochać się",
+     "sich verlieben",
+     "to fall in love"
+    ],
+    [
+     "{zakochany|zakochana}",
+     "verliebt",
+     "in love"
+    ],
+    [
+     "chłopak",
+     "fester Freund",
+     "boyfriend"
+    ],
+    [
+     "dziewczyna",
+     "feste Freundin; Mädchen",
+     "girlfriend; girl"
+    ],
+    [
+     "narzeczony",
+     "Verlobter",
+     "fiancé"
+    ],
+    [
+     "narzeczona",
+     "Verlobte",
+     "fiancée"
+    ],
+    [
+     "ślub",
+     "Trauung, Hochzeit",
+     "wedding (ceremony)"
+    ],
+    [
+     "wesele",
+     "Hochzeitsfeier",
+     "wedding party"
+    ],
+    [
+     "ożenić się",
+     "heiraten (Mann)",
+     "to marry (of a man)"
+    ],
+    [
+     "wyjść za mąż",
+     "heiraten (Frau)",
+     "to marry (of a woman)"
+    ],
+    [
+     "rozwód",
+     "Scheidung",
+     "divorce"
+    ],
+    [
+     "rozstać się",
+     "sich trennen",
+     "to split up"
+    ],
+    [
+     "para",
+     "Paar",
+     "couple"
+    ],
+    [
+     "związek",
+     "Beziehung",
+     "relationship"
+    ],
+    [
+     "randka",
+     "Date, Rendezvous",
+     "date"
+    ],
+    [
+     "znajomy",
+     "Bekannter",
+     "acquaintance"
+    ],
+    [
+     "przyjaźń",
+     "Freundschaft",
+     "friendship"
+    ],
+    [
+     "zaufanie",
+     "Vertrauen",
+     "trust"
+    ],
+    [
+     "ufać",
+     "vertrauen",
+     "to trust"
+    ],
+    [
+     "kłócić się",
+     "streiten",
+     "to argue"
+    ],
+    [
+     "kłótnia",
+     "Streit",
+     "argument, row"
+    ],
+    [
+     "pogodzić się",
+     "sich versöhnen",
+     "to make up"
+    ],
+    [
+     "przeprosić",
+     "sich entschuldigen",
+     "to apologise"
+    ],
+    [
+     "wybaczyć",
+     "verzeihen",
+     "to forgive"
+    ],
+    [
+     "zazdrosny",
+     "eifersüchtig",
+     "jealous"
+    ],
+    [
+     "wstydzić się",
+     "sich schämen",
+     "to be ashamed"
+    ],
+    [
+     "wzruszony",
+     "gerührt",
+     "moved, touched"
+    ],
+    [
+     "samotny",
+     "einsam",
+     "lonely"
+    ],
+    [
+     "dumny",
+     "stolz",
+     "proud"
+    ],
+    [
+     "rozczarowany",
+     "enttäuscht",
+     "disappointed"
+    ],
+    [
+     "denerwować się",
+     "sich aufregen, nervös sein",
+     "to get upset, be nervous"
+    ],
+    [
+     "uczucie",
+     "Gefühl",
+     "feeling"
+    ],
+    [
+     "serce",
+     "Herz",
+     "heart"
+    ],
+    [
+     "całować",
+     "küssen",
+     "to kiss"
+    ],
+    [
+     "przytulić",
+     "umarmen",
+     "to hug"
+    ],
+    [
+     "tęsknota",
+     "Sehnsucht",
+     "longing"
+    ],
+    [
+     "winobranie",
+     "Weinlese, Weinfest",
+     "grape harvest (festival)"
+    ],
+    [
+     "wino",
+     "Wein",
+     "wine"
+    ],
+    [
+     "od pierwszego wejrzenia",
+     "auf den ersten Blick",
+     "at first sight"
+    ]
+   ],
+   "sentences": [
+    [
+     "{Zakochałem|Zakochałam} się od pierwszego wejrzenia.",
+     "Ich habe mich auf den ersten Blick verliebt.",
+     "I fell in love at first sight."
+    ],
+    [
+     "Moja siostra wychodzi za mąż w czerwcu.",
+     "Meine Schwester heiratet im Juni.",
+     "My sister is getting married in June."
+    ],
+    [
+     "Wczoraj {pokłóciłem|pokłóciłam} się z bratem.",
+     "Gestern habe ich mich mit meinem Bruder gestritten.",
+     "Yesterday I had an argument with my brother."
+    ],
+    [
+     "{Przeprosiłem|Przeprosiłam} go i pogodziliśmy się.",
+     "Ich habe mich bei ihm entschuldigt, und wir haben uns versöhnt.",
+     "I apologised to him and we made up."
+    ],
+    [
+     "Ufam ci, ale czasem jestem {zazdrosny|zazdrosna}.",
+     "Ich vertraue dir, aber manchmal bin ich eifersüchtig.",
+     "I trust you, but sometimes I’m jealous."
+    ],
+    [
+     "Jesteśmy parą od pięciu lat.",
+     "Wir sind seit fünf Jahren ein Paar.",
+     "We’ve been a couple for five years."
+    ],
+    [
+     "Tęsknię za tobą, kiedy jesteś daleko.",
+     "Ich vermisse dich, wenn du weit weg bist.",
+     "I miss you when you’re far away."
+    ],
+    [
+     "Na weselu tańczyliśmy do rana.",
+     "Auf der Hochzeitsfeier haben wir bis zum Morgen getanzt.",
+     "We danced till morning at the wedding party."
+    ],
+    [
+     "Jestem bardzo {dumny|dumna} z mojej córki.",
+     "Ich bin sehr stolz auf meine Tochter.",
+     "I’m very proud of my daughter."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Zielona Góra, Weinfest. Zwischen Ständen und Musik triffst du Ola, eine Bekannte aus Poznań. Sie sieht traurig aus.",
+     "Zielona Góra, wine festival. Between the stalls and the music you meet Ola, an acquaintance from Poznań. She looks sad."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Cześć… Wiesz, rozstałam się z Markiem.",
+       "Hallo … Weißt du, ich habe mich von Marek getrennt.",
+       "Hi … You know, I’ve split up with Marek."
+      ],
+      "opts": [
+       [
+        "Oj, przykro mi. Co się stało?",
+        "Oh, das tut mir leid. Was ist passiert?",
+        "Oh, I’m sorry. What happened?",
+        1
+       ],
+       [
+        "Super! Gratulacje!",
+        "Super! Glückwunsch!",
+        "Great! Congratulations!",
+        0
+       ]
+      ],
+      "hint": [
+       "Zeig Mitgefühl: Przykro mi. Dann frag: Co się stało?",
+       "Show sympathy: Przykro mi. Then ask: Co się stało?"
+      ]
+     },
+     {
+      "npc": [
+       "Ciągle się kłóciliśmy. On był strasznie zazdrosny.",
+       "Wir haben ständig gestritten. Er war schrecklich eifersüchtig.",
+       "We argued all the time. He was terribly jealous."
+      ],
+      "opts": [
+       [
+        "Rozumiem. Bez zaufania związek nie działa.",
+        "Verstehe. Ohne Vertrauen funktioniert eine Beziehung nicht.",
+        "I understand. A relationship doesn’t work without trust.",
+        1
+       ],
+       [
+        "Ja też bardzo lubię wino.",
+        "Ich mag Wein auch sehr.",
+        "I like wine a lot too.",
+        0
+       ]
+      ],
+      "hint": [
+       "Sag etwas über Vertrauen: Bez zaufania …",
+       "Say something about trust: Bez zaufania …"
+      ]
+     },
+     {
+      "npc": [
+       "A ty? Jesteś w związku?",
+       "Und du? Bist du in einer Beziehung?",
+       "And you? Are you in a relationship?"
+      ],
+      "opts": [
+       [
+        "Tak, od trzech lat. Ale też czasem się kłócimy.",
+        "Ja, seit drei Jahren. Aber manchmal streiten wir auch.",
+        "Yes, for three years. But we argue sometimes too.",
+        1
+       ],
+       [
+        "Nie, jestem w Zielonej Górze.",
+        "Nein, ich bin in Zielona Góra.",
+        "No, I’m in Zielona Góra.",
+        0
+       ]
+      ],
+      "hint": [
+       "Antworte mit „od …“ (seit …).",
+       "Answer with “od …” (for/since …)."
+      ]
+     },
+     {
+      "npc": [
+       "Chodź, napijemy się wina i zatańczymy!",
+       "Komm, wir trinken ein Glas Wein und tanzen!",
+       "Come on, let’s have some wine and dance!"
+      ],
+      "opts": [
+       [
+        "Dobry pomysł! Na zdrowie!",
+        "Gute Idee! Prost!",
+        "Good idea! Cheers!",
+        1
+       ],
+       [
+        "Tu nie wolno tańczyć.",
+        "Hier darf man nicht tanzen.",
+        "Dancing isn’t allowed here.",
+        0
+       ]
+      ],
+      "hint": [
+       "Sag zu und stoß an: Na zdrowie!",
+       "Say yes and raise a glass: Na zdrowie!"
+      ]
+     }
+    ],
+    "outro": [
+     "Ihr tanzt bis spät in die Nacht. Ola lacht wieder – und Szymek versucht, mit einer Bacchus-Figur anzustoßen.",
+     "You dance until late. Ola is laughing again – and Szymek is trying to clink glasses with a Bacchus figure."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 3: Das Foto",
+     "Chapter 3: The photograph"
+    ],
+    "lines": [
+     {
+      "pl": "W Zielonej Górze było właśnie winobranie i całe miasto świętowało.",
+      "tr": [
+       "In Zielona Góra war gerade Weinfest, und die ganze Stadt feierte.",
+       "It was the wine festival in Zielona Góra and the whole town was celebrating."
+      ]
+     },
+     {
+      "pl": "Ewa znalazła dom pani Haliny niedaleko rynku.",
+      "tr": [
+       "Ewa fand das Haus von Pani Halina nicht weit vom Markt.",
+       "Ewa found Pani Halina’s house not far from the square."
+      ]
+     },
+     {
+      "pl": "Pani Halina miała osiemdziesiąt lat i bardzo wesołe oczy.",
+      "tr": [
+       "Pani Halina war achtzig und hatte sehr fröhliche Augen.",
+       "Pani Halina was eighty and had very cheerful eyes."
+      ]
+     },
+     {
+      "pl": "„Twój dziadek był moim najlepszym przyjacielem” – powiedziała wzruszona.",
+      "tr": [
+       "„Dein Opa war mein bester Freund“, sagte sie gerührt.",
+       "“Your grandfather was my best friend,” she said, moved."
+      ]
+     },
+     {
+      "pl": "Opowiedziała, że Józef był kiedyś zakochany w dziewczynie o imieniu Zofia.",
+      "tr": [
+       "Sie erzählte, dass Józef einmal in ein Mädchen namens Zofia verliebt war.",
+       "She said that Józef had once been in love with a girl called Zofia."
+      ]
+     },
+     {
+      "pl": "Pokłócili się przed jego wyjazdem i nigdy się nie pogodzili.",
+      "tr": [
+       "Sie stritten sich vor seiner Abreise und haben sich nie versöhnt.",
+       "They argued before he left and never made up."
+      ]
+     },
+     {
+      "pl": "Potem pani Halina przyniosła starą fotografię.",
+      "tr": [
+       "Dann holte Pani Halina ein altes Foto.",
+       "Then Pani Halina brought an old photograph."
+      ]
+     },
+     {
+      "pl": "Na zdjęciu był młody Józef przed wielkimi drzwiami katedry.",
+      "tr": [
+       "Auf dem Foto stand der junge Józef vor dem großen Tor einer Kathedrale.",
+       "The photo showed young Józef in front of the great doors of a cathedral."
+      ]
+     },
+     {
+      "pl": "Na odwrocie ktoś napisał: „Gniezno. Drzwi pamiętają.”",
+      "tr": [
+       "Auf der Rückseite hatte jemand geschrieben: „Gniezno. Die Türen erinnern sich.“",
+       "On the back someone had written: “Gniezno. The doors remember.”"
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Kim była pani Halina dla Józefa?",
+      "tr": [
+       "Wer war Pani Halina für Józef?",
+       "Who was Pani Halina to Józef?"
+      ],
+      "o": [
+       "najlepszą przyjaciółką",
+       "siostrą",
+       "żoną"
+      ],
+      "a": 0
+     },
+     {
+      "q": "W kim był zakochany Józef?",
+      "tr": [
+       "In wen war Józef verliebt?",
+       "Who was Józef in love with?"
+      ],
+      "o": [
+       "w Zofii",
+       "w Halinie",
+       "w Ewie"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co jest na zdjęciu?",
+      "tr": [
+       "Was ist auf dem Foto?",
+       "What is in the photo?"
+      ],
+      "o": [
+       "Józef przed drzwiami katedry",
+       "winobranie w Zielonej Górze",
+       "pociąg do Kłodzka"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "gni",
+   "city": "Gniezno",
+   "cityDe": "Gniezno (Gnesen)",
+   "cityEn": "Gniezno",
+   "lon": 17.6,
+   "lat": 52.53,
+   "trail": "yellow",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Geschichte erzählen: Was damals geschah",
+    "Telling history: what happened back then"
+   ],
+   "can": [
+    "Ich kann ein Ereignis oder eine Geschichte aus der Vergangenheit der Reihe nach erzählen.",
+    "I can tell an event or a story from the past in the right order."
+   ],
+   "tip": [
+    "Erzählen mit Aspekt: Imperfektiv für Hintergrund und Dauer (szedł, padało, było ciemno), Perfektiv für einzelne Ereignisse (nagle zobaczył, w końcu znalazł). Ordnungswörter: najpierw, potem, nagle, w końcu.",
+    "Storytelling with aspect: imperfective for background and duration (szedł, padało, było ciemno), perfective for single events (nagle zobaczył, w końcu znalazł). Sequence words: najpierw, potem, nagle, w końcu."
+   ],
+   "fact": [
+    "Gniezno gilt als erste Hauptstadt Polens. Die bronzene Tür der Kathedrale aus dem 12. Jahrhundert erzählt in 18 Bildern das Leben des heiligen Adalbert (Wojciech).",
+    "Gniezno is regarded as Poland’s first capital. The 12th-century bronze doors of its cathedral tell the life of Saint Adalbert (Wojciech) in 18 scenes."
+   ],
+   "words": [
+    [
+     "legenda",
+     "Legende",
+     "legend"
+    ],
+    [
+     "orzeł",
+     "Adler",
+     "eagle"
+    ],
+    [
+     "gniazdo",
+     "Nest",
+     "nest"
+    ],
+    [
+     "książę",
+     "Fürst, Herzog",
+     "duke, prince"
+    ],
+    [
+     "władca",
+     "Herrscher",
+     "ruler"
+    ],
+    [
+     "państwo",
+     "Staat",
+     "state"
+    ],
+    [
+     "stolica",
+     "Hauptstadt",
+     "capital"
+    ],
+    [
+     "katedra",
+     "Kathedrale, Dom",
+     "cathedral"
+    ],
+    [
+     "koronacja",
+     "Krönung",
+     "coronation"
+    ],
+    [
+     "chrzest",
+     "Taufe",
+     "baptism"
+    ],
+    [
+     "wojna",
+     "Krieg",
+     "war"
+    ],
+    [
+     "bitwa",
+     "Schlacht",
+     "battle"
+    ],
+    [
+     "zwycięstwo",
+     "Sieg",
+     "victory"
+    ],
+    [
+     "klęska",
+     "Niederlage",
+     "defeat"
+    ],
+    [
+     "armia",
+     "Armee",
+     "army"
+    ],
+    [
+     "granica",
+     "Grenze",
+     "border"
+    ],
+    [
+     "naród",
+     "Volk, Nation",
+     "nation"
+    ],
+    [
+     "pomnik",
+     "Denkmal",
+     "monument"
+    ],
+    [
+     "wydarzenie",
+     "Ereignis",
+     "event"
+    ],
+    [
+     "stulecie",
+     "Jahrhundert",
+     "century"
+    ],
+    [
+     "tysiąc lat",
+     "tausend Jahre",
+     "a thousand years"
+    ],
+    [
+     "przodkowie",
+     "Vorfahren",
+     "ancestors"
+    ],
+    [
+     "pamięć",
+     "Gedächtnis, Erinnerung",
+     "memory"
+    ],
+    [
+     "pamiętać",
+     "sich erinnern",
+     "to remember"
+    ],
+    [
+     "zapomnieć",
+     "vergessen",
+     "to forget"
+    ],
+    [
+     "opowiadać",
+     "erzählen",
+     "to tell (a story)"
+    ],
+    [
+     "opowieść",
+     "Erzählung",
+     "tale"
+    ],
+    [
+     "nagle",
+     "plötzlich",
+     "suddenly"
+    ],
+    [
+     "w końcu",
+     "schließlich, endlich",
+     "finally"
+    ],
+    [
+     "podczas",
+     "während",
+     "during"
+    ],
+    [
+     "zanim",
+     "bevor",
+     "before"
+    ],
+    [
+     "odkąd",
+     "seit(dem)",
+     "ever since"
+    ],
+    [
+     "w tamtych czasach",
+     "damals, zu jener Zeit",
+     "in those days"
+    ],
+    [
+     "urodzić się",
+     "geboren werden",
+     "to be born"
+    ],
+    [
+     "umrzeć",
+     "sterben",
+     "to die"
+    ],
+    [
+     "założyć",
+     "gründen",
+     "to found"
+    ],
+    [
+     "zniszczyć",
+     "zerstören",
+     "to destroy"
+    ],
+    [
+     "odbudować",
+     "wiederaufbauen",
+     "to rebuild"
+    ],
+    [
+     "święty",
+     "heilig; der Heilige",
+     "holy; saint"
+    ],
+    [
+     "brązowy",
+     "aus Bronze; braun",
+     "bronze; brown"
+    ]
+   ],
+   "sentences": [
+    [
+     "Według legendy Lech zobaczył na drzewie białego orła.",
+     "Der Legende nach sah Lech auf einem Baum einen weißen Adler.",
+     "According to legend, Lech saw a white eagle in a tree."
+    ],
+    [
+     "Gniezno było pierwszą stolicą Polski.",
+     "Gniezno war die erste Hauptstadt Polens.",
+     "Gniezno was Poland’s first capital."
+    ],
+    [
+     "W tamtych czasach państwem rządził książę Mieszko.",
+     "Damals regierte Fürst Mieszko den Staat.",
+     "In those days Duke Mieszko ruled the state."
+    ],
+    [
+     "Chrzest Polski odbył się w 966 roku.",
+     "Die Taufe Polens fand im Jahr 966 statt.",
+     "The baptism of Poland took place in 966."
+    ],
+    [
+     "Podczas wojny miasto zostało zniszczone, ale potem je odbudowano.",
+     "Im Krieg wurde die Stadt zerstört, aber später wieder aufgebaut.",
+     "During the war the town was destroyed, but it was rebuilt later."
+    ],
+    [
+     "Najpierw zwiedzaliśmy katedrę, a potem nagle zaczęło padać.",
+     "Zuerst besichtigten wir die Kathedrale, und dann fing es plötzlich an zu regnen.",
+     "First we were looking round the cathedral, and then suddenly it started to rain."
+    ],
+    [
+     "Nie pamiętam, kiedy urodził się mój pradziadek.",
+     "Ich weiß nicht mehr, wann mein Urgroßvater geboren wurde.",
+     "I don’t remember when my great-grandfather was born."
+    ],
+    [
+     "Zanim wyjechaliśmy, kupiliśmy książkę o historii miasta.",
+     "Bevor wir abreisten, kauften wir ein Buch über die Stadtgeschichte.",
+     "Before we left, we bought a book about the town’s history."
+    ],
+    [
+     "Opowiedz mi, co się wtedy stało!",
+     "Erzähl mir, was damals passiert ist!",
+     "Tell me what happened then!"
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Gniezno, vor der Kathedrale. Ein älterer Stadtführer, Pan Zbigniew, erzählt einer kleinen Gruppe vom Anfang Polens.",
+     "Gniezno, outside the cathedral. An older guide, Pan Zbigniew, is telling a small group about the beginnings of Poland."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Czy {zna Pan|zna Pani} legendę o Lechu, Czechu i Rusie?",
+       "Kennen Sie die Legende von Lech, Czech und Rus?",
+       "Do you know the legend of Lech, Czech and Rus?"
+      ],
+      "opts": [
+       [
+        "Nie, nie znam. Proszę opowiedzieć!",
+        "Nein, die kenne ich nicht. Erzählen Sie bitte!",
+        "No, I don’t. Please tell us!",
+        1
+       ],
+       [
+        "Tak, jem pierogi.",
+        "Ja, ich esse Piroggen.",
+        "Yes, I eat pierogi.",
+        0
+       ]
+      ],
+      "hint": [
+       "Bitte ihn, zu erzählen: Proszę opowiedzieć!",
+       "Ask him to tell it: Proszę opowiedzieć!"
+      ]
+     },
+     {
+      "npc": [
+       "Lech zobaczył gniazdo i białego orła na tle czerwonego nieba.",
+       "Lech sah ein Nest und einen weißen Adler vor rotem Himmel.",
+       "Lech saw a nest and a white eagle against a red sky."
+      ],
+      "opts": [
+       [
+        "I dlatego biały orzeł jest w godle Polski?",
+        "Und deshalb ist der weiße Adler im polnischen Wappen?",
+        "And that’s why the white eagle is on Poland’s coat of arms?",
+        1
+       ],
+       [
+        "Ile kosztuje bilet do kina?",
+        "Was kostet eine Kinokarte?",
+        "How much is a cinema ticket?",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag nach dem Zusammenhang: I dlatego …?",
+       "Ask about the connection: I dlatego …?"
+      ]
+     },
+     {
+      "npc": [
+       "Właśnie! A te brązowe drzwi mają prawie dziewięćset lat.",
+       "Genau! Und diese Bronzetür ist fast neunhundert Jahre alt.",
+       "Exactly! And these bronze doors are almost nine hundred years old."
+      ],
+      "opts": [
+       [
+        "Niesamowite! Co przedstawiają?",
+        "Unglaublich! Was zeigen sie?",
+        "Amazing! What do they show?",
+        1
+       ],
+       [
+        "Drzwi są dzisiaj zamknięte.",
+        "Die Tür ist heute geschlossen.",
+        "The doors are closed today.",
+        0
+       ]
+      ],
+      "hint": [
+       "Staune und frag weiter: Niesamowite! Co …?",
+       "Show amazement and ask more: Niesamowite! Co …?"
+      ]
+     },
+     {
+      "npc": [
+       "Życie świętego Wojciecha. Ma {Pan|Pani} jeszcze jakieś pytanie?",
+       "Das Leben des heiligen Adalbert. Haben Sie noch eine Frage?",
+       "The life of Saint Adalbert. Do you have any other questions?"
+      ],
+      "opts": [
+       [
+        "Tak, gdzie mogę kupić książkę o historii miasta?",
+        "Ja, wo kann ich ein Buch über die Stadtgeschichte kaufen?",
+        "Yes, where can I buy a book about the town’s history?",
+        1
+       ],
+       [
+        "Nie pamiętam, jak mam na imię.",
+        "Ich weiß nicht mehr, wie ich heiße.",
+        "I can’t remember my name.",
+        0
+       ]
+      ],
+      "hint": [
+       "Stell noch eine praktische Frage.",
+       "Ask one more practical question."
+      ]
+     }
+    ],
+    "outro": [
+     "Pan Zbigniew zwinkert: „Polnisch lernt man am besten mit Geschichten.“ Szymek sitzt derweil auf dem Denkmal von Bolesław Chrobry.",
+     "Pan Zbigniew winks: “The best way to learn Polish is through stories.” Meanwhile Szymek is sitting on the statue of Bolesław Chrobry."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 4: Die Türen erinnern sich",
+     "Chapter 4: The doors remember"
+    ],
+    "lines": [
+     {
+      "pl": "Ewa stała przed katedrą i patrzyła na brązowe drzwi.",
+      "tr": [
+       "Ewa stand vor der Kathedrale und sah auf die Bronzetür.",
+       "Ewa stood in front of the cathedral, looking at the bronze doors."
+      ]
+     },
+     {
+      "pl": "Były dokładnie takie jak na starym zdjęciu dziadka.",
+      "tr": [
+       "Sie war genau wie auf Opas altem Foto.",
+       "They were exactly as in Grandpa’s old photo."
+      ]
+     },
+     {
+      "pl": "Kiedy oglądała jedną ze scen, podszedł do niej starszy ksiądz.",
+      "tr": [
+       "Während sie eine der Szenen betrachtete, kam ein älterer Priester zu ihr.",
+       "While she was looking at one of the scenes, an elderly priest came up to her."
+      ]
+     },
+     {
+      "pl": "„Szuka pani czegoś?” – zapytał spokojnie.",
+      "tr": [
+       "„Suchen Sie etwas?“, fragte er ruhig.",
+       "“Are you looking for something?” he asked calmly."
+      ]
+     },
+     {
+      "pl": "Ewa opowiedziała mu całą historię o kluczu i liście.",
+      "tr": [
+       "Ewa erzählte ihm die ganze Geschichte vom Schlüssel und vom Brief.",
+       "Ewa told him the whole story about the key and the letter."
+      ]
+     },
+     {
+      "pl": "Ksiądz długo milczał, a potem przypomniał sobie młodego Józefa.",
+      "tr": [
+       "Der Priester schwieg lange, dann erinnerte er sich an den jungen Józef.",
+       "The priest was silent for a long time, then he remembered young Józef."
+      ]
+     },
+     {
+      "pl": "„Pomagał tu przy remoncie. Zostawił w archiwum kopertę.”",
+      "tr": [
+       "„Er hat hier bei der Renovierung geholfen. Er hat im Archiv einen Umschlag hinterlassen.“",
+       "“He helped with the renovation here. He left an envelope in the archive.”"
+      ]
+     },
+     {
+      "pl": "W kopercie była tylko kartka z adresem: Bydgoszcz, ulica Gdańska 12.",
+      "tr": [
+       "Im Umschlag war nur ein Zettel mit einer Adresse: Bydgoszcz, ulica Gdańska 12.",
+       "In the envelope there was only a note with an address: Bydgoszcz, ulica Gdańska 12."
+      ]
+     },
+     {
+      "pl": "Ewa poczuła, że dziadek prowadzi ją przez całą Polskę.",
+      "tr": [
+       "Ewa spürte, dass Opa sie durch ganz Polen führt.",
+       "Ewa felt that her grandfather was leading her across the whole of Poland."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Gdzie Ewa spotkała księdza?",
+      "tr": [
+       "Wo traf Ewa den Priester?",
+       "Where did Ewa meet the priest?"
+      ],
+      "o": [
+       "przed katedrą",
+       "na dworcu",
+       "w hotelu"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co Józef zostawił w archiwum?",
+      "tr": [
+       "Was hat Józef im Archiv hinterlassen?",
+       "What did Józef leave in the archive?"
+      ],
+      "o": [
+       "kopertę",
+       "walizkę",
+       "obraz"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Dokąd prowadzi adres z koperty?",
+      "tr": [
+       "Wohin führt die Adresse aus dem Umschlag?",
+       "Where does the address in the envelope lead?"
+      ],
+      "o": [
+       "do Bydgoszczy",
+       "do Gniezna",
+       "do Krakowa"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "byd",
+   "city": "Bydgoszcz",
+   "cityDe": "Bydgoszcz (Bromberg)",
+   "cityEn": "Bydgoszcz",
+   "lon": 18.0,
+   "lat": 53.12,
+   "trail": "black",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Wohnen zur Miete: Vertrag und Reparaturen",
+    "Renting: contracts and repairs"
+   ],
+   "can": [
+    "Ich kann einen Mietvertrag besprechen und einen Schaden in der Wohnung melden.",
+    "I can discuss a tenancy agreement and report a fault in the flat."
+   ],
+   "tip": [
+    "Genitiv nach Verneinung: Mam klucz → Nie mam klucza. Jest ciepła woda → Nie ma ciepłej wody. Aber: Kaloryfer nie działa (Subjekt bleibt im Nominativ).",
+    "Genitive after negation: Mam klucz → Nie mam klucza. Jest ciepła woda → Nie ma ciepłej wody. But: Kaloryfer nie działa (the subject stays nominative)."
+   ],
+   "fact": [
+    "Über dem Fluss Brda in Bydgoszcz balanciert eine Figur auf einem Seil: „Przechodzący przez rzekę“ (Der den Fluss Überquerende), seit 2004 ein Wahrzeichen der Stadt.",
+    "Above the river Brda in Bydgoszcz a figure balances on a rope: “Przechodzący przez rzekę” (The man crossing the river), a symbol of the city since 2004."
+   ],
+   "words": [
+    [
+     "umowa najmu",
+     "Mietvertrag",
+     "tenancy agreement"
+    ],
+    [
+     "najemca",
+     "Mieter",
+     "tenant"
+    ],
+    [
+     "wynajmujący",
+     "Vermieter",
+     "landlord"
+    ],
+    [
+     "kaucja",
+     "Kaution",
+     "deposit"
+    ],
+    [
+     "opłaty",
+     "Nebenkosten, Gebühren",
+     "bills, charges"
+    ],
+    [
+     "rachunek za prąd",
+     "Stromrechnung",
+     "electricity bill"
+    ],
+    [
+     "prąd",
+     "Strom",
+     "electricity"
+    ],
+    [
+     "gaz",
+     "Gas",
+     "gas"
+    ],
+    [
+     "ogrzewanie",
+     "Heizung",
+     "heating"
+    ],
+    [
+     "kaloryfer",
+     "Heizkörper",
+     "radiator"
+    ],
+    [
+     "ciepła woda",
+     "warmes Wasser",
+     "hot water"
+    ],
+    [
+     "kran",
+     "Wasserhahn",
+     "tap"
+    ],
+    [
+     "cieknie",
+     "tropft, ist undicht",
+     "is leaking"
+    ],
+    [
+     "zepsuty",
+     "kaputt",
+     "broken"
+    ],
+    [
+     "nie działa",
+     "funktioniert nicht",
+     "doesn’t work"
+    ],
+    [
+     "awaria",
+     "Störung, Ausfall",
+     "breakdown, failure"
+    ],
+    [
+     "usterka",
+     "Mangel, Defekt",
+     "fault, defect"
+    ],
+    [
+     "naprawić",
+     "reparieren",
+     "to repair"
+    ],
+    [
+     "hydraulik",
+     "Klempner",
+     "plumber"
+    ],
+    [
+     "elektryk",
+     "Elektriker",
+     "electrician"
+    ],
+    [
+     "złota rączka",
+     "Handwerker für alles",
+     "handyman"
+    ],
+    [
+     "wymienić",
+     "austauschen",
+     "to replace"
+    ],
+    [
+     "zamek w drzwiach",
+     "Türschloss",
+     "door lock"
+    ],
+    [
+     "piwnica",
+     "Keller",
+     "cellar"
+    ],
+    [
+     "strych",
+     "Dachboden",
+     "attic"
+    ],
+    [
+     "klatka schodowa",
+     "Treppenhaus",
+     "stairwell"
+    ],
+    [
+     "domofon",
+     "Gegensprechanlage",
+     "intercom"
+    ],
+    [
+     "skrzynka na listy",
+     "Briefkasten",
+     "letterbox"
+    ],
+    [
+     "śmieci",
+     "Müll",
+     "rubbish"
+    ],
+    [
+     "wilgoć",
+     "Feuchtigkeit",
+     "damp"
+    ],
+    [
+     "pleśń",
+     "Schimmel",
+     "mould"
+    ],
+    [
+     "przeprowadzka",
+     "Umzug",
+     "house move"
+    ],
+    [
+     "przeprowadzić się",
+     "umziehen",
+     "to move house"
+    ],
+    [
+     "wprowadzić się",
+     "einziehen",
+     "to move in"
+    ],
+    [
+     "wyprowadzić się",
+     "ausziehen",
+     "to move out"
+    ],
+    [
+     "okres wypowiedzenia",
+     "Kündigungsfrist",
+     "notice period"
+    ],
+    [
+     "zgłosić usterkę",
+     "einen Mangel melden",
+     "to report a fault"
+    ],
+    [
+     "od zaraz",
+     "ab sofort",
+     "available now"
+    ],
+    [
+     "w kamienicy",
+     "in einem Altbau-Mietshaus",
+     "in a tenement building"
+    ],
+    [
+     "głośny",
+     "laut",
+     "noisy"
+    ]
+   ],
+   "sentences": [
+    [
+     "Kaucja wynosi dwa tysiące złotych.",
+     "Die Kaution beträgt zweitausend Złoty.",
+     "The deposit is two thousand złoty."
+    ],
+    [
+     "Od tygodnia nie ma ciepłej wody.",
+     "Seit einer Woche gibt es kein warmes Wasser.",
+     "There’s been no hot water for a week."
+    ],
+    [
+     "Kaloryfer w sypialni nie działa.",
+     "Der Heizkörper im Schlafzimmer funktioniert nicht.",
+     "The radiator in the bedroom doesn’t work."
+    ],
+    [
+     "W łazience cieknie kran.",
+     "Im Bad tropft der Wasserhahn.",
+     "The tap in the bathroom is leaking."
+    ],
+    [
+     "Kiedy może przyjść hydraulik?",
+     "Wann kann der Klempner kommen?",
+     "When can the plumber come?"
+    ],
+    [
+     "W piwnicy jest wilgoć i pleśń.",
+     "Im Keller ist es feucht, und es gibt Schimmel.",
+     "There’s damp and mould in the cellar."
+    ],
+    [
+     "{Chciałbym|Chciałabym} zgłosić usterkę.",
+     "Ich möchte gern einen Mangel melden.",
+     "I’d like to report a fault."
+    ],
+    [
+     "Okres wypowiedzenia wynosi trzy miesiące.",
+     "Die Kündigungsfrist beträgt drei Monate.",
+     "The notice period is three months."
+    ],
+    [
+     "Wprowadzamy się pierwszego grudnia.",
+     "Wir ziehen am ersten Dezember ein.",
+     "We’re moving in on the first of December."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Bydgoszcz, eine Altbauwohnung am Fluss. Seit gestern ist die Heizung aus. Du rufst den Vermieter an, Pan Wiesław.",
+     "Bydgoszcz, an old flat by the river. The heating has been off since yesterday. You call the landlord, Pan Wiesław."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Słucham, Wiesław Kowalski.",
+       "Ja, bitte? Wiesław Kowalski.",
+       "Hello, Wiesław Kowalski speaking."
+      ],
+      "opts": [
+       [
+        "Dzień dobry, tu {Pana lokator|Pana lokatorka} z Gdańskiej 12. Mam problem.",
+        "Guten Tag, hier ist Ihr Mieter aus der Gdańska 12. Ich habe ein Problem.",
+        "Hello, it’s your tenant from Gdańska 12. I have a problem.",
+        1
+       ],
+       [
+        "Pomyłka, do widzenia.",
+        "Falsch verbunden, auf Wiederhören.",
+        "Wrong number, goodbye.",
+        0
+       ]
+      ],
+      "hint": [
+       "Stell dich vor und sag, dass du ein Problem hast.",
+       "Say who you are and that you have a problem."
+      ]
+     },
+     {
+      "npc": [
+       "Dzień dobry. Co się stało?",
+       "Guten Tag. Was ist passiert?",
+       "Hello. What’s happened?"
+      ],
+      "opts": [
+       [
+        "Od wczoraj nie działa ogrzewanie i jest bardzo zimno.",
+        "Seit gestern funktioniert die Heizung nicht, und es ist sehr kalt.",
+        "The heating hasn’t worked since yesterday and it’s very cold.",
+        1
+       ],
+       [
+        "Wszystko działa, dziękuję.",
+        "Alles funktioniert, danke.",
+        "Everything works, thanks.",
+        0
+       ]
+      ],
+      "hint": [
+       "Was funktioniert nicht, seit wann? Od wczoraj nie działa …",
+       "What doesn’t work, since when? Od wczoraj nie działa …"
+      ]
+     },
+     {
+      "npc": [
+       "Oj, to awaria. Hydraulik może przyjść w poniedziałek.",
+       "Oje, das ist eine Störung. Der Klempner kann am Montag kommen.",
+       "Oh dear, that’s a breakdown. The plumber can come on Monday."
+      ],
+      "opts": [
+       [
+        "To za późno. Czy mógłby Pan przysłać kogoś jutro?",
+        "Das ist zu spät. Könnten Sie morgen jemanden schicken?",
+        "That’s too late. Could you send someone tomorrow?",
+        1
+       ],
+       [
+        "Dobrze, w poniedziałek jem obiad.",
+        "Gut, am Montag esse ich zu Mittag.",
+        "Fine, on Monday I’m having lunch.",
+        0
+       ]
+      ],
+      "hint": [
+       "Höflich drängen: To za późno. Czy mógłby Pan …?",
+       "Push politely: To za późno. Czy mógłby Pan …?"
+      ]
+     },
+     {
+      "npc": [
+       "Dobrze, zadzwonię do znajomego. Przyjdzie jutro o dziewiątej.",
+       "Gut, ich rufe einen Bekannten an. Er kommt morgen um neun.",
+       "All right, I’ll call a friend. He’ll come tomorrow at nine."
+      ],
+      "opts": [
+       [
+        "Dziękuję bardzo. Będę w domu.",
+        "Vielen Dank. Ich bin zu Hause.",
+        "Thank you very much. I’ll be at home.",
+        1
+       ],
+       [
+        "Nie mam czasu, jestem w kinie.",
+        "Ich habe keine Zeit, ich bin im Kino.",
+        "I have no time, I’m at the cinema.",
+        0
+       ]
+      ],
+      "hint": [
+       "Bedanke dich und sag, dass du da bist.",
+       "Say thank you and that you’ll be in."
+      ]
+     }
+    ],
+    "outro": [
+     "Am nächsten Morgen um neun klingelt es wirklich. Szymek hat sich in drei Decken gewickelt und sieht aus wie ein Pierogi.",
+     "At nine the next morning the doorbell really rings. Szymek has wrapped himself in three blankets and looks like a pierog."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 5: Die Wohnung in der Gdańska",
+     "Chapter 5: The flat on Gdańska Street"
+    ],
+    "lines": [
+     {
+      "pl": "Pod numerem dwanaście stała stara kamienica z wysokimi oknami.",
+      "tr": [
+       "Unter der Nummer zwölf stand ein altes Mietshaus mit hohen Fenstern.",
+       "At number twelve stood an old tenement with tall windows."
+      ]
+     },
+     {
+      "pl": "Właściciel, pan Wiesław, właśnie szukał nowego najemcy.",
+      "tr": [
+       "Der Eigentümer, Pan Wiesław, suchte gerade einen neuen Mieter.",
+       "The owner, Pan Wiesław, was just looking for a new tenant."
+      ]
+     },
+     {
+      "pl": "Ewa wynajęła pokój na tydzień, bo chciała zostać trochę dłużej.",
+      "tr": [
+       "Ewa mietete ein Zimmer für eine Woche, weil sie etwas länger bleiben wollte.",
+       "Ewa rented a room for a week because she wanted to stay a little longer."
+      ]
+     },
+     {
+      "pl": "Niestety w mieszkaniu ciągle coś się psuło: najpierw kran, potem ogrzewanie.",
+      "tr": [
+       "Leider ging in der Wohnung ständig etwas kaputt: zuerst der Wasserhahn, dann die Heizung.",
+       "Unfortunately something in the flat kept breaking: first the tap, then the heating."
+      ]
+     },
+     {
+      "pl": "Pan Wiesław przyszedł z narzędziami i opowiedział, że kiedyś mieszkał tu pan Józef.",
+      "tr": [
+       "Pan Wiesław kam mit Werkzeug und erzählte, dass hier früher ein Herr Józef gewohnt hat.",
+       "Pan Wiesław came with his tools and said that a Mr Józef used to live here."
+      ]
+     },
+     {
+      "pl": "„Zostawił w piwnicy skrzynkę. Nikt jej nie otworzył” – powiedział.",
+      "tr": [
+       "„Er hat im Keller eine Kiste gelassen. Niemand hat sie geöffnet“, sagte er.",
+       "“He left a box in the cellar. Nobody has opened it,” he said."
+      ]
+     },
+     {
+      "pl": "Klucz Ewy nie pasował, ale skrzynka nie była zamknięta.",
+      "tr": [
+       "Ewas Schlüssel passte nicht, aber die Kiste war nicht abgeschlossen.",
+       "Ewa’s key didn’t fit, but the box wasn’t locked."
+      ]
+     },
+     {
+      "pl": "W środku leżała mapa wybrzeża z czerwonym kółkiem.",
+      "tr": [
+       "Darin lag eine Karte der Küste mit einem roten Kreis.",
+       "Inside lay a map of the coast with a red circle."
+      ]
+     },
+     {
+      "pl": "Kółko było przy małym mieście o nazwie Łeba.",
+      "tr": [
+       "Der Kreis war bei einer kleinen Stadt namens Łeba.",
+       "The circle was next to a small town called Łeba."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Dlaczego Ewa wynajęła pokój?",
+      "tr": [
+       "Warum mietete Ewa ein Zimmer?",
+       "Why did Ewa rent a room?"
+      ],
+      "o": [
+       "Chciała zostać dłużej.",
+       "Zgubiła klucz.",
+       "Dostała pracę w Bydgoszczy."
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co psuło się w mieszkaniu?",
+      "tr": [
+       "Was ging in der Wohnung kaputt?",
+       "What kept breaking in the flat?"
+      ],
+      "o": [
+       "kran i ogrzewanie",
+       "telefon i laptop",
+       "drzwi i okna"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co Ewa znalazła w skrzynce?",
+      "tr": [
+       "Was fand Ewa in der Kiste?",
+       "What did Ewa find in the box?"
+      ],
+      "o": [
+       "mapę wybrzeża",
+       "drugi klucz",
+       "list od Zofii"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "leb",
+   "city": "Łeba",
+   "cityDe": "Łeba (Leba)",
+   "cityEn": "Łeba",
+   "lon": 17.56,
+   "lat": 54.76,
+   "trail": "blue",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Natur und Umwelt: vergleichen",
+    "Nature and the environment: comparing"
+   ],
+   "can": [
+    "Ich kann über Natur und Umweltschutz sprechen und Dinge miteinander vergleichen.",
+    "I can talk about nature and protecting the environment and compare things."
+   ],
+   "tip": [
+    "Steigerung: wysoki – wyższy – najwyższy, duży – większy – największy, dobry – lepszy – najlepszy, zły – gorszy – najgorszy. Lange Adjektive: bardziej / najbardziej ekologiczny. Vergleich mit „niż“: Wydma jest wyższa niż dom.",
+    "Comparison: wysoki – wyższy – najwyższy, duży – większy – największy, dobry – lepszy – najlepszy, zły – gorszy – najgorszy. Long adjectives: bardziej / najbardziej ekologiczny. Compare with “niż”: Wydma jest wyższa niż dom."
+   ],
+   "fact": [
+    "Im Słowiński-Nationalpark bei Łeba wandern die Dünen bis zu etwa zehn Meter im Jahr. Die Łącka-Düne ist rund 40 Meter hoch.",
+    "In Słowiński National Park near Łeba the dunes move up to about ten metres a year. The Łącka dune is around 40 metres high."
+   ],
+   "words": [
+    [
+     "przyroda",
+     "Natur",
+     "nature"
+    ],
+    [
+     "środowisko",
+     "Umwelt",
+     "environment"
+    ],
+    [
+     "park narodowy",
+     "Nationalpark",
+     "national park"
+    ],
+    [
+     "wydma",
+     "Düne",
+     "dune"
+    ],
+    [
+     "ruchome wydmy",
+     "Wanderdünen",
+     "shifting dunes"
+    ],
+    [
+     "wybrzeże",
+     "Küste",
+     "coast"
+    ],
+    [
+     "latarnia morska",
+     "Leuchtturm",
+     "lighthouse"
+    ],
+    [
+     "zwierzę",
+     "Tier",
+     "animal"
+    ],
+    [
+     "roślina",
+     "Pflanze",
+     "plant"
+    ],
+    [
+     "ekologiczny",
+     "umweltfreundlich, ökologisch",
+     "eco-friendly"
+    ],
+    [
+     "zanieczyszczenie",
+     "Verschmutzung",
+     "pollution"
+    ],
+    [
+     "plastik",
+     "Plastik",
+     "plastic"
+    ],
+    [
+     "segregować śmieci",
+     "Müll trennen",
+     "to sort rubbish"
+    ],
+    [
+     "kosz na śmieci",
+     "Mülleimer",
+     "rubbish bin"
+    ],
+    [
+     "oszczędzać",
+     "sparen",
+     "to save"
+    ],
+    [
+     "energia",
+     "Energie",
+     "energy"
+    ],
+    [
+     "zmiana klimatu",
+     "Klimawandel",
+     "climate change"
+    ],
+    [
+     "susza",
+     "Dürre",
+     "drought"
+    ],
+    [
+     "powódź",
+     "Hochwasser, Überschwemmung",
+     "flood"
+    ],
+    [
+     "upał",
+     "Hitze",
+     "heatwave"
+    ],
+    [
+     "chronić",
+     "schützen",
+     "to protect"
+    ],
+    [
+     "ochrona przyrody",
+     "Naturschutz",
+     "nature conservation"
+    ],
+    [
+     "wolontariusz",
+     "Freiwilliger",
+     "volunteer"
+    ],
+    [
+     "sprzątać",
+     "aufräumen, sauber machen",
+     "to clean up"
+    ],
+    [
+     "ślad",
+     "Spur",
+     "trace, footprint"
+    ],
+    [
+     "muszla",
+     "Muschel",
+     "shell"
+    ],
+    [
+     "bursztyn",
+     "Bernstein",
+     "amber"
+    ],
+    [
+     "wyższy",
+     "höher",
+     "higher"
+    ],
+    [
+     "najwyższy",
+     "der höchste",
+     "highest"
+    ],
+    [
+     "większy",
+     "größer",
+     "bigger"
+    ],
+    [
+     "największy",
+     "der größte",
+     "biggest"
+    ],
+    [
+     "lepszy",
+     "besser",
+     "better"
+    ],
+    [
+     "najlepszy",
+     "der beste",
+     "best"
+    ],
+    [
+     "gorszy",
+     "schlechter",
+     "worse"
+    ],
+    [
+     "najgorszy",
+     "der schlechteste",
+     "worst"
+    ],
+    [
+     "bardziej",
+     "mehr (bei Adjektiven)",
+     "more"
+    ],
+    [
+     "najbardziej",
+     "am meisten",
+     "most"
+    ],
+    [
+     "niż",
+     "als (beim Vergleich)",
+     "than"
+    ],
+    [
+     "mniej",
+     "weniger",
+     "less"
+    ],
+    [
+     "rezerwat",
+     "Naturschutzgebiet",
+     "nature reserve"
+    ]
+   ],
+   "sentences": [
+    [
+     "Wydma Łącka jest wyższa niż dziesięciopiętrowy blok.",
+     "Die Łącka-Düne ist höher als ein zehnstöckiges Wohnhaus.",
+     "The Łącka dune is higher than a ten-storey block of flats."
+    ],
+    [
+     "To najpiękniejsza plaża, jaką {widziałem|widziałam}.",
+     "Das ist der schönste Strand, den ich je gesehen habe.",
+     "It’s the most beautiful beach I’ve ever seen."
+    ],
+    [
+     "W domu zawsze segregujemy śmieci.",
+     "Zu Hause trennen wir immer den Müll.",
+     "At home we always sort our rubbish."
+    ],
+    [
+     "Trzeba chronić przyrodę dla naszych dzieci.",
+     "Man muss die Natur für unsere Kinder schützen.",
+     "We must protect nature for our children."
+    ],
+    [
+     "Plastik w morzu to wielki problem.",
+     "Plastik im Meer ist ein großes Problem.",
+     "Plastic in the sea is a big problem."
+    ],
+    [
+     "Latem jest coraz więcej upałów i susz.",
+     "Im Sommer gibt es immer mehr Hitzewellen und Dürren.",
+     "In summer there are more and more heatwaves and droughts."
+    ],
+    [
+     "Pociąg jest bardziej ekologiczny niż samochód.",
+     "Der Zug ist umweltfreundlicher als das Auto.",
+     "The train is more eco-friendly than the car."
+    ],
+    [
+     "W sobotę wolontariusze sprzątali plażę.",
+     "Am Samstag haben Freiwillige den Strand sauber gemacht.",
+     "On Saturday volunteers cleaned up the beach."
+    ],
+    [
+     "Na plaży {znalazłem|znalazłam} mały kawałek bursztynu.",
+     "Am Strand habe ich ein kleines Stück Bernstein gefunden.",
+     "I found a small piece of amber on the beach."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Słowiński-Nationalpark bei Łeba. Sand, so weit du siehst. Ein Parkranger, Kuba, hält dich freundlich an.",
+     "Słowiński National Park near Łeba. Sand as far as the eye can see. A park ranger, Kuba, stops you politely."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Przepraszam, tu nie wolno chodzić. Ta część parku jest chroniona.",
+       "Entschuldigung, hier darf man nicht laufen. Dieser Teil des Parks ist geschützt.",
+       "Excuse me, you can’t walk here. This part of the park is protected."
+      ],
+      "opts": [
+       [
+        "Przepraszam, nie {wiedziałem|wiedziałam}. Którędy mogę iść?",
+        "Entschuldigung, das wusste ich nicht. Wo entlang darf ich gehen?",
+        "Sorry, I didn’t know. Which way can I go?",
+        1
+       ],
+       [
+        "To nie mój problem.",
+        "Das ist nicht mein Problem.",
+        "That’s not my problem.",
+        0
+       ]
+      ],
+      "hint": [
+       "Entschuldige dich und frag nach dem Weg: Którędy …?",
+       "Apologise and ask the way: Którędy …?"
+      ]
+     },
+     {
+      "npc": [
+       "Szlakiem w prawo. Wydmy co roku przesuwają się o kilka metrów.",
+       "Dem Weg nach rechts. Die Dünen wandern jedes Jahr ein paar Meter.",
+       "Follow the trail to the right. The dunes move a few metres every year."
+      ],
+      "opts": [
+       [
+        "Naprawdę? Niesamowite! Która wydma jest najwyższa?",
+        "Wirklich? Unglaublich! Welche Düne ist die höchste?",
+        "Really? Amazing! Which dune is the highest?",
+        1
+       ],
+       [
+        "Wolę jechać taksówką.",
+        "Ich fahre lieber Taxi.",
+        "I’d rather take a taxi.",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag mit dem Superlativ: Która … jest najwyższa?",
+       "Ask with the superlative: Która … jest najwyższa?"
+      ]
+     },
+     {
+      "npc": [
+       "Łącka, ma ponad czterdzieści metrów. Tylko proszę nie zostawiać śmieci.",
+       "Die Łącka, über vierzig Meter. Aber bitte keinen Müll liegen lassen.",
+       "Łącka, it’s over forty metres. Just please don’t leave any rubbish."
+      ],
+      "opts": [
+       [
+        "Oczywiście. Zawsze zabieram plastik ze sobą.",
+        "Natürlich. Ich nehme Plastik immer wieder mit.",
+        "Of course. I always take my plastic with me.",
+        1
+       ],
+       [
+        "Śmieci są bardzo ładne.",
+        "Müll ist sehr hübsch.",
+        "Rubbish is very pretty.",
+        0
+       ]
+      ],
+      "hint": [
+       "Versprich, keinen Müll zu lassen.",
+       "Promise not to leave rubbish."
+      ]
+     },
+     {
+      "npc": [
+       "Super. W sobotę sprzątamy plażę. Może {chciałby Pan|chciałaby Pani} pomóc?",
+       "Super. Am Samstag räumen wir den Strand auf. Möchten Sie vielleicht helfen?",
+       "Great. On Saturday we’re cleaning the beach. Would you like to help?"
+      ],
+      "opts": [
+       [
+        "Chętnie! O której się spotykamy?",
+        "Gern! Um wie viel Uhr treffen wir uns?",
+        "Gladly! What time are we meeting?",
+        1
+       ],
+       [
+        "Nie, ja nigdy nie sprzątam.",
+        "Nein, ich räume nie auf.",
+        "No, I never tidy up.",
+        0
+       ]
+      ],
+      "hint": [
+       "Sag zu und frag nach der Uhrzeit.",
+       "Say yes and ask about the time."
+      ]
+     }
+    ],
+    "outro": [
+     "Am Samstag sammelt ihr drei Säcke Müll – und Szymek findet ein Stück Bernstein, das er sofort zum Schatz erklärt.",
+     "On Saturday you collect three bags of rubbish – and Szymek finds a piece of amber, which he immediately declares treasure."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 6: Die wandernde Düne",
+     "Chapter 6: The wandering dune"
+    ],
+    "lines": [
+     {
+      "pl": "Ewa przyjechała do Łeby autobusem, bo pociąg znowu był opóźniony.",
+      "tr": [
+       "Ewa kam mit dem Bus nach Łeba, weil der Zug schon wieder Verspätung hatte.",
+       "Ewa came to Łeba by bus, because the train was late again."
+      ]
+     },
+     {
+      "pl": "Na mapie dziadka kółko było przy wydmach w parku narodowym.",
+      "tr": [
+       "Auf Opas Karte war der Kreis bei den Dünen im Nationalpark.",
+       "On Grandpa’s map the circle was by the dunes in the national park."
+      ]
+     },
+     {
+      "pl": "Tam poznała Kubę, młodego strażnika parku, który kochał przyrodę.",
+      "tr": [
+       "Dort lernte sie Kuba kennen, einen jungen Parkranger, der die Natur liebte.",
+       "There she met Kuba, a young park ranger who loved nature."
+      ]
+     },
+     {
+      "pl": "Kuba wytłumaczył, że wydmy powoli wędrują i zasypują stary las.",
+      "tr": [
+       "Kuba erklärte, dass die Dünen langsam wandern und einen alten Wald zuschütten.",
+       "Kuba explained that the dunes move slowly and bury an old forest."
+      ]
+     },
+     {
+      "pl": "„Pięćdziesiąt lat temu przyjeżdżał tu wolontariusz z Bydgoszczy” – powiedział.",
+      "tr": [
+       "„Vor fünfzig Jahren kam hier ein Freiwilliger aus Bydgoszcz her“, sagte er.",
+       "“Fifty years ago a volunteer from Bydgoszcz used to come here,” he said."
+      ]
+     },
+     {
+      "pl": "„Sprzątał plażę i liczył ptaki. Mój dziadek bardzo go lubił.”",
+      "tr": [
+       "„Er räumte den Strand auf und zählte Vögel. Mein Opa mochte ihn sehr.“",
+       "“He cleaned the beach and counted birds. My grandfather liked him a lot.”"
+      ]
+     },
+     {
+      "pl": "Ewa pokazała zdjęcie i Kuba od razu rozpoznał Józefa.",
+      "tr": [
+       "Ewa zeigte das Foto, und Kuba erkannte Józef sofort.",
+       "Ewa showed the photo and Kuba recognised Józef at once."
+      ]
+     },
+     {
+      "pl": "„On zawsze mówił, że najważniejsze rzeczy widać najlepiej z latarni na Helu.”",
+      "tr": [
+       "„Er sagte immer, dass man die wichtigsten Dinge am besten vom Leuchtturm auf Hel sieht.“",
+       "“He always said that you see the most important things best from the lighthouse on Hel.”"
+      ]
+     },
+     {
+      "pl": "Ewa spojrzała na morze: następny przystanek był po drugiej stronie zatoki.",
+      "tr": [
+       "Ewa sah aufs Meer: Die nächste Station lag auf der anderen Seite der Bucht.",
+       "Ewa looked at the sea: the next stop was on the other side of the bay."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Jak Ewa przyjechała do Łeby?",
+      "tr": [
+       "Wie kam Ewa nach Łeba?",
+       "How did Ewa get to Łeba?"
+      ],
+      "o": [
+       "autobusem",
+       "samolotem",
+       "rowerem"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kim jest Kuba?",
+      "tr": [
+       "Wer ist Kuba?",
+       "Who is Kuba?"
+      ],
+      "o": [
+       "strażnikiem parku",
+       "konduktorem",
+       "księdzem"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co robił Józef w Łebie?",
+      "tr": [
+       "Was hat Józef in Łeba gemacht?",
+       "What did Józef do in Łeba?"
+      ],
+      "o": [
+       "sprzątał plażę i liczył ptaki",
+       "sprzedawał bursztyn",
+       "pracował w hotelu"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "hel",
+   "city": "Hel",
+   "cityDe": "Hel (Hela)",
+   "cityEn": "Hel",
+   "lon": 18.8,
+   "lat": 54.61,
+   "trail": "red",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Nachrichten und Wetterbericht verstehen",
+    "Understanding the news and the weather forecast"
+   ],
+   "can": [
+    "Ich kann einfache Nachrichten und den Wetterbericht verstehen und weitererzählen.",
+    "I can understand simple news and the weather forecast and pass them on."
+   ],
+   "tip": [
+    "Zukunft und Wahrscheinlichkeit: będzie + Infinitiv oder Adjektiv (będzie padać, będzie zimno); prawdopodobnie, możliwe, że … Temperatur: jeden stopień, dwa/trzy/cztery stopnie, pięć stopni, minus dwa stopnie.",
+    "Future and probability: będzie + infinitive or adjective (będzie padać, będzie zimno); prawdopodobnie, możliwe, że … Temperature: jeden stopień, dwa/trzy/cztery stopnie, pięć stopni, minus dwa stopnie."
+   ],
+   "fact": [
+    "Hel liegt an der Spitze einer rund 35 Kilometer langen, sehr schmalen Halbinsel. Im Fokarium von Hel werden verletzte Kegelrobben aus der Ostsee gepflegt.",
+    "Hel lies at the tip of a very narrow peninsula about 35 kilometres long. At the Hel seal centre, injured grey seals from the Baltic are cared for."
+   ],
+   "words": [
+    [
+     "prognoza pogody",
+     "Wettervorhersage",
+     "weather forecast"
+    ],
+    [
+     "temperatura",
+     "Temperatur",
+     "temperature"
+    ],
+    [
+     "stopień",
+     "Grad",
+     "degree"
+    ],
+    [
+     "ostrzeżenie",
+     "Warnung",
+     "warning"
+    ],
+    [
+     "sztorm",
+     "Sturm (auf See)",
+     "storm (at sea)"
+    ],
+    [
+     "silny wiatr",
+     "starker Wind",
+     "strong wind"
+    ],
+    [
+     "zachmurzenie",
+     "Bewölkung",
+     "cloud cover"
+    ],
+    [
+     "pochmurno",
+     "bewölkt",
+     "cloudy"
+    ],
+    [
+     "słonecznie",
+     "sonnig",
+     "sunny"
+    ],
+    [
+     "przelotne opady",
+     "Schauer",
+     "showers"
+    ],
+    [
+     "mróz",
+     "Frost",
+     "frost"
+    ],
+    [
+     "ślisko",
+     "glatt",
+     "slippery"
+    ],
+    [
+     "zmienna pogoda",
+     "wechselhaftes Wetter",
+     "changeable weather"
+    ],
+    [
+     "prawdopodobnie",
+     "wahrscheinlich",
+     "probably"
+    ],
+    [
+     "możliwe, że",
+     "es ist möglich, dass",
+     "it’s possible that"
+    ],
+    [
+     "dziennikarz",
+     "Journalist",
+     "journalist (man)"
+    ],
+    [
+     "dziennikarka",
+     "Journalistin",
+     "journalist (woman)"
+    ],
+    [
+     "gazeta",
+     "Zeitung",
+     "newspaper"
+    ],
+    [
+     "artykuł",
+     "Artikel",
+     "article"
+    ],
+    [
+     "nagłówek",
+     "Schlagzeile",
+     "headline"
+    ],
+    [
+     "audycja",
+     "Radiosendung",
+     "radio programme"
+    ],
+    [
+     "wywiad",
+     "Interview",
+     "interview"
+    ],
+    [
+     "słuchacz",
+     "Zuhörer",
+     "listener"
+    ],
+    [
+     "widz",
+     "Zuschauer",
+     "viewer"
+    ],
+    [
+     "reklama",
+     "Werbung",
+     "advert"
+    ],
+    [
+     "portal informacyjny",
+     "Nachrichtenportal",
+     "news website"
+    ],
+    [
+     "media społecznościowe",
+     "soziale Medien",
+     "social media"
+    ],
+    [
+     "udostępnić",
+     "teilen (online)",
+     "to share (online)"
+    ],
+    [
+     "fałszywe wiadomości",
+     "Falschmeldungen",
+     "fake news"
+    ],
+    [
+     "źródło",
+     "Quelle",
+     "source"
+    ],
+    [
+     "sprawdzić",
+     "überprüfen",
+     "to check"
+    ],
+    [
+     "na żywo",
+     "live",
+     "live"
+    ],
+    [
+     "według",
+     "laut, nach",
+     "according to"
+    ],
+    [
+     "foka",
+     "Robbe",
+     "seal"
+    ],
+    [
+     "półwysep",
+     "Halbinsel",
+     "peninsula"
+    ],
+    [
+     "zatoka",
+     "Bucht",
+     "bay"
+    ],
+    [
+     "pogodynka",
+     "Wettermoderatorin",
+     "weather presenter"
+    ],
+    [
+     "telewizja",
+     "Fernsehen",
+     "television"
+    ],
+    [
+     "program",
+     "Sendung, Programm",
+     "programme"
+    ],
+    [
+     "wydarzyć się",
+     "passieren, geschehen",
+     "to happen"
+    ]
+   ],
+   "sentences": [
+    [
+     "Według prognozy jutro będzie padać przez cały dzień.",
+     "Laut Vorhersage regnet es morgen den ganzen Tag.",
+     "According to the forecast it will rain all day tomorrow."
+    ],
+    [
+     "Temperatura spadnie do minus pięciu stopni.",
+     "Die Temperatur fällt auf minus fünf Grad.",
+     "The temperature will drop to minus five degrees."
+    ],
+    [
+     "Na morzu będzie sztorm, więc promy nie pływają.",
+     "Auf See gibt es Sturm, deshalb fahren die Fähren nicht.",
+     "There will be a storm at sea, so the ferries aren’t running."
+    ],
+    [
+     "Prawdopodobnie po południu się przejaśni.",
+     "Wahrscheinlich klart es am Nachmittag auf.",
+     "It will probably clear up in the afternoon."
+    ],
+    [
+     "Czytam wiadomości codziennie rano w internecie.",
+     "Ich lese jeden Morgen die Nachrichten im Internet.",
+     "I read the news online every morning."
+    ],
+    [
+     "Zawsze sprawdzam źródło, zanim coś udostępnię.",
+     "Ich prüfe immer die Quelle, bevor ich etwas teile.",
+     "I always check the source before I share something."
+    ],
+    [
+     "Dziennikarka zrobiła ze mną wywiad do radia.",
+     "Eine Journalistin hat mit mir ein Interview fürs Radio gemacht.",
+     "A journalist interviewed me for the radio."
+    ],
+    [
+     "Ten artykuł ma bardzo dziwny nagłówek.",
+     "Dieser Artikel hat eine sehr seltsame Schlagzeile.",
+     "This article has a very strange headline."
+    ],
+    [
+     "Mecz był pokazywany na żywo w telewizji.",
+     "Das Spiel wurde live im Fernsehen gezeigt.",
+     "The match was shown live on TV."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Hel, am Hafen. Am Kiosk hängen Zeitungen, aus einem Radio kommen die Nachrichten. Dein Schiff nach Gdynia soll in einer Stunde fahren.",
+     "Hel, by the harbour. Newspapers hang at the kiosk and the news is coming from a radio. Your boat to Gdynia is due to leave in an hour."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "{Słyszał Pan|Słyszała Pani} prognozę? Idzie sztorm!",
+       "Haben Sie die Vorhersage gehört? Ein Sturm kommt!",
+       "Did you hear the forecast? There’s a storm coming!"
+      ],
+      "opts": [
+       [
+        "Nie, nie {słyszałem|słyszałam}. Co mówili?",
+        "Nein, habe ich nicht gehört. Was haben sie gesagt?",
+        "No, I didn’t hear it. What did they say?",
+        1
+       ],
+       [
+        "Tak, poproszę gazetę i lody.",
+        "Ja, eine Zeitung und ein Eis, bitte.",
+        "Yes, a newspaper and an ice cream, please.",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag nach: Co mówili?",
+       "Ask: Co mówili?"
+      ]
+     },
+     {
+      "npc": [
+       "Silny wiatr i fale do trzech metrów. Statki dziś prawdopodobnie nie popłyną.",
+       "Starker Wind und Wellen bis drei Meter. Die Schiffe fahren heute wahrscheinlich nicht.",
+       "Strong wind and waves up to three metres. The boats probably won’t sail today."
+      ],
+      "opts": [
+       [
+        "A kiedy pogoda ma się poprawić?",
+        "Und wann soll das Wetter besser werden?",
+        "And when is the weather supposed to improve?",
+        1
+       ],
+       [
+        "To świetna pogoda na pływanie.",
+        "Das ist super Wetter zum Schwimmen.",
+        "That’s great weather for swimming.",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag nach der Zukunft: Kiedy …?",
+       "Ask about the future: Kiedy …?"
+      ]
+     },
+     {
+      "npc": [
+       "Według radia jutro rano będzie już spokojnie.",
+       "Laut Radio ist es morgen früh schon ruhig.",
+       "According to the radio it’ll be calm by tomorrow morning."
+      ],
+      "opts": [
+       [
+        "To zostanę tu na noc. Czy jest tu jakiś pensjonat?",
+        "Dann bleibe ich über Nacht. Gibt es hier eine Pension?",
+        "Then I’ll stay the night. Is there a guesthouse here?",
+        1
+       ],
+       [
+        "Nie wierzę radiu, płynę teraz.",
+        "Ich glaube dem Radio nicht, ich fahre jetzt.",
+        "I don’t believe the radio, I’m sailing now.",
+        0
+       ]
+      ],
+      "hint": [
+       "Plane um und frag nach einer Unterkunft.",
+       "Change your plans and ask about somewhere to stay."
+      ]
+     },
+     {
+      "npc": [
+       "Pensjonat Mewa jest za rogiem. Powiem, że jest {Pan|Pani} ode mnie.",
+       "Die Pension Mewa ist um die Ecke. Ich sage, dass Sie von mir kommen.",
+       "The Mewa guesthouse is round the corner. I’ll tell them you’re from me."
+      ],
+      "opts": [
+       [
+        "Bardzo dziękuję, jest Pani bardzo miła!",
+        "Vielen Dank, Sie sind sehr nett!",
+        "Thank you so much, you’re very kind!",
+        1
+       ],
+       [
+        "Nie lubię mew.",
+        "Ich mag keine Möwen.",
+        "I don’t like seagulls.",
+        0
+       ]
+      ],
+      "hint": [
+       "Bedanke dich freundlich.",
+       "Thank her warmly."
+      ]
+     }
+    ],
+    "outro": [
+     "In der Nacht heult der Wind ums Haus. Szymek hört mit dir die Radionachrichten – er versteht schon fast alles.",
+     "At night the wind howls round the house. Szymek listens to the radio news with you – he already understands almost everything."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 7: Ewa im Radio",
+     "Chapter 7: Ewa on the radio"
+    ],
+    "lines": [
+     {
+      "pl": "Na Helu było szaro i wietrznie, a w radiu ostrzegali przed sztormem.",
+      "tr": [
+       "Auf Hel war es grau und windig, und im Radio warnten sie vor einem Sturm.",
+       "On Hel it was grey and windy, and the radio was warning of a storm."
+      ]
+     },
+     {
+      "pl": "Ewa weszła na latarnię morską i długo patrzyła na morze.",
+      "tr": [
+       "Ewa stieg auf den Leuchtturm und sah lange aufs Meer.",
+       "Ewa climbed the lighthouse and looked at the sea for a long time."
+      ]
+     },
+     {
+      "pl": "Na górze spotkała dziennikarkę lokalnego radia, która robiła reportaż.",
+      "tr": [
+       "Oben traf sie eine Journalistin des Lokalradios, die eine Reportage machte.",
+       "At the top she met a local radio journalist who was making a report."
+      ]
+     },
+     {
+      "pl": "Dziennikarka zapytała, co Ewa robi sama na Helu w październiku.",
+      "tr": [
+       "Die Journalistin fragte, was Ewa im Oktober allein auf Hel macht.",
+       "The journalist asked what Ewa was doing alone on Hel in October."
+      ]
+     },
+     {
+      "pl": "Ewa opowiedziała o dziadku, o kluczu i o swojej podróży przez Polskę.",
+      "tr": [
+       "Ewa erzählte von ihrem Opa, vom Schlüssel und von ihrer Reise durch Polen.",
+       "Ewa told her about her grandfather, the key and her journey across Poland."
+      ]
+     },
+     {
+      "pl": "Następnego dnia jej historia była w porannej audycji.",
+      "tr": [
+       "Am nächsten Tag kam ihre Geschichte in der Morgensendung.",
+       "The next day her story was on the morning programme."
+      ]
+     },
+     {
+      "pl": "Po godzinie do radia zadzwoniła słuchaczka z Elbląga.",
+      "tr": [
+       "Eine Stunde später rief eine Hörerin aus Elbląg beim Radio an.",
+       "An hour later a listener from Elbląg phoned the radio."
+      ]
+     },
+     {
+      "pl": "„Nazywam się Barbara. Mam list od Józefa Nowaka. Czeka na kogoś od lat.”",
+      "tr": [
+       "„Ich heiße Barbara. Ich habe einen Brief von Józef Nowak. Er wartet seit Jahren auf jemanden.“",
+       "“My name is Barbara. I have a letter from Józef Nowak. It has been waiting for someone for years.”"
+      ]
+     },
+     {
+      "pl": "Ewa od razu sprawdziła rozkład jazdy do Elbląga.",
+      "tr": [
+       "Ewa sah sofort im Fahrplan nach Elbląg nach.",
+       "Ewa immediately checked the timetable to Elbląg."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Kogo Ewa spotkała na latarni?",
+      "tr": [
+       "Wen traf Ewa auf dem Leuchtturm?",
+       "Who did Ewa meet on the lighthouse?"
+      ],
+      "o": [
+       "dziennikarkę",
+       "strażnika parku",
+       "konduktora"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kiedy historia Ewy była w radiu?",
+      "tr": [
+       "Wann kam Ewas Geschichte im Radio?",
+       "When was Ewa’s story on the radio?"
+      ],
+      "o": [
+       "następnego dnia rano",
+       "tydzień później",
+       "w nocy"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kto zadzwonił do radia?",
+      "tr": [
+       "Wer rief beim Radio an?",
+       "Who phoned the radio?"
+      ],
+      "o": [
+       "słuchaczka z Elbląga",
+       "Tomek z Kłodzka",
+       "pani Halina"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "elb",
+   "city": "Elbląg",
+   "cityDe": "Elbląg (Elbing)",
+   "cityEn": "Elbląg",
+   "lon": 19.4,
+   "lat": 54.16,
+   "trail": "green",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Beim Facharzt: Krankenkasse, Termin, Untersuchung",
+    "At the specialist: health insurance, appointments, tests"
+   ],
+   "can": [
+    "Ich kann einen Termin beim Facharzt vereinbaren und über Untersuchungen und Behandlung sprechen.",
+    "I can book an appointment with a specialist and talk about tests and treatment."
+   ],
+   "tip": [
+    "Dativ bei Personen: dać lekarzowi skierowanie, pomóc pacjentce. Pronomen: mi, ci, mu, jej, nam, wam, im. Unpersönlich: Potrzebne mi jest skierowanie (Ich brauche eine Überweisung). Na NFZ = mit staatlicher Krankenkasse, prywatnie = privat bezahlt.",
+    "Dative for people: dać lekarzowi skierowanie, pomóc pacjentce. Pronouns: mi, ci, mu, jej, nam, wam, im. Impersonal: Potrzebne mi jest skierowanie (I need a referral). Na NFZ = on the public health fund, prywatnie = paid privately."
+   ],
+   "fact": [
+    "Beim Elbląg-Kanal fahren Schiffe über Land: Auf Schienenwagen werden sie über grüne Hügel gezogen, um Höhenunterschiede zu überwinden.",
+    "On the Elbląg Canal boats travel over land: they are pulled over green hills on rail carriages to overcome differences in height."
+   ],
+   "words": [
+    [
+     "NFZ",
+     "staatliche Krankenkasse (NFZ)",
+     "National Health Fund (NFZ)"
+    ],
+    [
+     "prywatnie",
+     "privat (selbst bezahlt)",
+     "privately"
+    ],
+    [
+     "lekarz rodzinny",
+     "Hausarzt",
+     "family doctor, GP"
+    ],
+    [
+     "specjalista",
+     "Facharzt",
+     "specialist"
+    ],
+    [
+     "kardiolog",
+     "Kardiologe",
+     "cardiologist"
+    ],
+    [
+     "dermatolog",
+     "Hautarzt",
+     "dermatologist"
+    ],
+    [
+     "okulista",
+     "Augenarzt",
+     "eye doctor"
+    ],
+    [
+     "ginekolog",
+     "Frauenarzt",
+     "gynaecologist"
+    ],
+    [
+     "ortopeda",
+     "Orthopäde",
+     "orthopaedist"
+    ],
+    [
+     "rejestracja",
+     "Anmeldung (Praxis)",
+     "reception (surgery)"
+    ],
+    [
+     "lista oczekujących",
+     "Warteliste",
+     "waiting list"
+    ],
+    [
+     "badanie",
+     "Untersuchung",
+     "examination, test"
+    ],
+    [
+     "wyniki badań",
+     "Untersuchungsergebnisse",
+     "test results"
+    ],
+    [
+     "badanie krwi",
+     "Bluttest",
+     "blood test"
+    ],
+    [
+     "ciśnienie",
+     "Blutdruck; Druck",
+     "blood pressure; pressure"
+    ],
+    [
+     "RTG",
+     "Röntgen",
+     "X-ray"
+    ],
+    [
+     "USG",
+     "Ultraschall",
+     "ultrasound"
+    ],
+    [
+     "diagnoza",
+     "Diagnose",
+     "diagnosis"
+    ],
+    [
+     "leczenie",
+     "Behandlung",
+     "treatment"
+    ],
+    [
+     "objawy",
+     "Symptome, Beschwerden",
+     "symptoms"
+    ],
+    [
+     "przewlekły",
+     "chronisch",
+     "chronic"
+    ],
+    [
+     "zastrzyk",
+     "Spritze",
+     "injection"
+    ],
+    [
+     "szczepienie",
+     "Impfung",
+     "vaccination"
+    ],
+    [
+     "dawka",
+     "Dosis",
+     "dose"
+    ],
+    [
+     "skutki uboczne",
+     "Nebenwirkungen",
+     "side effects"
+    ],
+    [
+     "e-recepta",
+     "E-Rezept",
+     "e-prescription"
+    ],
+    [
+     "oddział",
+     "Station (Krankenhaus)",
+     "ward"
+    ],
+    [
+     "izba przyjęć",
+     "Aufnahme (Krankenhaus)",
+     "admissions"
+    ],
+    [
+     "wypis ze szpitala",
+     "Entlassungsbrief",
+     "discharge letter"
+    ],
+    [
+     "na czczo",
+     "nüchtern",
+     "on an empty stomach"
+    ],
+    [
+     "wizyta kontrolna",
+     "Kontrolltermin",
+     "follow-up appointment"
+    ],
+    [
+     "zdrowy",
+     "gesund",
+     "healthy"
+    ],
+    [
+     "wyzdrowieć",
+     "gesund werden",
+     "to get better"
+    ],
+    [
+     "czuć się lepiej",
+     "sich besser fühlen",
+     "to feel better"
+    ],
+    [
+     "wizyta domowa",
+     "Hausbesuch",
+     "home visit"
+    ],
+    [
+     "porada",
+     "Rat, Beratung",
+     "advice"
+    ],
+    [
+     "mam wysokie ciśnienie",
+     "ich habe hohen Blutdruck",
+     "I have high blood pressure"
+    ],
+    [
+     "potrzebuję skierowania",
+     "ich brauche eine Überweisung",
+     "I need a referral"
+    ],
+    [
+     "kanał",
+     "Kanal",
+     "canal"
+    ],
+    [
+     "statek",
+     "Schiff",
+     "ship, boat"
+    ]
+   ],
+   "sentences": [
+    [
+     "Potrzebuję skierowania do kardiologa.",
+     "Ich brauche eine Überweisung zum Kardiologen.",
+     "I need a referral to a cardiologist."
+    ],
+    [
+     "Na wizytę u specjalisty na NFZ czeka się kilka miesięcy.",
+     "Auf einen Facharzttermin mit Krankenkasse wartet man einige Monate.",
+     "You wait several months for a specialist appointment on the NFZ."
+    ],
+    [
+     "Prywatnie mogę iść już w przyszłym tygodniu.",
+     "Privat kann ich schon nächste Woche hingehen.",
+     "Privately I can go as early as next week."
+    ],
+    [
+     "Na badanie krwi trzeba przyjść na czczo.",
+     "Zum Bluttest muss man nüchtern kommen.",
+     "You have to come for a blood test on an empty stomach."
+    ],
+    [
+     "Lekarz rodzinny zmierzył mi ciśnienie.",
+     "Der Hausarzt hat mir den Blutdruck gemessen.",
+     "The GP took my blood pressure."
+    ],
+    [
+     "Wyniki badań będą gotowe w piątek.",
+     "Die Untersuchungsergebnisse sind am Freitag fertig.",
+     "The test results will be ready on Friday."
+    ],
+    [
+     "Jakie są skutki uboczne tego leku?",
+     "Welche Nebenwirkungen hat dieses Medikament?",
+     "What are the side effects of this medicine?"
+    ],
+    [
+     "Czuję się już dużo lepiej, dziękuję.",
+     "Ich fühle mich schon viel besser, danke.",
+     "I already feel much better, thank you."
+    ],
+    [
+     "Pielęgniarka dała pacjentowi zastrzyk.",
+     "Die Krankenschwester gab dem Patienten eine Spritze.",
+     "The nurse gave the patient an injection."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Elbląg, Anmeldung einer Facharztpraxis. Seit Wochen tut dir das Knie weh. An der Rezeption sitzt Pani Ania.",
+     "Elbląg, the reception of a specialist clinic. Your knee has been hurting for weeks. Pani Ania sits at the desk."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Dzień dobry. Na NFZ czy prywatnie?",
+       "Guten Tag. Mit Krankenkasse oder privat?",
+       "Good morning. On the NFZ or private?"
+      ],
+      "opts": [
+       [
+        "Na NFZ. Mam skierowanie do ortopedy.",
+        "Mit Krankenkasse. Ich habe eine Überweisung zum Orthopäden.",
+        "On the NFZ. I have a referral to an orthopaedist.",
+        1
+       ],
+       [
+        "Poproszę kawę na wynos.",
+        "Einen Kaffee zum Mitnehmen, bitte.",
+        "A coffee to go, please.",
+        0
+       ]
+      ],
+      "hint": [
+       "Sag, wie du versichert bist und wohin die Überweisung geht.",
+       "Say how you’re insured and who the referral is for."
+      ]
+     },
+     {
+      "npc": [
+       "Najbliższy wolny termin na NFZ jest za trzy miesiące.",
+       "Der nächste freie Termin mit Krankenkasse ist in drei Monaten.",
+       "The next free NFZ appointment is in three months."
+      ],
+      "opts": [
+       [
+        "Tak długo? A ile kosztuje wizyta prywatnie?",
+        "So lange? Und was kostet ein privater Termin?",
+        "That long? And how much is a private appointment?",
+        1
+       ],
+       [
+        "Super, to bardzo szybko!",
+        "Super, das ist sehr schnell!",
+        "Great, that’s very quick!",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag nach der privaten Alternative und dem Preis.",
+       "Ask about the private option and the price."
+      ]
+     },
+     {
+      "npc": [
+       "Dwieście złotych. Prywatnie może {Pan|Pani} przyjść w czwartek.",
+       "Zweihundert Złoty. Privat können Sie am Donnerstag kommen.",
+       "Two hundred złoty. Privately you can come on Thursday."
+      ],
+      "opts": [
+       [
+        "Dobrze, zapiszę się na czwartek. O której?",
+        "Gut, ich lasse mich für Donnerstag eintragen. Um wie viel Uhr?",
+        "Fine, I’ll book Thursday. What time?",
+        1
+       ],
+       [
+        "Nie, w czwartek jestem {zdrowy|zdrowa}.",
+        "Nein, am Donnerstag bin ich gesund.",
+        "No, on Thursday I’m healthy.",
+        0
+       ]
+      ],
+      "hint": [
+       "Nimm den Termin und frag nach der Uhrzeit.",
+       "Take the appointment and ask the time."
+      ]
+     },
+     {
+      "npc": [
+       "O szesnastej. Proszę zabrać zdjęcie RTG, jeśli {Pan ma|Pani ma}.",
+       "Um sechzehn Uhr. Bitte bringen Sie das Röntgenbild mit, falls Sie eins haben.",
+       "At four o’clock. Please bring your X-ray if you have one."
+      ],
+      "opts": [
+       [
+        "Mam, wezmę je ze sobą. Dziękuję!",
+        "Habe ich, ich bringe es mit. Danke!",
+        "I do, I’ll bring it. Thank you!",
+        1
+       ],
+       [
+        "RTG to moje hobby.",
+        "Röntgen ist mein Hobby.",
+        "X-rays are my hobby.",
+        0
+       ]
+      ],
+      "hint": [
+       "Bestätige und bedanke dich.",
+       "Confirm and say thank you."
+      ]
+     }
+    ],
+    "outro": [
+     "Der Termin steht. Draußen fährt ein Schiff über Land den Hügel hinauf – Szymek winkt aufgeregt.",
+     "The appointment is booked. Outside, a boat is travelling up a hill over land – Szymek waves excitedly."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 8: Der Brief aus Elbląg",
+     "Chapter 8: The letter from Elbląg"
+    ],
+    "lines": [
+     {
+      "pl": "Pani Barbara czekała na Ewę na dworcu w Elblągu.",
+      "tr": [
+       "Pani Barbara wartete am Bahnhof in Elbląg auf Ewa.",
+       "Pani Barbara was waiting for Ewa at the station in Elbląg."
+      ]
+     },
+     {
+      "pl": "Była pielęgniarką i właśnie skończyła nocny dyżur w szpitalu.",
+      "tr": [
+       "Sie war Krankenschwester und hatte gerade ihren Nachtdienst im Krankenhaus beendet.",
+       "She was a nurse and had just finished a night shift at the hospital."
+      ]
+     },
+     {
+      "pl": "W kawiarni opowiedziała, że Józef był jej wujkiem.",
+      "tr": [
+       "Im Café erzählte sie, dass Józef ihr Onkel war.",
+       "In the café she said that Józef had been her uncle."
+      ]
+     },
+     {
+      "pl": "Kiedyś długo chorował i Barbara opiekowała się nim po operacji.",
+      "tr": [
+       "Einmal war er lange krank, und Barbara pflegte ihn nach einer Operation.",
+       "Once he was ill for a long time and Barbara looked after him after an operation."
+      ]
+     },
+     {
+      "pl": "„Dał mi wtedy ten list i powiedział: kiedyś ktoś przyjdzie z kluczem.”",
+      "tr": [
+       "„Damals gab er mir diesen Brief und sagte: Eines Tages kommt jemand mit dem Schlüssel.“",
+       "“Back then he gave me this letter and said: one day someone will come with the key.”"
+      ]
+     },
+     {
+      "pl": "Ewa otworzyła list drżącymi rękami.",
+      "tr": [
+       "Ewa öffnete den Brief mit zitternden Händen.",
+       "Ewa opened the letter with trembling hands."
+      ]
+     },
+     {
+      "pl": "„Zofio, przepraszam. Byłem wtedy głupi i dumny. Wciąż o tobie myślę.”",
+      "tr": [
+       "„Zofia, verzeih mir. Ich war damals dumm und stolz. Ich denke immer noch an dich.“",
+       "“Zofia, I’m sorry. I was foolish and proud back then. I still think of you.”"
+      ]
+     },
+     {
+      "pl": "Na kopercie był adres: Augustów, ulica Nadrzeczna.",
+      "tr": [
+       "Auf dem Umschlag stand eine Adresse: Augustów, ulica Nadrzeczna.",
+       "On the envelope there was an address: Augustów, ulica Nadrzeczna."
+      ]
+     },
+     {
+      "pl": "„Może Zofia jeszcze tam mieszka” – powiedziała Barbara. – „Jedź!”",
+      "tr": [
+       "„Vielleicht wohnt Zofia noch dort“, sagte Barbara. „Fahr hin!“",
+       "“Maybe Zofia still lives there,” said Barbara. “Go!”"
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Kim była pani Barbara?",
+      "tr": [
+       "Wer war Pani Barbara?",
+       "Who was Pani Barbara?"
+      ],
+      "o": [
+       "pielęgniarką",
+       "dziennikarką",
+       "przewodniczką"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kim był Józef dla Barbary?",
+      "tr": [
+       "Wer war Józef für Barbara?",
+       "Who was Józef to Barbara?"
+      ],
+      "o": [
+       "wujkiem",
+       "bratem",
+       "sąsiadem"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Do kogo Józef napisał list?",
+      "tr": [
+       "An wen schrieb Józef den Brief?",
+       "Who did Józef write the letter to?"
+      ],
+      "o": [
+       "do Zofii",
+       "do Ewy",
+       "do Haliny"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "aug",
+   "city": "Augustów",
+   "cityDe": "Augustów",
+   "cityEn": "Augustów",
+   "lon": 22.98,
+   "lat": 53.84,
+   "trail": "yellow",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Behörden: Anmeldung, Anträge, Datenschutz",
+    "Offices: registration, applications, data protection"
+   ],
+   "can": [
+    "Ich kann auf dem Amt sagen, was ich brauche, und verstehen, welche Unterlagen nötig sind.",
+    "I can say at an office what I need and understand which documents are required."
+   ],
+   "tip": [
+    "Unpersönlich: trzeba / należy / można / nie można + Infinitiv: Trzeba złożyć wniosek. Należy wypełnić formularz. Passiv mit „zostać“: Wniosek został przyjęty (Der Antrag wurde angenommen).",
+    "Impersonal: trzeba / należy / można / nie można + infinitive: Trzeba złożyć wniosek. Należy wypełnić formularz. Passive with “zostać”: Wniosek został przyjęty (The application was accepted)."
+   ],
+   "fact": [
+    "Der Augustów-Kanal aus dem 19. Jahrhundert verbindet Seen und Flüsse bis nach Belarus. Heute befährt man ihn mit Kajak oder Ausflugsschiff.",
+    "The 19th-century Augustów Canal links lakes and rivers all the way to Belarus. Today people travel it by kayak or excursion boat."
+   ],
+   "words": [
+    [
+     "wniosek",
+     "Antrag",
+     "application"
+    ],
+    [
+     "złożyć wniosek",
+     "einen Antrag stellen",
+     "to submit an application"
+    ],
+    [
+     "zameldowanie",
+     "Wohnsitzanmeldung",
+     "residence registration"
+    ],
+    [
+     "zameldować się",
+     "sich (am Wohnort) anmelden",
+     "to register one’s address"
+    ],
+    [
+     "PESEL",
+     "PESEL (persönliche Kennnummer)",
+     "PESEL (personal ID number)"
+    ],
+    [
+     "urzędnik",
+     "Beamter",
+     "official (man)"
+    ],
+    [
+     "urzędniczka",
+     "Beamtin",
+     "official (woman)"
+    ],
+    [
+     "dokument",
+     "Dokument",
+     "document"
+    ],
+    [
+     "zaświadczenie",
+     "Bescheinigung",
+     "certificate"
+    ],
+    [
+     "kopia",
+     "Kopie",
+     "copy"
+    ],
+    [
+     "oryginał",
+     "Original",
+     "original"
+    ],
+    [
+     "pieczątka",
+     "Stempel",
+     "stamp"
+    ],
+    [
+     "termin ważności",
+     "Ablaufdatum",
+     "expiry date"
+    ],
+    [
+     "ważny",
+     "gültig; wichtig",
+     "valid; important"
+    ],
+    [
+     "nieważny",
+     "ungültig",
+     "invalid"
+    ],
+    [
+     "przedłużyć",
+     "verlängern",
+     "to extend"
+    ],
+    [
+     "zgoda",
+     "Zustimmung, Erlaubnis",
+     "consent, permission"
+    ],
+    [
+     "dane osobowe",
+     "persönliche Daten",
+     "personal data"
+    ],
+    [
+     "RODO",
+     "DSGVO",
+     "GDPR"
+    ],
+    [
+     "ochrona danych",
+     "Datenschutz",
+     "data protection"
+    ],
+    [
+     "adres zamieszkania",
+     "Wohnadresse",
+     "home address"
+    ],
+    [
+     "data urodzenia",
+     "Geburtsdatum",
+     "date of birth"
+    ],
+    [
+     "miejsce urodzenia",
+     "Geburtsort",
+     "place of birth"
+    ],
+    [
+     "stan cywilny",
+     "Familienstand",
+     "marital status"
+    ],
+    [
+     "{żonaty|zamężna}",
+     "verheiratet",
+     "married"
+    ],
+    [
+     "trzeba",
+     "man muss",
+     "one has to"
+    ],
+    [
+     "należy",
+     "man soll (amtlich)",
+     "one should (formal)"
+    ],
+    [
+     "w ciągu",
+     "innerhalb",
+     "within"
+    ],
+    [
+     "dzień roboczy",
+     "Werktag",
+     "working day"
+    ],
+    [
+     "opłata skarbowa",
+     "Verwaltungsgebühr",
+     "administrative fee"
+    ],
+    [
+     "przez internet",
+     "über das Internet, online",
+     "online"
+    ],
+    [
+     "profil zaufany",
+     "digitale Bürger-ID (Profil Zaufany)",
+     "trusted profile (e-ID)"
+    ],
+    [
+     "odmówić",
+     "ablehnen, verweigern",
+     "to refuse"
+    ],
+    [
+     "odwołanie",
+     "Widerspruch, Einspruch",
+     "appeal"
+    ],
+    [
+     "kajak",
+     "Kajak",
+     "kayak"
+    ],
+    [
+     "spływ kajakowy",
+     "Kajaktour",
+     "kayak trip"
+    ],
+    [
+     "śluza",
+     "Schleuse",
+     "lock (canal)"
+    ],
+    [
+     "załatwić sprawę",
+     "eine Angelegenheit erledigen",
+     "to get something sorted"
+    ],
+    [
+     "biurokracja",
+     "Bürokratie",
+     "bureaucracy"
+    ],
+    [
+     "cierpliwie",
+     "geduldig",
+     "patiently"
+    ]
+   ],
+   "sentences": [
+    [
+     "Muszę złożyć wniosek o zameldowanie.",
+     "Ich muss einen Antrag auf Wohnsitzanmeldung stellen.",
+     "I have to apply to register my address."
+    ],
+    [
+     "Trzeba mieć ze sobą dowód osobisty i umowę najmu.",
+     "Man muss den Ausweis und den Mietvertrag dabeihaben.",
+     "You need to bring your ID card and tenancy agreement."
+    ],
+    [
+     "Zaświadczenie będzie gotowe w ciągu siedmiu dni roboczych.",
+     "Die Bescheinigung ist innerhalb von sieben Werktagen fertig.",
+     "The certificate will be ready within seven working days."
+    ],
+    [
+     "Czy mogę załatwić tę sprawę przez internet?",
+     "Kann ich diese Angelegenheit online erledigen?",
+     "Can I sort this out online?"
+    ],
+    [
+     "Proszę podać datę i miejsce urodzenia.",
+     "Bitte nennen Sie Geburtsdatum und Geburtsort.",
+     "Please give your date and place of birth."
+    ],
+    [
+     "Mój paszport jest ważny jeszcze dwa lata.",
+     "Mein Pass ist noch zwei Jahre gültig.",
+     "My passport is valid for another two years."
+    ],
+    [
+     "Niestety ze względu na ochronę danych nie mogę podać adresu.",
+     "Leider kann ich aus Datenschutzgründen die Adresse nicht nennen.",
+     "Unfortunately I can’t give the address for data protection reasons."
+    ],
+    [
+     "Opłatę skarbową należy zapłacić przed złożeniem wniosku.",
+     "Die Verwaltungsgebühr ist vor dem Antrag zu bezahlen.",
+     "The administrative fee must be paid before submitting the application."
+    ],
+    [
+     "Potrzebuję kopii i oryginału tego dokumentu.",
+     "Ich brauche eine Kopie und das Original dieses Dokuments.",
+     "I need a copy and the original of this document."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Augustów, Rathaus. Du willst dich für ein paar Monate anmelden und brauchst eine PESEL-Nummer. Hinter dem Schalter sitzt eine Beamtin.",
+     "Augustów town hall. You want to register for a few months and need a PESEL number. An official sits behind the counter."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Dzień dobry. W jakiej sprawie?",
+       "Guten Tag. Worum geht es?",
+       "Good morning. What can I do for you?"
+      ],
+      "opts": [
+       [
+        "Dzień dobry, {chciałbym|chciałabym} się zameldować i dostać numer PESEL.",
+        "Guten Tag, ich möchte mich anmelden und eine PESEL-Nummer bekommen.",
+        "Good morning, I’d like to register and get a PESEL number.",
+        1
+       ],
+       [
+        "Szukam kajaka.",
+        "Ich suche ein Kajak.",
+        "I’m looking for a kayak.",
+        0
+       ]
+      ],
+      "hint": [
+       "Sag höflich, was du möchtest: Chciałbym / Chciałabym …",
+       "Say politely what you want: Chciałbym / Chciałabym …"
+      ]
+     },
+     {
+      "npc": [
+       "Proszę wypełnić ten wniosek. Ma {Pan|Pani} umowę najmu?",
+       "Bitte füllen Sie diesen Antrag aus. Haben Sie einen Mietvertrag?",
+       "Please fill in this application. Do you have a tenancy agreement?"
+      ],
+      "opts": [
+       [
+        "Tak, mam oryginał i kopię.",
+        "Ja, ich habe das Original und eine Kopie.",
+        "Yes, I have the original and a copy.",
+        1
+       ],
+       [
+        "Nie, ale mam psa.",
+        "Nein, aber ich habe einen Hund.",
+        "No, but I have a dog.",
+        0
+       ]
+      ],
+      "hint": [
+       "Antworte zu den Unterlagen.",
+       "Answer about the documents."
+      ]
+     },
+     {
+      "npc": [
+       "Dobrze. Brakuje jeszcze podpisu właściciela mieszkania.",
+       "Gut. Es fehlt noch die Unterschrift des Wohnungseigentümers.",
+       "Good. The flat owner’s signature is still missing."
+      ],
+      "opts": [
+       [
+        "Rozumiem. Czy mogę przynieść go jutro?",
+        "Verstehe. Kann ich sie morgen bringen?",
+        "I see. Can I bring it tomorrow?",
+        1
+       ],
+       [
+        "To nie jest moja sprawa.",
+        "Das ist nicht meine Sache.",
+        "That’s not my business.",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag, ob du es nachreichen kannst.",
+       "Ask whether you can bring it later."
+      ]
+     },
+     {
+      "npc": [
+       "Oczywiście. Albo może {Pan|Pani} wszystko załatwić przez internet.",
+       "Natürlich. Oder Sie erledigen alles online.",
+       "Of course. Or you can do it all online."
+      ],
+      "opts": [
+       [
+        "Świetnie, dziękuję za pomoc!",
+        "Prima, danke für die Hilfe!",
+        "Great, thanks for your help!",
+        1
+       ],
+       [
+        "Nie lubię internetu, do widzenia.",
+        "Ich mag kein Internet, auf Wiedersehen.",
+        "I don’t like the internet, goodbye.",
+        0
+       ]
+      ],
+      "hint": [
+       "Bedanke dich.",
+       "Say thank you."
+      ]
+     }
+    ],
+    "outro": [
+     "Draußen atmest du durch: Bürokratie auf Polnisch – geschafft! Szymek hat in der Zwischenzeit einen Kajakverleih gefunden.",
+     "Outside you take a deep breath: bureaucracy in Polish – done! Meanwhile Szymek has found a kayak rental."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 9: Am Kanal",
+     "Chapter 9: By the canal"
+    ],
+    "lines": [
+     {
+      "pl": "W Augustowie Ewa szybko znalazła ulicę Nadrzeczną.",
+      "tr": [
+       "In Augustów fand Ewa schnell die Nadrzeczna-Straße.",
+       "In Augustów Ewa quickly found Nadrzeczna Street."
+      ]
+     },
+     {
+      "pl": "Niestety w starym domu mieszkała teraz młoda rodzina.",
+      "tr": [
+       "Leider wohnte in dem alten Haus jetzt eine junge Familie.",
+       "Unfortunately a young family now lived in the old house."
+      ]
+     },
+     {
+      "pl": "Ewa poszła do urzędu, ale urzędniczka nie mogła podać adresu Zofii.",
+      "tr": [
+       "Ewa ging zum Amt, aber die Beamtin durfte Zofias Adresse nicht nennen.",
+       "Ewa went to the office, but the official couldn’t give out Zofia’s address."
+      ]
+     },
+     {
+      "pl": "„Przepraszam, ochrona danych osobowych” – wytłumaczyła cierpliwie.",
+      "tr": [
+       "„Tut mir leid, Datenschutz“, erklärte sie geduldig.",
+       "“I’m sorry, data protection,” she explained patiently."
+      ]
+     },
+     {
+      "pl": "Smutna Ewa usiadła nad kanałem, przy wypożyczalni kajaków.",
+      "tr": [
+       "Traurig setzte sich Ewa an den Kanal, neben einen Kajakverleih.",
+       "Sadly, Ewa sat down by the canal, next to a kayak rental."
+      ]
+     },
+     {
+      "pl": "Starszy pan z wypożyczalni zapytał, dlaczego jest taka smutna.",
+      "tr": [
+       "Ein älterer Herr vom Verleih fragte, warum sie so traurig sei.",
+       "An older man from the rental asked why she was so sad."
+      ]
+     },
+     {
+      "pl": "Kiedy usłyszał imię Zofia, zaczął się śmiać.",
+      "tr": [
+       "Als er den Namen Zofia hörte, fing er an zu lachen.",
+       "When he heard the name Zofia, he started to laugh."
+      ]
+     },
+     {
+      "pl": "„Zofia? Malarka? Uczyła mnie rysować w szkole! Teraz mieszka w Kazimierzu Dolnym.”",
+      "tr": [
+       "„Zofia? Die Malerin? Sie hat mir in der Schule Zeichnen beigebracht! Jetzt wohnt sie in Kazimierz Dolny.“",
+       "“Zofia? The painter? She taught me drawing at school! Now she lives in Kazimierz Dolny.”"
+      ]
+     },
+     {
+      "pl": "Ewa poczuła, że jest coraz bliżej końca podróży.",
+      "tr": [
+       "Ewa spürte, dass sie dem Ende der Reise immer näher kam.",
+       "Ewa felt she was getting closer and closer to the end of her journey."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Dlaczego urzędniczka nie podała adresu?",
+      "tr": [
+       "Warum nannte die Beamtin die Adresse nicht?",
+       "Why didn’t the official give the address?"
+      ],
+      "o": [
+       "z powodu ochrony danych",
+       "bo nie znała Zofii",
+       "bo urząd był zamknięty"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Gdzie usiadła Ewa?",
+      "tr": [
+       "Wo setzte sich Ewa hin?",
+       "Where did Ewa sit down?"
+      ],
+      "o": [
+       "nad kanałem",
+       "w kawiarni",
+       "na dworcu"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kim jest Zofia według starszego pana?",
+      "tr": [
+       "Wer ist Zofia laut dem älteren Herrn?",
+       "Who is Zofia, according to the older man?"
+      ],
+      "o": [
+       "malarką",
+       "pielęgniarką",
+       "dziennikarką"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "kaz",
+   "city": "Kazimierz Dolny",
+   "cityDe": "Kazimierz Dolny",
+   "cityEn": "Kazimierz Dolny",
+   "lon": 21.95,
+   "lat": 51.32,
+   "trail": "black",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Kunst und Kultur: Meinung sagen",
+    "Art and culture: giving your opinion"
+   ],
+   "can": [
+    "Ich kann über Bilder, Bücher und Filme sprechen und begründen, was mir gefällt.",
+    "I can talk about paintings, books and films and explain what I like."
+   ],
+   "tip": [
+    "„Gefallen“ in der Vergangenheit richtet sich nach dem Ding: podobał mi się film (m), podobała mi się wystawa (f), podobało mi się przedstawienie (n), podobały mi się obrazy (Plural). Begründen mit bo, ponieważ, dlatego że.",
+    "“To like” in the past agrees with the thing: podobał mi się film (m), podobała mi się wystawa (f), podobało mi się przedstawienie (n), podobały mi się obrazy (plural). Give reasons with bo, ponieważ, dlatego że."
+   ],
+   "fact": [
+    "Kazimierz Dolny an der Weichsel ist seit dem 19. Jahrhundert ein Treffpunkt für Maler. Typisch ist der „kogut“, ein Hahn aus Brotteig.",
+    "Kazimierz Dolny on the Vistula has been a meeting place for painters since the 19th century. Its speciality is the “kogut”, a rooster made of bread dough."
+   ],
+   "words": [
+    [
+     "sztuka",
+     "Kunst",
+     "art"
+    ],
+    [
+     "artysta",
+     "Künstler",
+     "artist"
+    ],
+    [
+     "malarz",
+     "Maler",
+     "painter (man)"
+    ],
+    [
+     "malarka",
+     "Malerin",
+     "painter (woman)"
+    ],
+    [
+     "obraz",
+     "Bild, Gemälde",
+     "painting"
+    ],
+    [
+     "rzeźba",
+     "Skulptur",
+     "sculpture"
+    ],
+    [
+     "galeria",
+     "Galerie",
+     "gallery"
+    ],
+    [
+     "wystawa",
+     "Ausstellung",
+     "exhibition"
+    ],
+    [
+     "wernisaż",
+     "Vernissage",
+     "exhibition opening"
+    ],
+    [
+     "dzieło",
+     "Werk",
+     "work (of art)"
+    ],
+    [
+     "pędzel",
+     "Pinsel",
+     "brush"
+    ],
+    [
+     "farby",
+     "Farben (zum Malen)",
+     "paints"
+    ],
+    [
+     "płótno",
+     "Leinwand",
+     "canvas"
+    ],
+    [
+     "pejzaż",
+     "Landschaftsbild",
+     "landscape (painting)"
+    ],
+    [
+     "portret",
+     "Porträt",
+     "portrait"
+    ],
+    [
+     "pisarz",
+     "Schriftsteller",
+     "writer"
+    ],
+    [
+     "książka",
+     "Buch",
+     "book"
+    ],
+    [
+     "powieść",
+     "Roman",
+     "novel"
+    ],
+    [
+     "wiersz",
+     "Gedicht",
+     "poem"
+    ],
+    [
+     "bohater",
+     "Held, Hauptfigur",
+     "hero, main character"
+    ],
+    [
+     "fabuła",
+     "Handlung",
+     "plot"
+    ],
+    [
+     "recenzja",
+     "Rezension, Kritik",
+     "review"
+    ],
+    [
+     "podobało mi się",
+     "es hat mir gefallen",
+     "I liked it"
+    ],
+    [
+     "zachwycony",
+     "begeistert",
+     "delighted"
+    ],
+    [
+     "poruszający",
+     "bewegend",
+     "moving"
+    ],
+    [
+     "zabawny",
+     "lustig",
+     "funny"
+    ],
+    [
+     "oryginalny",
+     "originell",
+     "original"
+    ],
+    [
+     "dziwny",
+     "seltsam",
+     "strange"
+    ],
+    [
+     "przereklamowany",
+     "überbewertet",
+     "overrated"
+    ],
+    [
+     "polecam",
+     "ich empfehle",
+     "I recommend"
+    ],
+    [
+     "warto",
+     "es lohnt sich",
+     "it’s worth it"
+    ],
+    [
+     "inspiracja",
+     "Inspiration",
+     "inspiration"
+    ],
+    [
+     "kultura",
+     "Kultur",
+     "culture"
+    ],
+    [
+     "przedstawienie",
+     "Aufführung",
+     "performance"
+    ],
+    [
+     "aktor",
+     "Schauspieler",
+     "actor"
+    ],
+    [
+     "aktorka",
+     "Schauspielerin",
+     "actress"
+    ],
+    [
+     "reżyser",
+     "Regisseur",
+     "director"
+    ],
+    [
+     "scena",
+     "Bühne; Szene",
+     "stage; scene"
+    ],
+    [
+     "kogut",
+     "Hahn",
+     "rooster"
+    ],
+    [
+     "spichlerz",
+     "Kornspeicher",
+     "granary"
+    ]
+   ],
+   "sentences": [
+    [
+     "Wczoraj byliśmy na wystawie sztuki współczesnej.",
+     "Gestern waren wir in einer Ausstellung moderner Kunst.",
+     "Yesterday we went to an exhibition of contemporary art."
+    ],
+    [
+     "Bardzo podobały mi się te obrazy, bo mają piękne kolory.",
+     "Diese Bilder haben mir sehr gefallen, weil sie schöne Farben haben.",
+     "I really liked these paintings because they have beautiful colours."
+    ],
+    [
+     "Film był przereklamowany i nie podobał mi się.",
+     "Der Film war überbewertet und hat mir nicht gefallen.",
+     "The film was overrated and I didn’t like it."
+    ],
+    [
+     "Tę powieść polecam każdemu.",
+     "Diesen Roman empfehle ich allen.",
+     "I recommend this novel to everyone."
+    ],
+    [
+     "Warto zobaczyć tę galerię, wstęp jest bezpłatny.",
+     "Diese Galerie lohnt sich, der Eintritt ist frei.",
+     "This gallery is worth seeing, admission is free."
+    ],
+    [
+     "Główny bohater jest zabawny, ale trochę dziwny.",
+     "Die Hauptfigur ist lustig, aber ein bisschen seltsam.",
+     "The main character is funny but a bit strange."
+    ],
+    [
+     "Ta malarka maluje pejzaże nad Wisłą.",
+     "Diese Malerin malt Landschaften an der Weichsel.",
+     "This painter paints landscapes by the Vistula."
+    ],
+    [
+     "Moim zdaniem to było najlepsze przedstawienie w tym roku.",
+     "Meiner Meinung nach war das die beste Aufführung in diesem Jahr.",
+     "In my opinion it was the best performance this year."
+    ],
+    [
+     "{Kupiłem|Kupiłam} koguta z chleba na pamiątkę.",
+     "Ich habe einen Hahn aus Brot als Andenken gekauft.",
+     "I bought a bread rooster as a souvenir."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Kazimierz Dolny, eine kleine Galerie am Markt. Heute ist Vernissage. Eine Künstlerin mit Farbe an den Händen spricht dich an.",
+     "Kazimierz Dolny, a small gallery on the square. Tonight is the opening. An artist with paint on her hands comes up to you."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Dobry wieczór! I jak, podoba się {Panu|Pani} wystawa?",
+       "Guten Abend! Und, gefällt Ihnen die Ausstellung?",
+       "Good evening! So, do you like the exhibition?"
+      ],
+      "opts": [
+       [
+        "Bardzo! Te pejzaże są naprawdę poruszające.",
+        "Sehr! Diese Landschaften sind wirklich bewegend.",
+        "Very much! These landscapes are really moving.",
+        1
+       ],
+       [
+        "Nie wiem, gdzie jest toaleta.",
+        "Ich weiß nicht, wo die Toilette ist.",
+        "I don’t know where the toilet is.",
+        0
+       ]
+      ],
+      "hint": [
+       "Sag deine Meinung mit einem Adjektiv.",
+       "Give your opinion with an adjective."
+      ]
+     },
+     {
+      "npc": [
+       "Dziękuję! Który obraz podoba się {Panu|Pani} najbardziej?",
+       "Danke! Welches Bild gefällt Ihnen am besten?",
+       "Thank you! Which painting do you like best?"
+      ],
+      "opts": [
+       [
+        "Ten z Wisłą o zachodzie słońca, bo ma piękne kolory.",
+        "Das mit der Weichsel bei Sonnenuntergang, weil es schöne Farben hat.",
+        "The one of the Vistula at sunset, because it has beautiful colours.",
+        1
+       ],
+       [
+        "Ja w ogóle nie lubię kolorów.",
+        "Ich mag überhaupt keine Farben.",
+        "I don’t like colours at all.",
+        0
+       ]
+      ],
+      "hint": [
+       "Zeig auf ein Bild und begründe mit „bo“.",
+       "Pick a painting and give a reason with “bo”."
+      ]
+     },
+     {
+      "npc": [
+       "To mój ulubiony. A interesuje się {Pan|Pani} sztuką?",
+       "Das ist mein Lieblingsbild. Interessieren Sie sich für Kunst?",
+       "That’s my favourite. Are you interested in art?"
+      ],
+      "opts": [
+       [
+        "Tak, w wolnym czasie trochę maluję i chodzę do galerii.",
+        "Ja, in meiner Freizeit male ich ein bisschen und gehe in Galerien.",
+        "Yes, in my free time I paint a little and go to galleries.",
+        1
+       ],
+       [
+        "Nie, interesuję się tylko pociągami.",
+        "Nein, ich interessiere mich nur für Züge.",
+        "No, I’m only interested in trains.",
+        0
+       ]
+      ],
+      "hint": [
+       "Erzähl von deinen Interessen: W wolnym czasie …",
+       "Talk about your interests: W wolnym czasie …"
+      ]
+     },
+     {
+      "npc": [
+       "To może {kupi Pan|kupi Pani} mały obraz na pamiątkę?",
+       "Möchten Sie vielleicht ein kleines Bild als Andenken kaufen?",
+       "Maybe you’d like to buy a small painting as a souvenir?"
+      ],
+      "opts": [
+       [
+        "Chętnie, ale najpierw zapytam o cenę.",
+        "Gern, aber zuerst frage ich nach dem Preis.",
+        "Gladly, but first I’ll ask the price.",
+        1
+       ],
+       [
+        "Nie, obrazy są dla mnie za ciężkie.",
+        "Nein, Bilder sind mir zu schwer.",
+        "No, paintings are too heavy for me.",
+        0
+       ]
+      ],
+      "hint": [
+       "Zeig Interesse und frag nach dem Preis.",
+       "Show interest and ask about the price."
+      ]
+     }
+    ],
+    "outro": [
+     "Du gehst mit einem kleinen Bild unter dem Arm hinaus. Szymek hat sich einen Brot-Hahn gekauft – und ihn schon halb aufgegessen.",
+     "You leave with a small painting under your arm. Szymek has bought a bread rooster – and has already eaten half of it."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 10: Die Malerin",
+     "Chapter 10: The painter"
+    ],
+    "lines": [
+     {
+      "pl": "Kazimierz Dolny był pełen artystów, turystów i kolorów.",
+      "tr": [
+       "Kazimierz Dolny war voller Künstler, Touristen und Farben.",
+       "Kazimierz Dolny was full of artists, tourists and colour."
+      ]
+     },
+     {
+      "pl": "W małej galerii nad Wisłą Ewa zobaczyła portret swojego dziadka.",
+      "tr": [
+       "In einer kleinen Galerie an der Weichsel sah Ewa ein Porträt ihres Opas.",
+       "In a small gallery by the Vistula Ewa saw a portrait of her grandfather."
+      ]
+     },
+     {
+      "pl": "Obok obrazu stała starsza pani z pędzlem w ręku.",
+      "tr": [
+       "Neben dem Bild stand eine ältere Dame mit einem Pinsel in der Hand.",
+       "Next to the painting stood an elderly lady with a brush in her hand."
+      ]
+     },
+     {
+      "pl": "„Pani Zofia?” – zapytała Ewa cicho.",
+      "tr": [
+       "„Frau Zofia?“, fragte Ewa leise.",
+       "“Pani Zofia?” Ewa asked quietly."
+      ]
+     },
+     {
+      "pl": "Zofia długo patrzyła na Ewę, a potem przeczytała list Józefa.",
+      "tr": [
+       "Zofia sah Ewa lange an und las dann Józefs Brief.",
+       "Zofia looked at Ewa for a long time, then read Józef’s letter."
+      ]
+     },
+     {
+      "pl": "Miała łzy w oczach, ale się uśmiechała.",
+      "tr": [
+       "Sie hatte Tränen in den Augen, aber sie lächelte.",
+       "She had tears in her eyes, but she was smiling."
+      ]
+     },
+     {
+      "pl": "„Byliśmy młodzi i głupi. Ja też nigdy o nim nie zapomniałam.”",
+      "tr": [
+       "„Wir waren jung und dumm. Ich habe ihn auch nie vergessen.“",
+       "“We were young and foolish. I never forgot him either.”"
+      ]
+     },
+     {
+      "pl": "Opowiedziała, że Józef pracował kiedyś w kopalni soli w Wieliczce.",
+      "tr": [
+       "Sie erzählte, dass Józef früher im Salzbergwerk in Wieliczka gearbeitet hat.",
+       "She said that Józef had once worked in the salt mine in Wieliczka."
+      ]
+     },
+     {
+      "pl": "„Ale zanim tam pojedziemy, pokażę ci jeszcze Ojców” – powiedziała.",
+      "tr": [
+       "„Aber bevor wir hinfahren, zeige ich dir noch Ojców“, sagte sie.",
+       "“But before we go there, I’ll show you Ojców,” she said."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Gdzie Ewa spotkała Zofię?",
+      "tr": [
+       "Wo traf Ewa Zofia?",
+       "Where did Ewa meet Zofia?"
+      ],
+      "o": [
+       "w małej galerii",
+       "w urzędzie",
+       "w kopalni"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Jak Zofia zareagowała na list?",
+      "tr": [
+       "Wie reagierte Zofia auf den Brief?",
+       "How did Zofia react to the letter?"
+      ],
+      "o": [
+       "Miała łzy w oczach, ale się uśmiechała.",
+       "Była bardzo zła.",
+       "Nie chciała go czytać."
+      ],
+      "a": 0
+     },
+     {
+      "q": "Gdzie kiedyś pracował Józef?",
+      "tr": [
+       "Wo hat Józef früher gearbeitet?",
+       "Where did Józef once work?"
+      ],
+      "o": [
+       "w kopalni soli w Wieliczce",
+       "w galerii",
+       "w szpitalu"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "ojc",
+   "city": "Ojców",
+   "cityDe": "Ojców",
+   "cityEn": "Ojców",
+   "lon": 19.83,
+   "lat": 50.21,
+   "trail": "green",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Träume und Pläne: Was wäre, wenn …",
+    "Dreams and plans: what if …"
+   ],
+   "can": [
+    "Ich kann über Träume, Pläne und Wünsche sprechen und sagen, was ich tun würde, wenn …",
+    "I can talk about dreams, plans and wishes and say what I would do if …"
+   ],
+   "tip": [
+    "Bedingung mit „gdyby“: Gdybym miał (Mann) / miała (Frau) czas, pojechałbym / pojechałabym w góry – Wenn ich Zeit hätte, würde ich in die Berge fahren. Formen: gdybym, gdybyś, gdyby, gdybyśmy.",
+    "Conditions with “gdyby”: Gdybym miał (man) / miała (woman) czas, pojechałbym / pojechałabym w góry – If I had time, I would go to the mountains. Forms: gdybym, gdybyś, gdyby, gdybyśmy."
+   ],
+   "fact": [
+    "Ojców ist der kleinste Nationalpark Polens. Der Legende nach versteckte sich König Władysław Łokietek hier in einer Höhle – eine Spinne webte ein Netz vor den Eingang und rettete ihn.",
+    "Ojców is Poland’s smallest national park. Legend says King Władysław Łokietek hid in a cave here – a spider spun a web across the entrance and saved him."
+   ],
+   "words": [
+    [
+     "marzenie",
+     "Traum, Wunsch",
+     "dream, wish"
+    ],
+    [
+     "marzyć",
+     "träumen (von etwas)",
+     "to dream (of)"
+    ],
+    [
+     "sen",
+     "Traum (im Schlaf); Schlaf",
+     "dream (asleep); sleep"
+    ],
+    [
+     "cel",
+     "Ziel",
+     "goal"
+    ],
+    [
+     "gdyby",
+     "wenn (gedacht, irreal)",
+     "if (hypothetical)"
+    ],
+    [
+     "{gdybym miał|gdybym miała}",
+     "wenn ich hätte",
+     "if I had"
+    ],
+    [
+     "{pojechałbym|pojechałabym}",
+     "ich würde fahren",
+     "I would go"
+    ],
+    [
+     "{zrobiłbym|zrobiłabym}",
+     "ich würde machen",
+     "I would do"
+    ],
+    [
+     "{byłbym|byłabym}",
+     "ich wäre",
+     "I would be"
+    ],
+    [
+     "wygrać na loterii",
+     "im Lotto gewinnen",
+     "to win the lottery"
+    ],
+    [
+     "zmienić życie",
+     "das Leben ändern",
+     "to change one’s life"
+    ],
+    [
+     "spełnić marzenie",
+     "einen Traum erfüllen",
+     "to make a dream come true"
+    ],
+    [
+     "odważny",
+     "mutig",
+     "brave"
+    ],
+    [
+     "odwaga",
+     "Mut",
+     "courage"
+    ],
+    [
+     "ryzyko",
+     "Risiko",
+     "risk"
+    ],
+    [
+     "szansa",
+     "Chance",
+     "chance"
+    ],
+    [
+     "decyzja",
+     "Entscheidung",
+     "decision"
+    ],
+    [
+     "zdecydować się",
+     "sich entscheiden",
+     "to decide"
+    ],
+    [
+     "zamierzać",
+     "vorhaben",
+     "to intend"
+    ],
+    [
+     "planować",
+     "planen",
+     "to plan"
+    ],
+    [
+     "własny",
+     "eigen",
+     "own"
+    ],
+    [
+     "założyć firmę",
+     "eine Firma gründen",
+     "to start a business"
+    ],
+    [
+     "dookoła świata",
+     "um die Welt",
+     "around the world"
+    ],
+    [
+     "emerytura",
+     "Rente, Ruhestand",
+     "retirement; pension"
+    ],
+    [
+     "na emeryturze",
+     "im Ruhestand",
+     "retired"
+    ],
+    [
+     "przyszłość",
+     "Zukunft",
+     "future"
+    ],
+    [
+     "żałować",
+     "bereuen",
+     "to regret"
+    ],
+    [
+     "szkoda, że",
+     "schade, dass",
+     "it’s a pity that"
+    ],
+    [
+     "gdyby nie",
+     "wenn nicht … (gewesen wäre)",
+     "if it weren’t for"
+    ],
+    [
+     "jaskinia",
+     "Höhle",
+     "cave"
+    ],
+    [
+     "pająk",
+     "Spinne",
+     "spider"
+    ],
+    [
+     "sieć",
+     "Netz",
+     "web, net"
+    ],
+    [
+     "skała",
+     "Felsen",
+     "rock"
+    ],
+    [
+     "wąwóz",
+     "Schlucht",
+     "gorge"
+    ],
+    [
+     "ukryć się",
+     "sich verstecken",
+     "to hide"
+    ],
+    [
+     "nietoperz",
+     "Fledermaus",
+     "bat"
+    ],
+    [
+     "plan",
+     "Plan",
+     "plan"
+    ],
+    [
+     "mieć ochotę",
+     "Lust haben",
+     "to feel like"
+    ],
+    [
+     "spróbować",
+     "versuchen, probieren",
+     "to try"
+    ],
+    [
+     "zmiana pracy",
+     "Jobwechsel",
+     "change of job"
+    ]
+   ],
+   "sentences": [
+    [
+     "{Gdybym miał|Gdybym miała} więcej czasu, {uczyłbym|uczyłabym} się polskiego codziennie.",
+     "Wenn ich mehr Zeit hätte, würde ich jeden Tag Polnisch lernen.",
+     "If I had more time, I would study Polish every day."
+    ],
+    [
+     "{Gdybym wygrał|Gdybym wygrała} na loterii, {pojechałbym|pojechałabym} dookoła świata.",
+     "Wenn ich im Lotto gewinnen würde, würde ich um die Welt reisen.",
+     "If I won the lottery, I would travel around the world."
+    ],
+    [
+     "Moim największym marzeniem jest własny dom nad jeziorem.",
+     "Mein größter Traum ist ein eigenes Haus am See.",
+     "My biggest dream is my own house by a lake."
+    ],
+    [
+     "Zamierzam zmienić pracę w przyszłym roku.",
+     "Ich habe vor, nächstes Jahr den Job zu wechseln.",
+     "I’m planning to change jobs next year."
+    ],
+    [
+     "Nie żałuję tej decyzji.",
+     "Ich bereue diese Entscheidung nicht.",
+     "I don’t regret that decision."
+    ],
+    [
+     "Szkoda, że nie mamy więcej wolnego czasu.",
+     "Schade, dass wir nicht mehr Freizeit haben.",
+     "It’s a pity we don’t have more free time."
+    ],
+    [
+     "Na emeryturze moi rodzice chcą mieszkać w Polsce.",
+     "Im Ruhestand wollen meine Eltern in Polen wohnen.",
+     "When they retire, my parents want to live in Poland."
+    ],
+    [
+     "Według legendy król ukrył się w jaskini.",
+     "Der Legende nach versteckte sich der König in einer Höhle.",
+     "According to legend, the king hid in a cave."
+    ],
+    [
+     "Gdyby nie pająk, żołnierze znaleźliby króla.",
+     "Wäre die Spinne nicht gewesen, hätten die Soldaten den König gefunden.",
+     "If it weren’t for the spider, the soldiers would have found the king."
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Ojców-Nationalpark, vor der Łokietek-Höhle. Ihr wartet auf die Führung. Neben dir sitzt Marta, eine Studentin aus Kraków.",
+     "Ojców National Park, outside Łokietek Cave. You’re waiting for the tour. Next to you sits Marta, a student from Kraków."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Gdybyś {mógł|mogła} mieszkać gdziekolwiek, gdzie byś {mieszkał|mieszkała}?",
+       "Wenn du überall wohnen könntest, wo würdest du wohnen?",
+       "If you could live anywhere, where would you live?"
+      ],
+      "opts": [
+       [
+        "{Mieszkałbym|Mieszkałabym} tutaj, w małym domu z ogrodem.",
+        "Ich würde hier wohnen, in einem kleinen Haus mit Garten.",
+        "I’d live here, in a little house with a garden.",
+        1
+       ],
+       [
+        "Mieszkam w bloku na trzecim piętrze.",
+        "Ich wohne in einem Wohnblock im dritten Stock.",
+        "I live in a block of flats on the third floor.",
+        0
+       ]
+      ],
+      "hint": [
+       "Antworte im Konditional: Mieszkałbym / Mieszkałabym …",
+       "Answer in the conditional: Mieszkałbym / Mieszkałabym …"
+      ]
+     },
+     {
+      "npc": [
+       "Ja marzę o podróży dookoła świata. A jakie jest twoje największe marzenie?",
+       "Ich träume von einer Weltreise. Und was ist dein größter Traum?",
+       "I dream of travelling around the world. And what’s your biggest dream?"
+      ],
+      "opts": [
+       [
+        "{Chciałbym|Chciałabym} kiedyś mówić płynnie po polsku.",
+        "Ich würde gern eines Tages fließend Polnisch sprechen.",
+        "I’d like to speak Polish fluently one day.",
+        1
+       ],
+       [
+        "Moje marzenie jest zielone.",
+        "Mein Traum ist grün.",
+        "My dream is green.",
+        0
+       ]
+      ],
+      "hint": [
+       "Erzähl von deinem Traum: Chciałbym / Chciałabym …",
+       "Talk about your dream: Chciałbym / Chciałabym …"
+      ]
+     },
+     {
+      "npc": [
+       "Super! Co byś {zrobił|zrobiła}, gdybyś {wygrał|wygrała} milion złotych?",
+       "Super! Was würdest du machen, wenn du eine Million Złoty gewinnen würdest?",
+       "Great! What would you do if you won a million złoty?"
+      ],
+      "opts": [
+       [
+        "{Kupiłbym|Kupiłabym} dom i {pomógłbym|pomogłabym} rodzinie.",
+        "Ich würde ein Haus kaufen und meiner Familie helfen.",
+        "I’d buy a house and help my family.",
+        1
+       ],
+       [
+        "Wczoraj {kupiłem|kupiłam} chleb.",
+        "Gestern habe ich Brot gekauft.",
+        "Yesterday I bought bread.",
+        0
+       ]
+      ],
+      "hint": [
+       "Wieder Konditional: Kupiłbym / Kupiłabym …",
+       "Conditional again: Kupiłbym / Kupiłabym …"
+      ]
+     },
+     {
+      "npc": [
+       "Ładnie. Słuchaj, chodźmy, przewodnik już czeka!",
+       "Schön. Hör mal, lass uns gehen, der Führer wartet schon!",
+       "Nice. Listen, let’s go, the guide is waiting!"
+      ],
+      "opts": [
+       [
+        "Chodźmy! Mam nadzieję, że zobaczymy nietoperze.",
+        "Los! Ich hoffe, wir sehen Fledermäuse.",
+        "Let’s go! I hope we see some bats.",
+        1
+       ],
+       [
+        "Nie, ja tu zostanę na zawsze.",
+        "Nein, ich bleibe für immer hier.",
+        "No, I’m staying here forever.",
+        0
+       ]
+      ],
+      "hint": [
+       "Geh mit: Chodźmy!",
+       "Join in: Chodźmy!"
+      ]
+     }
+    ],
+    "outro": [
+     "In der Höhle ist es kühl und still. Szymek sucht die berühmte Spinne – und findet nur eine Fledermaus, die ihn neugierig ansieht.",
+     "Inside the cave it’s cool and quiet. Szymek looks for the famous spider – and finds only a bat, which eyes him curiously."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 11: Wenn ich jünger wäre",
+     "Chapter 11: If I were younger"
+    ],
+    "lines": [
+     {
+      "pl": "Ewa i Zofia pojechały razem do Ojcowa.",
+      "tr": [
+       "Ewa und Zofia fuhren zusammen nach Ojców.",
+       "Ewa and Zofia went to Ojców together."
+      ]
+     },
+     {
+      "pl": "Szły powoli wąwozem między białymi skałami.",
+      "tr": [
+       "Sie gingen langsam durch eine Schlucht zwischen weißen Felsen.",
+       "They walked slowly through a gorge between white rocks."
+      ]
+     },
+     {
+      "pl": "„Gdybym była młodsza, poszłabym z tobą na koniec świata” – zażartowała Zofia.",
+      "tr": [
+       "„Wenn ich jünger wäre, würde ich mit dir ans Ende der Welt gehen“, scherzte Zofia.",
+       "“If I were younger, I’d go with you to the end of the world,” Zofia joked."
+      ]
+     },
+     {
+      "pl": "Zapytała Ewę, co chciałaby robić w przyszłości.",
+      "tr": [
+       "Sie fragte Ewa, was sie in Zukunft gern machen würde.",
+       "She asked Ewa what she would like to do in the future."
+      ]
+     },
+     {
+      "pl": "Ewa długo myślała, a potem powiedziała, że chciałaby pracować z turystami.",
+      "tr": [
+       "Ewa dachte lange nach und sagte dann, dass sie gern mit Touristen arbeiten würde.",
+       "Ewa thought for a long time, then said she would like to work with tourists."
+      ]
+     },
+     {
+      "pl": "„Gdybym mogła, pokazywałabym ludziom takie miejsca jak to” – dodała.",
+      "tr": [
+       "„Wenn ich könnte, würde ich Menschen solche Orte wie diesen zeigen“, fügte sie hinzu.",
+       "“If I could, I’d show people places like this,” she added."
+      ]
+     },
+     {
+      "pl": "Przy jaskini Zofia opowiedziała legendę o królu i pająku.",
+      "tr": [
+       "An der Höhle erzählte Zofia die Legende vom König und der Spinne.",
+       "At the cave Zofia told the legend of the king and the spider."
+      ]
+     },
+     {
+      "pl": "„Józef zawsze mówił, że małe rzeczy mogą zmienić historię” – powiedziała.",
+      "tr": [
+       "„Józef sagte immer, dass kleine Dinge die Geschichte verändern können“, sagte sie.",
+       "“Józef always said that small things can change history,” she said."
+      ]
+     },
+     {
+      "pl": "Wieczorem zadzwonił Tomek: „Jutro mam wolne. Spotkamy się w Wieliczce?”",
+      "tr": [
+       "Am Abend rief Tomek an: „Morgen habe ich frei. Treffen wir uns in Wieliczka?“",
+       "In the evening Tomek called: “I’m off tomorrow. Shall we meet in Wieliczka?”"
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Co powiedziała Zofia w wąwozie?",
+      "tr": [
+       "Was sagte Zofia in der Schlucht?",
+       "What did Zofia say in the gorge?"
+      ],
+      "o": [
+       "Gdyby była młodsza, poszłaby z Ewą na koniec świata.",
+       "Nigdy nie lubiła gór.",
+       "Chce wrócić do domu."
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co Ewa chciałaby robić w przyszłości?",
+      "tr": [
+       "Was würde Ewa in Zukunft gern machen?",
+       "What would Ewa like to do in the future?"
+      ],
+      "o": [
+       "pracować z turystami",
+       "malować obrazy",
+       "pracować w hucie szkła"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kto zadzwonił wieczorem?",
+      "tr": [
+       "Wer rief am Abend an?",
+       "Who called in the evening?"
+      ],
+      "o": [
+       "Tomek",
+       "Kuba",
+       "pani Barbara"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "wie",
+   "city": "Wieliczka",
+   "cityDe": "Wieliczka",
+   "cityEn": "Wieliczka",
+   "lon": 20.06,
+   "lat": 49.98,
+   "trail": "red",
+   "r": 3,
+   "beta": 1,
+   "title": [
+    "Unter der Erde: eine Geschichte erzählen",
+    "Underground: telling a story"
+   ],
+   "can": [
+    "Ich kann eine längere Geschichte erzählen und Personen und Dinge mit Relativsätzen genauer beschreiben.",
+    "I can tell a longer story and describe people and things more precisely with relative clauses."
+   ],
+   "tip": [
+    "Relativsätze mit który / która / które (der, die, das): To jest klucz, który znalazłam. To kobieta, która maluje. Mit Präposition: miasto, w którym mieszkam; osoba, z którą rozmawiam; ludzie, których spotkałem.",
+    "Relative clauses with który / która / które (who, which, that): To jest klucz, który znalazłam. To kobieta, która maluje. With a preposition: miasto, w którym mieszkam; osoba, z którą rozmawiam; ludzie, których spotkałem."
+   ],
+   "fact": [
+    "Das Salzbergwerk Wieliczka gehörte 1978 zu den ersten zwölf UNESCO-Welterbestätten. Die Kapelle der heiligen Kinga liegt über 100 Meter unter der Erde und ist fast ganz aus Salz.",
+    "The Wieliczka salt mine was among the first twelve UNESCO World Heritage Sites in 1978. The Chapel of St Kinga lies more than 100 metres underground and is made almost entirely of salt."
+   ],
+   "words": [
+    [
+     "kopalnia",
+     "Bergwerk",
+     "mine"
+    ],
+    [
+     "kopalnia soli",
+     "Salzbergwerk",
+     "salt mine"
+    ],
+    [
+     "sól",
+     "Salz",
+     "salt"
+    ],
+    [
+     "górnik",
+     "Bergmann",
+     "miner"
+    ],
+    [
+     "pod ziemią",
+     "unter der Erde",
+     "underground"
+    ],
+    [
+     "korytarz",
+     "Gang, Flur",
+     "corridor"
+    ],
+    [
+     "komora",
+     "Kammer",
+     "chamber"
+    ],
+    [
+     "kaplica",
+     "Kapelle",
+     "chapel"
+    ],
+    [
+     "żyrandol",
+     "Kronleuchter",
+     "chandelier"
+    ],
+    [
+     "solanka",
+     "Sole, Salzwasser",
+     "brine"
+    ],
+    [
+     "głęboko",
+     "tief",
+     "deep"
+    ],
+    [
+     "schodzić",
+     "hinuntergehen",
+     "to go down"
+    ],
+    [
+     "pierścień",
+     "Ring",
+     "ring"
+    ],
+    [
+     "księżniczka",
+     "Prinzessin",
+     "princess"
+    ],
+    [
+     "skarb",
+     "Schatz",
+     "treasure"
+    ],
+    [
+     "szkatułka",
+     "Kästchen, Schatulle",
+     "small box, casket"
+    ],
+    [
+     "otworzyć",
+     "öffnen",
+     "to open"
+    ],
+    [
+     "zamknięty",
+     "geschlossen, abgeschlossen",
+     "closed, locked"
+    ],
+    [
+     "tajemnica",
+     "Geheimnis",
+     "secret, mystery"
+    ],
+    [
+     "odkryć",
+     "entdecken",
+     "to discover"
+    ],
+    [
+     "znaleźć",
+     "finden",
+     "to find"
+    ],
+    [
+     "w którym",
+     "in dem, in welchem",
+     "in which"
+    ],
+    [
+     "z którym",
+     "mit dem",
+     "with whom/which"
+    ],
+    [
+     "dla której",
+     "für die",
+     "for whom (feminine)"
+    ],
+    [
+     "zakończenie",
+     "Ende, Schluss",
+     "ending"
+    ],
+    [
+     "szczęśliwe zakończenie",
+     "Happy End",
+     "happy ending"
+    ],
+    [
+     "ponowne spotkanie",
+     "Wiedersehen",
+     "reunion"
+    ],
+    [
+     "wspomnienie",
+     "Erinnerung",
+     "memory, recollection"
+    ],
+    [
+     "podróż",
+     "Reise",
+     "journey"
+    ],
+    [
+     "ludzie",
+     "Menschen, Leute",
+     "people"
+    ],
+    [
+     "najważniejszy",
+     "der wichtigste",
+     "most important"
+    ],
+    [
+     "wdzięczny",
+     "dankbar",
+     "grateful"
+    ],
+    [
+     "przewodniczka",
+     "Führerin, Reiseleiterin",
+     "guide (woman)"
+    ],
+    [
+     "zwiedzanie",
+     "Besichtigung, Führung",
+     "tour, sightseeing"
+    ],
+    [
+     "grupa",
+     "Gruppe",
+     "group"
+    ],
+    [
+     "wreszcie",
+     "endlich",
+     "at last"
+    ],
+    [
+     "na zawsze",
+     "für immer",
+     "forever"
+    ],
+    [
+     "od nowa",
+     "von vorn, neu",
+     "anew, from scratch"
+    ],
+    [
+     "pożegnać się",
+     "sich verabschieden",
+     "to say goodbye"
+    ],
+    [
+     "do zobaczenia",
+     "bis bald, auf Wiedersehen",
+     "see you"
+    ]
+   ],
+   "sentences": [
+    [
+     "Kopalnia soli w Wieliczce ma ponad siedemset lat.",
+     "Das Salzbergwerk in Wieliczka ist über siebenhundert Jahre alt.",
+     "The salt mine in Wieliczka is over seven hundred years old."
+    ],
+    [
+     "Kaplica, którą widzimy, jest prawie cała z soli.",
+     "Die Kapelle, die wir sehen, ist fast ganz aus Salz.",
+     "The chapel we can see is almost entirely made of salt."
+    ],
+    [
+     "To jest górnik, z którym {rozmawiałem|rozmawiałam} wczoraj.",
+     "Das ist der Bergmann, mit dem ich gestern gesprochen habe.",
+     "That’s the miner I talked to yesterday."
+    ],
+    [
+     "Miasto, w którym mieszkam, jest małe, ale piękne.",
+     "Die Stadt, in der ich wohne, ist klein, aber schön.",
+     "The town I live in is small but beautiful."
+    ],
+    [
+     "Księżniczka Kinga wrzuciła pierścień do kopalni na Węgrzech.",
+     "Prinzessin Kinga warf ihren Ring in ein Bergwerk in Ungarn.",
+     "Princess Kinga threw her ring into a mine in Hungary."
+    ],
+    [
+     "Schodzimy głęboko pod ziemię, ponad sto metrów.",
+     "Wir gehen tief unter die Erde, über hundert Meter.",
+     "We’re going deep underground, more than a hundred metres."
+    ],
+    [
+     "Na końcu podróży {byłem|byłam} bardzo {wdzięczny|wdzięczna}.",
+     "Am Ende der Reise war ich sehr dankbar.",
+     "At the end of the journey I was very grateful."
+    ],
+    [
+     "Najważniejsi są ludzie, których spotykamy.",
+     "Am wichtigsten sind die Menschen, denen wir begegnen.",
+     "The most important thing is the people we meet."
+    ],
+    [
+     "Do zobaczenia, to była wspaniała przygoda!",
+     "Bis bald, das war ein wunderbares Abenteuer!",
+     "See you, that was a wonderful adventure!"
+    ]
+   ],
+   "scene": {
+    "intro": [
+     "Wieliczka, über 100 Meter unter der Erde, in der Kinga-Kapelle. Die Führerin, Pani Ewa, erzählt deiner Gruppe von den Kronleuchtern.",
+     "Wieliczka, more than 100 metres underground, in St Kinga’s Chapel. The guide, Pani Ewa, is telling your group about the chandeliers."
+    ],
+    "steps": [
+     {
+      "npc": [
+       "Czy wiedzą Państwo, z czego są te żyrandole?",
+       "Wissen Sie, woraus diese Kronleuchter sind?",
+       "Do you know what these chandeliers are made of?"
+      ],
+      "opts": [
+       [
+        "Z soli? To niesamowite!",
+        "Aus Salz? Das ist unglaublich!",
+        "Salt? That’s amazing!",
+        1
+       ],
+       [
+        "Z czekolady.",
+        "Aus Schokolade.",
+        "Chocolate.",
+        0
+       ]
+      ],
+      "hint": [
+       "Rate: Z soli?",
+       "Have a guess: Z soli?"
+      ]
+     },
+     {
+      "npc": [
+       "Tak, z soli. Zna {Pan|Pani} legendę o świętej Kindze?",
+       "Ja, aus Salz. Kennen Sie die Legende von der heiligen Kinga?",
+       "Yes, salt. Do you know the legend of St Kinga?"
+      ],
+      "opts": [
+       [
+        "Trochę. To ta księżniczka, która zgubiła pierścień?",
+        "Ein bisschen. Ist das die Prinzessin, die einen Ring verloren hat?",
+        "A little. Is that the princess who lost a ring?",
+        1
+       ],
+       [
+        "Nie, nie mam pierścienia.",
+        "Nein, ich habe keinen Ring.",
+        "No, I don’t have a ring.",
+        0
+       ]
+      ],
+      "hint": [
+       "Antworte mit einem Relativsatz: … która …",
+       "Answer with a relative clause: … która …"
+      ]
+     },
+     {
+      "npc": [
+       "Właśnie! Wrzuciła go do kopalni na Węgrzech, a znaleziono go tutaj, w soli.",
+       "Genau! Sie warf ihn in ein Bergwerk in Ungarn, und gefunden hat man ihn hier, im Salz.",
+       "Exactly! She threw it into a mine in Hungary, and it was found here, in the salt."
+      ],
+      "opts": [
+       [
+        "I dlatego w Wieliczce odkryto sól?",
+        "Und deshalb hat man in Wieliczka Salz entdeckt?",
+        "And that’s why salt was discovered in Wieliczka?",
+        1
+       ],
+       [
+        "Mam klucz w kieszeni.",
+        "Ich habe einen Schlüssel in der Tasche.",
+        "I have a key in my pocket.",
+        0
+       ]
+      ],
+      "hint": [
+       "Frag nach dem Zusammenhang: I dlatego …?",
+       "Ask about the connection: I dlatego …?"
+      ]
+     },
+     {
+      "npc": [
+       "Według legendy tak. Dziękuję za uwagę, do zobaczenia na górze!",
+       "Laut Legende ja. Danke für Ihre Aufmerksamkeit, wir sehen uns oben!",
+       "According to legend, yes. Thank you for listening, see you upstairs!"
+      ],
+      "opts": [
+       [
+        "Dziękujemy! To było najlepsze zwiedzanie w moim życiu.",
+        "Danke! Das war die beste Führung meines Lebens.",
+        "Thank you! That was the best tour of my life.",
+        1
+       ],
+       [
+        "Proszę jeszcze raz od początku.",
+        "Bitte noch einmal von vorn.",
+        "Once more from the beginning, please.",
+        0
+       ]
+      ],
+      "hint": [
+       "Bedanke dich mit einem Superlativ.",
+       "Say thank you with a superlative."
+      ]
+     }
+    ],
+    "outro": [
+     "Szymek flüstert: „Die Führerin heißt Ewa … Ist das etwa die Ewa aus dem Buch?“ Sie zwinkert dir zu, als hätte sie es gehört.",
+     "Szymek whispers: “The guide is called Ewa … Could she be the Ewa from the book?” She winks at you as if she heard."
+    ]
+   },
+   "read": {
+    "t": [
+     "Kapitel 12: Der Schlüssel",
+     "Chapter 12: The key"
+    ],
+    "lines": [
+     {
+      "pl": "W Wieliczce czekał na nie Tomek z bukietem kwiatów.",
+      "tr": [
+       "In Wieliczka wartete Tomek mit einem Blumenstrauß auf sie.",
+       "In Wieliczka Tomek was waiting for them with a bunch of flowers."
+      ]
+     },
+     {
+      "pl": "Razem zeszli głęboko pod ziemię, do kaplicy świętej Kingi.",
+      "tr": [
+       "Zusammen stiegen sie tief unter die Erde, zur Kapelle der heiligen Kinga.",
+       "Together they went deep underground, to St Kinga’s Chapel."
+      ]
+     },
+     {
+      "pl": "Stary górnik, który znał Józefa, zaprowadził ich do małej komory.",
+      "tr": [
+       "Ein alter Bergmann, der Józef kannte, führte sie in eine kleine Kammer.",
+       "An old miner who had known Józef led them to a small chamber."
+      ]
+     },
+     {
+      "pl": "Na ścianie wisiała drewniana szkatułka z małym zamkiem.",
+      "tr": [
+       "An der Wand hing ein hölzernes Kästchen mit einem kleinen Schloss.",
+       "On the wall hung a wooden box with a small lock."
+      ]
+     },
+     {
+      "pl": "Ewa wyjęła klucz dziadka. Pasował idealnie.",
+      "tr": [
+       "Ewa nahm Opas Schlüssel heraus. Er passte perfekt.",
+       "Ewa took out Grandpa’s key. It fitted perfectly."
+      ]
+     },
+     {
+      "pl": "W środku nie było złota, tylko zdjęcia i krótki list.",
+      "tr": [
+       "Darin war kein Gold, nur Fotos und ein kurzer Brief.",
+       "Inside there was no gold, only photos and a short letter."
+      ]
+     },
+     {
+      "pl": "„Największy skarb to ludzie, których spotkasz po drodze. Józef”",
+      "tr": [
+       "„Der größte Schatz sind die Menschen, denen du unterwegs begegnest. Józef“",
+       "“The greatest treasure is the people you meet along the way. Józef”"
+      ]
+     },
+     {
+      "pl": "Ewa spojrzała na Zofię, Tomka i starego górnika i wszystko zrozumiała.",
+      "tr": [
+       "Ewa sah Zofia, Tomek und den alten Bergmann an und verstand alles.",
+       "Ewa looked at Zofia, Tomek and the old miner and understood everything."
+      ]
+     },
+     {
+      "pl": "Rok później została przewodniczką w kopalni i codziennie opowiada turystom tę historię.",
+      "tr": [
+       "Ein Jahr später wurde sie Führerin im Bergwerk und erzählt Touristen jeden Tag diese Geschichte.",
+       "A year later she became a guide in the mine and tells tourists this story every day."
+      ]
+     }
+    ],
+    "q": [
+     {
+      "q": "Co było w szkatułce?",
+      "tr": [
+       "Was war im Kästchen?",
+       "What was in the box?"
+      ],
+      "o": [
+       "zdjęcia i krótki list",
+       "złoto",
+       "drugi klucz"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Co według Józefa jest największym skarbem?",
+      "tr": [
+       "Was ist laut Józef der größte Schatz?",
+       "According to Józef, what is the greatest treasure?"
+      ],
+      "o": [
+       "ludzie, których spotykamy",
+       "pieniądze",
+       "sól"
+      ],
+      "a": 0
+     },
+     {
+      "q": "Kim jest Ewa rok później?",
+      "tr": [
+       "Was ist Ewa ein Jahr später?",
+       "What is Ewa a year later?"
+      ],
+      "o": [
+       "przewodniczką w kopalni",
+       "malarką",
+       "konduktorką"
+      ],
+      "a": 0
+     }
+    ]
+   }
+  },
+  {
    "id": "pra",
    "pack": 1,
    "ico": "🩺",
@@ -23612,6 +29618,90 @@
     "Erzähl in drei Sätzen deine Polnisch-Geschichte: Wie war es am Anfang, was kannst du jetzt, was willst du in Zukunft?",
     "Tell your Polish story in three sentences: what was it like at the start, what can you do now, what do you want to do in future?"
    ]
+  },
+  "jel": {
+   "pl": "Pracuję jako … Lubię moją pracę, bo …",
+   "d": [
+    "Erzähl heute einem Menschen – oder im KI-Gespräch – in drei, vier Sätzen auf Polnisch von deiner Arbeit: was du machst, seit wann und was du daran magst.",
+    "Tell a person today – or the AI conversation – about your work in three or four Polish sentences: what you do, since when and what you like about it."
+   ]
+  },
+  "klo": {
+   "pl": "Przepraszam, mam problem: …",
+   "d": [
+    "Spiel mit jemandem – oder im KI-Gespräch – eine Reklamation durch: Etwas ist kaputt oder nicht angekommen. Erkläre das Problem auf Polnisch und sag, was du möchtest (Umtausch, Geld zurück, Bestätigung).",
+    "Act out a complaint with someone – or in the AI conversation: something is broken or didn’t arrive. Explain the problem in Polish and say what you want (exchange, refund, confirmation)."
+   ]
+  },
+  "zie": {
+   "pl": "Poznaliśmy się …",
+   "d": [
+    "Erzähl einem Menschen – oder im KI-Gespräch – auf Polnisch, wie du einen wichtigen Menschen in deinem Leben kennengelernt hast: wo, wann und was zuerst passiert ist.",
+    "Tell a person – or the AI conversation – in Polish how you met someone important in your life: where, when and what happened first."
+   ]
+  },
+  "gni": {
+   "pl": "Najpierw … potem … nagle … w końcu …",
+   "d": [
+    "Erzähl einem Menschen – oder im KI-Gespräch – auf Polnisch eine kurze Geschichte aus deiner Familie oder deinem Leben. Benutze najpierw, potem, nagle und w końcu.",
+    "Tell a person – or the AI conversation – a short story from your family or your life in Polish. Use najpierw, potem, nagle and w końcu."
+   ]
+  },
+  "byd": {
+   "pl": "Mam problem w mieszkaniu: od wczoraj nie działa …",
+   "d": [
+    "Ruf jemanden an – oder nutze das KI-Gespräch – und melde auf Polnisch einen Schaden in der Wohnung: Was ist kaputt, seit wann, und wann soll jemand kommen?",
+    "Call someone – or use the AI conversation – and report a fault in your flat in Polish: what’s broken, since when, and when someone should come."
+   ]
+  },
+  "leb": {
+   "pl": "Dla mnie najpiękniejsze miejsce to … Jest piękniejsze niż …",
+   "d": [
+    "Erzähl jemandem – oder im KI-Gespräch – auf Polnisch, welcher Ort in der Natur für dich der schönste ist, und vergleiche ihn mit einem anderen Ort: „… jest piękniejszy niż …“",
+    "Tell someone – or the AI conversation – in Polish which place in nature you find the most beautiful, and compare it with another place: “… jest piękniejszy niż …”"
+   ]
+  },
+  "hel": {
+   "pl": "Według prognozy jutro będzie …",
+   "d": [
+    "Hör oder lies heute eine kurze polnische Nachricht oder den Wetterbericht (zum Beispiel über den Radio-Link dieser Stadt). Erzähl danach jemandem – oder im KI-Gespräch – in zwei, drei Sätzen, worum es ging.",
+    "Listen to or read a short Polish news item or the weather forecast today (for example via this town’s radio link). Then tell someone – or the AI conversation – in two or three sentences what it was about."
+   ]
+  },
+  "elb": {
+   "pl": "Od tygodnia boli mnie … Kiedy jest najbliższy termin?",
+   "d": [
+    "Spiel mit jemandem – oder im KI-Gespräch – eine Terminvereinbarung beim Facharzt durch: Beschwerden schildern, nach dem nächsten Termin fragen, Kosten klären.",
+    "Act out booking a specialist appointment with someone – or in the AI conversation: describe your symptoms, ask for the next appointment, clarify the cost."
+   ]
+  },
+  "aug": {
+   "pl": "Żeby przedłużyć dowód, trzeba …",
+   "d": [
+    "Erklär jemandem – oder im KI-Gespräch – auf Polnisch, wie bei dir ein Behördengang funktioniert (zum Beispiel einen Ausweis verlängern): Was braucht man, wohin geht man, wie lange dauert es? Benutze trzeba und należy.",
+    "Explain to someone – or the AI conversation – in Polish how an official errand works where you live (for example renewing an ID card): what you need, where you go, how long it takes. Use trzeba and należy."
+   ]
+  },
+  "kaz": {
+   "pl": "Ostatnio {widziałem|widziałam} … Podobał mi się, bo …",
+   "d": [
+    "Erzähl jemandem – oder im KI-Gespräch – von einem Film, Buch oder einer Serie, die du zuletzt gesehen oder gelesen hast: Worum geht es, hat es dir gefallen, und warum?",
+    "Tell someone – or the AI conversation – about a film, book or series you saw or read recently: what it’s about, whether you liked it and why."
+   ]
+  },
+  "ojc": {
+   "pl": "{Gdybym miał|Gdybym miała} rok wolnego, {zrobiłbym|zrobiłabym} …",
+   "d": [
+    "Sprich mit jemandem – oder im KI-Gespräch – über Träume: Was würdest du machen, wenn du ein Jahr frei hättest? Sag mindestens drei Sätze mit gdyby.",
+    "Talk with someone – or the AI conversation – about dreams: what would you do if you had a year off? Say at least three sentences with gdyby."
+   ]
+  },
+  "wie": {
+   "pl": "Najważniejsi ludzie, których {spotkałem|spotkałam}, to …",
+   "d": [
+    "Erzähl einem Menschen auf Polnisch – am besten jemandem, der Polnisch als Muttersprache spricht – in fünf, sechs Sätzen Ewas Geschichte oder deine eigene Geschichte mit Polnisch. Benutze który, która, które.",
+    "Tell a person in Polish – ideally a native speaker – Ewa’s story or your own story with Polish in five or six sentences. Use który, która, które."
+   ]
   }
  },
  "listen": {
@@ -23711,6 +29801,54 @@
    "kar": [
     "Radio Wrocław",
     "https://www.radiowroclaw.pl/"
+   ],
+   "jel": [
+    "Radio Wrocław",
+    "https://www.radiowroclaw.pl/"
+   ],
+   "klo": [
+    "Radio Wrocław",
+    "https://www.radiowroclaw.pl/"
+   ],
+   "zie": [
+    "Radio Zachód",
+    "https://radiozachod.pl/"
+   ],
+   "gni": [
+    "Radio Poznań",
+    "https://radiopoznan.fm/"
+   ],
+   "byd": [
+    "Polskie Radio PiK",
+    "https://www.radiopik.pl/"
+   ],
+   "leb": [
+    "Radio Gdańsk",
+    "https://radiogdansk.pl/"
+   ],
+   "hel": [
+    "Radio Gdańsk",
+    "https://radiogdansk.pl/"
+   ],
+   "elb": [
+    "Radio Olsztyn",
+    "https://radioolsztyn.pl/"
+   ],
+   "aug": [
+    "Radio Białystok",
+    "https://www.radio.bialystok.pl/"
+   ],
+   "kaz": [
+    "Radio Lublin",
+    "https://radio.lublin.pl/"
+   ],
+   "ojc": [
+    "Radio Kraków",
+    "https://www.radiokrakow.pl/"
+   ],
+   "wie": [
+    "Radio Kraków",
+    "https://www.radiokrakow.pl/"
    ]
   },
   "learn": [
@@ -25255,7 +31393,8 @@
     "wro",
     "giz",
     "pra",
-    "nfa"
+    "nfa",
+    "elb"
    ]
   },
   {
@@ -25295,7 +31434,9 @@
     "kra",
     "zak",
     "sop",
-    "bie"
+    "bie",
+    "klo",
+    "wie"
    ]
   },
   {
@@ -25308,7 +31449,9 @@
    "u": [
     "ols",
     "tor",
-    "bia"
+    "bia",
+    "byd",
+    "hel"
    ]
   },
   {
@@ -25322,7 +31465,9 @@
     "lod",
     "gda",
     "plo",
-    "san"
+    "san",
+    "zie",
+    "ojc"
    ]
   },
   {
@@ -25335,7 +31480,8 @@
    "u": [
     "cze",
     "prz",
-    "nfa"
+    "nfa",
+    "aug"
    ]
   },
   {
@@ -25348,7 +31494,8 @@
    "u": [
     "kat",
     "pra",
-    "prz"
+    "prz",
+    "jel"
    ]
   },
   {
@@ -25361,7 +31508,21 @@
    "u": [
     "mal",
     "opo",
-    "kar"
+    "kar",
+    "gni",
+    "kaz"
+   ]
+  },
+  {
+   "id": "natur",
+   "ico": "🌿",
+   "t": [
+    "Natur & Umwelt",
+    "Nature & environment"
+   ],
+   "u": [
+    "bie",
+    "leb"
    ]
   },
   {
@@ -25380,8 +31541,46 @@
   }
  ],
  "news": [
-  {"v": "3.2", "date": "2026-10-28", "de": ["Dein Fortschritt ist sicher: Die App sichert deinen Stand jetzt automatisch (die letzten 7 Tage und vor jedem Update). Unter Ich → „Dein Fortschritt ist sicher“ kannst du jede Sicherung zurückholen – dabei kommt nur dazu, was fehlt, es geht nie etwas verloren.", "Neu: Fortschritt als Datei speichern und wieder laden. Ein beschädigter Spielstand wird automatisch repariert.", "Mit Konto zusätzlich: tägliche Sicherung auf dem Server."], "en": ["Your progress is safe: the app now backs up your progress automatically (the last 7 days and before every update). Under Me → “Your progress is safe” you can restore any backup – it only adds what is missing, nothing is ever lost.", "New: save your progress as a file and load it again. A damaged save is repaired automatically.", "With an account: daily backup on the server as well."]},
-  {"v": "3.1.4", "date": "2026-10-28", "de": ["Ton auf iPhone und iPad, wenn die App installiert ist: Die Sprachausgabe ist jetzt auch zu hören, wenn das iPhone auf lautlos steht (wie bei Videos)."], "en": ["Sound on iPhone and iPad in the installed app: speech is now audible even when the iPhone is set to silent (like videos)."]},
+  {
+   "v": "3.3",
+   "date": "2026-10-28",
+   "de": [
+    "Neu: Szlak 3 „Die Bücher“ (Weg zu B1) – 12 neue Orte von Jelenia Góra bis Wieliczka mit 480 Wörtern: Arbeit suchen, Reklamation, Beziehungen, Wohnung mieten, Facharzt, Ämter, Kunst, Träume.",
+    "In jeder Stadt ein Kapitel aus Anias Buch „Klucz z Wieliczki“ – eine spannende Geschichte zum Selberlesen, mit Vorlesen, Übersetzung auf Antippen und Verständnisfragen.",
+    "Neu unter Üben: die B1-Probeprüfung mit Hören, Grammatik, Lesen, Schreiben und Sprechen – ohne Zeitdruck, jedes Mal neue Aufgaben.",
+    "Szlak 3 ist noch Beta: Eine Muttersprachlerin aus Kraków prüft gerade alle Texte."
+   ],
+   "en": [
+    "New: Szlak 3 “The Books” (on the way to B1) – 12 new towns from Jelenia Góra to Wieliczka with 480 words: job hunting, complaints, relationships, renting, specialists, offices, art, dreams.",
+    "In every town a chapter of Ania’s book “Klucz z Wieliczki” – an exciting story to read yourself, read aloud, with tap-to-translate and comprehension questions.",
+    "New under Practice: the B1 practice exam with listening, grammar, reading, writing and speaking – no time pressure, new tasks every time.",
+    "Szlak 3 is still in beta: a native speaker from Kraków is checking all the texts."
+   ]
+  },
+  {
+   "v": "3.2",
+   "date": "2026-10-28",
+   "de": [
+    "Dein Fortschritt ist sicher: Die App sichert deinen Stand jetzt automatisch (die letzten 7 Tage und vor jedem Update). Unter Ich → „Dein Fortschritt ist sicher“ kannst du jede Sicherung zurückholen – dabei kommt nur dazu, was fehlt, es geht nie etwas verloren.",
+    "Neu: Fortschritt als Datei speichern und wieder laden. Ein beschädigter Spielstand wird automatisch repariert.",
+    "Mit Konto zusätzlich: tägliche Sicherung auf dem Server."
+   ],
+   "en": [
+    "Your progress is safe: the app now backs up your progress automatically (the last 7 days and before every update). Under Me → “Your progress is safe” you can restore any backup – it only adds what is missing, nothing is ever lost.",
+    "New: save your progress as a file and load it again. A damaged save is repaired automatically.",
+    "With an account: daily backup on the server as well."
+   ]
+  },
+  {
+   "v": "3.1.4",
+   "date": "2026-10-28",
+   "de": [
+    "Ton auf iPhone und iPad, wenn die App installiert ist: Die Sprachausgabe ist jetzt auch zu hören, wenn das iPhone auf lautlos steht (wie bei Videos)."
+   ],
+   "en": [
+    "Sound on iPhone and iPad in the installed app: speech is now audible even when the iPhone is set to silent (like videos)."
+   ]
+  },
   {
    "v": "3.1.3",
    "date": "2026-10-28",
@@ -25492,5 +31691,16 @@
     "Device sync with an account: same progress on phone and laptop."
    ]
   }
- ]
+ ],
+ "book": {
+  "title": "Klucz z Wieliczki",
+  "prolog": [
+   "Du schlägst Anias Buch auf: „Klucz z Wieliczki“ – Der Schlüssel aus Wieliczka. Auf der ersten Seite steht in ihrer Schrift: „Lies in jeder Stadt ein Kapitel. Am Ende wartet ein Schatz unter der Erde.“",
+   "You open Ania’s book: “Klucz z Wieliczki” – The Key from Wieliczka. On the first page, in her handwriting: “Read one chapter in every town. At the end, a treasure is waiting underground.”"
+  ],
+  "finale": [
+   "Du klappst das Buch zu. Auf der letzten Seite hat Ania geschrieben: „Jetzt bist du dran: Erzähl deine eigene Geschichte auf Polnisch. Bereit für die B1-Probeprüfung?“",
+   "You close the book. On the last page Ania has written: “Now it’s your turn: tell your own story in Polish. Ready for the B1 practice exam?”"
+  ]
+ }
 }

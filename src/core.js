@@ -333,7 +333,10 @@
     o.xp = max(nw.xp, ol.xp); o.unlocked = max(nw.unlocked, ol.unlocked); o.letterSeen = max(nw.letterSeen, ol.letterSeen); o.diarySeen = max(nw.diarySeen, ol.diarySeen);
     o.onboarded = !!(nw.onboarded || ol.onboarded); o.tour = !!(nw.tour || ol.tour); o.letterQuiz = max(nw.letterQuiz, ol.letterQuiz);
     if (ol.plv != null && (nw.plv == null || ol.plv > nw.plv)) o.plv = ol.plv;
-    ['active', 'weekXp', 'boss', 'plBest', 'best'].forEach(function (k) { each(k, max); });
+    ['active', 'weekXp', 'boss', 'plBest', 'best', 'read'].forEach(function (k) { each(k, max); });
+    /* 3.3 B1-Probeprüfung: bestes Ergebnis, Anzahl Versuche, „bestanden“ bleibt */
+    var ea = obj(nw.exam), eb = obj(ol.exam);
+    if (Object.keys(ea).length || Object.keys(eb).length) o.exam = { n: max(ea.n, eb.n), best: max(ea.best, eb.best), passed: ea.passed || eb.passed || undefined, last: ea.last || eb.last };
     ['scenes', 'skipped'].forEach(function (k) { each(k, function (x, y) { return !!(x || y); }); });
     each('opened', function (x, y) { return x || y; });
     each('done', function (x, y) { return Object.assign({}, y, x); });
