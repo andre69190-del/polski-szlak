@@ -31542,6 +31542,16 @@
  ],
  "news": [
   {
+   "v": "3.3.1",
+   "date": "2026-10-28",
+   "de": [
+    "Impressum und Datenschutz sind jetzt auf jedem Bildschirm unten verlinkt. Die Datenschutzerklärung beschreibt auch die neuen Sicherungen und den Mail-Versand."
+   ],
+   "en": [
+    "Legal notice and privacy policy are now linked at the bottom of every screen. The privacy policy also covers the new backups and the email service."
+   ]
+  },
+  {
    "v": "3.3",
    "date": "2026-10-28",
    "de": [

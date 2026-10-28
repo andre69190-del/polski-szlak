@@ -1,5 +1,12 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.3.1 · 28.10.2026 · Rechtstexte und Google
+
+- Übernommen aus der Rechts-/SEO-Prüfung (andere Sitzung): Rechtslinks auf jedem Bildschirm (Fußzeile in `shell()`, auch Einführung und Spiele) – deren lokale app.js-Änderung war durch 3.2/3.3 überschrieben worden und ist hiermit neu gebaut.
+- Impressum: überflüssigen Satz entfernt (ohne leeren Absatz).
+- Datenschutz: „kein Konto“ korrigiert (Konto freiwillig), lokale Sicherungen + dauerhafter Speicher, Mail-Versand Brevo (Sendinblue SAS, Paris) benannt, Server-Tagessicherung (30 Tage) und deren Löschung, B1-Probeprüfung/Buchkapitel.
+- Google: sitemap.xml nur noch mit der Startseite (Impressum/Datenschutz sind „noindex“ und gehören nicht in die Sitemap), lastmod aktuell; Beschreibung, og:description, JSON-LD und noscript-Text auf A1–B1, 36 Orte, über 1200 Wörter aktualisiert.
+
 ## 3.3 · 28.10.2026 · Szlak 3 „Die Bücher“ und B1-Probeprüfung
 
 - Ziel des Nutzers: B1, „es soll immer Spaß machen“; Motivation (Geschichte, Missionen) und echtes Sprechen.

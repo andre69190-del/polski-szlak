@@ -490,7 +490,8 @@
     var lv = C.levelFromXp(S.xp);
     var html = '<header class="top"><div class="top-in"><button type="button" class="brand" id="brand" title="' + esc(t('to_start')) + '" aria-label="Polski Szlak – ' + esc(t('to_start')) + '">' + blaze('red') + 'Polski Szlak</button>' +
       '<span class="chip num" title="' + t('level') + '">' + t('level') + ' ' + lv.level + '</span>' +
-      '<span class="chip amber num">' + S.xp + ' ' + t('xp') + '</span>' + netChip() + '</div></header><main id="main">' + inner + '</main>';
+      '<span class="chip amber num">' + S.xp + ' ' + t('xp') + '</span>' + netChip() + '</div></header><main id="main">' + inner +
+      '<footer class="legal-foot small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></footer></main>';
     if (showNav !== false) {
       html += '<nav class="nav" aria-label="Navigation"><div class="nav-in">' +
         navBtn('home', I.map, t('nav_home')) + navBtn('practice', I.dumb, t('nav_practice')) + navBtn('land', I.flag, t('nav_land')) + navBtn('album', I.book, t('nav_album')) + navBtn('me', I.user, t('nav_me')) +
@@ -1050,7 +1051,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.3', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.3.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +

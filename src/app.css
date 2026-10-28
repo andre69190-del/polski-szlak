@@ -334,3 +334,6 @@ a.ext { font-weight: 700; color: var(--ink); }
 .ex-crit { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
 .ex-crit li.no { color: var(--muted); }
 .ex-result.pass { border-color: var(--good, #2e7d32); }
+/* Rechtslinks auf jedem Bildschirm (Impressum/Datenschutz unmittelbar erreichbar) */
+.legal-foot { margin-top: 28px; padding-bottom: 8px; text-align: center; color: var(--muted); }
+.legal-foot a { color: var(--muted); }
