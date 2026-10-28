@@ -162,6 +162,12 @@ button.chip { cursor: pointer; min-height: 40px; } /* PATCH004 */
 .theme-ico { font-size: 1.8rem; line-height: 1; }
 .theme-lesson { gap: 10px; align-items: center; }
 .map-seg { margin: 4px 4px 6px; }
+.chat-log { gap: 10px; }
+#ch-f textarea, .fld select { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; font: inherit; }
+.fld select { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); }
+#ch-f textarea { min-height: 64px; font-family: var(--f-body); font-size: 1rem; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); }
+.chat-fix { margin-top: 6px; }
+.chat-fix span { color: var(--good); font-weight: 700; }
 .pl-word { font-family: var(--f-display); font-weight: 700; }
 .box-dots { display: inline-flex; gap: 3px; }
 .box-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }

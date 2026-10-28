@@ -165,6 +165,12 @@ with sync_playwright() as p:
     (ok if bg == 'rgb(15, 21, 26)' else bad)(f'Dark Mode Hintergrund ({bg})')
     if SHOTS: page.screenshot(path=str(SHOT_DIR / '06_home_dark.png'), full_page=True)
 
+    # Regression: offene Einführungs-Tour darf nicht über einem Spiel liegen bleiben
+    page.evaluate("() => { window.PSApp.state().tour = false; window.PSApp.go('home'); }"); page.wait_for_timeout(700)
+    page.evaluate("() => window.PSApp.startMode('match', 0)"); page.wait_for_timeout(100)
+    (ok if not page.locator('#tour').count() else bad)('Tour verschwindet, sobald ein Spiel startet')
+    page.click('#quit'); page.evaluate("() => { window.PSApp.state().tour = true; }")
+
     # ---------- 3.0 ----------
     page.emulate_media(color_scheme='light')
     page.evaluate("() => { window.PSApp.state().base='de'; window.PSApp.go('home'); }")
@@ -238,6 +244,35 @@ with sync_playwright() as p:
     rv.click('#rv-undo'); st = rv.evaluate("() => JSON.parse(localStorage.getItem('polski_szlak_review'))")
     (ok if len(st['res']) == 1 else bad)('Rückgängig im Prüfmodus')
     rv.close()
+
+    # ---------- 3.1 KI-Gespräch (Server nachgebaut) ----------
+    import json as _json
+    def _sb(route):
+        u = route.request.url
+        if '/functions/v1/ps-chat' in u:
+            b = _json.loads(route.request.post_data or '{}')
+            if b.get('ping'): return route.fulfill(status=200, content_type='application/json', body='{"ok":true,"configured":true,"limit":40}')
+            last = b['messages'][-1]['content']
+            return route.fulfill(status=200, content_type='application/json', body=_json.dumps({'reply': 'Super! A co pijesz?', 'fix': 'Poproszę kawę.' if 'kawe' in last else '', 'hint': 'kawę (Akkusativ)', 'used': 3, 'limit': 40}))
+        if '/rest/v1/ps_progress' in u: return route.fulfill(status=200, content_type='application/json', body='[]')
+        return route.fulfill(status=200, content_type='application/json', body='{}')
+    ch = ctx.new_page(); ch.on('pageerror', lambda e: errors.append(str(e)))
+    ch.route('https://supabase.arndt-software.de/**', _sb)
+    ch.goto(URL); ch.wait_for_selector('#app')
+    ch.evaluate("() => { localStorage.setItem('polski_szlak_auth', JSON.stringify({ at: 'x', rt: 'y', exp: Date.now() + 3600000, email: 'test@example.org', uid: '00000000-0000-0000-0000-000000000001' })); }")
+    ch.reload(); ch.wait_for_selector('.map')
+    ch.evaluate("() => window.PSApp.startMode('chat', 0)"); ch.wait_for_selector('#ch-in')
+    (ok if ch.locator('.chat-log .npc').count() == 1 else bad)('KI-Gespräch startet mit dem ersten Satz der Szene')
+    ch.fill('#ch-in', 'Poprosze kawe'); ch.click('#ch-f button.primary'); ch.wait_for_selector('.chat-fix')
+    (ok if 'A co pijesz' in ch.inner_text('.chat-log') and 'Poproszę kawę.' in ch.inner_text('.chat-fix') else bad)('KI-Antwort und Korrektur werden angezeigt')
+    (ok if 'heute 3 von 40' in ch.inner_text('main') else bad)('Tageszähler sichtbar')
+    w = ch.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
+    (ok if w <= 0 else bad)('KI-Gespräch ohne horizontales Scrollen')
+    if SHOTS: ch.screenshot(path=str(SHOT_DIR / '31_chat.png'), full_page=True)
+    ch.evaluate("() => { localStorage.removeItem('polski_szlak_auth'); }"); ch.reload(); ch.wait_for_selector('.map')
+    ch.evaluate("() => window.PSApp.startMode('chat')"); ch.wait_for_selector('#ch-login')
+    ok('Ohne Konto: Hinweis zur Anmeldung')
+    ch.close()
 
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]

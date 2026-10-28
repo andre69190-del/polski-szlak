@@ -137,7 +137,8 @@
       conj: 'Konjugation', conj_d: '40 wichtige Verben: Gegenwart und Vergangenheit', conj_intro: 'Polnische Verben ändern ihre Endung je nach Person. Die meisten folgen wenigen Mustern (Verbklassen). Wer die Muster kennt, kann auch neue Verben bilden.', conj_tense: 'Zeit', conj_pres: 'Gegenwart', conj_past: 'Vergangenheit', conj_mix: 'Gemischt', conj_cls: 'Verbklasse', conj_all: 'Alle', conj_all_d: 'Alle Verbklassen gemischt.', conj_verbs: 'Verben', conj_list: 'Verbtabellen zum Nachschlagen', conj_q: 'Welche Form passt?', conj_q_past: 'Vergangenheit: welche Form passt?', clsn_am: '-am, -asz', clsn_i: '-ę, -isz', clsn_uje: '-uję', clsn_e: '-ę, -esz', clsn_irr: 'unregelmäßig', cls_am: 'Muster -am: ja czytam, ty czytasz, on czyta, my czytamy, wy czytacie, oni czytają.', cls_i: 'Muster -ę/-isz: ja robię, ty robisz, on robi, my robimy, wy robicie, oni robią (nach cz, sz, rz, ż: -ysz, -y).', cls_uje: 'Verben auf -ować: -ow- wird zu -uj-: pracować → pracuję, pracujesz, pracuje … pracują.', cls_e: 'Muster -ę/-esz: ja piszę, ty piszesz, on pisze, my piszemy, wy piszecie, oni piszą. Oft ändert sich der Stamm (pisać → pisz-).', cls_irr: 'Unregelmäßig – einfach auswendig lernen: jestem, jem, wiem, rozumiem …', conj_past_tip: 'Vergangenheit: Stamm + -łem (Mann) / -łam (Frau) für „ich“, -ł (er), -ła (sie), -li (Männer oder gemischt).',
       themes: 'Nach Thema', themes_d: 'Alles zu Arzt, Essen, Amt … gebündelt', themes_intro: 'Dieselben Lektionen wie auf dem Szlak, nur nach Alltagsthemen sortiert – zum Beispiel alles, was du für einen Arztbesuch brauchst. Dein Fortschritt zählt in beiden Ansichten.', theme_stats: '{n} Wörter · {s} schon gesehen · {m} sicher', theme_learn: 'Neue Wörter', theme_learn_d: 'Die nächsten 6 Wörter aus diesem Thema', theme_quiz: 'Thema üben', theme_quiz_d: 'Gemischte Runde mit deinen Wörtern aus dem Thema', theme_lessons: 'Lektionen in diesem Thema', theme_note: 'Gesperrte Städte kannst du auf ihrer Seite trotzdem öffnen – die Reihenfolge auf dem Szlak bleibt davon unberührt.', pack: 'Themenpaket', open_city: 'Trotzdem öffnen (zum Lernen)', open_city_d: 'Für Themen außer der Reihe: Du kannst hier lernen und üben. Die Stadtprüfung schaltet auf dem Szlak nur die nächste Stadt der Reihe frei.', diary: 'Anias Postkarten', diary_new: 'Neue Postkarte', diary_d: '{n} von {t} Karten lesbar. Jede geschaffte Stadt auf Szlak 2 bringt eine neue.', diary_done: 'Alle Postkarten gelesen – wir sehen uns auf der Śnieżka!', diary_start: 'Ania reist dir voraus. Schaffe die erste Stadt auf Szlak 2, um ihre erste Karte zu lesen.', diary_open: 'Postkarten lesen', diary_from: 'Postkarten von Ania',
       lazy_fail: 'Dieser Bereich wird beim ersten Öffnen geladen. Bitte einmal mit Internet öffnen – danach geht er auch offline.',
-      vc: 'Stimme', vc_pick: 'Polnische Stimme', vc_test: 'Stimme testen', vc_d: 'Natürliche oder „verbesserte“ Stimmen klingen deutlich besser. Mehr Stimmen bekommst du in den Einstellungen deines Geräts.', vc_none: 'Auf diesem Gerät ist keine polnische Stimme installiert.', vc_none_toast: 'Keine polnische Stimme gefunden – Tipp unter Ich → Stimme.', vc_ios: 'iPhone/iPad: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Polnisch → „Zosia (verbessert)“ laden. Danach die App neu öffnen.', vc_and: 'Android: Einstellungen → Bedienungshilfen bzw. System → Sprache → Sprachausgabe → Google-Sprachausgabe → Sprachdaten installieren → Polnisch. Danach die App neu öffnen.', vc_pc: 'Windows: Einstellungen → Zeit und Sprache → Sprache → Polnisch hinzufügen (mit Sprachausgabe). Chrome und Edge bringen oft eigene Online-Stimmen mit.'
+      vc: 'Stimme', vc_pick: 'Polnische Stimme', vc_test: 'Stimme testen', vc_d: 'Natürliche oder „verbesserte“ Stimmen klingen deutlich besser. Mehr Stimmen bekommst du in den Einstellungen deines Geräts.', vc_none: 'Auf diesem Gerät ist keine polnische Stimme installiert.', vc_none_toast: 'Keine polnische Stimme gefunden – Tipp unter Ich → Stimme.', vc_ios: 'iPhone/iPad: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Polnisch → „Zosia (verbessert)“ laden. Danach die App neu öffnen.', vc_and: 'Android: Einstellungen → Bedienungshilfen bzw. System → Sprache → Sprachausgabe → Google-Sprachausgabe → Sprachdaten installieren → Polnisch. Danach die App neu öffnen.', vc_pc: 'Windows: Einstellungen → Zeit und Sprache → Sprache → Polnisch hinzufügen (mit Sprachausgabe). Chrome und Edge bringen oft eigene Online-Stimmen mit.',
+      chat: 'KI-Gespräch', chat_d: 'Frei auf Polnisch schreiben oder sprechen – mit Korrektur', chat_city_d: 'Die Szene dieser Stadt frei weiterspielen', chat_free: 'Freies Gespräch (Café-Smalltalk)', chat_free_sc: 'ein lockeres Gespräch in einem Café in Polen', chat_sc: 'Situation', chat_lv: 'Niveau', chat_ph: 'Auf Polnisch antworten … (Enter = senden)', chat_send: 'Senden', chat_talk: 'Antworten vorlesen', chat_used: 'heute {n} von {l}', chat_new: 'Neu anfangen', chat_better: 'Besser', chat_note: 'Deine Nachrichten gehen über unseren Server an einen KI-Dienst und werden nicht gespeichert. Bitte keine persönlichen Daten eingeben. Die KI kann Fehler machen.', chat_login: 'Das KI-Gespräch gibt es mit Konto (kostenlos, Ich → Geräte-Abgleich) – so bleibt es für alle kostenlos und fair begrenzt.', chat_offline: 'Für das KI-Gespräch brauchst du Internet.', chat_soon: 'Das KI-Gespräch wird gerade eingerichtet und ist bald verfügbar.', chat_limit: 'Für heute sind alle KI-Nachrichten verbraucht. Morgen geht es weiter!', chat_err: 'Die KI antwortet gerade nicht. Bitte gleich noch einmal versuchen.'
     },
     en: {
       nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
@@ -239,7 +240,8 @@
       conj: 'Conjugation', conj_d: '40 key verbs: present and past', conj_intro: 'Polish verbs change their ending for each person. Most follow a few patterns (verb classes). Once you know them, you can form new verbs too.', conj_tense: 'Tense', conj_pres: 'Present', conj_past: 'Past', conj_mix: 'Mixed', conj_cls: 'Verb class', conj_all: 'All', conj_all_d: 'All verb classes mixed.', conj_verbs: 'verbs', conj_list: 'Verb tables for reference', conj_q: 'Which form fits?', conj_q_past: 'Past tense: which form fits?', clsn_am: '-am, -asz', clsn_i: '-ę, -isz', clsn_uje: '-uję', clsn_e: '-ę, -esz', clsn_irr: 'irregular', cls_am: 'Pattern -am: ja czytam, ty czytasz, on czyta, my czytamy, wy czytacie, oni czytają.', cls_i: 'Pattern -ę/-isz: ja robię, ty robisz, on robi, my robimy, wy robicie, oni robią (after cz, sz, rz, ż: -ysz, -y).', cls_uje: 'Verbs in -ować: -ow- becomes -uj-: pracować → pracuję, pracujesz, pracuje … pracują.', cls_e: 'Pattern -ę/-esz: ja piszę, ty piszesz, on pisze, my piszemy, wy piszecie, oni piszą. The stem often changes (pisać → pisz-).', cls_irr: 'Irregular – just learn them by heart: jestem, jem, wiem, rozumiem …', conj_past_tip: 'Past tense: stem + -łem (man) / -łam (woman) for “I”, -ł (he), -ła (she), -li (men or mixed group).',
       themes: 'By topic', themes_d: 'Everything for the doctor, food, offices … bundled', themes_intro: 'The same lessons as on the Szlak, sorted by everyday topic – for example everything you need for a visit to the doctor. Your progress counts in both views.', theme_stats: '{n} words · {s} seen · {m} solid', theme_learn: 'New words', theme_learn_d: 'The next 6 words from this topic', theme_quiz: 'Practise topic', theme_quiz_d: 'Mixed round with your words from this topic', theme_lessons: 'Lessons in this topic', theme_note: 'You can still open locked cities on their page – the order on the Szlak stays the same.', pack: 'Topic pack', open_city: 'Open anyway (to learn)', open_city_d: 'For topics out of order: you can learn and practise here. On the Szlak the city test only unlocks the next city in line.', diary: 'Ania’s postcards', diary_new: 'New postcard', diary_d: '{n} of {t} cards readable. Every city you complete on Szlak 2 brings a new one.', diary_done: 'All postcards read – see you on Śnieżka!', diary_start: 'Ania is travelling ahead of you. Complete the first city on Szlak 2 to read her first card.', diary_open: 'Read postcards', diary_from: 'Postcards from Ania',
       lazy_fail: 'This section is loaded the first time you open it. Please open it once while online – after that it works offline too.',
-      vc: 'Voice', vc_pick: 'Polish voice', vc_test: 'Test voice', vc_d: 'Natural or “enhanced” voices sound much better. You can add more voices in your device settings.', vc_none: 'No Polish voice is installed on this device.', vc_none_toast: 'No Polish voice found – see Me → Voice for a tip.', vc_ios: 'iPhone/iPad: Settings → Accessibility → Spoken Content → Voices → Polish → download “Zosia (Enhanced)”. Then reopen the app.', vc_and: 'Android: Settings → Accessibility or System → Language → Text-to-speech → Google Speech Services → Install voice data → Polish. Then reopen the app.', vc_pc: 'Windows: Settings → Time & language → Language → add Polish (with text-to-speech). Chrome and Edge often include their own online voices.'
+      vc: 'Voice', vc_pick: 'Polish voice', vc_test: 'Test voice', vc_d: 'Natural or “enhanced” voices sound much better. You can add more voices in your device settings.', vc_none: 'No Polish voice is installed on this device.', vc_none_toast: 'No Polish voice found – see Me → Voice for a tip.', vc_ios: 'iPhone/iPad: Settings → Accessibility → Spoken Content → Voices → Polish → download “Zosia (Enhanced)”. Then reopen the app.', vc_and: 'Android: Settings → Accessibility or System → Language → Text-to-speech → Google Speech Services → Install voice data → Polish. Then reopen the app.', vc_pc: 'Windows: Settings → Time & language → Language → add Polish (with text-to-speech). Chrome and Edge often include their own online voices.',
+      chat: 'AI conversation', chat_d: 'Write or speak freely in Polish – with corrections', chat_city_d: 'Continue this city’s scene freely', chat_free: 'Free conversation (café small talk)', chat_free_sc: 'a relaxed conversation in a café in Poland', chat_sc: 'Situation', chat_lv: 'Level', chat_ph: 'Answer in Polish … (Enter = send)', chat_send: 'Send', chat_talk: 'Read replies aloud', chat_used: 'today {n} of {l}', chat_new: 'Start over', chat_better: 'Better', chat_note: 'Your messages go via our server to an AI service and are not stored. Please don’t enter personal data. The AI can make mistakes.', chat_login: 'The AI conversation needs an account (free, Me → Device sync) – that keeps it free and fairly limited for everyone.', chat_offline: 'You need internet for the AI conversation.', chat_soon: 'The AI conversation is being set up and will be available soon.', chat_limit: 'You’ve used all AI messages for today. See you tomorrow!', chat_err: 'The AI isn’t answering right now. Please try again in a moment.'
     }
   };
 
@@ -375,6 +377,8 @@
   function go(name, arg) { var tb = document.getElementById('tour'); if (tb) { tb.remove(); document.querySelectorAll('.tour-hl').forEach(function (e) { e.classList.remove('tour-hl'); }); } view = null; tab = name; polUI = name === 'polacy'; render(arg); window.scrollTo(0, 0); }
 
   function shell(inner, showNav) {
+    /* Spielbildschirm: eine noch offene Einführungs-Tour darf nicht über den Antworten liegen bleiben */
+    if (showNav === false) { var tb = document.getElementById('tour'); if (tb) { tb.remove(); document.querySelectorAll('.tour-hl').forEach(function (e) { e.classList.remove('tour-hl'); }); } }
     var lv = C.levelFromXp(S.xp);
     var html = '<header class="top"><div class="top-in"><button type="button" class="brand" id="brand" title="' + esc(t('to_start')) + '" aria-label="Polski Szlak – ' + esc(t('to_start')) + '">' + blaze('red') + 'Polski Szlak</button>' +
       '<span class="chip num" title="' + t('level') + '">' + t('level') + ' ' + lv.level + '</span>' +
@@ -419,6 +423,7 @@
     if (tab === 'polacy') return RAW.polacy ? renderPolacy() : needPolacy(function () { renderPolacy(); });
     if (tab === 'letter') return renderLetter(arg);
     if (tab === 'themes') return renderThemes(arg);
+    if (tab === 'chat') return renderChat(arg);
     if (tab === 'conj') return renderConj();
   }
 
@@ -531,7 +536,7 @@
     var wrg = document.getElementById('wr-go'); if (wrg) wrg.onclick = function () { S.wrSeen = wk; save(); startMode('wr3'); };
     var wl = document.getElementById('wb-later'); if (wl) wl.onclick = function () { var w = document.getElementById('wb'); if (w) w.remove(); };
     bindTiles();
-    if (!S.tour && !banner) setTimeout(function () { if (tab === 'home' && !view) startTour(); }, 400);
+    if (!S.tour && !banner) setTimeout(function () { if (tab === 'home' && !view && !G) startTour(); }, 400);
     document.querySelectorAll('[data-city]').forEach(function (g) {
       var open = function () { go('city', +g.getAttribute('data-city')); };
       g.onclick = open; g.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
@@ -574,7 +579,7 @@
         tileBtn('quiz', t('quiz'), t('quiz_d'), nx('quiz')) + tileBtn('listen', t('listen'), t('listen_d')) +
         tileBtn('type', t('type'), t('type_d')) + tileBtn('build', t('build'), t('build_d'), nx('build')) +
         tileBtn('cloze', t('cloze'), t('cloze_d')) + tileBtn('match', t('match'), t('match_d')) +
-        tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : ready ? nx('boss') : '<span class="badge num">🔒 ' + rp.ripe + '/' + rp.need + '</span>') +
+        tileBtn('speak', t('speak'), t('speak_d')) + tileBtn('chat', t('chat'), t('chat_city_d'), '<span class="badge">Beta</span>') + tileBtn('boss', t('boss'), t('boss_d'), S.boss[u.id] ? '<span class="badge good num">' + S.boss[u.id] + '%</span>' : ready ? nx('boss') : '<span class="badge num">🔒 ' + rp.ripe + '/' + rp.need + '</span>') +
         '</section>';
       if (!S.boss[u.id] && !u.pack && ui < lastRoute()) html += '<button class="btn ghost" id="skip-city" style="justify-self:start">' + esc(t('skip_city')) + ' →</button>';
       html += missionBox(u);
@@ -626,7 +631,7 @@
     var html = '<h1>' + esc(t('nav_practice')) + '</h1><section class="tiles">' +
       tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
       tileBtn('lex', t('lex'), t('lex_d'), '<span class="badge num">' + allWords().filter(function (x) { return S.cards[x.id]; }).length + '</span>') +
-      tileBtn('themes', t('themes'), t('themes_d')) + tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('conj', t('conj'), t('conj_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
+      tileBtn('themes', t('themes'), t('themes_d')) + tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('chat', t('chat'), t('chat_d'), '<span class="badge">Beta</span>') + tileBtn('conj', t('conj'), t('conj_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
       tileBtn('sounds', t('sounds'), t('sounds_d')) + tileBtn('prices', t('prices'), t('prices_d')) +
       tileBtn('twister', t('twister'), t('twister_d')) + tileBtn('memo_w', t('memo_w'), t('memo_w_d')) + tileBtn('duel', t('duel'), t('duel_d')) + tileBtn('face', t('face'), t('face_d')) +
       tileBtn('mistakes', t('mistakes'), t('mistakes_d'), S.mistakes.length ? '<span class="badge num">' + S.mistakes.length + '</span>' : '') +
@@ -731,7 +736,7 @@
   }
 
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.0', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1274,6 +1279,7 @@
       return runGame({ title: t('boss') + ' · ' + u.city, qs: C.shuffle(qs, R), unit: ui, boss: true, lives: bc.lives, pass: bc.pass });
     }
     if (mode === 'themes') { tab = 'themes'; return renderThemes(); }
+    if (mode === 'chat') { tab = 'chat'; view = null; polUI = false; return renderChat(ui != null ? ui : null); }
     if (mode === 'themelearn' || mode === 'themeq') {
       var th = themeById(curTheme); if (!th) return go('themes');
       var tw = themeWords(th);
@@ -1374,6 +1380,75 @@
     document.getElementById('back').onclick = function () { go('themes'); };
     document.querySelectorAll('[data-tu]').forEach(function (b) { b.onclick = function () { cityBack = th.id; var i = +b.getAttribute('data-tu'); tab = 'city'; view = null; polUI = false; render(i); window.scrollTo(0, 0); }; });
     document.querySelectorAll('[data-mode]').forEach(function (b) { b.onclick = function () { curTheme = th.id; startMode(b.getAttribute('data-mode')); }; });
+  }
+
+  /* ---------- KI-Gespräch (3.1): Rollenspiel zur Szene einer Stadt, über die eigene Supabase-Funktion ps-chat ----------
+     Nur mit Konto (Tageslimit pro Konto) und online. Der KI-Schlüssel liegt auf dem Server, nie in der App. */
+  var CH = { ui: null, msgs: [], busy: false, err: '', used: 0, limit: 0, avail: null, talk: true };
+  function chatScenario(ui) {
+    if (ui == null || !U[ui]) return { txt: t('chat_free_sc'), lv: szlakOf(nextUnit()) === 2 ? 'A2' : 'A1', open: 'Cześć! Jak się masz?' };
+    var u = U[ui], sc = u.scene;
+    return { txt: (u.pack ? cityName(u) : u.city) + ': ' + L(u.title) + (sc ? ' – ' + L(sc.intro) : ''), lv: u.pack || szlakOf(ui) === 2 ? 'A2' : 'A1', open: sc ? sc.steps[0].npc[0] : 'Cześć! Jak się masz?' };
+  }
+  function chatReset(ui) { CH.ui = ui; CH.err = ''; CH.msgs = [{ role: 'assistant', content: chatScenario(ui).open }]; }
+  function renderChat(arg) {
+    if (arg !== undefined && arg !== CH.ui) chatReset(arg); else if (!CH.msgs.length) chatReset(CH.ui);
+    var logged = A && A.uid, html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('back')) + '</button><h1>' + esc(t('chat')) + ' <span class="badge">Beta</span></h1>';
+    if (!navigator.onLine) html += '<section class="card"><p>' + esc(t('chat_offline')) + '</p></section>';
+    else if (!logged) html += '<section class="card stack"><p>' + esc(t('chat_login')) + '</p><button class="btn primary" id="ch-login" style="justify-self:start">' + esc(t('sync_login')) + ' →</button></section>';
+    else if (CH.avail === false) html += '<section class="card"><p>' + esc(t('chat_soon')) + '</p></section>';
+    else {
+      var sc = chatScenario(CH.ui), opts = '<option value="">' + esc(t('chat_free')) + '</option>' + openUnits().map(function (i) { return '<option value="' + i + '"' + (i === CH.ui ? ' selected' : '') + '>' + esc((U[i].pack ? cityName(U[i]) : U[i].city) + ' – ' + L(U[i].title)) + '</option>'; }).join('');
+      html += '<section class="card stack"><label class="fld">' + esc(t('chat_sc')) + '<select id="ch-sc">' + opts + '</select></label><p class="small muted">' + esc(sc.txt) + ' · ' + esc(t('chat_lv')) + ' ' + sc.lv + '</p></section>' +
+        '<section class="stack chat-log" id="ch-log" aria-live="polite">' + CH.msgs.map(function (m, i) {
+          if (m.role === 'assistant') return '<div class="npc"><div class="row" style="flex-wrap:nowrap;align-items:start"><button class="icon-btn" data-say="' + esc(m.content) + '" aria-label="' + esc(t('listen_again')) + '">' + I.spk + '</button><b lang="pl">' + esc(m.content) + '</b></div></div>';
+          return '<div class="me"><b lang="pl">' + esc(m.content) + '</b>' + (m.fix ? '<div class="small chat-fix"><span>' + esc(t('chat_better')) + ':</span> <b lang="pl">' + esc(m.fix) + '</b></div>' : '') + (m.hint ? '<div class="small muted">' + esc(m.hint) + '</div>' : '') + '</div>';
+        }).join('') + (CH.busy ? '<div class="npc"><span class="muted">…</span></div>' : '') + '</section>' +
+        (CH.err ? '<p class="small" role="status" style="color:var(--bad)">' + esc(CH.err) + '</p>' : '') +
+        '<form id="ch-f" class="stack"><textarea id="ch-in" rows="2" maxlength="400" lang="pl" placeholder="' + esc(t('chat_ph')) + '" aria-label="' + esc(t('chat_ph')) + '"></textarea>' + plKeys() +
+        '<div class="row"><button class="btn primary" style="flex:1"' + (CH.busy ? ' disabled' : '') + '>' + esc(t('chat_send')) + '</button>' + ((window.SpeechRecognition || window.webkitSpeechRecognition) ? '<button type="button" class="btn" id="ch-mic" aria-label="' + esc(t('inp_say')) + '">' + I.mic + '</button>' : '') + '</div></form>' +
+        '<div class="row small muted" style="justify-content:space-between"><label class="row"><input type="checkbox" id="ch-talk"' + (CH.talk ? ' checked' : '') + '> ' + esc(t('chat_talk')) + '</label><span class="num">' + (CH.limit ? esc(t('chat_used').replace('{n}', CH.used).replace('{l}', CH.limit)) : '') + '</span></div>' +
+        '<button class="btn ghost" id="ch-new" style="justify-self:start">↺ ' + esc(t('chat_new')) + '</button><p class="small muted">' + esc(t('chat_note')) + '</p>';
+    }
+    shell(html);
+    document.getElementById('back').onclick = function () { if (CH.ui != null && !U[CH.ui].pack && arg != null) go('city', CH.ui); else go('practice'); };
+    var lg = document.getElementById('ch-login'); if (lg) lg.onclick = function () { go('me'); setTimeout(function () { var y = document.getElementById('sync'); if (y) y.scrollIntoView({ block: 'center' }); }, 50); };
+    if (logged && navigator.onLine && CH.avail === null) {
+      sbToken().then(function () { return sbFetch('/functions/v1/ps-chat', { method: 'POST', auth: true, body: { ping: true } }); }).then(function (j) { CH.avail = !!(j && j.configured); CH.limit = (j && j.limit) || 0; if (tab === 'chat') renderChat(); }, function () { CH.avail = false; if (tab === 'chat') renderChat(); });
+    }
+    var log = document.getElementById('ch-log'); if (log) log.lastElementChild && log.lastElementChild.scrollIntoView({ block: 'nearest' });
+    document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
+    var sel = document.getElementById('ch-sc'); if (sel) sel.onchange = function () { chatReset(sel.value === '' ? null : +sel.value); renderChat(); };
+    var nw = document.getElementById('ch-new'); if (nw) nw.onclick = function () { chatReset(CH.ui); renderChat(); };
+    var tk = document.getElementById('ch-talk'); if (tk) tk.onchange = function () { CH.talk = tk.checked; };
+    var inp = document.getElementById('ch-in');
+    if (inp) {
+      inp.onkeydown = function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('ch-f').requestSubmit(); } };
+      document.querySelectorAll('#ch-f [data-k]').forEach(function (b) { b.onclick = function () { var s = inp.selectionStart || inp.value.length; inp.value = inp.value.slice(0, s) + b.getAttribute('data-k') + inp.value.slice(inp.selectionEnd || s); inp.focus(); inp.setSelectionRange(s + 1, s + 1); }; });
+      var mic = document.getElementById('ch-mic'); if (mic) mic.onclick = function () {
+        try { var Rec = window.SpeechRecognition || window.webkitSpeechRecognition, rec = new Rec(); rec.lang = 'pl-PL'; rec.interimResults = false; mic.disabled = true;
+          rec.onresult = function (e) { inp.value = (inp.value ? inp.value + ' ' : '') + (e.results[0][0].transcript || ''); };
+          rec.onend = function () { mic.disabled = false; inp.focus(); }; rec.onerror = function () { mic.disabled = false; toast(t('no_mic')); }; rec.start();
+        } catch (e) { toast(t('no_mic')); }
+      };
+      document.getElementById('ch-f').onsubmit = function (e) { e.preventDefault(); chatSend(inp.value); };
+    }
+  }
+  function chatSend(text) {
+    text = String(text || '').trim(); if (!text || CH.busy) return;
+    var sc = chatScenario(CH.ui), me = { role: 'user', content: text.slice(0, 400) };
+    CH.msgs.push(me); CH.busy = true; CH.err = ''; renderChat();
+    var hist = CH.msgs.slice(-12).map(function (m) { return { role: m.role, content: m.content }; });
+    sbToken().then(function () { return sbFetch('/functions/v1/ps-chat', { method: 'POST', auth: true, body: { messages: hist, scenario: sc.txt, level: sc.lv, base: S.base, gender: S.gender === 'f' ? 'f' : 'm' } }); })
+      .then(function (j) {
+        CH.busy = false; if (j.fix) me.fix = j.fix; if (j.hint) me.hint = j.hint; CH.used = j.used || CH.used; CH.limit = j.limit || CH.limit;
+        if (j.reply) { CH.msgs.push({ role: 'assistant', content: j.reply }); if (CH.talk) speak(j.reply); }
+        markActive(); addXp(2); save(); if (tab === 'chat') renderChat();
+      }, function (e) {
+        CH.busy = false; CH.msgs.pop();
+        CH.err = e && e.status === 429 ? t('chat_limit') : e && e.status === 401 ? t('chat_login') : e && e.status === 503 ? t('chat_soon') : (e && e.code === 'net') ? t('chat_offline') : t('chat_err');
+        if (tab === 'chat') { renderChat(); var i2 = document.getElementById('ch-in'); if (i2) i2.value = text; }
+      });
   }
 
   /* ---------- Konjugations-Trainer (3.0): 40 Verben, Gegenwart + Vergangenheit, nach Verbklassen ---------- */
@@ -2290,7 +2365,7 @@
     Object.keys(R0.polacy || {}).forEach(function (c) { R0.polacy[c].forEach(function (x, i) { add('p:' + c + ':' + i, 'p', (x.s ? x.s.replace('___', x.a) + '  —  ' : '') + x.q + ' → ' + x.a, '', '', 'Źle: ' + x.o.join(' / ') + (x.x ? ' · ' + x.x : '')); }); });
     return it;
   }
-  function rvSend(msg, ctx) { return sbFetch('/rest/v1/ps_feedback', { method: 'POST', prefer: 'return=minimal', body: { msg: String(msg).slice(0, 1000), ctx: String(ctx).slice(0, 500), lang: 'pl', ver: APP_VER } }); }
+  function rvSend(msg, ctx) { return sbFetch('/rest/v1/ps_feedback', { method: 'POST', prefer: 'return=minimal', body: { msg: String(msg).slice(0, 1000), ctx: String(ctx).slice(0, 500), lang: S.base === 'en' ? 'en' : 'de', ver: APP_VER } }); } /* Tabelle erlaubt nur de/en; „review“ steht im ctx */
   function rvFlush() {
     if (!RV.pend.length) return Promise.resolve();
     var batch = RV.pend.slice(0, 60);

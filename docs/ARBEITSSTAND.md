@@ -1,6 +1,13 @@
 # Arbeitsstand (laufend gepflegt)
 
-## Aktuell: Version 3.0 (28.10.2026)
+## Aktuell: Version 3.1 (28.10.2026, nachts)
+- 3.0 ist live (Andre hat hochladen.bat ausgeführt). GitHub-Check von 3.0 war rot: Tour-Fenster blieb über Spielen liegen → in 3.1 behoben, in frischer Kopie von GitHub zweimal grün getestet.
+- KI-Gespräch gebaut (Client + deploy/functions/ps-chat + deploy/supabase_ps_chat.sql + docs/KI_GESPRAECH.md). **Beim Nutzer offen:** SQL ausführen, Groq-Schlüssel holen, Funktion in den Ordner der Edge Functions legen, LLM_*-Variablen setzen, Dienst neu starten. Danach Anbieter in datenschutz.html konkret nennen.
+- Prüfmodus-Fehler behoben (lang 'pl' → Tabelle erlaubt nur de/en).
+- B1-Vorschlag: docs/ROADMAP_B1.md (Entscheidungen beim Nutzer).
+- Hochladen: Die Linux-Umgebung hat keine GitHub-Anmeldung → Commits lokal, Andre lädt per Doppelklick auf hochladen.bat hoch.
+
+## Version 3.0 (28.10.2026)
 - Auftrag (27.10.): alle Vorschläge umsetzen (Aufräumen, GitHub-Checks, Sprecherform, Aussprache je Wort, Prüfmodus, Konjugation, Themenpakete, Stimmen, Wochenrückblick, Kalender, Nachladen, Szlak 2). KI-Gespräch: erst nach Live-Gang, morgen. Ziel des Nutzers: **B1** → Vorschlag für den weiteren Weg kommt als docs/ROADMAP_B1.md.
 - Nutzerwunsch Themen: Orte mit Alltagsthemen (z. B. Arzt) UND alternative Ansicht „Nach Thema“ → umgesetzt als zweite Ansicht auf dieselben Lektionen (keine Kopien).
 - KI-Recherche: Handy-KI (Gemini Nano/Prompt API) nur Desktop-Chrome, kein Polnisch → nein. Gemini-Gratisstufe für EU-Nutzer nicht erlaubt; Mistral gratis nur Firmen + Training. Plan: anbieterneutrale Supabase-Edge-Function (OpenAI-kompatibel: Groq gratis zum Start, später Gemini Flash-Lite/Ministral für ca. 0,1–0,4 Cent pro Gespräch), Tageslimit pro Konto, nur mit Anmeldung.

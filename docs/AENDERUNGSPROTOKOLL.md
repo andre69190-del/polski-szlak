@@ -1,5 +1,12 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.1 · 28.10.2026 · KI-Gespräch (Beta), Fehlerbehebungen
+
+- **KI-Gespräch (Beta):** Üben → KI-Gespräch und auf jeder Stadtseite. Rollenspiel zur Szene der Stadt (oder freies Gespräch), Niveau A1/A2 automatisch, Antworten werden vorgelesen, eigene Fehler werden korrigiert („Besser: …“ plus kurzer Tipp). Schreiben oder per Mikrofon sprechen. Nur mit Konto, Tageslimit pro Konto (Standard 40), keine Gesprächsinhalte gespeichert. Server: anbieterneutrale Supabase-Funktion `deploy/functions/ps-chat/index.ts` (OpenAI-kompatibel: Groq, Gemini, Mistral …), Zähler `deploy/supabase_ps_chat.sql`. Einrichtung: `docs/KI_GESPRAECH.md`. Bis dahin zeigt die App „wird gerade eingerichtet“.
+- **Fehler behoben:** Eine offene Einführungs-Tour konnte über einem gerade gestarteten Spiel liegen bleiben und Antworten blockieren (im GitHub-Check aufgefallen). Prüfmodus: Rückmeldungen wurden vom Server abgelehnt (Sprache „pl“ war in `ps_feedback` nicht erlaubt), jetzt korrekt.
+- **B1-Weg:** Vorschlag in `docs/ROADMAP_B1.md`.
+- GitHub Actions auf aktuelle Versionen (Node 24). Datenschutz um das KI-Gespräch ergänzt. 78 Browser-Prüfungen. Service Worker Cache v3-1.
+
 ## 3.0 · 28.10.2026 · Szlak 2 (A2), Themen, Konjugation
 
 - **Szlak 2 (A2):** zwölf neue Orte von Sopot bis Karpacz (Sopot, Malbork, Giżycko, Olsztyn, Płock, Częstochowa, Sandomierz, Ustrzyki Górne, Przemyśl, Tarnów, Opole, Karpacz), je **30 Wörter**, 9 Sätze, eine Szene, Grammatik-Tipp, Fakt, Mission und Regionalradio. Alltagsthemen: Urlaub erzählen, Sehenswürdigkeiten, **beim Arzt**, Wohnung, Verabredungen, Post/Bank/Amt, Meinung und Gefühle, Wandern und Notfall, Telefonieren, Restaurant und Kochen, Feste, Hobbys. Grammatik: Vergangenheit, Zukunft, Aspekt, Lokativ, Instrumental, Imperativ. Die Karte hat einen Umschalter Szlak 1 / Szlak 2. Wer Szlak 1 schon fertig hatte, bekommt Sopot automatisch frei.
