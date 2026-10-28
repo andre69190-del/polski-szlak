@@ -144,6 +144,7 @@
       boss_locked: 'Die Prüfung öffnet, wenn alle Wörter gefestigt sind ({r} von {n}).',
       learn_first: 'Lerne zuerst ein paar neue Wörter dieser Stadt kennen.',
       inst_mac: 'Mac mit Safari: Menü Ablage → „Zum Dock hinzufügen“. Mac mit Chrome oder Edge: Installieren-Symbol rechts in der Adressleiste. Danach startet Polski Szlak wie ein eigenes Programm.', sync_err_mail: 'Das Konto konnte gerade nicht angelegt werden: Der Server kann keine Bestätigungs-Mail senden. Bitte später noch einmal versuchen – wir kümmern uns darum.',
+      bk_title: 'Dein Fortschritt ist sicher', bk_d_local: 'Die App sichert deinen Stand automatisch auf diesem Gerät (die letzten 7 Tage und vor jedem Update). Zurückholen fügt nur hinzu – es geht nie etwas verloren.', bk_d_acc: 'Dein Stand liegt auf diesem Gerät, in automatischen Sicherungen (7 Tage, vor jedem Update) und zusätzlich auf dem Server. Zurückholen fügt nur hinzu – es geht nie etwas verloren.', bk_acc_tip: 'Tipp: Mit einem kostenlosen Konto ist dein Fortschritt auch sicher, wenn das Handy verloren geht.', bk_now: 'Jetzt', bk_words: 'Wörter', bk_cities: 'Städte geschafft', bk_list: 'Automatische Sicherungen', bk_get: 'Zurückholen', bk_get_d: 'Zurückholen führt die Sicherung mit deinem jetzigen Stand zusammen: Es kommt nur dazu, was fehlt.', bk_file: 'Als Datei speichern', bk_load: 'Datei laden', bk_w_auto: 'automatisch', bk_w_update: 'vor Update', bk_w_reset: 'vor Neustart', bk_w_restore: 'vor Zurückholen', bk_w_sync: 'vor erstem Abgleich', save_full: 'Der Speicher des Browsers ist voll. Bitte „Als Datei speichern“ nutzen oder ein Konto anlegen.', rescue_repaired: 'Dein Spielstand war beschädigt und wurde repariert.', rescue_backup: 'Dein Spielstand fehlte oder war beschädigt – die letzte Sicherung wurde geladen.', rescue_lost: 'Dein Spielstand war beschädigt. Das Original ist aufbewahrt – bitte melde dich über „Problem melden“.',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -253,6 +254,7 @@
       boss_locked: 'The test opens once all words are consolidated ({r} of {n}).',
       learn_first: 'First get to know a few new words of this city.',
       inst_mac: 'Mac with Safari: File menu → “Add to Dock”. Mac with Chrome or Edge: install icon on the right of the address bar. Polski Szlak then starts like its own app.', sync_err_mail: 'The account couldn’t be created right now: the server can’t send the confirmation email. Please try again later – we’re on it.',
+      bk_title: 'Your progress is safe', bk_d_local: 'The app backs up your progress automatically on this device (the last 7 days and before every update). Restoring only adds – nothing is ever lost.', bk_d_acc: 'Your progress is on this device, in automatic backups (7 days, before every update) and also on the server. Restoring only adds – nothing is ever lost.', bk_acc_tip: 'Tip: with a free account your progress is safe even if you lose your phone.', bk_now: 'Now', bk_words: 'words', bk_cities: 'cities done', bk_list: 'Automatic backups', bk_get: 'Restore', bk_get_d: 'Restoring merges the backup with your current progress: only what is missing is added.', bk_file: 'Save as file', bk_load: 'Load file', bk_w_auto: 'automatic', bk_w_update: 'before update', bk_w_reset: 'before reset', bk_w_restore: 'before restore', bk_w_sync: 'before first sync', save_full: 'The browser storage is full. Please use “Save as file” or create an account.', rescue_repaired: 'Your save was damaged and has been repaired.', rescue_backup: 'Your save was missing or damaged – the latest backup was loaded.', rescue_lost: 'Your save was damaged. The original has been kept – please use “Report a problem”.',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -263,16 +265,45 @@
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
       theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', seenVer: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '' }; /* PATCH002 PATCH004 */
   }
+  var BAK_KEY = 'polski_szlak_bak', RESCUE_KEY = 'polski_szlak_rescue', RESCUE = '', saveFailed = false;
   var S = load();
   loadData();
   fixUnlock();
   try { pickVoice(); } catch (e) {}
+  /* 3.2 Sicherung: Ein beschädigter oder fehlender Stand wird NIE stillschweigend durch einen leeren ersetzt.
+     Reihenfolge: gespeicherter Stand → reparierter Stand → beste lokale Sicherung. Das Original bleibt unter RESCUE_KEY liegen. */
+  function getBaks() { try { var l = JSON.parse(localStorage.getItem(BAK_KEY) || '[]'); return Array.isArray(l) ? l.filter(function (b) { return b && b.d && C.validateSave(b.d); }) : []; } catch (e) { return []; } }
+  function putBaks(l) { try { localStorage.setItem(BAK_KEY, JSON.stringify(l)); return true; } catch (e) { return false; } }
+  function bestBackup() { var b = null; getBaks().forEach(function (x) { if (!b || C.saveWeight(x.d) > C.saveWeight(b)) b = x.d; }); return b; }
+  function hasProgress(o) { return !!(o && (o.xp > 0 || Object.keys(o.cards || {}).length)); }
+  function backup(why) {
+    if (!hasProgress(S)) return;
+    var l = C.addBackup(getBaks(), S, why, Date.now(), today());
+    if (!putBaks(l)) putBaks(l.slice(0, 3));
+  }
   function load() {
-    try { var raw = localStorage.getItem(KEY); if (raw) { var o = JSON.parse(raw); if (C.validateSave(o)) return Object.assign(fresh(), o); } } catch (e) {}
+    var raw = null; try { raw = localStorage.getItem(KEY); } catch (e) {}
+    if (raw) {
+      var o = null; try { o = JSON.parse(raw); } catch (e) {}
+      if (o && C.validateSave(o)) return Object.assign(fresh(), o);
+      try { if (!localStorage.getItem(RESCUE_KEY)) localStorage.setItem(RESCUE_KEY, raw); } catch (e) {}
+      var r = C.repairSave(o), b = bestBackup();
+      if (r && (!b || C.saveWeight(r) >= C.saveWeight(b))) { RESCUE = 'repaired'; return Object.assign(fresh(), r); }
+      if (b) { RESCUE = 'backup'; return Object.assign(fresh(), r ? C.mergeSave(r, b) : b); }
+      RESCUE = 'lost';
+    } else { var b2 = bestBackup(); if (b2) { RESCUE = 'backup'; return Object.assign(fresh(), b2); } }
     try { var h = window.claude && window.claude.hot && window.claude.hot.data; if (h && C.validateSave(h)) return Object.assign(fresh(), h); } catch (e) {}
     return fresh();
   }
-  function saveLocal() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function saveLocal() {
+    var txt = JSON.stringify(S);
+    try { localStorage.setItem(KEY, txt); saveFailed = false; return; } catch (e) {}
+    /* Speicher voll: zuerst ältere Sicherungen kürzen, dann nochmal – der aktuelle Stand geht vor */
+    putBaks(getBaks().slice(0, 2));
+    try { localStorage.setItem(KEY, txt); saveFailed = false; return; } catch (e) {}
+    try { localStorage.removeItem(BAK_KEY); localStorage.setItem(KEY, txt); saveFailed = false; return; } catch (e) {}
+    if (!saveFailed) { saveFailed = true; try { toast(t('save_full')); } catch (e2) {} }
+  }
   function save() { S.ts = Date.now(); saveLocal(); syncSoon(); }
   try { if (window.claude && window.claude.hot) window.claude.hot.snapshot(function () { return S; }); } catch (e) {}
 
@@ -808,7 +839,7 @@
   }
 
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.1.4', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.2', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -950,6 +981,7 @@
       '<label class="row"><input type="checkbox" id="s-slow"' + (S.slow ? ' checked' : '') + '> ' + esc(t('slow')) + ' (TTS)</label></section>' +
       voiceBox() + remBox() +
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
+      safeBox() +
       '<section class="card"><details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_more')) + '</summary><div class="stack" style="margin-top:10px"><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
       '<div class="row"><button class="btn" id="bk-copy">' + esc(t('bk_copy')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></div></details></section>' +
       '<section class="card stack"><h2>' + esc(t('news')) + '</h2><p class="small muted">' + esc(t('news_ver')) + ' ' + esc(APP_VER) + '</p><button class="btn" id="news-open" style="justify-self:start">' + esc(t('news_all')) + ' →</button></section>' +
@@ -971,13 +1003,55 @@
     document.getElementById('s-place').onclick = function () { startMode('placement'); };
     document.getElementById('bk-copy').onclick = function () { copy(JSON.stringify(S)); };
     document.getElementById('bk-restore').onclick = function () {
-      try { var o = JSON.parse(document.getElementById('bk').value); if (!C.validateSave(o)) throw 0; S = Object.assign(fresh(), o); loadData(); save(); toast(t('restored')); renderMe(); } catch (e) { toast(t('bad_backup')); }
+      try { var o = JSON.parse(document.getElementById('bk').value); o = C.validateSave(o) ? o : C.repairSave(o); if (!o) throw 0; mergeIn(o); } catch (e) { toast(t('bad_backup')); }
     };
+    bindSafe();
     bindReport('rep-me', 'Ich / allgemein');
     document.getElementById('news-open').onclick = function () { go('news'); };
     document.getElementById('rv-link').onclick = function () { shareOut(t('rv_me_share') + ' ' + SITE + '?review'); };
     document.getElementById('tour-again').onclick = function () { S.tour = false; save(); go('home'); };
-    document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); loadData(); save(); render(); };
+    document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; backup('reset'); S = fresh(); S.onboarded = false; loadData(); save(); render(); };
+  }
+
+  /* ---------- 3.2 Sicherungen (Ich → „Dein Fortschritt ist sicher“) ---------- */
+  function mergeIn(o) { backup('restore'); S = Object.assign(fresh(), C.mergeSave(S, o)); S.onboarded = true; loadData(); fixUnlock(); save(); toast(t('restored')); render(); }
+  function whyLabel(w) { return t('bk_w_' + w) === 'bk_w_' + w ? w : t('bk_w_' + w); }
+  function safeBox() {
+    var l = getBaks(), loc = S.base === 'en' ? 'en-GB' : 'de-DE', st = C.saveStats(S);
+    return '<section class="card stack" id="safe"><h2>' + esc(t('bk_title')) + '</h2>' +
+      '<p class="small">' + esc(A && A.uid ? t('bk_d_acc') : t('bk_d_local')) + '</p>' +
+      (A && A.uid ? '' : '<p class="small"><b>' + esc(t('bk_acc_tip')) + '</b></p><button class="btn ghost" id="bk-acc" style="justify-self:start;padding-left:0">' + esc(t('sync_signup')) + ' →</button>') +
+      '<p class="small muted num">' + esc(t('bk_now')) + ': ' + st.xp + ' XP · ' + st.words + ' ' + esc(t('bk_words')) + ' · ' + st.cities + ' ' + esc(t('bk_cities')) + '</p>' +
+      (l.length ? '<details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_list')) + ' (' + l.length + ')</summary><ul class="bk-list">' + l.map(function (b, i) {
+        var x = C.saveStats(b.d);
+        return '<li><span class="small num">' + esc(new Date(b.t).toLocaleString(loc, { dateStyle: 'short', timeStyle: 'short' })) + ' · ' + esc(whyLabel(b.why)) + '<br>' + x.xp + ' XP · ' + x.words + ' ' + esc(t('bk_words')) + '</span><button class="btn" data-bk="' + i + '">' + esc(t('bk_get')) + '</button></li>';
+      }).join('') + '</ul><p class="small muted">' + esc(t('bk_get_d')) + '</p></details>' : '') +
+      '<div class="row"><button class="btn" id="bk-file">' + esc(t('bk_file')) + '</button><label class="btn" for="bk-in" style="cursor:pointer">' + esc(t('bk_load')) + '</label><input type="file" id="bk-in" accept="application/json,.json,.txt" hidden></div></section>';
+  }
+  function bindSafe() {
+    var b = document.getElementById('bk-acc'); if (b) b.onclick = function () { var el = document.getElementById('sync'); if (el) el.scrollIntoView({ behavior: 'smooth' }); };
+    document.querySelectorAll('[data-bk]').forEach(function (x) { x.onclick = function () { var e = getBaks()[+x.getAttribute('data-bk')]; if (e) mergeIn(e.d); }; });
+    document.getElementById('bk-file').onclick = function () {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S)], { type: 'application/json' }));
+      a.download = 'polski-szlak-sicherung-' + today() + '.json'; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    };
+    document.getElementById('bk-in').onchange = function (e) {
+      var f = e.target.files && e.target.files[0]; if (!f) return;
+      var r = new FileReader(); r.onload = function () { try { var o = JSON.parse(String(r.result)); o = C.validateSave(o) ? o : C.repairSave(o); if (!o) throw 0; mergeIn(o); } catch (er) { toast(t('bad_backup')); } }; r.readAsText(f);
+    };
+  }
+  /* Start: Sicherung vom Stand der letzten Sitzung, vor jedem Versions-Update, beim Verlassen; Speicher dauerhaft anfordern */
+  function startSafety() {
+    if (S.appVer && S.appVer !== APP_VER) backup('update'); else backup('auto');
+    if (S.appVer !== APP_VER) { S.appVer = APP_VER; saveLocal(); }
+    try { if (navigator.storage && navigator.storage.persist && hasProgress(S)) navigator.storage.persisted().then(function (p) { if (!p) navigator.storage.persist(); }); } catch (e) {}
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') backup('auto'); });
+    /* Zweiter Tab/zweites Fenster: dessen Fortschritt übernehmen statt ihn beim nächsten Speichern zu überschreiben */
+    window.addEventListener('storage', function (e) {
+      if (e.key !== KEY || !e.newValue) return;
+      try { var o = JSON.parse(e.newValue); if (C.validateSave(o)) { S = Object.assign(fresh(), C.mergeSave(S, o)); loadData(); fixUnlock(); if (!G && !view) render(); } } catch (er) {}
+    });
+    if (RESCUE) { if (RESCUE !== 'lost') saveLocal(); setTimeout(function () { toast(t('rescue_' + RESCUE)); }, 600); }
   }
 
   /* ---------- Geräte-Abgleich über das eigene Supabase (wie GeoQuest, gleiches Konto) ----------
@@ -1030,7 +1104,7 @@
     return sbToken().then(function () { return sbFetch('/rest/v1/ps_progress?select=data&user_id=eq.' + encodeURIComponent(A.uid), { auth: true }); })
       .then(function (rows) {
         var remote = rows && rows[0] && rows[0].data;
-        if (remote && C.validateSave(remote)) { S = Object.assign(fresh(), C.mergeSave(S, remote)); loadData(); saveLocal(); }
+        if (remote && C.validateSave(remote)) { if (!A.last) backup('sync'); S = Object.assign(fresh(), C.mergeSave(S, remote)); loadData(); fixUnlock(); saveLocal(); }
         return sbFetch('/rest/v1/ps_progress?on_conflict=user_id', { method: 'POST', auth: true, prefer: 'resolution=merge-duplicates,return=minimal', body: { user_id: A.uid, data: S } });
       })
       .then(function () { A.last = Date.now(); saveAuth(); syncMsg = t('sync_done'); }, function (e) { syncErr = syncErrText(e); })
@@ -1166,7 +1240,8 @@
       if (!p || !m) return; S.custom.push([p, m, m]); save(); renderMyWords();
     };
     document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
-    document.querySelectorAll('[data-del]').forEach(function (b) { b.onclick = function () { var i = +b.getAttribute('data-del'); S.custom.splice(i, 1); delete S.cards['my:' + i]; save(); renderMyWords(); }; });
+    document.querySelectorAll('[data-del]').forEach(function (b) { b.onclick = function () { var i = +b.getAttribute('data-del'), n = S.custom.length; S.custom.splice(i, 1); delete S.cards['my:' + i];
+      for (var j = i + 1; j < n; j++) { if (S.cards['my:' + j]) S.cards['my:' + (j - 1)] = S.cards['my:' + j]; else delete S.cards['my:' + (j - 1)]; delete S.cards['my:' + j]; } save(); renderMyWords(); }; });
     var pr = document.getElementById('mw-practice'); if (pr) pr.onclick = function () { startMode('mine'); };
   }
 
@@ -2424,16 +2499,17 @@
      Alle polnischen Inhalte nacheinander: ✓ poprawne / ✗ do poprawy (+ Vorschlag). Ergebnisse gehen in ps_feedback,
      ✓ gesammelt in Paketen, ✗ sofort. Fortschritt bleibt im Browser (localStorage polski_szlak_review).
      ================================================================ */
-  var REVIEW = /[?&]review\b/.test(location.search), RVK = 'polski_szlak_review', RV = null, rvSec = 'all', rvCur = null, rvBad = false;
-  var RVX = { title: 'Sprawdzanie treści', intro: 'Dziękujemy za pomoc! Sprawdź, czy polskie zdania są poprawne i naturalne, a tłumaczenia pasują. Formy w nawiasach {…|…} pokazujemy jako wersję męską i żeńską.', name: 'Twoje imię (opcjonalnie)', all: 'Wszystko', ok: '✓ Poprawne', bad: '✗ Do poprawy', skip: 'Pomiń', how: 'Jak powinno być? Co jest nie tak?', send: 'Wyślij uwagę', done: 'Gotowe! Wszystko w tej części sprawdzone.', prog: 'sprawdzone', sent: 'Wysłano', pend: 'czeka na wysłanie', flush: 'Wyślij teraz', export: 'Wyniki jako tekst (kopia zapasowa)', copy: 'Kopiuj', fail: 'Brak połączenia – wyniki są zapisane i zostaną wysłane później.', back: 'Do aplikacji', listen: 'Odsłuchaj', undo: 'Cofnij ostatnie',
+  var REVIEW = /[?&]review\b/.test(location.search), RVK = 'polski_szlak_review', RV = null, rvSec = 'new', rvCur = null, rvBad = false;
+  var RVX = { title: 'Sprawdzanie treści', intro: 'Dziękujemy za pomoc! Sprawdź, czy polskie zdania są poprawne i naturalne, a tłumaczenia pasują. Formy w nawiasach {…|…} pokazujemy jako wersję męską i żeńską.', name: 'Twoje imię (opcjonalnie)', all: 'Wszystko', newer: 'Najpierw: Szlak 2, 3 i pakiety', ok: '✓ Poprawne', bad: '✗ Do poprawy', skip: 'Pomiń', how: 'Jak powinno być? Co jest nie tak?', send: 'Wyślij uwagę', done: 'Gotowe! Wszystko w tej części sprawdzone.', prog: 'sprawdzone', sent: 'Wysłano', pend: 'czeka na wysłanie', flush: 'Wyślij teraz', export: 'Wyniki jako tekst (kopia zapasowa)', copy: 'Kopiuj', fail: 'Brak połączenia – wyniki są zapisane i zostaną wysłane później.', back: 'Do aplikacji', listen: 'Odsłuchaj', undo: 'Cofnij ostatnie',
     secs: { w: 'Słówka', s: 'Zdania', sc: 'Scenki', l: 'List i pocztówki', m: 'Misje', c: 'Przypadki', a: 'Aspekt', v: 'Czasowniki', t: 'Łamańce językowe', k: 'Krasnale', p: 'Dla Polaków' } };
   function rvLoad() { try { RV = JSON.parse(localStorage.getItem(RVK) || 'null'); } catch (e) {} if (!RV || typeof RV !== 'object') RV = { name: '', res: {}, pend: [], hist: [] }; RV.res = RV.res || {}; RV.pend = RV.pend || []; RV.hist = RV.hist || []; }
   function rvSave() { try { localStorage.setItem(RVK, JSON.stringify(RV)); } catch (e) {} }
   function rvShow(s) { return C.hasG(s) ? C.gform(s, 'm') + '  ·  ' + C.gform(s, 'f') : String(s); }
   function rvItems() {
     var it = [], R0 = RAW;
-    function add(k, sec, pl, de, en, note) { it.push({ k: k, sec: sec, pl: rvShow(pl), de: de ? rvShow(de) : '', en: en ? rvShow(en) : '', note: note || '' }); }
-    R0.units.forEach(function (u) {
+    function add(k, sec, pl, de, en, note) { it.push({ k: k, sec: sec, pl: rvShow(pl), de: de ? rvShow(de) : '', en: en ? rvShow(en) : '', note: note || '', r: rvR }); }
+    var rvR = 1;
+    R0.units.forEach(function (u) { rvR = u.pack ? 2 : (u.r || 1);
       u.words.forEach(function (w, i) { add('w:' + u.id + ':' + i, 'w', w[0], w[1], w[2], u.city); });
       u.sentences.forEach(function (s, i) { add('s:' + u.id + ':' + i, 's', s[0], s[1], s[2], u.city); });
       if (u.scene) u.scene.steps.forEach(function (st, si) {
@@ -2441,8 +2517,11 @@
         st.opts.forEach(function (o, oi) { add('sc:' + u.id + ':' + si + ':' + oi, 'sc', o[0], o[1], o[2], u.city + (o[3] ? ' · ✓' : ' · (zła odpowiedź – ma być poprawna polszczyzna, ale nie pasuje do sytuacji)')); });
       });
     });
-    [['l', R0.letter], ['d', R0.diary]].forEach(function (x) { if (x[1]) x[1].lines.forEach(function (l, i) { add(x[0] + ':' + i, 'l', l.pl, l.tr[0], l.tr[1]); }); });
+    rvR = 1;
+    [['l', R0.letter], ['d', R0.diary]].forEach(function (x) { rvR = x[0] === 'd' ? 2 : 1; if (x[1]) x[1].lines.forEach(function (l, i) { add(x[0] + ':' + i, 'l', l.pl, l.tr[0], l.tr[1]); }); });
+    rvR = 2;
     Object.keys(R0.missions || {}).forEach(function (k) { add('m:' + k, 'm', R0.missions[k].pl, R0.missions[k].d[0], R0.missions[k].d[1]); });
+    rvR = 1;
     (R0.cases || []).forEach(function (c, i) { add('c:' + i, 'c', c.s.replace('___', c.a), c.tr[0], c.tr[1], c.base + ' → ' + c.a + ' · ' + c.case[0]); });
     (R0.aspects || []).forEach(function (c, i) { add('a:' + i, 'a', c.s.replace('___', c.a), c.tr[0], c.tr[1], c.base + ' → ' + c.a); });
     (R0.verbs || []).forEach(function (v) { add('v:' + v.inf, 'v', v.inf + ': ' + v.pres.join(', ') + ' | ' + v.past.join(', '), v.de, v.en); });
@@ -2459,14 +2538,14 @@
   }
   function renderReview() {
     if (!RV) rvLoad();
-    var all = rvItems(), secs = {}, list = all.filter(function (x) { secs[x.sec] = secs[x.sec] || { n: 0, d: 0 }; secs[x.sec].n++; if (RV.res[x.k]) secs[x.sec].d++; return rvSec === 'all' || x.sec === rvSec; });
+    var all = rvItems(), secs = {}, list = all.filter(function (x) { secs[x.sec] = secs[x.sec] || { n: 0, d: 0 }; secs[x.sec].n++; if (RV.res[x.k]) secs[x.sec].d++; return rvSec === 'all' || x.sec === rvSec || (rvSec === 'new' && x.r >= 2); });
     var done = list.filter(function (x) { return RV.res[x.k]; }).length;
     if (!rvCur || !list.some(function (x) { return x.k === rvCur; }) || RV.res[rvCur]) { var nx = list.filter(function (x) { return !RV.res[x.k]; })[0]; rvCur = nx ? nx.k : null; rvBad = false; }
     var cur = list.filter(function (x) { return x.k === rvCur; })[0];
     var tot = all.filter(function (x) { return RV.res[x.k]; }).length;
     var html = '<section class="stack" lang="pl"><h1>' + esc(RVX.title) + '</h1><p class="small">' + esc(RVX.intro) + '</p>' +
       '<label class="fld">' + esc(RVX.name) + '<input type="text" id="rv-name" maxlength="30" autocomplete="name" value="' + esc(RV.name) + '"></label>' +
-      '<div class="seg rv-secs" id="rv-sec">' + segBtn('all', RVX.all + ' ' + tot + '/' + all.length, rvSec === 'all') + Object.keys(secs).map(function (k) { return segBtn(k, RVX.secs[k] + ' ' + secs[k].d + '/' + secs[k].n, rvSec === k); }).join('') + '</div>' +
+      '<div class="seg rv-secs" id="rv-sec">' + segBtn('new', RVX.newer + ' ' + all.filter(function (x) { return x.r >= 2 && RV.res[x.k]; }).length + '/' + all.filter(function (x) { return x.r >= 2; }).length, rvSec === 'new') + segBtn('all', RVX.all + ' ' + tot + '/' + all.length, rvSec === 'all') + Object.keys(secs).map(function (k) { return segBtn(k, RVX.secs[k] + ' ' + secs[k].d + '/' + secs[k].n, rvSec === k); }).join('') + '</div>' +
       '<div class="row small muted num"><div class="bar" style="flex:1"><i style="width:' + (list.length ? done / list.length * 100 : 0) + '%"></i></div>' + done + '/' + list.length + ' ' + esc(RVX.prog) + '</div>';
     if (cur) {
       html += '<article class="card stack rv-card"><span class="eyebrow">' + esc(RVX.secs[cur.sec]) + (cur.note ? ' · ' + esc(cur.note) : '') + ' · <span class="num">' + esc(cur.k) + '</span></span>' +
@@ -2502,7 +2581,7 @@
   }
   if (REVIEW) document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && RV && RV.pend.length) rvFlush().catch(function () {}); });
 
-  function boot() { if (REVIEW) { renderReview(); if (!RAW.polacy && RAW.polacyLazy) needPolacy(function () { renderReview(); }); return; } sbFromHash(); render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
+  function boot() { if (REVIEW) { renderReview(); if (!RAW.polacy && RAW.polacyLazy) needPolacy(function () { renderReview(); }); return; } startSafety(); sbFromHash(); render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }
   if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(boot); else boot();
 
   /* Service Worker nur im eigenen Hosting (nicht in Vorschauen/iframes) */

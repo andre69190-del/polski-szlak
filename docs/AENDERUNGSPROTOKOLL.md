@@ -1,5 +1,19 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.2 · 28.10.2026 · Lernstände sind sicher
+
+- Anforderung: Erreichte Ergebnisse dürfen nie verloren gehen (es gibt bereits Lernende). Details: docs/DATENSICHERUNG.md.
+- **Automatische Sicherungen** auf dem Gerät (`polski_szlak_bak`): täglich (7 Tage), vor Update, Neustart, Zurückholen, erstem Abgleich; der beste Stand wird nie verdrängt.
+- **Rettung beim Start:** kaputter/fehlender Stand → Reparatur (`C.repairSave`) oder beste Sicherung, nie still leer; Original bleibt in `polski_szlak_rescue`.
+- **Zurückholen = Zusammenführen** (Sicherung, Datei, Text) – kann nichts überschreiben. Neu: „Als Datei speichern“ / „Datei laden“.
+- **Speicher voll:** aktueller Stand geht vor, ältere Sicherungen werden gekürzt; Hinweis an den Nutzer. `navigator.storage.persist()`.
+- **Zwei Tabs:** übernehmen den Fortschritt des anderen (storage-Ereignis) statt ihn zu überschreiben.
+- **Fehler behoben:** Löschen eines eigenen Worts verschob den Fortschritt der folgenden eigenen Wörter.
+- **Server:** `deploy/supabase_ps_progress_backup.sql` – Tages-Sicherung pro Konto (30 Tage), Rückschritt-Sperre (XP), Löschen entfernt auch Sicherungen. Lokal mit PostgreSQL 16 getestet.
+- **Inhalte:** `checks/progress_lock.py` sperrt Stadt-IDs, Routen-Reihenfolge und Wort-Positionen. Alle Versionen 1.5–3.1.4 geprüft: verträglich.
+- **Prüfmodus:** startet mit „Najpierw: Szlak 2, 3 i pakiety“; Auswertung `tools/review_report.py`.
+- Tests: core 46, UI 94 (u. a. Spielstand aus 2.0, Update, kaputter Stand, Neustart zurückholen, Datei hin und zurück). Service Worker Cache v3-2.
+
 ## 3.1.4 · 28.10.2026 · Ton auf Apple (Ursache gefunden)
 
 - Diagnose vom iPhone (iOS 18.7, installierte App): Stimme „Zosia“ gewählt, `start` und `ende` kommen, Dauer ca. 1 s – die Sprachausgabe läuft also, ist aber nicht zu hören.

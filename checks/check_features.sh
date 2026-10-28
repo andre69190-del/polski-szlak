@@ -89,6 +89,12 @@ chk "3.1 KI-Gespräch (Supabase-Funktion, Tageslimit)" "functions/v1/ps-chat"
 chk "3.1 Tour blockiert keine Spiele" "Einführungs-Tour darf nicht"
 chk "3.1.1 Was ist neu (Update-Log in der App)" "renderNews"
 chk "3.1.1 Apple: Systemstimme statt Auto-Auswahl" "isApple"
+chk "3.1.4 iPhone: Ton auch bei Stumm-Schalter" "audioSession"
+chk "3.2 Automatische Sicherungen" "polski_szlak_bak"
+chk "3.2 Rettung beschädigter Spielstände" "repairSave"
+chk "3.2 Zurückholen per Zusammenführen" "function mergeIn"
+chk "3.2 Sicherung als Datei" "polski-szlak-sicherung-"
+chk "3.2 Zwei Tabs überschreiben sich nicht" "addEventListener('storage'"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL

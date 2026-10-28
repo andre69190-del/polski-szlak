@@ -385,6 +385,47 @@
     return true;
   }
 
+  /* 3.2 Sicherung: beschädigten Spielstand retten statt verwerfen. Gibt einen gültigen Stand zurück oder null. */
+  function repairSave(obj) {
+    if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return null;
+    if (obj.app != null && obj.app !== 'polski-szlak') return null;
+    var o = JSON.parse(JSON.stringify(obj));
+    if (o.app == null) { if (!o.cards && !o.boss && !o.xp) return null; o.app = 'polski-szlak'; }
+    if (typeof o.xp !== 'number' || !(o.xp >= 0)) o.xp = Math.max(0, +o.xp || 0);
+    if (!o.cards || typeof o.cards !== 'object' || Array.isArray(o.cards)) o.cards = {};
+    ['boss', 'skipped', 'scenes', 'opened', 'active', 'best', 'done', 'missions', 'weekXp', 'wlog', 'daily', 'plBest', 'rank'].forEach(function (k) {
+      if (o[k] != null && (typeof o[k] !== 'object' || Array.isArray(o[k]))) delete o[k];
+    });
+    ['custom', 'krasnale', 'mistakes', 'rankSeen'].forEach(function (k) { if (o[k] != null && !Array.isArray(o[k])) delete o[k]; });
+    if (o.unlocked != null && !(o.unlocked >= 0)) o.unlocked = 0;
+    return validateSave(o) ? o : null;
+  }
+  /* Kennzahlen eines Stands (für die Sicherungsliste) */
+  function saveStats(o) {
+    var c = (o && o.cards) || {}, ids = Object.keys(c);
+    return { xp: Math.round(+(o && o.xp) || 0), words: ids.length, solid: ids.filter(function (k) { return (c[k] && c[k].box) >= 2; }).length, cities: Object.keys((o && o.boss) || {}).filter(function (k) { return o.boss[k]; }).length };
+  }
+  /* Wie viel „Fortschritt“ steckt in einem Stand? (zum Vergleich: Sicherung nur, wenn sich etwas getan hat) */
+  function saveWeight(o) { var s = saveStats(o); return s.xp + s.words * 3 + s.solid * 5 + s.cities * 50; }
+  /* Sicherungsliste pflegen: neuester Eintrag vorne; täglich höchstens eine automatische Sicherung, die anderen Anlässe immer.
+     Behalten: die letzten 7 Tage täglich + bis zu 5 Anlass-Sicherungen; nie eine Sicherung, die der einzige Stand mit dem Höchstwert ist. */
+  function addBackup(list, save, why, now, day) {
+    list = Array.isArray(list) ? list.filter(function (b) { return b && b.d && validateSave(b.d); }) : [];
+    if (!validateSave(save)) return list;
+    var e = { t: now, day: day, why: why, d: JSON.parse(JSON.stringify(save)) };
+    if (why === 'auto') {
+      if (list.some(function (b) { return b.why === 'auto' && b.day === day; })) list = list.filter(function (b) { return !(b.why === 'auto' && b.day === day); });
+    }
+    list.unshift(e);
+    var best = list.reduce(function (m, b) { return Math.max(m, saveWeight(b.d)); }, 0), bestKept = false, autos = 0, other = 0;
+    return list.filter(function (b) {
+      var isBest = !bestKept && saveWeight(b.d) === best;
+      if (isBest) bestKept = true;
+      if (b.why === 'auto') { autos++; return autos <= 7 || isBest; }
+      other++; return other <= 5 || isBest;
+    });
+  }
+
   /* PATCH002: Schwierigkeitsstufen. mix = Anteile [Bedeutung wählen, Polnisch wählen, Hören, Schreiben, Diktat] */
   var DIFF = {
     easy:   { opts: 4, mix: [0.35, 0.25, 0.2, 0.2, 0],    strict: false, xp: 1,   boss: { n: 12, lives: 3, pass: 60 }, blitz: 60, clozeType: false, extraTiles: 0, hideTr: false },
@@ -525,6 +566,6 @@
     duelPlan: duelPlan, duelNewCode: duelNewCode, duelParse: duelParse, duelCheck: duelCheck, duelResultText: duelResultText, duelReadResult: duelReadResult, duelCompare: duelCompare, fmtTime: fmtTime, duelWeight: duelWeight, duelScore: duelScore, duelSign: duelSign, duelName: duelName, rankAdd: rankAdd, rankList: rankList, mergeSave: mergeSave,
     hash: hash, rng: rng, shuffle: shuffle, sample: sample,
     xpForLevel: xpForLevel, levelFromXp: levelFromXp, comboBonus: comboBonus, xpFor: xpFor,
-    shareText: shareText, tokens: tokens, sameSentence: sameSentence, validateSave: validateSave
+    shareText: shareText, tokens: tokens, sameSentence: sameSentence, validateSave: validateSave, repairSave: repairSave, saveStats: saveStats, saveWeight: saveWeight, addBackup: addBackup
   };
 })(typeof globalThis !== 'undefined' ? globalThis : this);

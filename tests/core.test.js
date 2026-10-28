@@ -426,3 +426,35 @@ test('Inhalte 3.0: Szlak 2, Pakete, Tagebuch, Themen', () => {
   const m = C.mergeSave({ app: 'polski-szlak', xp: 1, cards: {}, ts: 2, diarySeen: 1, opened: { giz: '2026-10-28' } }, { app: 'polski-szlak', xp: 1, cards: {}, ts: 1, diarySeen: 4, opened: { pra: '2026-10-27' } });
   assert.equal(m.diarySeen, 4); assert.ok(m.opened.giz && m.opened.pra);
 });
+
+test('3.2 Sicherung: beschädigte Stände werden gerettet, nicht verworfen', () => {
+  const r = C.repairSave({ app: 'polski-szlak', xp: 'x', cards: { 'waw:0': { box: 3, seen: 4 } }, boss: [], custom: 'kaputt' });
+  assert.ok(r); assert.equal(r.xp, 0); assert.equal(r.cards['waw:0'].box, 3); assert.equal(r.boss, undefined); assert.equal(r.custom, undefined);
+  assert.ok(C.repairSave({ app: 'polski-szlak', xp: 10 }));                   // Karten fehlen → leer, Rest bleibt
+  assert.equal(C.repairSave({ app: 'anderes-spiel', xp: 1, cards: {} }), null);
+  assert.equal(C.repairSave(null), null); assert.equal(C.repairSave([1]), null);
+  assert.ok(C.repairSave({ xp: 5, cards: { 'waw:1': { box: 1 } } }).app === 'polski-szlak');
+});
+
+test('3.2 Sicherung: Liste behält 7 Tage, Anlass-Sicherungen und immer den besten Stand', () => {
+  const st = (xp) => ({ app: 'polski-szlak', xp, cards: {} });
+  let L = [];
+  L = C.addBackup(L, st(500), 'update', 1, '2026-10-01');                      // bester Stand, ganz alt
+  for (let d = 2; d <= 20; d++) L = C.addBackup(L, st(d), 'auto', d, '2026-10-' + String(d).padStart(2, '0'));
+  for (let k = 0; k < 8; k++) L = C.addBackup(L, st(1), 'reset', 100 + k, '2026-10-20');
+  assert.equal(L.filter(b => b.why === 'auto').length, 7);
+  assert.ok(L.some(b => b.d.xp === 500), 'bester Stand bleibt immer');
+  assert.ok(L.filter(b => b.why !== 'auto').length <= 6);
+  L = C.addBackup(L, st(30), 'auto', 200, '2026-10-20'); L = C.addBackup(L, st(31), 'auto', 201, '2026-10-20');
+  assert.equal(L.filter(b => b.why === 'auto' && b.day === '2026-10-20').length, 1);   // pro Tag eine
+  assert.equal(L[0].d.xp, 31);
+  assert.equal(JSON.stringify(C.saveStats({ xp: 3.4, cards: { a: { box: 2 }, b: { box: 0 } }, boss: { waw: 80, lod: 0 } })), JSON.stringify({ xp: 3, words: 2, solid: 1, cities: 1 }));
+});
+
+test('3.2 Zurückholen per Zusammenführen verliert nie Fortschritt', () => {
+  const now = { app: 'polski-szlak', xp: 50, ts: 9, cards: { 'waw:0': { box: 4, seen: 9 } }, boss: { waw: 90 }, unlocked: 3 };
+  const old = { app: 'polski-szlak', xp: 20, ts: 1, cards: { 'waw:0': { box: 1, seen: 2 }, 'waw:5': { box: 2, seen: 3 } }, boss: { waw: 70 }, unlocked: 1 };
+  const m = C.mergeSave(now, old);
+  assert.equal(m.xp, 50); assert.equal(m.unlocked, 3); assert.equal(m.boss.waw, 90);
+  assert.equal(m.cards['waw:0'].box, 4); assert.ok(m.cards['waw:5']);
+});

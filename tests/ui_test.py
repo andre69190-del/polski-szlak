@@ -288,6 +288,60 @@ with sync_playwright() as p:
     ok('Ohne Konto: Hinweis zur Anmeldung')
     ch.close()
 
+    # ---------- 3.2 Lernstände sind sicher ----------
+    sx = b.new_context(); sp = sx.new_page(); sp.on('pageerror', lambda e: errors.append(str(e)))
+    sp.goto(URL); sp.wait_for_selector('#app')
+    # a) alter Spielstand (Felder wie in 1.x/2.0, ohne neue Schlüssel) lädt vollständig
+    OLD = '{"app":"polski-szlak","v":1,"base":"de","onboarded":true,"xp":412,"cards":{"waw:0":{"box":4,"seen":9,"due":"2026-01-01"},"waw:1":{"box":2,"seen":3,"due":"2026-01-01"}},"unlocked":2,"boss":{"waw":85,"lod":72},"scenes":{"waw":true},"krasnale":[1,2]}'
+    sp.evaluate("(o) => { localStorage.clear(); localStorage.setItem('polski_szlak_v1', o); }", OLD); sp.reload(); sp.wait_for_selector('.map')
+    st = sp.evaluate("() => { const s = window.PSApp.state(); return [s.xp, s.cards['waw:0'].box, s.boss.lod, s.unlocked, s.appVer]; }")
+    (ok if st[:4] == [412, 4, 72, 2] and st[4] else bad)('Alter Spielstand (2.0) lädt vollständig: %s' % st)
+    bk = sp.evaluate("() => JSON.parse(localStorage.getItem('polski_szlak_bak') || '[]').map(b => [b.why, b.d.xp])")
+    (ok if bk and bk[0] == ['auto', 412] else bad)('Beim Start wird automatisch gesichert: %s' % bk)
+    # b) Versions-Update → Sicherung „vor Update“
+    sp.evaluate("() => { const s = JSON.parse(localStorage.getItem('polski_szlak_v1')); s.appVer = '3.1.4'; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }"); sp.reload(); sp.wait_for_selector('.map')
+    bk = sp.evaluate("() => JSON.parse(localStorage.getItem('polski_szlak_bak')).map(b => b.why)")
+    (ok if 'update' in bk else bad)('Vor einem Update wird gesichert: %s' % bk)
+    # c) kaputter Text im Speicher → letzte Sicherung wird geladen, Original aufbewahrt
+    sp.evaluate("() => localStorage.setItem('polski_szlak_v1', '{kaputt')"); sp.reload(); sp.wait_for_selector('.map')
+    st = sp.evaluate("() => [window.PSApp.state().xp, localStorage.getItem('polski_szlak_rescue'), JSON.parse(localStorage.getItem('polski_szlak_v1')).xp]")
+    (ok if st == [412, '{kaputt', 412] else bad)('Beschädigter Stand: Sicherung geladen, Original aufbewahrt: %s' % st)
+    # d) reparierbarer Stand (xp kaputt) → Karten bleiben
+    sp.evaluate("() => { localStorage.removeItem('polski_szlak_bak'); localStorage.removeItem('polski_szlak_rescue'); localStorage.setItem('polski_szlak_v1', JSON.stringify({ app: 'polski-szlak', onboarded: true, xp: 'NaN', cards: { 'waw:0': { box: 3, seen: 5 } }, boss: { waw: 80 } })); }")
+    sp.reload(); sp.wait_for_selector('.map')
+    st = sp.evaluate("() => { const s = window.PSApp.state(); return [s.cards['waw:0'].box, s.boss.waw]; }")
+    (ok if st[0] >= 3 and st[1] >= 80 else bad)('Reparierbarer Stand behält Karten und Prüfungen: %s' % st)
+    # e) Neustart sichert vorher; Zurückholen fügt nur hinzu
+    sp.evaluate("(o) => { localStorage.clear(); localStorage.setItem('polski_szlak_v1', o); }", OLD); sp.reload(); sp.wait_for_selector('.map')
+    sp.evaluate("() => window.PSApp.go('me')"); sp.wait_for_selector('#safe')
+    (ok if '412 XP' in sp.inner_text('#safe') else bad)('Ich: Abschnitt „Dein Fortschritt ist sicher“ zeigt den Stand')
+    sp.click('#reset'); sp.click('#reset'); sp.wait_for_selector('#app')
+    st = sp.evaluate("() => [window.PSApp.state().xp, JSON.parse(localStorage.getItem('polski_szlak_bak')).some(b => b.why === 'reset' && b.d.xp === 412)]")
+    (ok if st == [0, True] else bad)('Neustart: vorher gesichert: %s' % st)
+    sp.click('#ob-why [data-v="travel"]'); sp.click('#ob-goal [data-v="3"]'); sp.click('#ob-go'); sp.wait_for_timeout(500)
+    if SHOTS: sp.screenshot(path=str(SHOT_DIR / '40_after_reset.png'), full_page=True)
+    sp.evaluate("() => window.PSApp.go('me')"); sp.wait_for_selector('#safe')
+    sp.click('#safe summary'); sp.locator('#safe [data-bk]').first.click(); sp.wait_for_timeout(300)
+    st = sp.evaluate("() => { const s = window.PSApp.state(); return [s.xp, s.boss.lod, s.cards['waw:0'].box]; }")
+    (ok if st == [412, 72, 4] else bad)('Zurückholen bringt alles wieder: %s' % st)
+    # f) Datei speichern / laden
+    with sp.expect_download() as dl: sp.click('#bk-file')
+    import json as _j2, tempfile as _tf; path = _tf.mktemp(suffix='.json'); dl.value.save_as(path); d = _j2.load(open(path, encoding='utf-8'))
+    (ok if d.get('xp') == 412 else bad)('Sicherung als Datei')
+    sx.close(); sx = b.new_context(); sp = sx.new_page(); sp.on('pageerror', lambda e: errors.append(str(e))); sp.goto(URL); sp.wait_for_selector('#ob-go')
+    sp.click('#ob-why [data-v="travel"]'); sp.click('#ob-goal [data-v="3"]'); sp.click('#ob-go'); sp.wait_for_timeout(500)
+    sp.evaluate("() => window.PSApp.go('me')"); sp.wait_for_selector('#bk-in', state='attached'); sp.set_input_files('#bk-in', path); sp.wait_for_timeout(400)
+    (ok if sp.evaluate("() => window.PSApp.state().xp") == 412 else bad)('Sicherungs-Datei laden')
+    # g) eigene Wörter: Löschen verschiebt den Fortschritt der anderen nicht
+    sp.evaluate("() => { const s = window.PSApp.state(); s.custom = [['a','A','A'],['b','B','B'],['c','C','C']]; s.cards['my:0'] = {box:1,seen:1}; s.cards['my:1'] = {box:2,seen:2}; s.cards['my:2'] = {box:5,seen:5}; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }")
+    sp.reload(); sp.wait_for_selector('#app'); sp.evaluate("() => window.PSApp.go('mywords')"); sp.wait_for_timeout(300)
+    if sp.locator('[data-del="0"]').count():
+        sp.click('[data-del="0"]')
+        st = sp.evaluate("() => { const s = window.PSApp.state(); return [s.custom.map(w => w[0]).join(''), s.cards['my:0'] && s.cards['my:0'].box, s.cards['my:1'] && s.cards['my:1'].box, !!s.cards['my:2']]; }")
+        (ok if st == ['bc', 2, 5, False] else bad)('Eigenes Wort löschen: Fortschritt der anderen bleibt richtig zugeordnet: %s' % st)
+    else: bad('Eigene Wörter: Löschen-Knopf nicht gefunden')
+    sx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))

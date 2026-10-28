@@ -8,6 +8,7 @@ run() { echo ""; echo "#########################################################
 run "Build"                    python3 build.py
 run "JS-Syntax"                node    checks/check_syntax.mjs
 run "Inhalte"                  python3 checks/content_check.py
+run "Fortschritts-Schutz"      python3 checks/progress_lock.py
 run "i18n DE/EN"                node    checks/i18n_check.mjs
 run "Feature-Verifizierung"    bash    checks/check_features.sh
 run "Safety / Datenschutz"     python3 checks/safety_check.py

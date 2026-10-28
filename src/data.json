@@ -25380,6 +25380,7 @@
   }
  ],
  "news": [
+  {"v": "3.2", "date": "2026-10-28", "de": ["Dein Fortschritt ist sicher: Die App sichert deinen Stand jetzt automatisch (die letzten 7 Tage und vor jedem Update). Unter Ich → „Dein Fortschritt ist sicher“ kannst du jede Sicherung zurückholen – dabei kommt nur dazu, was fehlt, es geht nie etwas verloren.", "Neu: Fortschritt als Datei speichern und wieder laden. Ein beschädigter Spielstand wird automatisch repariert.", "Mit Konto zusätzlich: tägliche Sicherung auf dem Server."], "en": ["Your progress is safe: the app now backs up your progress automatically (the last 7 days and before every update). Under Me → “Your progress is safe” you can restore any backup – it only adds what is missing, nothing is ever lost.", "New: save your progress as a file and load it again. A damaged save is repaired automatically.", "With an account: daily backup on the server as well."]},
   {"v": "3.1.4", "date": "2026-10-28", "de": ["Ton auf iPhone und iPad, wenn die App installiert ist: Die Sprachausgabe ist jetzt auch zu hören, wenn das iPhone auf lautlos steht (wie bei Videos)."], "en": ["Sound on iPhone and iPad in the installed app: speech is now audible even when the iPhone is set to silent (like videos)."]},
   {
    "v": "3.1.3",
