@@ -1,5 +1,13 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.4 · 28.10.2026 · Stimmen Gosia und Darek
+
+- Wunsch von Andre: Hörproben 1 und 2 gefallen, als Wahlmöglichkeit in den Einstellungen.
+- **Tondateien** mit Piper (Modelle pl_PL-gosia-medium, pl_PL-darkman-medium; Trainingsdaten CC0): alle Wörter, Sätze, Szenen (NPC + Antworten), Buchkapitel, Brief/Postkarten, Missionen, Zungenbrecher, Fälle/Aspekt-Sätze – beide Sprecherformen. `tools/audio_corpus.py` (Schlüssel = FNV-Hash des normalisierten Texts, identisch mit `audioKey()`), `tools/audio_build.py` (erzeugt nur Fehlendes). Liste: `audio/voices.json`.
+- **Ich → Stimme:** Gerät · Gosia ♀ · Darek ♂ (`S.vsrc`), Probehören. Reihenfolge: echte Aufnahme → App-Stimme → Gerätestimme (Fallback bei fehlender Datei/offline). „Langsam“ = Wiedergabe 0,75×. Buchkapitel werden Satz für Satz abgespielt.
+- Service Worker lässt `/audio/` aus (Safari braucht Range-Antworten), nginx: mp3 ein Jahr cachebar, `voices.json` no-cache, fehlende Datei → 404 statt index.html.
+- Impressum: Hinweis auf Piper/Stimmmodelle; Datenschutz: Tondateien vom eigenen Server. Service Worker Cache v3-4.
+
 ## 3.3.1 · 28.10.2026 · Rechtstexte und Google
 
 - Übernommen aus der Rechts-/SEO-Prüfung (andere Sitzung): Rechtslinks auf jedem Bildschirm (Fußzeile in `shell()`, auch Einführung und Spiele) – deren lokale app.js-Änderung war durch 3.2/3.3 überschrieben worden und ist hiermit neu gebaut.

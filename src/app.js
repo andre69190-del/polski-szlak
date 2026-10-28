@@ -162,6 +162,7 @@
       ex_title: 'B1-Probeprüfung', ex_tile_d: 'Fünf Teile wie die echte Prüfung – ohne Stress', ex_start_btn: 'Zur B1-Probeprüfung', ex_intro: 'Wie weit bist du auf dem Weg zu B1? Die Probeprüfung hat fünf Teile wie die staatliche Prüfung – nur kürzer, ohne Zeitdruck und mit Rückmeldung sofort. Jedes Mal kommen andere Aufgaben.', ex_p_listen: 'Hören', ex_p_gram: 'Grammatik', ex_p_read: 'Lesen', ex_p_write: 'Schreiben', ex_p_speak: 'Sprechen', ex_pd_listen: '5 Sätze hören und verstehen', ex_pd_gram: '6 Lücken mit der richtigen Form', ex_pd_read: 'ein kurzer Text mit Fragen', ex_pd_write: 'eine kurze Nachricht oder E-Mail', ex_pd_speak: 'eine Minute frei sprechen', ex_note: 'Bestanden: im Schnitt mindestens 60 % und jeder Teil mindestens 50 %. Dauer etwa 15 Minuten.', ex_passed_once: 'schon bestanden', ex_tries: 'Versuche', ex_go: 'Los geht’s', ex_l_ask: 'Hör zu: Was bedeutet der Satz?', ex_g_ask: 'Welche Form passt in die Lücke?', ex_words: 'Wörter',
       ex_w_len: 'mindestens 30 Wörter', ex_w_hi: 'Anrede (z. B. Dzień dobry, Cześć, Szanowni Państwo)', ex_w_ask: 'eine Frage oder Bitte', ex_w_bye: 'Gruß am Ende (z. B. Pozdrawiam)', ex_w_gram: 'Vergangenheit oder Konditional und ein Verbindungswort (bo, ale, że …)', ex_ai_fix: 'Text von der KI korrigieren lassen', ex_ai_login: 'Mit Konto kann die KI deinen Text korrigieren.', ex_ai_sc: 'Bitte korrigiere meinen Text Satz für Satz und erkläre kurz die Fehler.', ex_ai_open: 'Wklej swój tekst, a ja go poprawię.', ex_s_how: 'Sprich laut etwa eine Minute (5–8 Sätze) – allein, mit jemandem oder im KI-Gespräch. Danach schätzt du dich ehrlich ein.', ex_s_ai: 'Mit der KI sprechen', ex_s_rate: 'Wie ist es gelaufen?', ex_s_r1: 'Ich habe eine Minute gesprochen, fast ohne Pausen', ex_s_r2: 'Es ging, mit ein paar Pausen und Lücken', ex_s_r3: 'Schwierig – nur einzelne Sätze',
       ex_result: 'Ergebnis', ex_pass: 'Zdane! Bestanden!', ex_fail: 'Noch nicht ganz – aber du bist auf dem Weg!', ex_pass_d: 'Gratulacje! Das ist eine Probeprüfung der App, kein offizielles Zertifikat – aber ein richtig gutes Zeichen. Probier es ruhig noch einmal mit neuen Aufgaben.', ex_tip_listen: 'Tipp: Hören übst du am besten mit den Szenen und dem Radio-Link der Städte – und mit „Langsam sprechen“ aus.', ex_tip_gram: 'Tipp: Die Grammatik-Lücken kommen aus „Fälle“ und „Aspekt“. Ein paar Runden davon helfen sofort.', ex_tip_read: 'Tipp: Lies die Kapitel aus Anias Buch zuerst ohne Übersetzung.', ex_tip_write: 'Tipp: Achte auf Anrede, Bitte oder Frage, Gruß – und schreib mindestens 30 Wörter.', ex_tip_speak: 'Tipp: Erledige die Sprech-Missionen der Städte – am besten mit echten Menschen.', ex_disclaimer: 'Hinweis: Die echte staatliche Prüfung (certyfikatpolski.pl) ist länger und anders bewertet.',
+      vs_src: 'Stimme der App', vs_dev: 'Gerät', vs_d: 'Gosia und Darek sind natürliche polnische Stimmen (kostenlos, offen lizenziert). Sie sprechen alle Wörter, Sätze, Szenen und Buchkapitel. Ohne Netz oder bei freien Antworten spricht dein Gerät.', vs_on_d: 'Alle Wörter, Sätze, Szenen und Kapitel kommen jetzt von dieser Stimme. Was sie nicht kennt (z. B. KI-Antworten) oder offline noch nicht geladen ist, spricht die Gerätestimme.', vs_test: 'Probehören', vs_dev_more: 'Gerätestimme für alles andere:',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -276,6 +277,7 @@
       ex_title: 'B1 practice exam', ex_tile_d: 'Five parts like the real exam – without the stress', ex_start_btn: 'Go to the B1 practice exam', ex_intro: 'How far along are you on the way to B1? The practice exam has five parts like the state exam – just shorter, with no time pressure and instant feedback. You get different tasks every time.', ex_p_listen: 'Listening', ex_p_gram: 'Grammar', ex_p_read: 'Reading', ex_p_write: 'Writing', ex_p_speak: 'Speaking', ex_pd_listen: 'hear and understand 5 sentences', ex_pd_gram: '6 gaps with the right form', ex_pd_read: 'a short text with questions', ex_pd_write: 'a short message or email', ex_pd_speak: 'speak freely for a minute', ex_note: 'Pass: at least 60 % on average and at least 50 % in every part. Takes about 15 minutes.', ex_passed_once: 'already passed', ex_tries: 'attempts', ex_go: 'Let’s go', ex_l_ask: 'Listen: what does the sentence mean?', ex_g_ask: 'Which form fits the gap?', ex_words: 'words',
       ex_w_len: 'at least 30 words', ex_w_hi: 'a greeting (e.g. Dzień dobry, Cześć, Szanowni Państwo)', ex_w_ask: 'a question or request', ex_w_bye: 'a closing (e.g. Pozdrawiam)', ex_w_gram: 'past tense or conditional plus a linking word (bo, ale, że …)', ex_ai_fix: 'Have the AI correct your text', ex_ai_login: 'With an account, the AI can correct your text.', ex_ai_sc: 'Please correct my text sentence by sentence and briefly explain the mistakes.', ex_ai_open: 'Wklej swój tekst, a ja go poprawię.', ex_s_how: 'Speak out loud for about a minute (5–8 sentences) – on your own, with someone or in the AI conversation. Then rate yourself honestly.', ex_s_ai: 'Talk to the AI', ex_s_rate: 'How did it go?', ex_s_r1: 'I spoke for a minute, almost without pauses', ex_s_r2: 'It went OK, with a few pauses and gaps', ex_s_r3: 'Difficult – only single sentences',
       ex_result: 'Result', ex_pass: 'Zdane! Passed!', ex_fail: 'Not quite yet – but you’re on your way!', ex_pass_d: 'Gratulacje! This is the app’s practice exam, not an official certificate – but a really good sign. Feel free to try again with new tasks.', ex_tip_listen: 'Tip: practise listening with the scenes and each town’s radio link – and with “Speak slowly” switched off.', ex_tip_gram: 'Tip: the grammar gaps come from “Cases” and “Aspect”. A few rounds of those help straight away.', ex_tip_read: 'Tip: read the chapters of Ania’s book without the translation first.', ex_tip_write: 'Tip: remember the greeting, a request or question, a closing – and write at least 30 words.', ex_tip_speak: 'Tip: do the towns’ speaking missions – ideally with real people.', ex_disclaimer: 'Note: the real state exam (certyfikatpolski.pl) is longer and marked differently.',
+      vs_src: 'App voice', vs_dev: 'Device', vs_d: 'Gosia and Darek are natural Polish voices (free, openly licensed). They speak all words, sentences, scenes and book chapters. Offline or for free answers, your device speaks.', vs_on_d: 'All words, sentences, scenes and chapters now come from this voice. Anything it doesn’t know (e.g. AI replies) or hasn’t loaded offline is spoken by the device voice.', vs_test: 'Listen', vs_dev_more: 'Device voice for everything else:',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -284,7 +286,7 @@
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', seenVer: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '', read: {}, exam: {} }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', seenVer: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '', vsrc: '', read: {}, exam: {} }; /* PATCH002 PATCH004 */
   }
   var BAK_KEY = 'polski_szlak_bak', RESCUE_KEY = 'polski_szlak_rescue', RESCUE = '', saveFailed = false;
   var S = load();
@@ -386,15 +388,38 @@
   }
   try { speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
   /* Muttersprachler-Aufnahmen (Vorschlag L): data.json "audio" ordnet Text -> Datei unter audio/ zu. Fehlt eine Aufnahme, spricht die Gerätestimme. */
-  var curAudio = null;
-  function audioFor(text) { var m = D.audio || {}, k = String(text).replace(/…/g, '').trim(); return m[k] || m[k.toLowerCase()] || null; }
+  /* 3.4: kostenlose Piper-Stimmen (Gosia, Darek) als Tondateien audio/<stimme>/<schlüssel>.mp3, Liste in audio/voices.json.
+     Reihenfolge: echte Aufnahme (D.audio) → gewählte App-Stimme → Gerätestimme. Fehlt eine Datei oder ist man offline, spricht das Gerät. */
+  var curAudio = null, AV_URL = 'audio/voices.json', AV = null, avWait = null, VSRC = { gosia: 'Gosia', darkman: 'Darek' };
+  function audioKey(text) { return ('00000000' + C.hash(String(text).replace(/…/g, '').replace(/\s+/g, ' ').trim().toLowerCase()).toString(16)).slice(-8); }
+  function needAV(cb) {
+    if (AV) { if (cb) cb(); return; }
+    if (!avWait) avWait = fetch(AV_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(function (j) { var k = {}; (j.keys || []).forEach(function (x) { k[x] = 1; }); AV = { keys: k, voices: j.voices || [] }; }, function (e) { avWait = null; throw e; });
+    avWait.then(function () { if (cb) cb(); }, function () {});
+  }
+  function audioFor(text) {
+    var m = D.audio || {}, k = String(text).replace(/…/g, '').trim(); if (m[k] || m[k.toLowerCase()]) return m[k] || m[k.toLowerCase()];
+    if (S.vsrc && VSRC[S.vsrc] && AV && AV.keys[audioKey(text)]) return 'audio/' + S.vsrc + '/' + audioKey(text) + '.mp3';
+    return null;
+  }
+  function stopAll() { try { if (curAudio) { curAudio.onended = null; curAudio.pause(); } speechSynthesis.cancel(); } catch (e) {} }
+  function playClip(src, slow, onEnd, onFail) {
+    audioPlayback(); stopAll();
+    var a = new Audio(src), failed = false; curAudio = a; a.playbackRate = slow ? 0.75 : 1;
+    try { a.preservesPitch = true; } catch (e) {}
+    var fail = function () { if (failed) return; failed = true; if (curAudio === a) curAudio = null; onFail(); };
+    a.onerror = fail; a.onended = function () { if (onEnd) onEnd(); };
+    try { var p = a.play(); if (p && p.catch) p.catch(fail); } catch (e) { fail(); }
+  }
   function speak(text, slow) {
-    var src = !slow && !S.slow && audioFor(text);
-    if (src) {
-      try { if (curAudio) curAudio.pause(); speechSynthesis.cancel(); } catch (e) {}
-      try { curAudio = new Audio(src); curAudio.play().catch(function () { curAudio = null; ttsSpeak(text, slow); }); return; } catch (e) {}
-    }
+    var src = audioFor(text), sl = !!(slow || S.slow);
+    if (src) return playClip(src, sl, null, function () { ttsSpeak(text, slow); });
     ttsSpeak(text, slow);
+  }
+  /* Mehrere Sätze nacheinander (Buchkapitel): mit App-Stimme Datei für Datei, sonst in einem Stück mit der Gerätestimme */
+  function speakSeq(list) {
+    if (!list.every(function (x) { return audioFor(x); })) return speak(list.join(' '));
+    var i = 0; (function next() { if (i >= list.length) return; var x = list[i++]; playClip(audioFor(x), !!S.slow, next, function () { ttsSpeak(list.slice(i - 1).join(' ')); }); })();
   }
   var vcWarned = false, ttsLog = [], ttsKeep = [];
   function tlog(m) { ttsLog.push(new Date().toISOString().slice(11, 23) + ' ' + m); if (ttsLog.length > 40) ttsLog.shift(); }
@@ -850,7 +875,7 @@
       (rdAns.done && no === r3.length && D.book ? '<section class="card stack next-box pop"><p>' + esc(L(D.book.finale)) + '</p><button class="btn primary" id="exam-open2" style="justify-self:start">🎓 ' + esc(t('ex_start_btn')) + ' →</button></section>' : '');
     shell(html);
     document.getElementById('back').onclick = function () { rdAns = null; tab = 'city'; render(ui); window.scrollTo(0, 0); };
-    document.getElementById('rd-all').onclick = function () { speak(rd.lines.map(function (l) { return l.pl; }).join(' ')); };
+    document.getElementById('rd-all').onclick = function () { speakSeq(rd.lines.map(function (l) { return l.pl; })); };
     document.getElementById('rd-tr').onchange = function (e) { rdShow = e.target.checked; document.querySelectorAll('.rd-trl').forEach(function (x) { x.hidden = !rdShow; }); };
     document.querySelectorAll('.rd-pl').forEach(function (b) { b.onclick = function () { var i = +b.getAttribute('data-i'); speak(rd.lines[i].pl); var tr = b.parentNode.nextSibling; if (tr) tr.hidden = false; }; });
     document.querySelectorAll('.rd-q .opt').forEach(function (b) { b.onclick = function () { rdAns.pick[+b.getAttribute('data-q')] = +b.getAttribute('data-k'); renderRead(ui); }; });
@@ -1051,7 +1076,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.3.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.4', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1139,12 +1164,18 @@
   function voiceBox() {
     var vs = plVoices(), ios = isIOS(), and = /android/i.test(navigator.userAgent);
     return '<section class="card stack" id="voice"><h2>' + esc(t('vc')) + '</h2>' +
+      '<div class="stack"><b>' + esc(t('vs_src')) + '</b><div class="seg" id="vs-src">' + segBtn('', t('vs_dev'), !S.vsrc) + segBtn('gosia', 'Gosia ♀', S.vsrc === 'gosia') + segBtn('darkman', 'Darek ♂', S.vsrc === 'darkman') + '</div>' +
+      '<p class="small muted">' + esc(S.vsrc ? t('vs_on_d') : t('vs_d')) + '</p>' + (S.vsrc ? '<button class="btn" id="vs-test" style="justify-self:start">' + I.spk + esc(t('vs_test')) + '</button>' : '') + '</div>' +
+      (S.vsrc ? '<p class="small"><b>' + esc(t('vs_dev_more')) + '</b></p>' : '') +
       (vs.length ? '<label class="fld">' + esc(t('vc_pick')) + '<select id="vc-sel"><option value=""' + (!S.voice ? ' selected' : '') + '>' + esc(t('vc_auto')) + '</option>' + vs.map(function (v) { return '<option value="' + esc(v.name) + '"' + (S.voice && S.voice === v.name ? ' selected' : '') + '>' + esc(v.name) + '</option>'; }).join('') + '</select></label>' +
         '<div class="row"><button class="btn" id="vc-test">' + I.spk + esc(t('vc_test')) + '</button><button class="btn ghost" id="vc-diag">' + esc(t('vc_diag')) + '</button></div><pre id="vc-out" class="vc-out" hidden></pre><p class="small muted">' + esc(t('vc_d')) + (isApple() ? ' ' + esc(t('vc_apple')) : '') + '</p>'
         : '<p class="small"><b>' + esc(t('vc_none')) + '</b></p><p class="small muted">' + esc(ios ? t('vc_ios') : and ? t('vc_and') : t('vc_pc')) + '</p><button class="btn ghost" id="vc-diag" style="justify-self:start">' + esc(t('vc_diag')) + '</button><pre id="vc-out" class="vc-out" hidden></pre>') + '</section>';
   }
+  var VS_TEST = 'Kiedy mogę zacząć pracę?';
   function refreshVoiceBox() { var el = document.getElementById('voice'); if (!el) return; var tmp = document.createElement('div'); tmp.innerHTML = voiceBox(); el.replaceWith(tmp.firstChild); bindVoice(); }
   function bindVoice() {
+    bindSeg('vs-src', function (v) { S.vsrc = v; save(); if (v) needAV(function () { refreshVoiceBox(); speak(VS_TEST); }); refreshVoiceBox(); });
+    var vst = document.getElementById('vs-test'); if (vst) vst.onclick = function () { needAV(function () { speak(VS_TEST); }); };
     var sel = document.getElementById('vc-sel'); if (sel) sel.onchange = function () { S.voice = sel.value; save(); pickVoice(); };
     var vt = document.getElementById('vc-test'); if (vt) vt.onclick = function () { ttsSpeak('Dzień dobry! Miło mi cię poznać. Jak się masz?'); };
     var vd = document.getElementById('vc-diag'); if (vd) vd.onclick = function () {
@@ -2802,7 +2833,7 @@
 
   function boot() {
     if (REVIEW) { needS3(function () { renderReview(); }); renderReview(); if (!RAW.polacy && RAW.polacyLazy) needPolacy(function () { renderReview(); }); return; }
-    startSafety(); sbFromHash();
+    startSafety(); sbFromHash(); if (S.vsrc) needAV();
     /* Erst zeichnen, wenn Szlak 2/3 da sind (aus dem Cache: Millisekunden) – spätestens nach 1,2 s; kommt es später, Startseite neu zeichnen */
     var first = false;
     function go1() { if (first) return; first = true; render(); setTimeout(installHint, 1200); if (A && A.uid) syncNow(); }

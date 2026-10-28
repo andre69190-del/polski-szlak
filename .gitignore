@@ -7,3 +7,4 @@ content_neu/
 *.zip
 .claude/
 deploy/functions/ps-chat/stuecke/
+_transfer/

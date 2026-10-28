@@ -388,6 +388,27 @@ with sync_playwright() as p:
     ok('Prüfmodus: Abschnitt „Książka (Szlak 3)“')
     tx.close()
 
+    # ---------- 3.4 App-Stimmen Gosia / Darek (Tondateien) ----------
+    vx = b.new_context(); vp = vx.new_page(); vp.on('pageerror', lambda e: errors.append(str(e)))
+    vp.add_init_script("""window.__played = []; HTMLMediaElement.prototype.play = function () { window.__played.push(this.src); setTimeout(() => this.onended && this.onended(), 5); return Promise.resolve(); };
+      window.__tts = []; try { const o = window.speechSynthesis; o.speak = (u) => window.__tts.push(u.text); } catch (e) {}""")
+    vp.goto(URL); vp.wait_for_selector('#ob-go')
+    vp.click('#ob-why [data-v="travel"]'); vp.click('#ob-goal [data-v="3"]'); vp.click('#ob-go'); vp.wait_for_timeout(400)
+    vp.evaluate("() => window.PSApp.go('me')"); vp.wait_for_selector('#vs-src')
+    vp.click('#vs-src [data-v="gosia"]'); vp.wait_for_timeout(500)
+    pl = vp.evaluate("() => window.__played")
+    (ok if pl and '/audio/gosia/' in pl[-1] else bad)('Stimme Gosia gewählt: Probehören spielt Tondatei: %s' % (pl[-1:] if pl else pl))
+    vp.evaluate("() => window.PSApp.go('city', 0)"); vp.wait_for_selector('.li [data-say]')
+    vp.locator('.li [data-say]').first.click(); vp.wait_for_timeout(200)
+    pl = vp.evaluate("() => window.__played")
+    import urllib.request
+    code = urllib.request.urlopen(pl[-1]).status if pl else 0
+    (ok if pl and '/audio/gosia/' in pl[-1] and code == 200 else bad)('Wort aus Warszawa: Datei vorhanden und abgespielt (%s)' % code)
+    vp.evaluate("() => { const s = window.PSApp.state(); s.vsrc = 'darkman'; }")
+    vp.locator('.li [data-say]').nth(1).click(); vp.wait_for_timeout(200)
+    (ok if '/audio/darkman/' in vp.evaluate("() => window.__played")[-1] else bad)('Stimme Darek: Datei aus audio/darkman')
+    vx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))
