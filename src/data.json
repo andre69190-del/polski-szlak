@@ -25381,6 +25381,18 @@
  ],
  "news": [
   {
+   "v": "3.1.3",
+   "date": "2026-10-28",
+   "de": [
+    "Ton auf iPhone und iPad: Die App spricht wieder wie früher mit der polnischen Standardstimme des Geräts. Bleibt es trotzdem einmal still, versucht sie es automatisch ein zweites Mal.",
+    "Neu unter Ich → Stimme: „Ton-Test mit Diagnose“ – zeigt, was dein Gerät meldet (hilft bei der Fehlersuche)."
+   ],
+   "en": [
+    "Sound on iPhone and iPad: the app speaks again, as before, with the device’s default Polish voice. If it ever stays silent, it automatically tries a second time.",
+    "New under Me → Voice: “Sound test with diagnostics” – shows what your device reports (helps troubleshooting)."
+   ]
+  },
+  {
    "v": "3.1.2",
    "date": "2026-10-28",
    "de": [

@@ -143,7 +143,8 @@
       news: 'Was ist neu', news_new: 'Neu in dieser Version', news_all: 'Alle Neuerungen ansehen', news_ver: 'Version',
       boss_locked: 'Die Prüfung öffnet, wenn alle Wörter gefestigt sind ({r} von {n}).',
       learn_first: 'Lerne zuerst ein paar neue Wörter dieser Stadt kennen.',
-      inst_mac: 'Mac mit Safari: Menü Ablage → „Zum Dock hinzufügen“. Mac mit Chrome oder Edge: Installieren-Symbol rechts in der Adressleiste. Danach startet Polski Szlak wie ein eigenes Programm.', sync_err_mail: 'Das Konto konnte gerade nicht angelegt werden: Der Server kann keine Bestätigungs-Mail senden. Bitte später noch einmal versuchen – wir kümmern uns darum.'
+      inst_mac: 'Mac mit Safari: Menü Ablage → „Zum Dock hinzufügen“. Mac mit Chrome oder Edge: Installieren-Symbol rechts in der Adressleiste. Danach startet Polski Szlak wie ein eigenes Programm.', sync_err_mail: 'Das Konto konnte gerade nicht angelegt werden: Der Server kann keine Bestätigungs-Mail senden. Bitte später noch einmal versuchen – wir kümmern uns darum.',
+      vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
       nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
@@ -251,7 +252,8 @@
       news: 'What’s new', news_new: 'New in this version', news_all: 'See all updates', news_ver: 'Version',
       boss_locked: 'The test opens once all words are consolidated ({r} of {n}).',
       learn_first: 'First get to know a few new words of this city.',
-      inst_mac: 'Mac with Safari: File menu → “Add to Dock”. Mac with Chrome or Edge: install icon on the right of the address bar. Polski Szlak then starts like its own app.', sync_err_mail: 'The account couldn’t be created right now: the server can’t send the confirmation email. Please try again later – we’re on it.'
+      inst_mac: 'Mac with Safari: File menu → “Add to Dock”. Mac with Chrome or Edge: install icon on the right of the address bar. Polski Szlak then starts like its own app.', sync_err_mail: 'The account couldn’t be created right now: the server can’t send the confirmation email. Please try again later – we’re on it.',
+      vc_diag: 'Sound test with diagnostics'
     }
   };
 
@@ -323,9 +325,11 @@
      Dort wählt deshalb das System die Stimme (nur lang = pl-PL), außer man hat unter „Ich“ selbst eine gewählt. Sonst: Online-/Natural-Stimmen bevorzugen. */
   function isApple() { try { var ua = navigator.userAgent; return /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) || (/macintosh/i.test(ua) && !/chrome|chromium|edg|firefox/i.test(ua)); } catch (e) { return false; } }
   function voiceScore(v) { var n = v.name || ''; return (/natural|neural|online/i.test(n) ? 4 : 0) + (/google/i.test(n) ? 2 : 0) + (v['default'] ? 1 : 0); }
+  /* 3.1.3: Auf Apple wieder wie bis 2.0 (da ging der Ton): die ERSTE polnische Stimme der Liste – das ist die vom System
+     installierte Standardstimme. Eine unter „Ich“ gewählte Stimme gilt auf Apple nur, wenn sie lokal installiert ist. */
   function pickVoice() {
-    var vs = plVoices(), mine = S && S.voice && vs.filter(function (v) { return v.name === S.voice; })[0];
-    voice = mine || (isApple() ? null : vs.slice().sort(function (a, b) { return voiceScore(b) - voiceScore(a); })[0] || null);
+    var vs = plVoices(), mine = S && S.voice && vs.filter(function (v) { return v.name === S.voice && (!isApple() || v.localService !== false); })[0];
+    voice = mine || (isApple() ? vs[0] || null : vs.slice().sort(function (a, b) { return voiceScore(b) - voiceScore(a); })[0] || null);
     if (tab === 'me' && document.getElementById('voice')) refreshVoiceBox();
   }
   try { speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
@@ -340,19 +344,42 @@
     }
     ttsSpeak(text, slow);
   }
-  var vcWarned = false;
-  function ttsSpeak(text, slow) {
-    if (!voice && !vcWarned && typeof speechSynthesis !== 'undefined' && speechSynthesis.getVoices().length && !plVoices().length) { vcWarned = true; toast(t('vc_none_toast')); }
+  var vcWarned = false, ttsLog = [], ttsKeep = [];
+  function tlog(m) { ttsLog.push(new Date().toISOString().slice(11, 23) + ' ' + m); if (ttsLog.length > 40) ttsLog.shift(); }
+  /* 3.1.3 robuster für Safari/iOS: nur abbrechen, wenn wirklich etwas läuft (cancel() direkt vor speak() verschluckt dort
+     manchmal den neuen Satz), Sprachausgabe ggf. fortsetzen (resume), Satz-Objekt festhalten (sonst räumt Safari es weg),
+     und wenn nach 1,5 s nichts startet: einmal ohne feste Stimme wiederholen. */
+  function ttsSpeak(text, slow, retry) {
+    if (typeof speechSynthesis === 'undefined' || typeof SpeechSynthesisUtterance === 'undefined') { tlog('keine Sprachausgabe im Browser'); toast(t('tts_missing')); return; }
+    if (!voice && !retry) pickVoice();
+    if (!voice && !vcWarned && speechSynthesis.getVoices().length && !plVoices().length) { vcWarned = true; toast(t('vc_none_toast')); }
     try {
-      speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(String(text).replace(/…/g, '')), started = false, v0 = voice;
-      u.lang = 'pl-PL'; if (v0) u.voice = v0; u.rate = (slow || S.slow) ? 0.7 : 0.95;
-      /* Sicherheitsnetz: bleibt eine gewählte Stimme stumm (nicht installiert), sofort mit der Systemstimme wiederholen */
-      u.onstart = function () { started = true; };
-      u.onerror = function (e) { if (v0 && !started && (!e || e.error !== 'interrupted' && e.error !== 'canceled')) { voice = null; ttsSpeak(text, slow); } };
-      if (v0) setTimeout(function () { if (!started && voice === v0 && !speechSynthesis.speaking) { voice = null; ttsSpeak(text, slow); } }, 1200);
-      speechSynthesis.speak(u);
-    } catch (e) { toast(t('tts_missing')); }
+      /* Lief noch etwas: abbrechen und kurz warten – Safari verschluckt sonst den neuen Satz oder bleibt „hängen“ */
+      var busy = speechSynthesis.speaking || speechSynthesis.pending;
+      if (busy) speechSynthesis.cancel();
+      if (speechSynthesis.paused) speechSynthesis.resume();
+      var u = new SpeechSynthesisUtterance(String(text).replace(/…/g, '')), started = false, v0 = retry ? null : voice;
+      u.lang = 'pl-PL'; if (v0) u.voice = v0; u.rate = (slow || S.slow) ? 0.7 : 0.95; u.volume = 1; u.pitch = 1;
+      u.onstart = function () { started = true; tlog('start' + (v0 ? ' (' + v0.name + ')' : ' (Systemstimme)')); };
+      u.onend = function () { tlog('ende'); var i = ttsKeep.indexOf(u); if (i >= 0) ttsKeep.splice(i, 1); };
+      u.onerror = function (e) { tlog('fehler: ' + (e && e.error)); if (!started && !retry && e && e.error !== 'interrupted' && e.error !== 'canceled') ttsSpeak(text, slow, true); };
+      ttsKeep.push(u); if (ttsKeep.length > 5) ttsKeep.shift();
+      tlog('sprich: ' + String(text).slice(0, 30) + (v0 ? ' · Stimme ' + v0.name : ' · ohne feste Stimme'));
+      if (busy) setTimeout(function () { speechSynthesis.speak(u); }, 80); else speechSynthesis.speak(u);
+      if (!retry) setTimeout(function () { if (!started && !speechSynthesis.speaking) { tlog('nach 1,5 s kein Start – zweiter Versuch'); ttsSpeak(text, slow, true); } }, 1500);
+    } catch (e) { tlog('ausnahme: ' + e); toast(t('tts_missing')); }
+  }
+  /* Ton-Test mit Diagnose (Ich → Stimme): zeigt, was der Browser meldet – für Fehlersuche per Bildschirmfoto */
+  function ttsDiag() {
+    var vs = []; try { vs = speechSynthesis.getVoices(); } catch (e) {}
+    var pl = vs.filter(function (v) { return /^pl/i.test(v.lang); });
+    return ['App ' + APP_VER + ' · ' + (isApple() ? 'Apple' : 'kein Apple') + (isStandalone() ? ' · als App installiert' : ' · im Browser'),
+      navigator.userAgent.replace(/\s*\(KHTML, like Gecko\)/, '').slice(0, 140),
+      'Stimmen gesamt: ' + vs.length + ' · polnisch: ' + pl.length,
+      pl.map(function (v) { return '  - ' + v.name + ' [' + v.lang + (v.localService ? ', lokal' : ', online') + (v['default'] ? ', Standard' : '') + ']'; }).join('\n') || '  (keine polnische Stimme)',
+      'gewählt: ' + (voice ? voice.name : '(keine feste Stimme)') + (S.voice ? ' · eingestellt: ' + S.voice : ''),
+      'Status: speaking=' + speechSynthesis.speaking + ' pending=' + speechSynthesis.pending + ' paused=' + speechSynthesis.paused,
+      '--- Ablauf ---'].concat(ttsLog).join('\n');
   }
 
   /* ---------- Icons ---------- */
@@ -774,7 +801,7 @@
   }
 
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.1.2', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.1.3', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -863,13 +890,18 @@
     var vs = plVoices(), ios = isIOS(), and = /android/i.test(navigator.userAgent);
     return '<section class="card stack" id="voice"><h2>' + esc(t('vc')) + '</h2>' +
       (vs.length ? '<label class="fld">' + esc(t('vc_pick')) + '<select id="vc-sel"><option value=""' + (!S.voice ? ' selected' : '') + '>' + esc(t('vc_auto')) + '</option>' + vs.map(function (v) { return '<option value="' + esc(v.name) + '"' + (S.voice && S.voice === v.name ? ' selected' : '') + '>' + esc(v.name) + '</option>'; }).join('') + '</select></label>' +
-        '<button class="btn" id="vc-test" style="justify-self:start">' + I.spk + esc(t('vc_test')) + '</button><p class="small muted">' + esc(t('vc_d')) + (isApple() ? ' ' + esc(t('vc_apple')) : '') + '</p>'
-        : '<p class="small"><b>' + esc(t('vc_none')) + '</b></p><p class="small muted">' + esc(ios ? t('vc_ios') : and ? t('vc_and') : t('vc_pc')) + '</p>') + '</section>';
+        '<div class="row"><button class="btn" id="vc-test">' + I.spk + esc(t('vc_test')) + '</button><button class="btn ghost" id="vc-diag">' + esc(t('vc_diag')) + '</button></div><pre id="vc-out" class="vc-out" hidden></pre><p class="small muted">' + esc(t('vc_d')) + (isApple() ? ' ' + esc(t('vc_apple')) : '') + '</p>'
+        : '<p class="small"><b>' + esc(t('vc_none')) + '</b></p><p class="small muted">' + esc(ios ? t('vc_ios') : and ? t('vc_and') : t('vc_pc')) + '</p><button class="btn ghost" id="vc-diag" style="justify-self:start">' + esc(t('vc_diag')) + '</button><pre id="vc-out" class="vc-out" hidden></pre>') + '</section>';
   }
   function refreshVoiceBox() { var el = document.getElementById('voice'); if (!el) return; var tmp = document.createElement('div'); tmp.innerHTML = voiceBox(); el.replaceWith(tmp.firstChild); bindVoice(); }
   function bindVoice() {
     var sel = document.getElementById('vc-sel'); if (sel) sel.onchange = function () { S.voice = sel.value; save(); pickVoice(); };
     var vt = document.getElementById('vc-test'); if (vt) vt.onclick = function () { ttsSpeak('Dzień dobry! Miło mi cię poznać. Jak się masz?'); };
+    var vd = document.getElementById('vc-diag'); if (vd) vd.onclick = function () {
+      var out = document.getElementById('vc-out'); out.hidden = false; out.textContent = '…';
+      ttsLog = []; ttsSpeak('Dzień dobry!');
+      setTimeout(function () { out.textContent = ttsDiag(); }, 2500);
+    };
   }
   var REM_DAYS = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
   function remBox() {

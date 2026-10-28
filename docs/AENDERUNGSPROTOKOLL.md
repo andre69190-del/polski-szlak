@@ -1,5 +1,13 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.1.3 · 28.10.2026 · Ton auf Apple (zweiter Anlauf)
+
+- Rückmeldung: Ton auf iPhone geht weiterhin nicht, „anfangs ging es“ (bis 2.0).
+- **Stimmenwahl auf Apple wie bis 2.0:** erste polnische Stimme der Liste (Standardstimme des Systems) statt „System wählt“ (3.1.1) bzw. „beste Stimme“ (3.0). Eine unter Ich gewählte Stimme gilt auf Apple nur, wenn sie lokal ist.
+- **Robuster gegen Safari-Eigenheiten:** `cancel()` nur, wenn wirklich etwas läuft, danach 80 ms warten; `resume()` bei pausierter Ausgabe; Satz-Objekte werden festgehalten; startet nach 1,5 s nichts, zweiter Versuch ohne feste Stimme.
+- **Ton-Test mit Diagnose** (Ich → Stimme): Stimmenliste, gewählte Stimme, Status und Ablauf (start/ende/fehler) zum Abfotografieren.
+- Mit nachgebautem iPhone (User-Agent + simulierte Sprachausgabe, auch „hängende“ Ausgabe) geprüft. Service Worker Cache v3-1-3.
+
 ## 3.1.2 · 28.10.2026 · Erst festigen, dann weiter
 
 - Rückmeldung des Nutzers: Man kam in neue Städte, obwohl die Wörter der alten Stadt noch nicht vorkamen bzw. nicht gefestigt waren.

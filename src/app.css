@@ -170,6 +170,7 @@ button.chip { cursor: pointer; min-height: 40px; } /* PATCH004 */
 .chat-fix span { color: var(--good); font-weight: 700; }
 .news-ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
 .news-hr { border: 0; border-top: 1px solid var(--line); margin: 6px 0; width: 100%; }
+.vc-out { white-space: pre-wrap; font-size: .78rem; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 10px; max-height: 320px; overflow: auto; margin: 0; }
 .pl-word { font-family: var(--f-display); font-weight: 700; }
 .box-dots { display: inline-flex; gap: 3px; }
 .box-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
