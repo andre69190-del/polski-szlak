@@ -168,6 +168,8 @@ button.chip { cursor: pointer; min-height: 40px; } /* PATCH004 */
 #ch-f textarea { min-height: 64px; font-family: var(--f-body); font-size: 1rem; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); }
 .chat-fix { margin-top: 6px; }
 .chat-fix span { color: var(--good); font-weight: 700; }
+.news-ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.news-hr { border: 0; border-top: 1px solid var(--line); margin: 6px 0; width: 100%; }
 .pl-word { font-family: var(--f-display); font-weight: 700; }
 .box-dots { display: inline-flex; gap: 3px; }
 .box-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }

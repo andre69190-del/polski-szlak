@@ -138,7 +138,9 @@
       themes: 'Nach Thema', themes_d: 'Alles zu Arzt, Essen, Amt … gebündelt', themes_intro: 'Dieselben Lektionen wie auf dem Szlak, nur nach Alltagsthemen sortiert – zum Beispiel alles, was du für einen Arztbesuch brauchst. Dein Fortschritt zählt in beiden Ansichten.', theme_stats: '{n} Wörter · {s} schon gesehen · {m} sicher', theme_learn: 'Neue Wörter', theme_learn_d: 'Die nächsten 6 Wörter aus diesem Thema', theme_quiz: 'Thema üben', theme_quiz_d: 'Gemischte Runde mit deinen Wörtern aus dem Thema', theme_lessons: 'Lektionen in diesem Thema', theme_note: 'Gesperrte Städte kannst du auf ihrer Seite trotzdem öffnen – die Reihenfolge auf dem Szlak bleibt davon unberührt.', pack: 'Themenpaket', open_city: 'Trotzdem öffnen (zum Lernen)', open_city_d: 'Für Themen außer der Reihe: Du kannst hier lernen und üben. Die Stadtprüfung schaltet auf dem Szlak nur die nächste Stadt der Reihe frei.', diary: 'Anias Postkarten', diary_new: 'Neue Postkarte', diary_d: '{n} von {t} Karten lesbar. Jede geschaffte Stadt auf Szlak 2 bringt eine neue.', diary_done: 'Alle Postkarten gelesen – wir sehen uns auf der Śnieżka!', diary_start: 'Ania reist dir voraus. Schaffe die erste Stadt auf Szlak 2, um ihre erste Karte zu lesen.', diary_open: 'Postkarten lesen', diary_from: 'Postkarten von Ania',
       lazy_fail: 'Dieser Bereich wird beim ersten Öffnen geladen. Bitte einmal mit Internet öffnen – danach geht er auch offline.',
       vc: 'Stimme', vc_pick: 'Polnische Stimme', vc_test: 'Stimme testen', vc_d: 'Natürliche oder „verbesserte“ Stimmen klingen deutlich besser. Mehr Stimmen bekommst du in den Einstellungen deines Geräts.', vc_none: 'Auf diesem Gerät ist keine polnische Stimme installiert.', vc_none_toast: 'Keine polnische Stimme gefunden – Tipp unter Ich → Stimme.', vc_ios: 'iPhone/iPad: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Polnisch → „Zosia (verbessert)“ laden. Danach die App neu öffnen.', vc_and: 'Android: Einstellungen → Bedienungshilfen bzw. System → Sprache → Sprachausgabe → Google-Sprachausgabe → Sprachdaten installieren → Polnisch. Danach die App neu öffnen.', vc_pc: 'Windows: Einstellungen → Zeit und Sprache → Sprache → Polnisch hinzufügen (mit Sprachausgabe). Chrome und Edge bringen oft eigene Online-Stimmen mit.',
-      chat: 'KI-Gespräch', chat_d: 'Frei auf Polnisch schreiben oder sprechen – mit Korrektur', chat_city_d: 'Die Szene dieser Stadt frei weiterspielen', chat_free: 'Freies Gespräch (Café-Smalltalk)', chat_free_sc: 'ein lockeres Gespräch in einem Café in Polen', chat_sc: 'Situation', chat_lv: 'Niveau', chat_ph: 'Auf Polnisch antworten … (Enter = senden)', chat_send: 'Senden', chat_talk: 'Antworten vorlesen', chat_used: 'heute {n} von {l}', chat_new: 'Neu anfangen', chat_better: 'Besser', chat_note: 'Deine Nachrichten gehen über unseren Server an einen KI-Dienst (derzeit Groq, USA) und werden nicht gespeichert. Bitte keine persönlichen Daten eingeben. Die KI kann Fehler machen.', chat_login: 'Das KI-Gespräch gibt es mit Konto (kostenlos, Ich → Geräte-Abgleich) – so bleibt es für alle kostenlos und fair begrenzt.', chat_offline: 'Für das KI-Gespräch brauchst du Internet.', chat_soon: 'Das KI-Gespräch wird gerade eingerichtet und ist bald verfügbar.', chat_limit: 'Für heute sind alle KI-Nachrichten verbraucht. Morgen geht es weiter!', chat_err: 'Die KI antwortet gerade nicht. Bitte gleich noch einmal versuchen.'
+      chat: 'KI-Gespräch', chat_d: 'Frei auf Polnisch schreiben oder sprechen – mit Korrektur', chat_city_d: 'Die Szene dieser Stadt frei weiterspielen', chat_free: 'Freies Gespräch (Café-Smalltalk)', chat_free_sc: 'ein lockeres Gespräch in einem Café in Polen', chat_sc: 'Situation', chat_lv: 'Niveau', chat_ph: 'Auf Polnisch antworten … (Enter = senden)', chat_send: 'Senden', chat_talk: 'Antworten vorlesen', chat_used: 'heute {n} von {l}', chat_new: 'Neu anfangen', chat_better: 'Besser', chat_note: 'Deine Nachrichten gehen über unseren Server an einen KI-Dienst (derzeit Groq, USA) und werden nicht gespeichert. Bitte keine persönlichen Daten eingeben. Die KI kann Fehler machen.', chat_login: 'Das KI-Gespräch gibt es mit Konto (kostenlos, Ich → Geräte-Abgleich) – so bleibt es für alle kostenlos und fair begrenzt.', chat_offline: 'Für das KI-Gespräch brauchst du Internet.', chat_soon: 'Das KI-Gespräch wird gerade eingerichtet und ist bald verfügbar.', chat_limit: 'Für heute sind alle KI-Nachrichten verbraucht. Morgen geht es weiter!', chat_err: 'Die KI antwortet gerade nicht. Bitte gleich noch einmal versuchen.',
+      vc_auto: 'Automatisch (empfohlen)', vc_apple: 'Auf iPhone/iPad/Mac: Wähl nur Stimmen, die unter Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen → Polnisch geladen sind – sonst bleibt es stumm.',
+      news: 'Was ist neu', news_new: 'Neu in dieser Version', news_all: 'Alle Neuerungen ansehen', news_ver: 'Version'
     },
     en: {
       nav_home: 'Home', nav_practice: 'Practice', nav_album: 'Album', nav_me: 'Me',
@@ -241,7 +243,9 @@
       themes: 'By topic', themes_d: 'Everything for the doctor, food, offices … bundled', themes_intro: 'The same lessons as on the Szlak, sorted by everyday topic – for example everything you need for a visit to the doctor. Your progress counts in both views.', theme_stats: '{n} words · {s} seen · {m} solid', theme_learn: 'New words', theme_learn_d: 'The next 6 words from this topic', theme_quiz: 'Practise topic', theme_quiz_d: 'Mixed round with your words from this topic', theme_lessons: 'Lessons in this topic', theme_note: 'You can still open locked cities on their page – the order on the Szlak stays the same.', pack: 'Topic pack', open_city: 'Open anyway (to learn)', open_city_d: 'For topics out of order: you can learn and practise here. On the Szlak the city test only unlocks the next city in line.', diary: 'Ania’s postcards', diary_new: 'New postcard', diary_d: '{n} of {t} cards readable. Every city you complete on Szlak 2 brings a new one.', diary_done: 'All postcards read – see you on Śnieżka!', diary_start: 'Ania is travelling ahead of you. Complete the first city on Szlak 2 to read her first card.', diary_open: 'Read postcards', diary_from: 'Postcards from Ania',
       lazy_fail: 'This section is loaded the first time you open it. Please open it once while online – after that it works offline too.',
       vc: 'Voice', vc_pick: 'Polish voice', vc_test: 'Test voice', vc_d: 'Natural or “enhanced” voices sound much better. You can add more voices in your device settings.', vc_none: 'No Polish voice is installed on this device.', vc_none_toast: 'No Polish voice found – see Me → Voice for a tip.', vc_ios: 'iPhone/iPad: Settings → Accessibility → Spoken Content → Voices → Polish → download “Zosia (Enhanced)”. Then reopen the app.', vc_and: 'Android: Settings → Accessibility or System → Language → Text-to-speech → Google Speech Services → Install voice data → Polish. Then reopen the app.', vc_pc: 'Windows: Settings → Time & language → Language → add Polish (with text-to-speech). Chrome and Edge often include their own online voices.',
-      chat: 'AI conversation', chat_d: 'Write or speak freely in Polish – with corrections', chat_city_d: 'Continue this city’s scene freely', chat_free: 'Free conversation (café small talk)', chat_free_sc: 'a relaxed conversation in a café in Poland', chat_sc: 'Situation', chat_lv: 'Level', chat_ph: 'Answer in Polish … (Enter = send)', chat_send: 'Send', chat_talk: 'Read replies aloud', chat_used: 'today {n} of {l}', chat_new: 'Start over', chat_better: 'Better', chat_note: 'Your messages go via our server to an AI service (currently Groq, USA) and are not stored. Please don’t enter personal data. The AI can make mistakes.', chat_login: 'The AI conversation needs an account (free, Me → Device sync) – that keeps it free and fairly limited for everyone.', chat_offline: 'You need internet for the AI conversation.', chat_soon: 'The AI conversation is being set up and will be available soon.', chat_limit: 'You’ve used all AI messages for today. See you tomorrow!', chat_err: 'The AI isn’t answering right now. Please try again in a moment.'
+      chat: 'AI conversation', chat_d: 'Write or speak freely in Polish – with corrections', chat_city_d: 'Continue this city’s scene freely', chat_free: 'Free conversation (café small talk)', chat_free_sc: 'a relaxed conversation in a café in Poland', chat_sc: 'Situation', chat_lv: 'Level', chat_ph: 'Answer in Polish … (Enter = send)', chat_send: 'Send', chat_talk: 'Read replies aloud', chat_used: 'today {n} of {l}', chat_new: 'Start over', chat_better: 'Better', chat_note: 'Your messages go via our server to an AI service (currently Groq, USA) and are not stored. Please don’t enter personal data. The AI can make mistakes.', chat_login: 'The AI conversation needs an account (free, Me → Device sync) – that keeps it free and fairly limited for everyone.', chat_offline: 'You need internet for the AI conversation.', chat_soon: 'The AI conversation is being set up and will be available soon.', chat_limit: 'You’ve used all AI messages for today. See you tomorrow!', chat_err: 'The AI isn’t answering right now. Please try again in a moment.',
+      vc_auto: 'Automatic (recommended)', vc_apple: 'On iPhone/iPad/Mac: only pick voices downloaded under Settings → Accessibility → Spoken Content → Voices → Polish – otherwise there is no sound.',
+      news: 'What’s new', news_new: 'New in this version', news_all: 'See all updates', news_ver: 'Version'
     }
   };
 
@@ -249,7 +253,7 @@
   function fresh() {
     return { app: 'polski-szlak', v: 1, base: (navigator.language || 'de').slice(0, 2) === 'en' ? 'en' : 'de', onboarded: false, why: '', goal: 4, len: 10,
       xp: 0, cards: {}, active: {}, unlocked: 0, boss: {}, scenes: {}, krasnale: [], mistakes: [], custom: [], weekXp: {}, hardcore: false, slow: false,
-      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '' }; /* PATCH002 PATCH004 */
+      theme: 'auto', instHint: false, ts: 0, daily: {}, seenWeek: '', diff: 'easy', free: false, skipped: {}, jokers: { five0: 3, freeze: 3, hint: 3 }, jokerWeek: '', best: {}, input: 'write', plv: null, plBest: {}, name: '', gender: '', rank: {}, rankSeen: [], done: {}, welcomeDay: '', missions: {}, tour: false, letterQuiz: 0, wlog: {}, wrSeen: '', seenVer: '', rem: { days: ['MO', 'WE', 'FR'], time: '19:00' }, voice: '' }; /* PATCH002 PATCH004 */
   }
   var S = load();
   loadData();
@@ -308,8 +312,15 @@
   var voice = null;
   /* 3.0: beste polnische Stimme wählen (natürliche / verbesserte Stimmen bevorzugt), eigene Wahl unter „Ich“ */
   function plVoices() { try { return speechSynthesis.getVoices().filter(function (v) { return /^pl/i.test(v.lang); }); } catch (e) { return []; } }
-  function voiceScore(v) { var n = v.name || ''; return (/natural|neural|online/i.test(n) ? 4 : 0) + (/premium|enhanced|verbessert|wavenet/i.test(n) ? 3 : 0) + (/google/i.test(n) ? 2 : 0) + (/zosia|ewa|marek|agnieszka/i.test(n) ? 1 : 0) + (v.localService ? 0 : 1); }
-  function pickVoice() { var vs = plVoices(); voice = (S && S.voice && vs.filter(function (v) { return v.name === S.voice; })[0]) || vs.slice().sort(function (a, b) { return voiceScore(b) - voiceScore(a); })[0] || null; if (tab === 'me' && document.getElementById('voice')) refreshVoiceBox(); }
+  /* 3.1.1: Apple (iPhone, iPad, Mac-Safari) listet auch NICHT installierte „verbesserte“ Stimmen – damit bliebe es stumm.
+     Dort wählt deshalb das System die Stimme (nur lang = pl-PL), außer man hat unter „Ich“ selbst eine gewählt. Sonst: Online-/Natural-Stimmen bevorzugen. */
+  function isApple() { try { var ua = navigator.userAgent; return /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) || (/macintosh/i.test(ua) && !/chrome|chromium|edg|firefox/i.test(ua)); } catch (e) { return false; } }
+  function voiceScore(v) { var n = v.name || ''; return (/natural|neural|online/i.test(n) ? 4 : 0) + (/google/i.test(n) ? 2 : 0) + (v['default'] ? 1 : 0); }
+  function pickVoice() {
+    var vs = plVoices(), mine = S && S.voice && vs.filter(function (v) { return v.name === S.voice; })[0];
+    voice = mine || (isApple() ? null : vs.slice().sort(function (a, b) { return voiceScore(b) - voiceScore(a); })[0] || null);
+    if (tab === 'me' && document.getElementById('voice')) refreshVoiceBox();
+  }
   try { speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
   /* Muttersprachler-Aufnahmen (Vorschlag L): data.json "audio" ordnet Text -> Datei unter audio/ zu. Fehlt eine Aufnahme, spricht die Gerätestimme. */
   var curAudio = null;
@@ -327,8 +338,12 @@
     if (!voice && !vcWarned && typeof speechSynthesis !== 'undefined' && speechSynthesis.getVoices().length && !plVoices().length) { vcWarned = true; toast(t('vc_none_toast')); }
     try {
       speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(String(text).replace(/…/g, ''));
-      u.lang = 'pl-PL'; if (voice) u.voice = voice; u.rate = (slow || S.slow) ? 0.7 : 0.95;
+      var u = new SpeechSynthesisUtterance(String(text).replace(/…/g, '')), started = false, v0 = voice;
+      u.lang = 'pl-PL'; if (v0) u.voice = v0; u.rate = (slow || S.slow) ? 0.7 : 0.95;
+      /* Sicherheitsnetz: bleibt eine gewählte Stimme stumm (nicht installiert), sofort mit der Systemstimme wiederholen */
+      u.onstart = function () { started = true; };
+      u.onerror = function (e) { if (v0 && !started && (!e || e.error !== 'interrupted' && e.error !== 'canceled')) { voice = null; ttsSpeak(text, slow); } };
+      if (v0) setTimeout(function () { if (!started && voice === v0 && !speechSynthesis.speaking) { voice = null; ttsSpeak(text, slow); } }, 1200);
       speechSynthesis.speak(u);
     } catch (e) { toast(t('tts_missing')); }
   }
@@ -424,6 +439,7 @@
     if (tab === 'letter') return renderLetter(arg);
     if (tab === 'themes') return renderThemes(arg);
     if (tab === 'chat') return renderChat(arg);
+    if (tab === 'news') return renderNews();
     if (tab === 'conj') return renderConj();
   }
 
@@ -453,8 +469,8 @@
     bindSeg('ob-diff', function (v) { S.diff = v; renderOnboarding(); });
     bindSeg('ob-inp', function (v) { S.input = v; renderOnboarding(); });
     bindSeg('ob-g', function (v) { S.gender = v; loadData(); renderOnboarding(); });
-    document.getElementById('ob-place').onclick = function () { S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); tab = 'home'; startMode('placement'); };
-    document.getElementById('ob-go').onclick = function () { S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); go('city', 0); };
+    document.getElementById('ob-place').onclick = function () { S.seenVer = APP_VER; S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); tab = 'home'; startMode('placement'); };
+    document.getElementById('ob-go').onclick = function () { S.seenVer = APP_VER; S.onboarded = true; S.seenWeek = C.weekKey(today()); save(); go('city', 0); };
   }
   function segBtn(v, label, on) { return '<button type="button" data-v="' + esc(v) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + esc(label) + '</button>'; }
   function bindSeg(id, fn) { document.querySelectorAll('#' + id + ' button').forEach(function (b) { b.onclick = function () { fn(b.getAttribute('data-v')); }; }); }
@@ -508,7 +524,7 @@
       banner = '<div class="banner pop"><strong>' + esc(t('fresh')) + '</strong><span>' + esc(lastN >= S.goal ? t('fresh_ok') : t('fresh_d').replace('{a}', lastN).replace('{g}', S.goal)) + '</span></div>';
       S.seenWeek = wk; save();
     }
-    var wr = weekReviewBox(wk);
+    var wr = newsBox() + weekReviewBox(wk);
     var lastXp = S.weekXp[C.prevWeek(wk)] || 0, thisXp = S.weekXp[wk] || 0, mx = Math.max(lastXp, thisXp, 1);
     var html = banner + wr +
       '<section class="card hero"><div class="hero-top">' + weekRing() + '<div class="stack" style="gap:4px;min-width:0"><span class="eyebrow">' + esc(t('week')) + '</span>' +
@@ -532,6 +548,8 @@
     bindSeg('map-r', function (v) { mapSel = +v; renderHome(); });
     var lold = document.getElementById('letter-old'); if (lold) lold.onclick = function () { go('letter', 'letter'); };
     var wg = document.getElementById('wb-go'); if (wg) wg.onclick = function () { startMode('welcome'); };
+    var nwx = document.getElementById('nw-x'); if (nwx) nwx.onclick = function () { S.seenVer = APP_VER; save(); var e = document.getElementById('nw'); if (e) e.remove(); };
+    var nwa = document.getElementById('nw-all'); if (nwa) nwa.onclick = function () { S.seenVer = APP_VER; save(); go('news'); };
     var wrx = document.getElementById('wr-x'); if (wrx) wrx.onclick = function () { S.wrSeen = wk; save(); var e = document.getElementById('wr'); if (e) e.remove(); };
     var wrg = document.getElementById('wr-go'); if (wrg) wrg.onclick = function () { S.wrSeen = wk; save(); startMode('wr3'); };
     var wl = document.getElementById('wb-later'); if (wl) wl.onclick = function () { var w = document.getElementById('wb'); if (w) w.remove(); };
@@ -553,6 +571,19 @@
       '<div class="stats3"><div class="stat"><b class="num">' + days + '/' + S.goal + '</b><span class="small muted">' + esc(t('wr_days')) + '</span></div><div class="stat"><b class="num">' + (L0.n || 0) + arrow(L0.n || 0, L1.n || 0) + '</b><span class="small muted">' + esc(t('wr_new')) + '</span></div><div class="stat"><b class="num">' + (L0.m || 0) + arrow(L0.m || 0, L1.m || 0) + '</b><span class="small muted">' + esc(t('wr_sure')) + '</span></div></div>' +
       '<p class="small">' + esc((days >= S.goal ? t('wr_goal_ok') : t('wr_goal_no')) + ' ' + t('wr_pct').replace('{p}', pct)) + '</p>' +
       (hard.length ? '<p class="small"><b>' + esc(t('wr_hard')) + ':</b> ' + hard.map(function (x) { return '<span lang="pl">' + esc(x.w[0]) + '</span>'; }).join(' · ') + '</p><button class="btn primary" id="wr-go" style="justify-self:start">' + esc(t('wr_go')) + '</button>' : '') + '</section>';
+  }
+  /* Was ist neu (3.1.1): nach einem Update einmal auf der Startseite, alle Versionen unter Ich → Was ist neu */
+  function newsItems(n) { return (D.news || []).slice(0, n || 99); }
+  function newsHtml(x) { return '<div class="stack" style="gap:4px"><b class="num">' + esc(t('news_ver')) + ' ' + esc(x.v) + ' <span class="small muted">· ' + esc(new Date(x.date + 'T12:00').toLocaleDateString(S.base === 'en' ? 'en-GB' : 'de-DE', { day: 'numeric', month: 'long', year: 'numeric' })) + '</span></b><ul class="news-ul">' + (S.base === 'en' ? x.en : x.de).map(function (l) { return '<li class="small">' + esc(l) + '</li>'; }).join('') + '</ul></div>'; }
+  function newsBox() {
+    var top = newsItems(1)[0]; if (!top || S.seenVer === APP_VER) return '';   /* neue Nutzer: seenVer wird im Onboarding gesetzt */
+    return '<section class="card stack pop news" id="nw"><div class="row" style="justify-content:space-between"><span class="eyebrow">✨ ' + esc(t('news_new')) + '</span><button class="icon-btn" id="nw-x" aria-label="' + esc(t('wr_close')) + '">' + I.x + '</button></div>' + newsHtml(top) +
+      '<button class="btn ghost" id="nw-all" style="justify-self:start;padding-left:0">' + esc(t('news_all')) + ' →</button></section>';
+  }
+  function renderNews() {
+    shell('<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('back')) + '</button><h1>' + esc(t('news')) + '</h1><section class="card stack">' + newsItems().map(newsHtml).join('<hr class="news-hr">') + '</section>');
+    document.getElementById('back').onclick = function () { go('me'); };
+    if (S.seenVer !== APP_VER) { S.seenVer = APP_VER; save(); }
   }
   function tileBtn(k, title, desc, extra) { return '<button class="tile" data-mode="' + k + '"><span class="t">' + esc(title) + '</span><span class="d">' + esc(desc) + '</span>' + (extra || '') + '</button>'; }
   function bindTiles(ui) { document.querySelectorAll('[data-mode]').forEach(function (b) { b.onclick = function () { startMode(b.getAttribute('data-mode'), ui); }; }); }
@@ -736,7 +767,7 @@
   }
 
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.1.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -824,8 +855,8 @@
   function voiceBox() {
     var vs = plVoices(), ios = isIOS(), and = /android/i.test(navigator.userAgent);
     return '<section class="card stack" id="voice"><h2>' + esc(t('vc')) + '</h2>' +
-      (vs.length ? '<label class="fld">' + esc(t('vc_pick')) + '<select id="vc-sel">' + vs.map(function (v) { return '<option value="' + esc(v.name) + '"' + (voice && voice.name === v.name ? ' selected' : '') + '>' + esc(v.name) + '</option>'; }).join('') + '</select></label>' +
-        '<button class="btn" id="vc-test" style="justify-self:start">' + I.spk + esc(t('vc_test')) + '</button><p class="small muted">' + esc(t('vc_d')) + '</p>'
+      (vs.length ? '<label class="fld">' + esc(t('vc_pick')) + '<select id="vc-sel"><option value=""' + (!S.voice ? ' selected' : '') + '>' + esc(t('vc_auto')) + '</option>' + vs.map(function (v) { return '<option value="' + esc(v.name) + '"' + (S.voice && S.voice === v.name ? ' selected' : '') + '>' + esc(v.name) + '</option>'; }).join('') + '</select></label>' +
+        '<button class="btn" id="vc-test" style="justify-self:start">' + I.spk + esc(t('vc_test')) + '</button><p class="small muted">' + esc(t('vc_d')) + (isApple() ? ' ' + esc(t('vc_apple')) : '') + '</p>'
         : '<p class="small"><b>' + esc(t('vc_none')) + '</b></p><p class="small muted">' + esc(ios ? t('vc_ios') : and ? t('vc_and') : t('vc_pc')) + '</p>') + '</section>';
   }
   function refreshVoiceBox() { var el = document.getElementById('voice'); if (!el) return; var tmp = document.createElement('div'); tmp.innerHTML = voiceBox(); el.replaceWith(tmp.firstChild); bindVoice(); }
@@ -875,6 +906,7 @@
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
       '<section class="card"><details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_more')) + '</summary><div class="stack" style="margin-top:10px"><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
       '<div class="row"><button class="btn" id="bk-copy">' + esc(t('bk_copy')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></div></details></section>' +
+      '<section class="card stack"><h2>' + esc(t('news')) + '</h2><p class="small muted">' + esc(t('news_ver')) + ' ' + esc(APP_VER) + '</p><button class="btn" id="news-open" style="justify-self:start">' + esc(t('news_all')) + ' →</button></section>' +
       '<section class="card stack"><h2>' + esc(t('rv_me')) + '</h2><p class="small">' + esc(t('rv_me_d')) + '</p><button class="btn" id="rv-link" style="justify-self:start">' + esc(t('rv_me_btn')) + '</button></section>' +
       '<section class="card stack"><h2>' + esc(t('about')) + '</h2><p class="small">' + esc(t('about_d')) + '</p><p class="small"><a href="impressum.html">' + esc(t('legal')) + '</a> · <a href="datenschutz.html">' + esc(t('privacy')) + '</a></p><button class="btn ghost" id="tour-again" style="justify-self:start;padding-left:0">' + esc(t('tour_again')) + '</button><p class="small muted">' + esc(t('rep_d')) + '</p>' + reportHtml('rep-me') + '<button class="btn" id="reset" style="justify-self:start;color:var(--bad)">' + esc(resetArmed ? t('reset_q') : t('reset')) + '</button></section>';
     shell(html);
@@ -896,6 +928,7 @@
       try { var o = JSON.parse(document.getElementById('bk').value); if (!C.validateSave(o)) throw 0; S = Object.assign(fresh(), o); loadData(); save(); toast(t('restored')); renderMe(); } catch (e) { toast(t('bad_backup')); }
     };
     bindReport('rep-me', 'Ich / allgemein');
+    document.getElementById('news-open').onclick = function () { go('news'); };
     document.getElementById('rv-link').onclick = function () { shareOut(t('rv_me_share') + ' ' + SITE + '?review'); };
     document.getElementById('tour-again').onclick = function () { S.tour = false; save(); go('home'); };
     document.getElementById('reset').onclick = function () { if (!resetArmed) { resetArmed = true; renderMe(); return; } resetArmed = false; S = fresh(); loadData(); save(); render(); };

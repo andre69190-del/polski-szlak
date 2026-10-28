@@ -1,5 +1,12 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.1.1 · 28.10.2026 · Ton auf Apple-Geräten, „Was ist neu“
+
+- **Behoben: kein Ton auf iPhone/iPad.** Die automatische Stimmenwahl aus 3.0 bevorzugte „verbesserte“ Stimmen; Apple listet im Browser auch nicht installierte Stimmen, die stumm bleiben. Auf Apple-Geräten wählt jetzt das System die polnische Stimme (nur `lang = pl-PL`), außer man wählt unter Ich → Stimme selbst. Zusätzlich Sicherheitsnetz: Bleibt eine Stimme stumm, wird sofort mit der Systemstimme wiederholt. Neue Option „Automatisch (empfohlen)“.
+- **Neu: „Was ist neu“** (Ich → Was ist neu): Neuerungen aller Versionen in Alltagssprache (data.json → `news`). Nach einem Update erscheint einmal ein Hinweis auf der Startseite (`S.seenVer`), neue Nutzer sehen ihn nicht.
+- KI-Funktion: Denk-Modelle (gpt-oss, qwen3) werden auf „wenig nachdenken“ gestellt, zweiter Versuch ohne JSON-Modus, Fehler landen in den Logs. Groq-Modell `openai/gpt-oss-120b` (llama-3.3 ist bei Groq nicht mehr verfügbar).
+- 81 Browser-Prüfungen. Service Worker Cache v3-1-1.
+
 ## 3.1 · 28.10.2026 · KI-Gespräch (Beta), Fehlerbehebungen
 
 - **KI-Gespräch (Beta):** Üben → KI-Gespräch und auf jeder Stadtseite. Rollenspiel zur Szene der Stadt (oder freies Gespräch), Niveau A1/A2 automatisch, Antworten werden vorgelesen, eigene Fehler werden korrigiert („Besser: …“ plus kurzer Tipp). Schreiben oder per Mikrofon sprechen. Nur mit Konto, Tageslimit pro Konto (Standard 40), keine Gesprächsinhalte gespeichert. Server: anbieterneutrale Supabase-Funktion `deploy/functions/ps-chat/index.ts` (OpenAI-kompatibel: Groq, Gemini, Mistral …), Zähler `deploy/supabase_ps_chat.sql`. Einrichtung: `docs/KI_GESPRAECH.md`. Bis dahin zeigt die App „wird gerade eingerichtet“.

@@ -87,6 +87,8 @@ chk "3.0 Dla Polaków nachgeladen" "needPolacy"
 chk "3.0 Schriften selbst gehostet" "fonts/atkinson"
 chk "3.1 KI-Gespräch (Supabase-Funktion, Tageslimit)" "functions/v1/ps-chat"
 chk "3.1 Tour blockiert keine Spiele" "Einführungs-Tour darf nicht"
+chk "3.1.1 Was ist neu (Update-Log in der App)" "renderNews"
+chk "3.1.1 Apple: Systemstimme statt Auto-Auswahl" "isApple"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL

@@ -245,6 +245,13 @@ with sync_playwright() as p:
     (ok if len(st['res']) == 1 else bad)('Rückgängig im Prüfmodus')
     rv.close()
 
+    # Was ist neu
+    page.evaluate("() => { window.PSApp.state().seenVer = ''; window.PSApp.go('home'); }")
+    (ok if page.locator('#nw').count() else bad)('Update-Hinweis auf der Startseite')
+    page.click('#nw-all'); page.wait_for_selector('.news-ul')
+    (ok if page.locator('.news-ul').count() >= 5 else bad)('Seite „Was ist neu“ mit allen Versionen')
+    page.evaluate("() => window.PSApp.go('home')"); (ok if not page.locator('#nw').count() else bad)('Update-Hinweis nur einmal')
+
     # ---------- 3.1 KI-Gespräch (Server nachgebaut) ----------
     import json as _json
     def _sb(route):

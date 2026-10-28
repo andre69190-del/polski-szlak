@@ -25378,5 +25378,87 @@
     "lod"
    ]
   }
+ ],
+ "news": [
+  {
+   "v": "3.1.1",
+   "date": "2026-10-28",
+   "de": [
+    "Ton auf iPhone und iPad funktioniert wieder: Auf Apple-Geräten wählt jetzt das System die polnische Stimme.",
+    "Neu: diese Seite „Was ist neu“ – nach jedem Update siehst du hier, was sich geändert hat."
+   ],
+   "en": [
+    "Sound works again on iPhone and iPad: on Apple devices the system now picks the Polish voice.",
+    "New: this “What’s new” page – after every update you’ll see what changed."
+   ]
+  },
+  {
+   "v": "3.1",
+   "date": "2026-10-28",
+   "de": [
+    "KI-Gespräch (Beta): Spiel die Szene einer Stadt frei weiter – schreiben oder sprechen, mit Korrektur deiner Fehler. Mit Konto, 40 Nachrichten pro Tag.",
+    "Behoben: Die Einführungs-Tour konnte ein Spiel verdecken."
+   ],
+   "en": [
+    "AI conversation (beta): continue a city’s scene freely – write or speak, with corrections. Needs an account, 40 messages a day.",
+    "Fixed: the intro tour could cover a game."
+   ]
+  },
+  {
+   "v": "3.0",
+   "date": "2026-10-28",
+   "de": [
+    "Szlak 2 (A2): 12 neue Orte von Sopot bis Karpacz – Arzt, Wohnung, Post, Telefon, Restaurant, Feste und mehr. Dazu Anias Postkarten.",
+    "Nach Thema: alle Lektionen gebündelt, z. B. alles für den Arztbesuch.",
+    "Themenpakete: Praxis-Polnisch, Notfall, Kleine Wörter, 40 Verben – jetzt 728 Wörter.",
+    "Konjugations-Trainer, Sprecherform Mann/Frau, Aussprache-Rückmeldung je Wort, Wochenrückblick, Kalender-Erinnerung, Stimmen-Auswahl."
+   ],
+   "en": [
+    "Szlak 2 (A2): 12 new places from Sopot to Karpacz – doctor, flat, post office, phone, restaurant, holidays and more. Plus Ania’s postcards.",
+    "By topic: all lessons bundled, e.g. everything for a doctor’s visit.",
+    "Topic packs: practice Polish, emergencies, little words, 40 verbs – now 728 words.",
+    "Conjugation trainer, speaker form man/woman, per-word pronunciation feedback, weekly review, calendar reminder, voice choice."
+   ]
+  },
+  {
+   "v": "2.0",
+   "date": "2026-10-20",
+   "de": [
+    "Mini-Missionen für die echte Welt, Regionalradio pro Stadt, Verb-Aspekt-Übung, Fehler melden, Ergebnisse teilen, Brief-Quiz."
+   ],
+   "en": [
+    "Real-world mini missions, regional radio per city, verb aspect practice, report a mistake, share results, letter quiz."
+   ]
+  },
+  {
+   "v": "1.9",
+   "date": "2026-10-19",
+   "de": [
+    "Der Brief: Mit jeder Stadt wird ein Satz von Anias Brief lesbar."
+   ],
+   "en": [
+    "The letter: every city makes one more line of Ania’s letter readable."
+   ]
+  },
+  {
+   "v": "1.8",
+   "date": "2026-10-19",
+   "de": [
+    "Weiter-Knopf, Ausblick am Rundenende, Willkommen zurück nach einer Pause, „Das kann ich schon“."
+   ],
+   "en": [
+    "Continue button, outlook at the end of a round, welcome back after a break, “What I can do”."
+   ]
+  },
+  {
+   "v": "1.7",
+   "date": "2026-10-19",
+   "de": [
+    "Geräte-Abgleich mit Konto: gleicher Fortschritt auf Handy und Laptop."
+   ],
+   "en": [
+    "Device sync with an account: same progress on phone and laptop."
+   ]
+  }
  ]
 }
