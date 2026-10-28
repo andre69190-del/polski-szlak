@@ -23,8 +23,17 @@ Supabase Studio → **SQL Editor** → Inhalt von `deploy/supabase_ps_chat.sql` 
 ## Schritt 2: KI-Schlüssel besorgen (5 Minuten)
 
 Empfehlung für den Start: **Groq**. Es ist kostenlos, braucht keine Kreditkarte und ist sehr schnell.
-1. https://console.groq.com öffnen und mit Google oder E-Mail anmelden.
-2. **API Keys → Create API Key**, den Schlüssel kopieren und sicher aufbewahren.
+
+1. **Konto anlegen:** https://console.groq.com im Browser öffnen → **Sign in** → mit Google-Konto oder E-Mail anmelden. Bei E-Mail kommt ein Bestätigungslink, den einmal anklicken.
+2. **Schlüssel erzeugen:** Links im Menü (bzw. oben rechts) **API Keys** öffnen → **Create API Key**.
+   - Als Namen z. B. `polski-szlak` eingeben → **Submit**.
+   - Der Schlüssel wird **nur ein einziges Mal** angezeigt. Er beginnt mit `gsk_` und ist etwa 50 Zeichen lang.
+3. **Schlüssel sicher aufbewahren:** Mit dem Kopier-Symbol kopieren und sofort in deinen Passwort-Manager legen (z. B. Eintrag „Groq API Polski Szlak“). Ersatzweise in eine Textdatei, die **nicht** im Projektordner und nicht in Git liegt.
+   - Den Schlüssel **nie** in die App, in `src/` oder in eine Datei im Repo schreiben. Er gehört nur in Coolify (Schritt 3).
+   - Verloren oder versehentlich geteilt? Unter **API Keys** löschen (Papierkorb) und einen neuen erzeugen. Der alte ist dann sofort ungültig.
+4. **Kontingent ansehen (optional):** Unter **Settings → Limits** zeigt Groq die Gratis-Grenzen pro Minute und Tag für jedes Modell.
+
+Andere Anbieter funktionieren genauso: Konto anlegen, API-Schlüssel erzeugen, Adresse und Modellnamen aus der Tabelle nehmen.
 
 | Anbieter | `LLM_BASE_URL` | `LLM_MODEL` (Beispiel) | Kosten (Stand Okt. 2026, bitte beim Anbieter prüfen) |
 |---|---|---|---|
@@ -37,32 +46,76 @@ Empfehlung für den Start: **Groq**. Es ist kostenlos, braucht keine Kreditkarte
 
 Wenn das Gratis-Kontingent von Groq einmal knapp wird, einfach auf Gemini Flash-Lite oder Ministral umstellen (Schritt 3, nur die drei Variablen ändern).
 
-## Schritt 3: Funktion auf dem Server einspielen (10 Minuten)
+## Schritt 3: Funktion auf dem Server einspielen (10–15 Minuten)
 
-Das selbst gehostete Supabase in Coolify hat einen Dienst **supabase-edge-functions**. Seine Funktionen liegen in einem Ordner, der in den Container eingebunden ist (`/home/deno/functions`).
+Das selbst gehostete Supabase in Coolify besteht aus mehreren Diensten. Einer heißt **supabase-edge-functions** (in Coolify oft nur „edge-functions“ oder „functions“). Er führt alle Dateien aus, die im Container unter `/home/deno/functions/<name>/index.ts` liegen. Der Ordner `main` darin ist ein Verteiler: Ein Aufruf von `…/functions/v1/ps-chat` landet automatisch bei `/home/deno/functions/ps-chat/index.ts`. Wir legen also eine Datei dazu, setzen drei Variablen und starten neu.
 
-1. In Coolify die Supabase-Ressource öffnen. Im Docker-Compose bzw. bei **Storages** des Dienstes `supabase-edge-functions` nachsehen, welcher Server-Ordner auf `/home/deno/functions` zeigt (meist `…/volumes/functions`).
-2. Dort einen Ordner **`ps-chat`** anlegen und die Datei `deploy/functions/ps-chat/index.ts` aus diesem Projekt als **`index.ts`** hineinlegen. Das geht per SFTP oder im Coolify-Terminal des Servers mit `nano`. Der Ordner `main` bleibt unverändert, er leitet die Aufrufe an `ps-chat` weiter.
-3. Beim Dienst **supabase-edge-functions** unter **Environment Variables** ergänzen:
+### 3a) Die Datei anlegen – Weg A: in der Coolify-Oberfläche (empfohlen, ohne SSH)
+
+1. Coolify öffnen → **Projects** → dein Projekt → die Ressource **Supabase**.
+2. In der Liste der Dienste **supabase-edge-functions** anklicken (bzw. auf dessen Einstellungen/Zahnrad).
+3. Reiter **Storages** (oder „Persistent Storage“) öffnen. Dort siehst du schon Einträge wie `/home/deno/functions/main/index.ts` und meist `/home/deno/functions/hello/index.ts`.
+4. **+ Add** → **File Mount** wählen und ausfüllen:
+   - **Destination Path:** `/home/deno/functions/ps-chat/index.ts`
+   - **Content:** den kompletten Inhalt der Datei `deploy/functions/ps-chat/index.ts` aus deinem Projektordner einfügen (die Datei im Editor öffnen, Strg+A, Strg+C, dann hier Strg+V).
+5. **Save**.
+
+### 3a) Die Datei anlegen – Weg B: per Server-Terminal (falls es „File Mount“ nicht gibt)
+
+1. In Coolify bei **Storages** des Dienstes nachsehen, welcher Server-Ordner auf `/home/deno/functions` zeigt. Er heißt meist `/data/coolify/services/<lange-ID>/volumes/functions`.
+2. Coolify → **Servers** → dein Server → **Terminal** (oder per SSH anmelden).
+3. Ordner anlegen und Datei öffnen (Pfad aus Schritt 1 einsetzen):
    ```
-   LLM_BASE_URL=https://api.groq.com/openai/v1
-   LLM_API_KEY=<dein Schlüssel>
-   LLM_MODEL=llama-3.3-70b-versatile
-   CHAT_DAILY_LIMIT=40
+   mkdir -p /data/coolify/services/<lange-ID>/volumes/functions/ps-chat
+   nano /data/coolify/services/<lange-ID>/volumes/functions/ps-chat/index.ts
    ```
-   Falls Coolify keine eigenen Variablen pro Dienst anbietet: im Compose-File beim Dienst `supabase-edge-functions` unter `environment:` eintragen, den Schlüssel am besten als Coolify-Variable `${LLM_API_KEY}`.
-   `SUPABASE_URL`, `SUPABASE_ANON_KEY` und `SUPABASE_SERVICE_ROLE_KEY` sind dort normalerweise schon gesetzt. Die Funktion braucht sie für Anmeldung und Zähler.
-4. Den Dienst **supabase-edge-functions** neu starten (Restart).
+4. Den Inhalt von `deploy/functions/ps-chat/index.ts` einfügen (Rechtsklick oder Strg+Umschalt+V), dann **Strg+O**, **Enter**, **Strg+X**.
+
+### 3b) Die drei Variablen setzen
+
+Coolify reicht Variablen nur an einen Dienst weiter, wenn sie in dessen Compose-Abschnitt stehen. Deshalb zwei kleine Schritte:
+
+1. Bei der Supabase-Ressource **Edit Compose File** (oder „Docker Compose“) öffnen und den Abschnitt `supabase-edge-functions:` suchen. Darin gibt es `environment:` mit Einträgen wie `JWT_SECRET`, `SUPABASE_URL` usw. Genau dort diese vier Zeilen ergänzen. Die Einrückung muss wie bei den vorhandenen Zeilen sein, also mit Leerzeichen, keine Tabs:
+   ```
+         LLM_BASE_URL: ${LLM_BASE_URL}
+         LLM_API_KEY: ${LLM_API_KEY}
+         LLM_MODEL: ${LLM_MODEL}
+         CHAT_DAILY_LIMIT: ${CHAT_DAILY_LIMIT:-40}
+   ```
+   Speichern.
+2. Reiter **Environment Variables** der Supabase-Ressource öffnen. Die neuen Namen erscheinen dort meist schon leer. Werte eintragen (sonst mit **+ Add** anlegen):
+   - `LLM_BASE_URL` = `https://api.groq.com/openai/v1`
+   - `LLM_API_KEY` = dein Schlüssel `gsk_…` (wenn angeboten, als **Secret** / „Is Literal“ markieren)
+   - `LLM_MODEL` = `llama-3.3-70b-versatile`
+   - `CHAT_DAILY_LIMIT` = `40`
+
+   Speichern.
+3. Prüfen, ob im selben `environment:`-Abschnitt schon `SUPABASE_URL`, `SUPABASE_ANON_KEY` und `SUPABASE_SERVICE_ROLE_KEY` stehen. Im Supabase-Paket von Coolify ist das normalerweise der Fall, die Funktion braucht sie für Anmeldung und Zähler. Fehlt eine davon, ebenso ergänzen, z. B. `SUPABASE_SERVICE_ROLE_KEY: ${SERVICE_SUPABASESERVICE_KEY}`, also mit dem Namen, den die anderen Dienste im Compose für denselben Schlüssel verwenden.
+
+### 3c) Neu starten
+
+Oben bei der Supabase-Ressource **Redeploy** (bzw. **Deploy**) klicken. Ein einfaches „Restart“ übernimmt Änderungen am Compose oft **nicht**. Das dauert 1–2 Minuten. Danach sollten alle Dienste wieder grün („Running“) sein.
 
 ## Test
 
-Im Browser die App öffnen, angemeldet unter **Ich → Geräte-Abgleich**, dann Üben → **KI-Gespräch**. Kommt „wird gerade eingerichtet“, antwortet die Funktion nicht oder `LLM_*` fehlt.
+**In der App:** polski.arndt-software.de öffnen → **Ich → Geräte-Abgleich** angemeldet sein → **Üben → KI-Gespräch**. Wenn die Situation und das Eingabefeld erscheinen, ist alles eingerichtet. Etwas auf Polnisch schreiben, z. B. `Poprosze kawe`, dann sollten eine Antwort und „Besser: Poproszę kawę.“ kommen.
 
-Zum Prüfen ohne App reicht dieser Aufruf. `<ANON>` ist der öffentliche anon-Schlüssel aus `src/app.js` (`SB_KEY`):
+**Ohne App (Windows PowerShell),** zeigt, ob die Funktion läuft und die Variablen ankommen:
 ```
-curl -s -X POST https://supabase.arndt-software.de/functions/v1/ps-chat -H "apikey: <ANON>" -H "Authorization: Bearer <ANON>" -H "Content-Type: application/json" -d '{"ping":true}'
+$k='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc4NDgxMTAwMCwiZXhwIjo0OTQwNDg0NjAwLCJyb2xlIjoiYW5vbiJ9.kMAlX4dS_sXjH6dsLoICMKnwyHFLAAuEwum7zuJh2DQ'
+Invoke-RestMethod -Method Post -Uri https://supabase.arndt-software.de/functions/v1/ps-chat -Headers @{apikey=$k; Authorization="Bearer $k"} -ContentType 'application/json' -Body '{"ping":true}'
 ```
-Erwartet wird `{"ok":true,"configured":true,"limit":40}`. Kommt `401`, ist im Dienst `VERIFY_JWT=true` gesetzt. Der Test mit dem anon-Schlüssel scheitert dann, die App selbst funktioniert trotzdem, weil sie mit dem Konto-Token anfragt.
+(Das ist der öffentliche anon-Schlüssel der App, kein Geheimnis.)
+
+| Ergebnis | Bedeutung | Was tun |
+|---|---|---|
+| `ok: True, configured: True, limit: 40` | alles richtig | – |
+| `configured: False` | Funktion läuft, aber `LLM_*` kommt nicht an | 3b prüfen (Compose-Zeilen + Werte), dann **Redeploy** |
+| Fehler **404** / „function not found“ | Datei liegt nicht am richtigen Ort | Pfad muss genau `/home/deno/functions/ps-chat/index.ts` sein |
+| Fehler **401** | Verteiler prüft Tokens (`VERIFY_JWT=true`) | normal, die App funktioniert trotzdem (sie schickt das Konto-Token). Zum Testen einfach direkt in der App probieren |
+| Fehler **500** / „worker boot error“ | Datei unvollständig eingefügt | Inhalt erneut komplett einfügen, Redeploy |
+
+**Wenn es hakt:** In Coolify beim Dienst **supabase-edge-functions** den Reiter **Logs** öffnen. Fehlermeldungen dort (oder als Foto) an Claude schicken.
 
 ## Danach
 
