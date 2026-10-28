@@ -31,13 +31,14 @@ Empfehlung für den Start: **Groq**. Es ist kostenlos, braucht keine Kreditkarte
 3. **Schlüssel sicher aufbewahren:** Mit dem Kopier-Symbol kopieren und sofort in deinen Passwort-Manager legen (z. B. Eintrag „Groq API Polski Szlak“). Ersatzweise in eine Textdatei, die **nicht** im Projektordner und nicht in Git liegt.
    - Den Schlüssel **nie** in die App, in `src/` oder in eine Datei im Repo schreiben. Er gehört nur in Coolify (Schritt 3).
    - Verloren oder versehentlich geteilt? Unter **API Keys** löschen (Papierkorb) und einen neuen erzeugen. Der alte ist dann sofort ungültig.
-4. **Kontingent ansehen (optional):** Unter **Settings → Limits** zeigt Groq die Gratis-Grenzen pro Minute und Tag für jedes Modell.
+4. **Modell freigeben:** Groq-Console → **Limits** → **Select Models** → „Only allow these models“ → nur **openai/gpt-oss-120b** anhaken → **Save**. Andere Modelle (auch Filter wie „prompt-guard“) nicht anhaken.
+5. **Kontingent ansehen (optional):** Unter **Settings → Limits** zeigt Groq die Gratis-Grenzen pro Minute und Tag für jedes Modell.
 
 Andere Anbieter funktionieren genauso: Konto anlegen, API-Schlüssel erzeugen, Adresse und Modellnamen aus der Tabelle nehmen.
 
 | Anbieter | `LLM_BASE_URL` | `LLM_MODEL` (Beispiel) | Kosten (Stand Okt. 2026, bitte beim Anbieter prüfen) |
 |---|---|---|---|
-| **Groq** (Start) | `https://api.groq.com/openai/v1` | `llama-3.3-70b-versatile` | kostenloses Kontingent mit Minuten- und Tagesgrenzen |
+| **Groq** (Start) | `https://api.groq.com/openai/v1` | `openai/gpt-oss-120b` (alternativ `qwen/qwen3.8-27b`) | kostenlos: 30 Anfragen/Minute, 1.000/Tag, 200.000 Tokens/Tag (Stand 28.10.2026) |
 | Google Gemini | `https://generativelanguage.googleapis.com/v1beta/openai` | `gemini-3.1-flash-lite` (genauen Namen in Google AI Studio nachsehen) | ca. 0,25 $ / 1,50 $ pro 1 Mio. Tokens (Ein-/Ausgabe). Die Gratisstufe ist für Apps mit EU-Nutzern **nicht** erlaubt, also bezahlte Stufe mit Ausgabenlimit |
 | Mistral (EU) | `https://api.mistral.ai/v1` | `ministral-8b-latest` | ca. 0,15 $ pro 1 Mio. Tokens |
 | OpenRouter | `https://openrouter.ai/api/v1` | je nach Modell | einige Gratis-Modelle, wechselnd |
@@ -86,7 +87,7 @@ Coolify reicht Variablen nur an einen Dienst weiter, wenn sie in dessen Compose-
 2. Reiter **Environment Variables** der Supabase-Ressource öffnen. Die neuen Namen erscheinen dort meist schon leer. Werte eintragen (sonst mit **+ Add** anlegen):
    - `LLM_BASE_URL` = `https://api.groq.com/openai/v1`
    - `LLM_API_KEY` = dein Schlüssel `gsk_…` (wenn angeboten, als **Secret** / „Is Literal“ markieren)
-   - `LLM_MODEL` = `llama-3.3-70b-versatile`
+   - `LLM_MODEL` = `openai/gpt-oss-120b` (welche Modelle es gerade gibt: Groq-Console → Limits bzw. Docs → Rate Limits)
    - `CHAT_DAILY_LIMIT` = `40`
 
    Speichern.

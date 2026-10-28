@@ -5,7 +5,7 @@
 // Umgebungsvariablen (beim Edge-Functions-Dienst in Coolify eintragen):
 //   LLM_BASE_URL      z. B. https://api.groq.com/openai/v1
 //   LLM_API_KEY       Schlüssel des Anbieters
-//   LLM_MODEL         z. B. llama-3.3-70b-versatile
+//   LLM_MODEL         z. B. openai/gpt-oss-120b (Groq) – Denk-Modelle (gpt-oss, qwen3) werden automatisch auf „wenig nachdenken“ gestellt
 //   CHAT_DAILY_LIMIT  Nachrichten pro Konto und Tag (Standard 40)
 //   SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY  (stellt Supabase selbst bereit)
 //
@@ -76,14 +76,29 @@ Deno.serve(async (req) => {
   if (!msgs.length || msgs[msgs.length - 1].role !== 'user') return json({ error: 'no_message' }, 400, origin);
   const sys = systemPrompt(body.level === 'A2' ? 'A2' : 'A1', body.base === 'en' ? 'en' : 'de', clip(body.scenario, 400), body.gender === 'f' ? 'f' : 'm');
 
-  const r = await fetch(`${env('LLM_BASE_URL').replace(/\/$/, '')}/chat/completions`, {
-    method: 'POST', headers: { Authorization: `Bearer ${env('LLM_API_KEY')}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: env('LLM_MODEL'), messages: [{ role: 'system', content: sys }, ...msgs], temperature: 0.6, max_tokens: 300, response_format: { type: 'json_object' } }),
+  const model = env('LLM_MODEL');
+  const payload: Record<string, unknown> = { model, messages: [{ role: 'system', content: sys }, ...msgs], temperature: 0.6, max_tokens: 1200, response_format: { type: 'json_object' } };
+  // Denk-Modelle: kurz nachdenken, sonst frisst das Nachdenken die Antwort auf
+  if (/gpt-oss/i.test(model)) payload.reasoning_effort = 'low';
+  else if (/qwen3/i.test(model)) payload.reasoning_effort = 'none';
+  const call = (b: Record<string, unknown>) => fetch(`${env('LLM_BASE_URL').replace(/\/$/, '')}/chat/completions`, {
+    method: 'POST', headers: { Authorization: `Bearer ${env('LLM_API_KEY')}`, 'Content-Type': 'application/json' }, body: JSON.stringify(b),
   });
-  if (!r.ok) return json({ error: 'llm', status: r.status }, 502, origin);
+  let r = await call(payload);
+  if (r.status === 400) {   // manche Modelle kennen JSON-Modus oder reasoning_effort nicht: einmal ohne versuchen
+    console.error('ps-chat: LLM 400, Versuch ohne Zusatzoptionen:', (await r.text()).slice(0, 300));
+    const { response_format: _rf, reasoning_effort: _re, ...plain } = payload;
+    r = await call(plain);
+  }
+  if (!r.ok) { console.error('ps-chat: LLM-Fehler', r.status, (await r.text()).slice(0, 500)); return json({ error: 'llm', status: r.status }, 502, origin); }
   const out = await r.json();
-  const text = String(out?.choices?.[0]?.message?.content ?? '');
+  const text = String(out?.choices?.[0]?.message?.content ?? '').trim();
+  if (!text) { console.error('ps-chat: leere Antwort', JSON.stringify(out).slice(0, 500)); return json({ error: 'llm_empty' }, 502, origin); }
   let reply = text, fix = '', hint = '';
-  try { const j = JSON.parse(text.replace(/^```(?:json)?\s*|\s*```$/g, '')); reply = clip(j.reply, 600); fix = clip(j.fix, 400); hint = clip(j.hint, 300); } catch { reply = clip(text, 600); }
+  try {
+    const m = text.replace(/^```(?:json)?\s*|\s*```$/g, '').match(/\{[\s\S]*\}/);
+    const j = JSON.parse(m ? m[0] : text); reply = clip(j.reply, 600); fix = clip(j.fix, 400); hint = clip(j.hint, 300);
+  } catch { reply = clip(text, 600); }
+  if (!reply) reply = 'Przepraszam, możesz powtórzyć?';
   return json({ reply, fix, hint, used, limit }, 200, origin);
 });
