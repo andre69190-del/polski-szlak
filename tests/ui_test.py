@@ -409,6 +409,31 @@ with sync_playwright() as p:
     (ok if '/audio/darkman/' in vp.evaluate("() => window.__played")[-1] else bad)('Stimme Darek: Datei aus audio/darkman')
     vx.close()
 
+    # ---------- 3.5 Weiterlernen statt warten, „sicher“ erklärt ----------
+    wx = b.new_context(); wp = wx.new_page(); wp.on('pageerror', lambda e: errors.append(str(e)))
+    wp.goto(URL); wp.wait_for_selector('#app')
+    wp.evaluate("""() => { const tm = new Date(Date.now() + 86400000), pad = n => String(n).padStart(2, '0'), d = tm.getFullYear() + '-' + pad(tm.getMonth() + 1) + '-' + pad(tm.getDate());
+      const s = { app: 'polski-szlak', v: 1, base: 'de', onboarded: true, tour: true, xp: 300, cards: {}, unlocked: 0, boss: {}, scenes: { waw: true }, done: { waw: { learn: 1, quiz: 1, build: 1 } }, appVer: '3.5', seenVer: '3.5' };
+      for (let i = 0; i < 18; i++) s.cards['waw:' + i] = { box: 1, seen: 2, due: d };
+      localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }""")
+    wp.reload(); wp.wait_for_selector('.map')
+    cta = wp.inner_text('#cta')
+    (ok if 'Łódź' in cta and 'vorlernen' in cta and 'mehr für heute' in wp.inner_text('main').lower() else bad)('Stadt für heute gefestigt: Hauptknopf schlägt Vorlernen vor, „Mehr für heute“: %s' % cta)
+    wp.click('#cta'); wp.wait_for_timeout(300)
+    (ok if wp.evaluate("() => { const g = window.PSApp.game(); return g && g.cfg && window.PSApp.data().units[g.cfg.unit].id; }") == 'lod' else bad)('Vorlernen startet „Neue Wörter“ der nächsten Stadt')
+    # bestandene Stadt mit Wörtern im Aufbau, davon einige heute fällig
+    wp.evaluate("""() => { const s = window.PSApp.state(), d = new Date(), pad = n => String(n).padStart(2, '0'), td = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+      s.boss.waw = 90; s.unlocked = 1; for (let i = 0; i < 18; i++) s.cards['waw:' + i] = { box: i < 10 ? 4 : 2, seen: 6, due: i >= 15 ? td : '2099-01-01' };
+      localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }""")
+    wp.reload(); wp.wait_for_selector('.map'); wp.evaluate("() => window.PSApp.go('city', 0)"); wp.wait_for_selector('.city-head')
+    txt = wp.inner_text('main')
+    (ok if '10 sicher' in txt and '8 im Aufbau' in txt and wp.locator('[data-mode="due"]').count() == 1 else bad)('Stadt: „Wie sicher sind die Wörter?“ mit 10 sicher, 8 im Aufbau, Knopf für fällige')
+    wp.click('[data-mode="due"]'); wp.wait_for_timeout(300)
+    (ok if wp.evaluate("() => !!window.PSApp.game()") else bad)('Fällige Wörter der Stadt wiederholen startet')
+    wp.evaluate("() => window.PSApp.go('me')"); wp.wait_for_selector('#sync')
+    (ok if 'bleibt beim Anmelden erhalten' in wp.inner_text('#sync') else bad)('Konto-Bereich: Fortschritt bleibt beim Anmelden erhalten')
+    wx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))

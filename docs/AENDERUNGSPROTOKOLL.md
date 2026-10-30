@@ -1,5 +1,13 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.5 · 30.10.2026 · Weiterlernen statt warten, „sicher“ verständlich, Anmelden mit Fortschritt
+
+- Rückmeldungen von Andre: (1) Wörter alter Städte werden nicht „sicher“, obwohl er wiederholt; (2) nach 5 Minuten „erst morgen weiter“, andere Lektionen zählen gefühlt nicht; (3) beim Anmelden war der Fortschritt bei 0.
+- Ursache (1): gewollte verteilte Wiederholung – ein Punkt nur, wenn das Wort fällig ist (1 → 2 → 4 Tage); das war nirgends erklärt. Neu: Kasten „Wie sicher sind die Wörter?“ je Stadt (sicher / im Aufbau / neu, fällige Wörter als Knopf, Termin der nächsten Wiederholung, Erklärung) und Modus `due` (fällige Wörter einer Stadt).
+- (2): Ist die aktuelle Stadt für heute gefestigt (`wait`), führt der Hauptknopf zu den fälligen Wörtern oder zum **Vorlernen der nächsten Stadt** (neue Wörter festigen sich parallel; Prüfung/Freischaltung unverändert). Dazu „Mehr für heute“ mit Szene, Kapitel, KI-Gespräch, Satzbau.
+- (3): Wahrscheinlich iPhone: Mail-Link öffnet Safari, das einen eigenen Speicher hat (leer) – die installierte App ist getrennt. Anmelden führt Stände immer zusammen. Neu: Hinweis im Konto-Bereich („Fortschritt bleibt erhalten“), Text nach „Konto anlegen“ (in der App selbst anmelden), Hinweis in Safari ohne Fortschritt, Bestätigung nach dem Anmelden mit XP.
+- Service Worker Cache v3-5.
+
 ## 3.4 · 28.10.2026 · Stimmen Gosia und Darek
 
 - Wunsch von Andre: Hörproben 1 und 2 gefallen, als Wahlmöglichkeit in den Einstellungen.
