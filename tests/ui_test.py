@@ -434,6 +434,13 @@ with sync_playwright() as p:
     (ok if 'bleibt beim Anmelden erhalten' in wp.inner_text('#sync') else bad)('Konto-Bereich: Fortschritt bleibt beim Anmelden erhalten')
     wx.close()
 
+    # 3.5.1: Karte „Bereit für die Prüfung?“ hat einen Knopf
+    rx = b.new_context(); rp = rx.new_page(); rp.goto(URL); rp.wait_for_selector('#ob-go'); rp.click('#ob-go'); rp.wait_for_selector('.ripe')
+    (ok if rp.locator('.ripe [data-mode="learn"]').count() == 1 else bad)('Neue Stadt: Karte „Bereit für die Prüfung?“ mit Knopf „Neue Wörter lernen“')
+    rp.click('.ripe [data-mode="learn"]'); rp.wait_for_timeout(300)
+    (ok if rp.evaluate("() => !!window.PSApp.game()") else bad)('Knopf startet „Neue Wörter“')
+    rx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))

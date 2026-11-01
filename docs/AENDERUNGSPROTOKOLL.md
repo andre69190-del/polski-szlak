@@ -1,5 +1,13 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.5.1 · 01.11.2026 · „Schwer“ wirkt sofort
+
+- Rückmeldung: Mit „Schwierig“ beginnt alles gleich (Guten Tag …). Ursache: Die Schwierigkeit änderte nur die Fragetypen der Übungen, nicht „Neue Wörter“ und nicht den Stoff.
+- „Neue Wörter“: schwer = Karten, dann Polnisch auswählen (6 Optionen) und 4× selbst schreiben; mittel = mit Hören; leicht wie bisher.
+- Einstieg: Bei mittel/schwer Hinweis, dass der Stoff bei den Grundlagen beginnt, und der Einstufungstest wird zum Hauptknopf. Text zum Einstufungstest korrigiert (3 Fragen pro Stadt seit 3.1.2).
+- Karte „Bereit für die Prüfung?“ in der Stadt: sah anklickbar aus, war es nicht – jetzt immer mit Knopf (Neue Wörter lernen / Festigen / nächster Schritt / Zur Stadtprüfung / Mehr auf der Startseite).
+- Service Worker Cache v3-5-1.
+
 ## 3.5 · 30.10.2026 · Weiterlernen statt warten, „sicher“ verständlich, Anmelden mit Fortschritt
 
 - Rückmeldungen von Andre: (1) Wörter alter Städte werden nicht „sicher“, obwohl er wiederholt; (2) nach 5 Minuten „erst morgen weiter“, andere Lektionen zählen gefühlt nicht; (3) beim Anmelden war der Fortschritt bei 0.

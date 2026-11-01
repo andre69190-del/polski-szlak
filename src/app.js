@@ -126,7 +126,7 @@
       dictate: 'Schreib, was du hörst', translate_pl: 'Übersetze ins Polnische', show_tr: 'Übersetzung zeigen',
       skip_q: 'Frage überspringen', skip_city: 'Stadt überspringen', skip_city_d: 'Die nächste Stadt wird frei. Die Postkarte gibt es nur mit bestandener Prüfung.',
       skipped_city: 'Übersprungen', skipped_toast: 'Weiter geht\u2019s in', free_roam: 'Freie Reise: alle Städte sofort offen',
-      placement: 'Einstufungstest', placement_d: 'Du kannst schon etwas? 2 Fragen pro Stadt, danach startest du dort, wo es hakt.',
+      placement: 'Einstufungstest', placement_d: 'Du kannst schon etwas? 3 Fragen pro Stadt (eine zum Antippen, zwei zum Schreiben). Alles, was du sicher kannst, wird übersprungen – du startest dort, wo es hakt.',
       placement_res: 'Dein Start', placement_all: 'Alle Städte sitzen. Freie Reise ist an.',
       ob_diff: 'Wie schwer soll es sein?', ob_place: 'Ich kann schon etwas: Einstufungstest',
       nav_land: 'Polska', land: 'Land und Leute', land_d: 'Geschichte, Bräuche, Menschen und Orte. Jede Runde bringt Wissen, das du auf Reisen und im Gespräch brauchst.',
@@ -166,6 +166,8 @@
       due_city: 'Fällige Wörter wiederholen', due_none_city: 'In dieser Stadt ist heute kein Wort fällig – morgen wieder.', more_review: 'Fällige Wörter wiederholen', more_pre: 'Schon vorlernen: {c}', more_wait: '{c} ist für heute gefestigt – morgen geht es dort weiter. Bis dahin zählt alles hier auch.', more_title: 'Mehr für heute', more_d: 'Alles hier bringt dich weiter: Fällige Wörter machen Wörter „sicher“, neue Wörter der nächsten Stadt kannst du schon vorlernen – sie festigen sich dann parallel.',
       sure_title: 'Wie sicher sind die Wörter?', sure_ok: 'sicher', sure_build: 'im Aufbau', sure_new: 'neu', sure_tomorrow: 'morgen', sure_next: 'Nächste Wiederholung: {d}. Vorher kannst du gern üben – das hilft dem Gedächtnis, gibt aber noch keinen Punkt.', sure_d: 'Sicher (4 Punkte) wird ein Wort, wenn du es an mehreren Tagen mit wachsendem Abstand richtig weißt: nach 1, 2 und 4 Tagen. Einen Punkt gibt es nur, wenn das Wort dran ist – auch nach bestandener Prüfung. Fällige Wörter aus allen Städten findest du unter „Wiederholen“.',
       sync_keep: 'Dein bisheriger Fortschritt auf diesem Gerät bleibt beim Anmelden erhalten und wird mit dem Konto zusammengeführt – es geht nichts verloren.', sync_merged: 'Angemeldet – dein Fortschritt ist im Konto ({x} XP).', sync_app_hint: 'Hier in Safari ist noch kein Fortschritt. Hast du Polski Szlak als App installiert? Dann öffne die App und melde dich dort unter Ich → Geräte-Abgleich mit derselben E-Mail an – dein Fortschritt aus der App wird übernommen.',
+      ob_diff_note: 'Die Schwierigkeit ändert, WIE gefragt wird (mehr selbst schreiben, weniger Hilfe) – der Stoff beginnt trotzdem bei den Grundlagen in Warszawa. Kannst du schon etwas, mach den Einstufungstest: Dann überspringst du, was du schon weißt.',
+      ripe_go_learn: 'Neue Wörter lernen', ripe_go_boss: 'Zur Stadtprüfung', ripe_go_more: 'Für heute: Mehr auf der Startseite',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -244,7 +246,7 @@
       dictate: 'Write what you hear', translate_pl: 'Translate into Polish', show_tr: 'Show translation',
       skip_q: 'Skip question', skip_city: 'Skip city', skip_city_d: 'Unlocks the next city. The postcard still needs a passed test.',
       skipped_city: 'Skipped', skipped_toast: 'On to', free_roam: 'Free travel: all cities open',
-      placement: 'Placement test', placement_d: 'Already know some Polish? 2 questions per city, then you start where it gets tricky.',
+      placement: 'Placement test', placement_d: 'Already know some Polish? 3 questions per city (one to tap, two to type). Everything you know for sure is skipped – you start where it gets tricky.',
       placement_res: 'Your start', placement_all: 'You know all cities. Free travel is on.',
       ob_diff: 'How hard should it be?', ob_place: 'I already know some: placement test',
       nav_land: 'Polska', land: 'Land and people', land_d: 'History, customs, people and places. Every round brings knowledge you need when travelling and talking.',
@@ -284,6 +286,8 @@
       due_city: 'Review due words', due_none_city: 'No words are due in this city today – back tomorrow.', more_review: 'Review due words', more_pre: 'Get a head start: {c}', more_wait: '{c} is consolidated for today – it continues there tomorrow. Until then, everything here counts too.', more_title: 'More for today', more_d: 'Everything here moves you forward: due words make words “solid”, and you can already learn the next city’s new words – they consolidate in parallel.',
       sure_title: 'How solid are the words?', sure_ok: 'solid', sure_build: 'building', sure_new: 'new', sure_tomorrow: 'tomorrow', sure_next: 'Next review: {d}. Feel free to practise before then – it helps your memory but doesn’t give a point yet.', sure_d: 'A word becomes solid (4 points) when you know it on several days with growing gaps: after 1, 2 and 4 days. You only get a point when the word is due – even after passing the test. Due words from all cities are under “Review”.',
       sync_keep: 'Your existing progress on this device is kept when you sign in and merged with the account – nothing is lost.', sync_merged: 'Signed in – your progress is in your account ({x} XP).', sync_app_hint: 'There is no progress in Safari yet. Did you install Polski Szlak as an app? Then open the app and sign in there under Me → Device sync with the same email – your progress from the app will be taken over.',
+      ob_diff_note: 'Difficulty changes HOW you are asked (more typing, less help) – the content still starts with the basics in Warszawa. If you already know some Polish, take the placement test to skip what you know.',
+      ripe_go_learn: 'Learn new words', ripe_go_boss: 'Take the city test', ripe_go_more: 'For today: more on the home screen',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -588,7 +592,8 @@
       '<div class="stack"><b>' + esc(t('ob_diff')) + '</b><div class="seg" id="ob-diff">' + ['easy', 'medium', 'hard'].map(function (k) { return segBtn(k, t('diff_' + k), S.diff === k); }).join('') + '</div><p class="small muted">' + esc(t('diff_' + S.diff + '_d')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('ob_inp')) + '</b><div class="seg" id="ob-inp">' + ['write', 'speak', 'tap'].map(function (k) { return segBtn(k, t('inp_' + k), S.input === k); }).join('') + '</div><p class="small muted">' + esc(t('inp_' + S.input + '_d')) + ' ' + esc(t('ob_inp_d')) + '</p></div>' +
       '<div class="stack"><b>' + esc(t('g_title')) + '</b><div class="seg" id="ob-g">' + segBtn('m', t('g_m'), S.gender === 'm') + segBtn('f', t('g_f'), S.gender === 'f') + '</div><p class="small muted">' + esc(t('g_d')) + '</p></div>' +
-      '<button class="btn primary block" id="ob-go">' + esc(t('ob_go')) + '</button><button class="btn block" id="ob-place">' + esc(t('ob_place')) + '</button><button class="btn ghost block" id="ob-sync">' + esc(t('sync_ob')) + '</button></section>', false);
+      (S.diff !== 'easy' ? '<p class="small note-box">' + esc(t('ob_diff_note')) + '</p>' : '') +
+      '<button class="btn ' + (S.diff === 'easy' ? 'primary' : '') + ' block" id="ob-go">' + esc(t('ob_go')) + '</button><button class="btn ' + (S.diff !== 'easy' ? 'primary' : '') + ' block" id="ob-place">' + esc(t('ob_place')) + '</button><button class="btn ghost block" id="ob-sync">' + esc(t('sync_ob')) + '</button></section>', false);
     document.getElementById('ob-sync').onclick = function () { obSync = true; renderOnboarding(); };
     bindSeg('ob-base', function (v) { S.base = v; renderOnboarding(); });
     bindSeg('ob-why', function (v) { S.why = v; renderOnboarding(); });
@@ -766,7 +771,12 @@
       var nst = cityStep(ui), rp = C.cityRipe(S, u.id, list.length), ready = S.boss[u.id] || (rp.seen >= rp.n && rp.ripe >= rp.need), nx = function (k) { return k === nst ? '<span class="badge next">' + esc(t('next_up')) + '</span>' : ''; };
       if (!S.boss[u.id]) html += '<section class="card stack ripe"><div class="row" style="justify-content:space-between"><span class="eyebrow">' + esc(t('ripe_title')) + '</span><span class="small num">' + rp.ripe + '/' + rp.need + '</span></div>' +
         '<div class="bar"><i style="width:' + Math.min(100, rp.ripe / rp.need * 100) + '%"></i></div><p class="small muted">' + esc(ready ? t('ripe_ok') : rp.seen < rp.n ? t('ripe_learn').replace('{n}', rp.n - rp.seen) : nst === 'wait' ? t('ripe_wait') : t('ripe_d')) + '</p>' +
-        (nst === 'ripen' ? '<button class="btn primary" data-mode="ripen" style="justify-self:start">' + esc(t('ripen')) + ' · ' + ripenList(ui).length + '</button>' : '') + '</section>';
+        /* 3.5.1: Die Karte zeigt immer einen klaren nächsten Schritt (vorher sah sie nur anklickbar aus) */
+        (nst === 'ripen' ? '<button class="btn primary" data-mode="ripen" style="justify-self:start">' + esc(t('ripen')) + ' · ' + ripenList(ui).length + '</button>'
+          : ready ? '<button class="btn primary" data-mode="boss" style="justify-self:start">' + esc(t('ripe_go_boss')) + ' →</button>'
+          : rp.seen < rp.n ? '<button class="btn primary" data-mode="learn" style="justify-self:start">' + esc(t('ripe_go_learn')) + ' →</button>'
+          : nst && nst !== 'wait' && nst !== 'boss' ? '<button class="btn primary" data-mode="' + nst + '" style="justify-self:start">' + esc(t(nst)) + ' →</button>'
+          : '<button class="btn" id="ripe-home" style="justify-self:start">' + esc(t('ripe_go_more')) + ' →</button>') + '</section>';
       html += '<section class="tiles">' +
         tileBtn('learn', t('learn'), t('learn_d'), nx('learn')) + tileBtn('scene', t('scene'), t('scene_d'), S.scenes[u.id] ? '<span class="badge good">✓</span>' : nx('scene')) +
         (u.read ? tileBtn('read', t('rd_tile'), t('rd_tile_d'), S.read && S.read[u.id] != null ? '<span class="badge good num">' + S.read[u.id] + '%</span>' : '<span class="badge next">📖</span>') : '') +
@@ -792,6 +802,7 @@
     var oc = document.getElementById('open-city'); if (oc) oc.onclick = function () { S.opened = S.opened || {}; S.opened[u.id] = today(); save(); renderCity(ui); };
     document.querySelectorAll('[data-say]').forEach(function (b) { b.onclick = function () { speak(b.getAttribute('data-say')); }; });
     bindTiles(ui);
+    var rh = document.getElementById('ripe-home'); if (rh) rh.onclick = function () { go('home'); };
     var bt = !locked && !ready && document.querySelector('.tiles [data-mode="boss"]');
     if (bt) bt.onclick = function () { toast(t('boss_locked').replace('{r}', rp.ripe).replace('{n}', rp.need)); var rs = document.querySelector('.ripe'); if (rs) rs.scrollIntoView({ block: 'center', behavior: 'smooth' }); };
     var sk = document.getElementById('skip-city'); if (sk) sk.onclick = function () { skipCity(ui); };
@@ -1112,7 +1123,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.5', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.5.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1691,9 +1702,10 @@
     if (pool.length < 8) pool = pool.concat(wordsOf(Math.min(1, U.length - 1)));
     if (mode === 'learn') {
       var newOnes = list.filter(function (x) { return !S.cards[x.id]; }), pick = (newOnes.length ? newOnes : C.shuffle(list, R)).slice(0, 6);
-      qs = pick.map(function (x) { return { type: 'card', id: x.id, big: x.w[0], sub: meaning(x.w), say: x.w[0] }; })
-        .concat(C.shuffle(pick, R).map(function (x) { return qMC(x, list, 'pl2x'); }))
-        .concat(C.shuffle(pick, R).slice(0, 3).map(function (x) { return qMC(x, list, 'x2pl'); }));
+      qs = pick.map(function (x) { return { type: 'card', id: x.id, big: x.w[0], sub: meaning(x.w), say: x.w[0] }; });
+      /* 3.5.1: Schwer = schon beim Kennenlernen selbst schreiben statt nur antippen */
+      if (S.diff === 'hard') qs = qs.concat(C.shuffle(pick, R).map(function (x) { return qMC(x, list, 'x2pl'); })).concat(C.shuffle(pick, R).slice(0, 4).map(qType));
+      else qs = qs.concat(C.shuffle(pick, R).map(function (x) { return qMC(x, list, 'pl2x'); })).concat(C.shuffle(pick, R).slice(0, 3).map(function (x) { return S.diff === 'medium' ? qListen(x, list) : qMC(x, list, 'x2pl'); }));
       return runGame({ title: t('learn'), qs: qs, unit: ui });
     }
     /* 3.1.2: Abfragen nur mit Wörtern, die man schon kennengelernt hat (sonst erst „Neue Wörter“) */
