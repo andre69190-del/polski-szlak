@@ -170,6 +170,7 @@
       ripe_go_learn: 'Neue Wörter lernen', ripe_go_boss: 'Zur Stadtprüfung', ripe_go_more: 'Für heute: Mehr auf der Startseite',
       writeall: 'Schreibtraining', writeall_d: 'Alle deine Wörter selbst schreiben – ohne Auswahl',
       autow: 'Diesmal selbst schreiben', autow_tap: 'Lieber antippen', autow_set: 'Ab und zu selbst schreiben (eine Schreibfrage pro Runde)',
+      ws_line: '⭐ Diese Woche {n} Wörter neu sicher', ws_last: 'letzte Woche {n}', ws_none: 'Diese Woche noch kein Wort neu sicher – fällige Wörter wiederholen hilft.',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -292,6 +293,7 @@
       ripe_go_learn: 'Learn new words', ripe_go_boss: 'Take the city test', ripe_go_more: 'For today: more on the home screen',
       writeall: 'Writing practice', writeall_d: 'Type all your words yourself – no choices given',
       autow: 'This time, type it yourself', autow_tap: 'Rather tap', autow_set: 'Now and then, type it yourself (one typing question per round)',
+      ws_line: '⭐ This week {n} words became solid', ws_last: 'last week {n}', ws_none: 'No word became solid this week yet – reviewing due words helps.',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -671,7 +673,7 @@
     var lastXp = S.weekXp[C.prevWeek(wk)] || 0, thisXp = S.weekXp[wk] || 0, mx = Math.max(lastXp, thisXp, 1);
     var html = banner + wr +
       '<section class="card hero"><div class="hero-top">' + weekRing() + '<div class="stack" style="gap:4px;min-width:0"><span class="eyebrow">' + esc(t('week')) + '</span>' +
-      '<b class="num">' + ws + ' ' + esc(t('wk_streak')) + '</b><span class="small muted num">' + C.totalDays(S.active) + ' ' + esc(t('total_days')) + ' · ' + masteredCount() + ' ' + esc(t('mastered')) + '</span></div></div>' +
+      '<b class="num">' + ws + ' ' + esc(t('wk_streak')) + '</b><span class="small muted num">' + C.totalDays(S.active) + ' ' + esc(t('total_days')) + ' · ' + masteredCount() + ' ' + esc(t('mastered')) + '</span>' + weekSureLine(wk) + '</div></div>' +
       (alt ? '<button class="btn primary block" id="cta">' + (alt === 'review' ? esc(t('more_review')) + ' · ' + due : blaze(U[pre].trail) + esc(t('more_pre').replace('{c}', U[pre].city))) + '</button><p class="small muted">' + esc(t('more_wait').replace('{c}', u.city)) + '</p>'
         : '<button class="btn primary block" id="cta">' + blaze(u.trail) + esc(t('continue')) + ': ' + esc(u.city) + (step ? ' · ' + esc(t(step)) : '') + '</button>') +
       (step ? '<div class="row small" style="justify-content:space-between"><span class="muted">' + (alt ? '' : esc(t('next_up')) + ': ' + esc(t('step_' + step))) + '</span><button class="btn ghost small" id="cta-city" style="min-height:36px;padding:4px 0">' + esc(t('view_city')) + ' →</button></div>' : '') + '</section>' +
@@ -722,6 +724,12 @@
       '<div class="row small num" style="flex-wrap:wrap;gap:6px"><span class="badge good">' + sure + ' ' + esc(t('sure_ok')) + '</span><span class="badge">' + build + ' ' + esc(t('sure_build')) + '</span>' + (none ? '<span class="badge">' + none + ' ' + esc(t('sure_new')) + '</span>' : '') + '</div>' +
       (dueN ? '<button class="btn primary" data-mode="due" style="justify-self:start">' + esc(t('due_city')) + ' · ' + dueN + '</button>' : (when && build ? '<p class="small">' + esc(t('sure_next').replace('{d}', when)) + '</p>' : '')) +
       '<p class="small muted">' + esc(t('sure_d')) + '</p></section>';
+  }
+  /* 3.6.4 Wochen-Hinweis: wie viele Wörter sind diese Woche neu „sicher“ geworden (Wochenlog m) */
+  function weekSureLine(wk) {
+    var m = ((S.wlog || {})[wk] || {}).m || 0, lm = ((S.wlog || {})[C.prevWeek(wk)] || {}).m || 0;
+    if (!Object.keys(S.cards).length) return '';
+    return '<span class="small week-sure' + (m ? ' good-t' : ' muted') + '">' + esc(m ? t('ws_line').replace('{n}', m) + (lm ? ' · ' + t('ws_last').replace('{n}', lm) : '') : t('ws_none')) + '</span>';
   }
   /* 3.5 „Mehr für heute“: wenn die aktuelle Stadt erst morgen weitergeht */
   function moreBox(cu, pre, preOk, due, alt) {
@@ -1133,7 +1141,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.6.3', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.6.4', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +

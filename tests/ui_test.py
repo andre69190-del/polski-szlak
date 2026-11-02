@@ -452,6 +452,9 @@ with sync_playwright() as p:
     (ok if sets[0] != sets[1] else bad)('Schreibtraining: zwei Runden bringen unterschiedliche Wörter')
     rv = zp.evaluate("async () => { const s = window.PSApp.state(); for (let i = 0; i < 18; i++) { s.cards['waw:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; s.cards['lod:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; } const out = []; for (let k = 0; k < 3; k++) { window.PSApp.startMode('review'); await new Promise(r => setTimeout(r, 100)); out.push(window.PSApp.game().qs.map(q => q.id).join(',')); } return out; }")
     (ok if len(set(rv)) > 1 and any('lod:' in x for x in rv) else bad)('Wiederholen: Runden unterschiedlich, nicht nur Warszawa')
+    zp.evaluate("() => { const s = window.PSApp.state(), d = new Date(), day = (d.getDay() + 6) % 7; d.setDate(d.getDate() - day); const pad = n => String(n).padStart(2, '0'), wk = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); s.wlog = {}; s.wlog[wk] = { m: 23 }; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }")
+    zp.reload(); zp.wait_for_selector('.map')
+    (ok if '23 Wörter neu sicher' in zp.inner_text('.hero') else bad)('Startseite: „Diese Woche 23 Wörter neu sicher“')
     zx.close()
 
     # 3.6.1 Ab und zu selbst schreiben (Antippen)

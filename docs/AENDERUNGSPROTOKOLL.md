@@ -1,5 +1,10 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.6.4 · 02.11.2026 · Wochen-Hinweis „neu sicher“
+
+- Startseite (Wochen-Karte): Anzahl der Wörter, die diese Woche die Box 4 („sicher“) erreicht haben, aus dem vorhandenen Wochenlog `wlog[wk].m`, mit Vorwoche. Ohne neue: Hinweis auf fällige Wörter.
+- Service Worker Cache v3-6-4.
+
 ## 3.6.3 · 02.11.2026 · Wiederholen ebenfalls abwechslungsreich
 
 - Wiederholen/Fehlerheft/Eigene Wörter nahmen immer die ersten n Wörter (Reihenfolge der Städte, Warszawa zuerst). Jetzt `pickWeighted()`: Gewicht = Überfälligkeit (bis ×8), Fehlerheft ×2, (5 − Box), letzte Runde ×0,25 (`S.rLast`). Schreibtraining nutzt dieselbe Funktion.
