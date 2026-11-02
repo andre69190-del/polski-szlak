@@ -450,6 +450,8 @@ with sync_playwright() as p:
     (ok if st[0] and st[1] == 0 and st[2] == 8 else bad)('Schreibtraining: Eingabefeld trotz „Antippen“, alle 8 gelernten Wörter: %s' % st)
     sets = zp.evaluate("async () => { const out = []; for (let k = 0; k < 2; k++) { window.PSApp.go('practice'); await new Promise(r => setTimeout(r, 100)); const s = window.PSApp.state(); for (let i = 8; i < 18; i++) s.cards['waw:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; for (let i = 0; i < 18; i++) s.cards['lod:' + i] = { box: 2, seen: 1, due: '2099-01-01' }; window.PSApp.startMode('writeall'); await new Promise(r => setTimeout(r, 100)); out.push(window.PSApp.game().qs.map(q => q.id).sort().join(',')); } return out; }")
     (ok if sets[0] != sets[1] else bad)('Schreibtraining: zwei Runden bringen unterschiedliche Wörter')
+    rv = zp.evaluate("async () => { const s = window.PSApp.state(); for (let i = 0; i < 18; i++) { s.cards['waw:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; s.cards['lod:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; } const out = []; for (let k = 0; k < 3; k++) { window.PSApp.startMode('review'); await new Promise(r => setTimeout(r, 100)); out.push(window.PSApp.game().qs.map(q => q.id).join(',')); } return out; }")
+    (ok if len(set(rv)) > 1 and any('lod:' in x for x in rv) else bad)('Wiederholen: Runden unterschiedlich, nicht nur Warszawa')
     zx.close()
 
     # 3.6.1 Ab und zu selbst schreiben (Antippen)

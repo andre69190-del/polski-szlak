@@ -708,6 +708,10 @@
       g.onclick = open; g.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
     });
   }
+  /* Gewichtete Zufallsauswahl ohne Zurücklegen (Efraimidis-Spirakis): höheres Gewicht = öfter dabei, Reihenfolge zufällig */
+  function pickWeighted(list, k, wfn) {
+    return C.shuffle(list.map(function (x) { return { x: x, k: Math.log(R() || 1e-9) / Math.max(0.01, wfn(x)) }; }).sort(function (a, b) { return b.k - a.k; }).slice(0, k).map(function (o) { return o.x; }), R);
+  }
   /* 3.5 Wie werden Wörter „sicher“? Stand der Stadt, heute fällige Wörter, nächster Termin */
   function sureBox(ui, list) {
     var d = today(), sure = 0, build = 0, none = 0, dueN = 0, nextD = null;
@@ -1129,7 +1133,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.6.2', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.6.3', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1735,7 +1739,7 @@
       /* 3.6.2: jedes Mal andere Wörter – gewichtete Zufallsauswahl statt fester Rangfolge. Fällige, knifflige und wenig
          gefestigte Wörter kommen öfter dran, die Wörter der letzten Runde seltener. */
       var last = S.wLast || [], weight = function (x) { var c = S.cards[x.id]; return (C.isDue(c, td) ? 3 : 1) * (S.mistakes.indexOf(x.id) >= 0 ? 2 : 1) * (C.MASTERED_BOX + 1 - Math.min(c.box | 0, C.MASTERED_BOX)) * (last.indexOf(x.id) >= 0 ? 0.25 : 1); };
-      var wl = mine.map(function (x) { return { x: x, k: Math.log(R() || 1e-9) / weight(x) }; }).sort(function (a, b) { return b.k - a.k; }).slice(0, Math.max(n, 10)).map(function (o) { return o.x; });
+      var wl = pickWeighted(mine, Math.max(n, 10), weight);
       S.wLast = wl.map(function (x) { return x.id; }); save();
       return runGame({ title: t('writeall'), qs: C.shuffle(wl, R).map(function (x) { var q = qType(x); q.forceWrite = true; return q; }) });
     }
@@ -1784,7 +1788,14 @@
       if (mode === 'review') { src = dueList(); if (!src.length) { toast(t('no_due')); src = allWords().filter(function (x) { return S.cards[x.id]; }).sort(function (a, b) { return S.cards[a.id].box - S.cards[b.id].box; }); if (!src.length) src = pool; } }
       else if (mode === 'mistakes') { src = S.mistakes.map(byId).filter(Boolean); if (!src.length) { toast(t('empty_mistakes')); return; } }
       else { src = S.custom.map(function (w, i) { return { id: 'my:' + i, w: w, u: -1 }; }); }
-      src = src.slice(0, Math.max(n, 6));
+      /* 3.6.3: nicht mehr immer die ersten (Warszawa zuerst), sondern gewichtet ausgelost: lange überfällige, knifflige und
+         wenig gefestigte Wörter öfter, die der letzten Runde seltener */
+      var td2 = today(), lastR = S.rLast || [];
+      src = pickWeighted(src, Math.max(n, 6), function (x) {
+        var c = S.cards[x.id] || {}, over = c.due && c.due < td2 ? Math.min(C.daysSince ? 1 + Math.max(0, (Date.parse(td2) - Date.parse(c.due)) / 864e5) : 2, 8) : 1;
+        return over * (S.mistakes.indexOf(x.id) >= 0 ? 2 : 1) * (C.MASTERED_BOX + 1 - Math.min(c.box | 0, C.MASTERED_BOX)) * (lastR.indexOf(x.id) >= 0 ? 0.25 : 1);
+      });
+      if (mode === 'review') { S.rLast = src.map(function (x) { return x.id; }); save(); }
       return runGame({ title: t(mode === 'mine' ? 'mywords' : mode), qs: mixedFor(src, mode === 'mine' ? src : pool.concat(src), Math.min(n, Math.max(src.length, 4))) });
     }
     if (mode === 'daily') {

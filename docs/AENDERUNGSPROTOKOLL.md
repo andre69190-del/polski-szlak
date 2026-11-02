@@ -1,5 +1,10 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.6.3 · 02.11.2026 · Wiederholen ebenfalls abwechslungsreich
+
+- Wiederholen/Fehlerheft/Eigene Wörter nahmen immer die ersten n Wörter (Reihenfolge der Städte, Warszawa zuerst). Jetzt `pickWeighted()`: Gewicht = Überfälligkeit (bis ×8), Fehlerheft ×2, (5 − Box), letzte Runde ×0,25 (`S.rLast`). Schreibtraining nutzt dieselbe Funktion.
+- Service Worker Cache v3-6-3.
+
 ## 3.6.2 · 02.11.2026 · Schreibtraining abwechslungsreich
 
 - Rückmeldung: Immer dieselben Wörter am Anfang. Ursache: feste Rangfolge (fällig → Fehlerheft → Box), nur innerhalb gemischt.
