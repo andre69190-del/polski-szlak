@@ -448,6 +448,8 @@ with sync_playwright() as p:
     zp.click('[data-mode="writeall"]'); zp.wait_for_timeout(400)
     st = zp.evaluate("() => [!!document.querySelector('main input[type=text], main input:not([type]), main textarea'), document.querySelectorAll('[data-inp]').length, window.PSApp.game() && window.PSApp.game().qs.length]")
     (ok if st[0] and st[1] == 0 and st[2] == 8 else bad)('Schreibtraining: Eingabefeld trotz „Antippen“, alle 8 gelernten Wörter: %s' % st)
+    sets = zp.evaluate("async () => { const out = []; for (let k = 0; k < 2; k++) { window.PSApp.go('practice'); await new Promise(r => setTimeout(r, 100)); const s = window.PSApp.state(); for (let i = 8; i < 18; i++) s.cards['waw:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; for (let i = 0; i < 18; i++) s.cards['lod:' + i] = { box: 2, seen: 1, due: '2099-01-01' }; window.PSApp.startMode('writeall'); await new Promise(r => setTimeout(r, 100)); out.push(window.PSApp.game().qs.map(q => q.id).sort().join(',')); } return out; }")
+    (ok if sets[0] != sets[1] else bad)('Schreibtraining: zwei Runden bringen unterschiedliche Wörter')
     zx.close()
 
     # 3.6.1 Ab und zu selbst schreiben (Antippen)

@@ -1129,7 +1129,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.6.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.6.2', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1732,8 +1732,11 @@
     if (mode === 'writeall') {
       var td = today(), mine = allWords().filter(function (x) { return S.cards[x.id]; });
       if (mine.length < 4) { toast(t('learn_first')); return go('home'); }
-      var rank = function (x) { var c = S.cards[x.id]; return (C.isDue(c, td) ? 0 : 100) + (S.mistakes.indexOf(x.id) >= 0 ? 0 : 50) + (c.box | 0) * 10 + R() * 9; };
-      var wl = mine.map(function (x) { return { x: x, r: rank(x) }; }).sort(function (a, b) { return a.r - b.r; }).slice(0, Math.max(n, 10)).map(function (o) { return o.x; });
+      /* 3.6.2: jedes Mal andere Wörter – gewichtete Zufallsauswahl statt fester Rangfolge. Fällige, knifflige und wenig
+         gefestigte Wörter kommen öfter dran, die Wörter der letzten Runde seltener. */
+      var last = S.wLast || [], weight = function (x) { var c = S.cards[x.id]; return (C.isDue(c, td) ? 3 : 1) * (S.mistakes.indexOf(x.id) >= 0 ? 2 : 1) * (C.MASTERED_BOX + 1 - Math.min(c.box | 0, C.MASTERED_BOX)) * (last.indexOf(x.id) >= 0 ? 0.25 : 1); };
+      var wl = mine.map(function (x) { return { x: x, k: Math.log(R() || 1e-9) / weight(x) }; }).sort(function (a, b) { return b.k - a.k; }).slice(0, Math.max(n, 10)).map(function (o) { return o.x; });
+      S.wLast = wl.map(function (x) { return x.id; }); save();
       return runGame({ title: t('writeall'), qs: C.shuffle(wl, R).map(function (x) { var q = qType(x); q.forceWrite = true; return q; }) });
     }
     /* 3.5: fällige Wörter einer Stadt – nur diese bringen Wörter Richtung „sicher“ (Wiederholung mit Abstand) */

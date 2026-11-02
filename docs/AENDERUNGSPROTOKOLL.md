@@ -1,5 +1,11 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.6.2 · 02.11.2026 · Schreibtraining abwechslungsreich
+
+- Rückmeldung: Immer dieselben Wörter am Anfang. Ursache: feste Rangfolge (fällig → Fehlerheft → Box), nur innerhalb gemischt.
+- Jetzt gewichtete Zufallsauswahl (Efraimidis-Spirakis): Gewicht = fällig ×3, Fehlerheft ×2, (5 − Box), Wörter der letzten Runde ×0,25 (`S.wLast`). Danach gemischt.
+- Service Worker Cache v3-6-2.
+
 ## 3.6.1 · 02.11.2026 · Ab und zu selbst schreiben
 
 - Bei Antwortart „Antippen“ wird pro Runde die erste Schreibfrage ab der 2. Frage zum Eintippen (Hinweis „✍️ Diesmal selbst schreiben“, Knopf „Lieber antippen“). Nicht im Duell, Mehrspieler und Einstufungstest. Abschaltbar unter Ich → Antwortart (`S.autoWrite`).
