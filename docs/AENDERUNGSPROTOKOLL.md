@@ -1,5 +1,11 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.6 · 02.11.2026 · Schreibtraining
+
+- Vorschlag von Andre: eine Kategorie mit allen bisherigen Wörtern nur zum Schreiben; sonst bleibt „Antippen“, aber ab und zu selbst produzieren.
+- Modus `writeall` (Üben → ✍️ Schreibtraining, auch in „Mehr für heute“): alle gelernten Wörter, Reihenfolge fällig → Fehlerheft → wenig gefestigt; Fragen mit `forceWrite` (immer Eingabefeld, unabhängig von `S.input`). Zählt normal für Wiederholung/Festigen.
+- Service Worker Cache v3-6.
+
 ## 3.5.1 · 01.11.2026 · „Schwer“ wirkt sofort
 
 - Rückmeldung: Mit „Schwierig“ beginnt alles gleich (Guten Tag …). Ursache: Die Schwierigkeit änderte nur die Fragetypen der Übungen, nicht „Neue Wörter“ und nicht den Stoff.

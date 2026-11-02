@@ -168,6 +168,7 @@
       sync_keep: 'Dein bisheriger Fortschritt auf diesem Gerät bleibt beim Anmelden erhalten und wird mit dem Konto zusammengeführt – es geht nichts verloren.', sync_merged: 'Angemeldet – dein Fortschritt ist im Konto ({x} XP).', sync_app_hint: 'Hier in Safari ist noch kein Fortschritt. Hast du Polski Szlak als App installiert? Dann öffne die App und melde dich dort unter Ich → Geräte-Abgleich mit derselben E-Mail an – dein Fortschritt aus der App wird übernommen.',
       ob_diff_note: 'Die Schwierigkeit ändert, WIE gefragt wird (mehr selbst schreiben, weniger Hilfe) – der Stoff beginnt trotzdem bei den Grundlagen in Warszawa. Kannst du schon etwas, mach den Einstufungstest: Dann überspringst du, was du schon weißt.',
       ripe_go_learn: 'Neue Wörter lernen', ripe_go_boss: 'Zur Stadtprüfung', ripe_go_more: 'Für heute: Mehr auf der Startseite',
+      writeall: 'Schreibtraining', writeall_d: 'Alle deine Wörter selbst schreiben – ohne Auswahl',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -288,6 +289,7 @@
       sync_keep: 'Your existing progress on this device is kept when you sign in and merged with the account – nothing is lost.', sync_merged: 'Signed in – your progress is in your account ({x} XP).', sync_app_hint: 'There is no progress in Safari yet. Did you install Polski Szlak as an app? Then open the app and sign in there under Me → Device sync with the same email – your progress from the app will be taken over.',
       ob_diff_note: 'Difficulty changes HOW you are asked (more typing, less help) – the content still starts with the basics in Warszawa. If you already know some Polish, take the placement test to skip what you know.',
       ripe_go_learn: 'Learn new words', ripe_go_boss: 'Take the city test', ripe_go_more: 'For today: more on the home screen',
+      writeall: 'Writing practice', writeall_d: 'Type all your words yourself – no choices given',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -724,6 +726,7 @@
     if (u.read && !(S.read && S.read[u.id] != null)) items.push(b('read', cu, '📖 ' + esc(t('rd_tile'))));
     if (!(S.scenes && S.scenes[u.id])) items.push(b('scene', cu, esc(t('scene'))));
     items.push(b('chat', cu, '💬 ' + esc(t('chat'))));
+    items.push(b('writeall', null, '✍️ ' + esc(t('writeall'))));
     items.push(b('build', cu, esc(t('build'))));
     return '<section class="card stack"><span class="eyebrow">' + esc(t('more_title')) + '</span><p class="small">' + esc(t('more_d')) + '</p><div class="row" style="flex-wrap:wrap">' + items.join('') + '</div></section>';
   }
@@ -837,6 +840,7 @@
     var html = '<h1>' + esc(t('nav_practice')) + '</h1><section class="tiles">' +
       tileBtn('review', t('review'), t('review_d'), due ? '<span class="badge num">' + due + ' ' + esc(t('due')) + '</span>' : '') +
       tileBtn('lex', t('lex'), t('lex_d'), '<span class="badge num">' + allWords().filter(function (x) { return S.cards[x.id]; }).length + '</span>') +
+      tileBtn('writeall', '✍️ ' + t('writeall'), t('writeall_d'), '<span class="badge num">' + allWords().filter(function (x) { return S.cards[x.id]; }).length + '</span>') +
       tileBtn('exam', '🎓 ' + t('ex_title'), t('ex_tile_d'), S.exam && S.exam.best ? '<span class="badge ' + (S.exam.passed ? 'good' : '') + ' num">' + S.exam.best + '%</span>' : '') +
       tileBtn('themes', t('themes'), t('themes_d')) + tileBtn('daily', t('daily'), t('daily_d')) + tileBtn('blitz', t('blitz'), t('blitz_d')) + tileBtn('survival', t('survival'), t('survival_d'), S.best.survival ? '<span class="badge num">' + esc(t('best')) + ' ' + S.best.survival + '</span>' : '') + tileBtn('cases', t('cases'), t('cases_d')) + tileBtn('chat', t('chat'), t('chat_d'), '<span class="badge">Beta</span>') + tileBtn('conj', t('conj'), t('conj_d')) + tileBtn('aspect', t('aspect'), t('aspect_d')) + tileBtn('spell', t('spell'), t('spell_d')) +
       tileBtn('sounds', t('sounds'), t('sounds_d')) + tileBtn('prices', t('prices'), t('prices_d')) +
@@ -1123,7 +1127,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.5.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.6', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1721,6 +1725,14 @@
     if (mode === 'cloze') return runGame({ title: t('cloze'), qs: C.shuffle(u.sentences, R).map(function (s) { return qCloze(s, list); }), unit: ui });
     if (mode === 'speak') return runGame({ title: t('speak'), qs: u.sentences.map(qSpeak), unit: ui });
     if (mode === 'wait') return go('city', ui);
+    /* 3.6 Schreibtraining: alle bisher gelernten Wörter, ohne Antwortvorgaben. Zuerst fällige, dann knifflige (Fehlerheft), dann wenig gefestigte */
+    if (mode === 'writeall') {
+      var td = today(), mine = allWords().filter(function (x) { return S.cards[x.id]; });
+      if (mine.length < 4) { toast(t('learn_first')); return go('home'); }
+      var rank = function (x) { var c = S.cards[x.id]; return (C.isDue(c, td) ? 0 : 100) + (S.mistakes.indexOf(x.id) >= 0 ? 0 : 50) + (c.box | 0) * 10 + R() * 9; };
+      var wl = mine.map(function (x) { return { x: x, r: rank(x) }; }).sort(function (a, b) { return a.r - b.r; }).slice(0, Math.max(n, 10)).map(function (o) { return o.x; });
+      return runGame({ title: t('writeall'), qs: C.shuffle(wl, R).map(function (x) { var q = qType(x); q.forceWrite = true; return q; }) });
+    }
     /* 3.5: fällige Wörter einer Stadt – nur diese bringen Wörter Richtung „sicher“ (Wiederholung mit Abstand) */
     if (mode === 'due') {
       var dl = list.filter(function (x) { return C.isDue(S.cards[x.id], today()); });
@@ -2057,6 +2069,7 @@
      Antippen-Optionen sind fest aus der Antwort abgeleitet (eigener Zufall) – im Duell-Code auf beiden Handys gleich. */
   function drawInput(q, area) {
     var m = S.input || 'write';
+    if (q.forceWrite) { drawType(q, area); return; }   /* 3.6 Schreibtraining: immer selbst schreiben, egal welche Antwortart eingestellt ist */
     if (m === 'tap') drawTapType(q, area); else if (m === 'speak') drawSayType(q, area); else drawType(q, area);
     var other = ['write', 'speak', 'tap'].filter(function (k) { return k !== m; });
     area.insertAdjacentHTML('beforeend', '<div class="row small muted inp-switch">' + esc(t('inp_rather')) + ': ' + other.map(function (k) { return '<button type="button" class="btn ghost" data-inp="' + k + '">' + esc(t('inp_' + k)) + '</button>'; }).join('') + '</div>');

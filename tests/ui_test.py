@@ -441,6 +441,15 @@ with sync_playwright() as p:
     (ok if rp.evaluate("() => !!window.PSApp.game()") else bad)('Knopf startet „Neue Wörter“')
     rx.close()
 
+    # 3.6 Schreibtraining: auch bei „Antippen“ immer Eingabefeld
+    zx = b.new_context(); zp = zx.new_page(); zp.goto(URL); zp.wait_for_selector('#app')
+    zp.evaluate("() => { const s = { app: 'polski-szlak', v: 1, base: 'de', onboarded: true, tour: true, xp: 50, input: 'tap', cards: {}, unlocked: 0, boss: {}, appVer: '3.6', seenVer: '3.6' }; for (let i = 0; i < 8; i++) s.cards['waw:' + i] = { box: 1, seen: 1, due: '2000-01-01' }; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }")
+    zp.reload(); zp.wait_for_selector('.map'); zp.evaluate("() => window.PSApp.go('practice')"); zp.wait_for_selector('[data-mode="writeall"]')
+    zp.click('[data-mode="writeall"]'); zp.wait_for_timeout(400)
+    st = zp.evaluate("() => [!!document.querySelector('main input[type=text], main input:not([type]), main textarea'), document.querySelectorAll('[data-inp]').length, window.PSApp.game() && window.PSApp.game().qs.length]")
+    (ok if st[0] and st[1] == 0 and st[2] == 8 else bad)('Schreibtraining: Eingabefeld trotz „Antippen“, alle 8 gelernten Wörter: %s' % st)
+    zx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))
