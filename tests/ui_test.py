@@ -450,6 +450,19 @@ with sync_playwright() as p:
     (ok if st[0] and st[1] == 0 and st[2] == 8 else bad)('Schreibtraining: Eingabefeld trotz „Antippen“, alle 8 gelernten Wörter: %s' % st)
     zx.close()
 
+    # 3.6.1 Ab und zu selbst schreiben (Antippen)
+    ax = b.new_context(); ap = ax.new_page(); ap.goto(URL); ap.wait_for_selector('#app')
+    ap.evaluate("() => { const s = { app: 'polski-szlak', v: 1, base: 'de', onboarded: true, tour: true, xp: 50, input: 'tap', diff: 'hard', cards: {}, unlocked: 0, boss: {}, appVer: '3.6.1', seenVer: '3.6.1' }; for (let i = 0; i < 18; i++) s.cards['waw:' + i] = { box: 1, seen: 1, due: '2099-01-01' }; localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }")
+    ap.reload(); ap.wait_for_selector('.map')
+    ap.evaluate("() => window.PSApp.startMode('type', 0)"); ap.wait_for_timeout(300)
+    q1 = ap.locator('.auto-w').count()
+    ap.locator('main .opt').first.click(); ap.wait_for_timeout(200); ap.locator('#next, button:has-text("Weiter")').first.click(); ap.wait_for_timeout(300)
+    q2 = ap.locator('.auto-w').count(); inp = ap.locator('main input').count()
+    (ok if q1 == 0 and q2 == 1 and inp >= 1 else bad)('Antippen: Frage 1 antippen, Frage 2 „Diesmal selbst schreiben“ mit Eingabefeld: %s' % [q1, q2, inp])
+    ap.click('#autow-tap'); ap.wait_for_timeout(200)
+    (ok if ap.locator('.auto-w').count() == 0 and ap.locator('main .opt').count() >= 2 else bad)('„Lieber antippen“ wechselt zurück')
+    ax.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))

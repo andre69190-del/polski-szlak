@@ -1,5 +1,10 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.6.1 · 02.11.2026 · Ab und zu selbst schreiben
+
+- Bei Antwortart „Antippen“ wird pro Runde die erste Schreibfrage ab der 2. Frage zum Eintippen (Hinweis „✍️ Diesmal selbst schreiben“, Knopf „Lieber antippen“). Nicht im Duell, Mehrspieler und Einstufungstest. Abschaltbar unter Ich → Antwortart (`S.autoWrite`).
+- Service Worker Cache v3-6-1.
+
 ## 3.6 · 02.11.2026 · Schreibtraining
 
 - Vorschlag von Andre: eine Kategorie mit allen bisherigen Wörtern nur zum Schreiben; sonst bleibt „Antippen“, aber ab und zu selbst produzieren.

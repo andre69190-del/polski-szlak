@@ -169,6 +169,7 @@
       ob_diff_note: 'Die Schwierigkeit ändert, WIE gefragt wird (mehr selbst schreiben, weniger Hilfe) – der Stoff beginnt trotzdem bei den Grundlagen in Warszawa. Kannst du schon etwas, mach den Einstufungstest: Dann überspringst du, was du schon weißt.',
       ripe_go_learn: 'Neue Wörter lernen', ripe_go_boss: 'Zur Stadtprüfung', ripe_go_more: 'Für heute: Mehr auf der Startseite',
       writeall: 'Schreibtraining', writeall_d: 'Alle deine Wörter selbst schreiben – ohne Auswahl',
+      autow: 'Diesmal selbst schreiben', autow_tap: 'Lieber antippen', autow_set: 'Ab und zu selbst schreiben (eine Schreibfrage pro Runde)',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -290,6 +291,7 @@
       ob_diff_note: 'Difficulty changes HOW you are asked (more typing, less help) – the content still starts with the basics in Warszawa. If you already know some Polish, take the placement test to skip what you know.',
       ripe_go_learn: 'Learn new words', ripe_go_boss: 'Take the city test', ripe_go_more: 'For today: more on the home screen',
       writeall: 'Writing practice', writeall_d: 'Type all your words yourself – no choices given',
+      autow: 'This time, type it yourself', autow_tap: 'Rather tap', autow_set: 'Now and then, type it yourself (one typing question per round)',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -1127,7 +1129,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.6', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.6.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1265,7 +1267,7 @@
       '<div class="stack"><b>' + esc(t('base_lang')) + '</b><div class="seg" id="s-base">' + segBtn('de', 'Deutsch', S.base === 'de') + segBtn('en', 'English', S.base === 'en') + '</div></div>' +
       '<div class="stack"><b>' + esc(t('goal')) + '</b><div class="seg" id="s-goal">' + [2, 3, 4, 5, 7].map(function (n) { return segBtn(String(n), String(n), S.goal === n); }).join('') + '</div></div>' +
       '<div class="stack"><b>' + esc(t('diff')) + '</b><div class="seg" id="s-diff">' + ['easy', 'medium', 'hard'].map(function (k) { return segBtn(k, t('diff_' + k), S.diff === k); }).join('') + '</div><p class="small muted">' + esc(t('diff_' + S.diff + '_d')) + '</p></div>' +
-      '<div class="stack"><b>' + esc(t('inp')) + '</b><div class="seg" id="s-inp">' + ['write', 'speak', 'tap'].map(function (k) { return segBtn(k, t('inp_' + k), S.input === k); }).join('') + '</div><p class="small muted">' + esc(t('inp_' + S.input + '_d')) + '</p></div>' +
+      '<div class="stack"><b>' + esc(t('inp')) + '</b><div class="seg" id="s-inp">' + ['write', 'speak', 'tap'].map(function (k) { return segBtn(k, t('inp_' + k), S.input === k); }).join('') + '</div><p class="small muted">' + esc(t('inp_' + S.input + '_d')) + '</p>' + (S.input === 'tap' ? '<label class="row small"><input type="checkbox" id="s-autow"' + (S.autoWrite !== false ? ' checked' : '') + '> ' + esc(t('autow_set')) + '</label>' : '') + '</div>' +
       '<div class="stack"><b>' + esc(t('g_title')) + '</b><div class="seg" id="s-g">' + segBtn('m', t('g_m'), S.gender !== 'f') + segBtn('f', t('g_f'), S.gender === 'f') + '</div><p class="small muted">' + esc(t('g_d')) + '</p></div>' +
       '<label class="row"><input type="checkbox" id="s-free"' + (S.free ? ' checked' : '') + '> ' + esc(t('free_roam')) + '</label>' +
       '<button class="btn" id="s-place" style="justify-self:start">' + esc(t('placement')) + '</button><p class="small muted">' + esc(t('placement_d')) + '</p>' +
@@ -1291,6 +1293,7 @@
     document.getElementById('s-hard').onchange = function (e) { S.hardcore = e.target.checked; save(); };
     document.getElementById('s-slow').onchange = function (e) { S.slow = e.target.checked; save(); };
     bindSeg('s-diff', function (v) { S.diff = v; save(); renderMe(); });
+    var aw = document.getElementById('s-autow'); if (aw) aw.onchange = function (e) { S.autoWrite = e.target.checked; save(); };
     bindSeg('s-inp', function (v) { S.input = v; save(); renderMe(); });
     bindSeg('s-g', function (v) { S.gender = v; loadData(); save(); renderMe(); });
     document.getElementById('s-free').onchange = function (e) { S.free = e.target.checked; save(); };
@@ -2070,6 +2073,17 @@
   function drawInput(q, area) {
     var m = S.input || 'write';
     if (q.forceWrite) { drawType(q, area); return; }   /* 3.6 Schreibtraining: immer selbst schreiben, egal welche Antwortart eingestellt ist */
+    /* 3.6.1 „Ab und zu selbst schreiben“: Bei „Antippen“ wird pro Runde eine Schreibfrage zum Eintippen (nicht im Duell, Mehrspieler, Einstufung) */
+    if (m === 'tap' && G && !G.cfg.duel && !G.players && !G.cfg.placement && S.autoWrite !== false) {
+      if (q.autoW == null) { q.autoW = !G.autoWDone && (G.i || 0) >= 1; if (q.autoW) G.autoWDone = true; }
+      if (q.autoW) {
+        drawType(q, area);
+        area.insertAdjacentHTML('afterbegin', '<p class="small auto-w">✍️ ' + esc(t('autow')) + '</p>');
+        area.insertAdjacentHTML('beforeend', '<div class="row small muted inp-switch"><button type="button" class="btn ghost" id="autow-tap">' + esc(t('autow_tap')) + '</button></div>');
+        var at = document.getElementById('autow-tap'); if (at) at.onclick = function () { q.autoW = false; area.innerHTML = ''; drawInput(q, area); };
+        return;
+      }
+    }
     if (m === 'tap') drawTapType(q, area); else if (m === 'speak') drawSayType(q, area); else drawType(q, area);
     var other = ['write', 'speak', 'tap'].filter(function (k) { return k !== m; });
     area.insertAdjacentHTML('beforeend', '<div class="row small muted inp-switch">' + esc(t('inp_rather')) + ': ' + other.map(function (k) { return '<button type="button" class="btn ghost" data-inp="' + k + '">' + esc(t('inp_' + k)) + '</button>'; }).join('') + '</div>');

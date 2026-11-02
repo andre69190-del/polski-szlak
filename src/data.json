@@ -31542,6 +31542,16 @@
  ],
  "news": [
   {
+   "v": "3.6.1",
+   "date": "2026-11-02",
+   "de": [
+    "Mit „Antippen“ kommt jetzt pro Runde eine Frage zum Selbstschreiben („✍️ Diesmal selbst schreiben“). Wer möchte, tippt trotzdem an – oder schaltet es unter Ich → Antwortart aus."
+   ],
+   "en": [
+    "With “Tap”, each round now has one question to type yourself (“✍️ This time, type it yourself”). You can still tap instead – or switch it off under Me → Answer type."
+   ]
+  },
+  {
    "v": "3.6",
    "date": "2026-11-02",
    "de": [

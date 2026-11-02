@@ -338,3 +338,4 @@ a.ext { font-weight: 700; color: var(--ink); }
 .legal-foot { margin-top: 28px; padding-bottom: 8px; text-align: center; color: var(--muted); }
 .legal-foot a { color: var(--muted); }
 .note-box { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.auto-w { font-weight: 700; color: var(--red); margin: 0 0 6px; }
