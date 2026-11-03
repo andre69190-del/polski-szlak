@@ -478,6 +478,17 @@ with sync_playwright() as p:
     (ok if ap.locator('.auto-w').count() == 0 and ap.locator('main .opt').count() >= 2 else bad)('„Lieber antippen“ wechselt zurück')
     ax.close()
 
+    # 3.7 Prüfstand: „geprüft“-Badge und Server-Stand im Prüfmodus
+    qx = b.new_context(); qp = qx.new_page()
+    qp.route('https://supabase.arndt-software.de/rest/v1/rpc/ps_review_status', lambda r: r.fulfill(status=200, content_type='application/json', body='[{"k":"r:jel:0","ok":true,"who":"Magdalena"},{"k":"w:waw:0","ok":true,"who":"Magdalena"}]'))
+    qp.goto(URL); qp.wait_for_selector('#ob-go'); qp.click('#ob-go'); qp.wait_for_selector('.city-head')
+    qp.evaluate("() => window.PSApp.go('city', window.PSApp.data().units.findIndex(u => u.id === 'sop'))"); qp.wait_for_function("() => /Sopot/.test(document.querySelector('.city-head').innerText)")
+    hd = qp.inner_text('.city-head').lower(); (ok if ('geprüft' in hd or 'checked' in hd) and 'beta' not in hd else bad)('Sopot: „✓ geprüft“: %s' % hd[:120])
+    qp.goto(URL + '?review'); qp.wait_for_selector('#rv-sec'); qp.wait_for_timeout(500)
+    qp.click('#rv-sec [data-v="rd"]'); qp.wait_for_timeout(200)
+    (ok if '1/144' in qp.inner_text('#rv-sec') else bad)('Prüfmodus zählt Server-Stand mit: %s' % qp.inner_text('#rv-sec')[:80])
+    qx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))

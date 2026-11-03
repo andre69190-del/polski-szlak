@@ -31542,6 +31542,18 @@
  ],
  "news": [
   {
+   "v": "3.7",
+   "date": "2026-11-03",
+   "de": [
+    "Von einer Muttersprachlerin geprüfte Orte tragen jetzt „✓ geprüft“ statt „Beta“ – als Erstes Sopot. Danke, Magda!",
+    "Prüfmodus: Was schon geprüft ist, erkennt die App jetzt auf jedem Gerät, und „Sprawdzone w całości“ zeigt die fertig geprüften Orte."
+   ],
+   "en": [
+    "Towns checked by a native speaker now show “✓ checked” instead of “Beta” – Sopot first. Thank you, Magda!",
+    "Review mode: the app now knows on every device what has already been checked, and “Sprawdzone w całości” lists the fully checked towns."
+   ]
+  },
+  {
    "v": "3.6.4",
    "date": "2026-11-02",
    "de": [
@@ -31790,5 +31802,8 @@
    "Du klappst das Buch zu. Auf der letzten Seite hat Ania geschrieben: „Jetzt bist du dran: Erzähl deine eigene Geschichte auf Polnisch. Bereit für die B1-Probeprüfung?“",
    "You close the book. On the last page Ania has written: “Now it’s your turn: tell your own story in Polish. Ready for the B1 practice exam?”"
   ]
+ },
+ "reviewed": {
+  "sop": "Magdalena"
  }
 }

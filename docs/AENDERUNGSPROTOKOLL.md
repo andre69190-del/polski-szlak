@@ -1,5 +1,14 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.7 · 03.11.2026 · Prüfstand sichtbar, „geprüft“ statt „Beta“
+
+- Erste Prüfung durch Magdalena: Sopot (51 Einträge) und 30 Wörter Malbork bestätigt, keine Korrektur (docs/PRUEFUNG_ERGEBNIS.md).
+- **Server:** `deploy/supabase_ps_review_status.sql` – RPC `ps_review_status()` (security definer, für anon): je Eintrag neuester Stand ✓/✗, Datum, nur Vorname; ohne Namen (Tests) ignoriert. Lokal mit PostgreSQL 16 und dem echten Export getestet.
+- **Prüfmodus:** lädt den Prüfstand (falls die Funktion eingerichtet ist), zählt fremde/andere Geräte mit (`rvDone`), überspringt Geprüftes; „Sprawdzone w całości“ listet vollständig geprüfte Orte mit Prüfer.
+- **App:** `data.json → reviewed` (aus `tools/review_apply.py` mit dem CSV-Export) – Badge „✓ geprüft“ statt „Beta“ (Stadt, Buchkapitel).
+- Tests schicken seit heute nichts mehr an den echten Server (Supabase in jedem Testkontext abgefangen); die alten Testzeilen „Test“ ohne Namen werden ignoriert.
+- Service Worker Cache v3-7.
+
 ## 3.6.4 · 02.11.2026 · Wochen-Hinweis „neu sicher“
 
 - Startseite (Wochen-Karte): Anzahl der Wörter, die diese Woche die Box 4 („sicher“) erreicht haben, aus dem vorhandenen Wochenlog `wlog[wk].m`, mit Vorwoche. Ohne neue: Hinweis auf fällige Wörter.

@@ -171,6 +171,7 @@
       writeall: 'Schreibtraining', writeall_d: 'Alle deine Wörter selbst schreiben – ohne Auswahl',
       autow: 'Diesmal selbst schreiben', autow_tap: 'Lieber antippen', autow_set: 'Ab und zu selbst schreiben (eine Schreibfrage pro Runde)',
       ws_line: '⭐ Diese Woche {n} Wörter neu sicher', ws_last: 'letzte Woche {n}', ws_none: 'Diese Woche noch kein Wort neu sicher – fällige Wörter wiederholen hilft.',
+      rev_ok: 'geprüft', rev_d: 'Von einer Muttersprachlerin geprüft ({n}).',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -294,6 +295,7 @@
       writeall: 'Writing practice', writeall_d: 'Type all your words yourself – no choices given',
       autow: 'This time, type it yourself', autow_tap: 'Rather tap', autow_set: 'Now and then, type it yourself (one typing question per round)',
       ws_line: '⭐ This week {n} words became solid', ws_last: 'last week {n}', ws_none: 'No word became solid this week yet – reviewing due words helps.',
+      rev_ok: 'checked', rev_d: 'Checked by a native speaker ({n}).',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -777,7 +779,7 @@
     ui = ui == null ? 0 : ui; var u = U[ui], locked = !isOpen(ui);
     var list = wordsOf(ui), m = masteredCount(list);
     var html = '<section class="city-head"><button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button>' +
-      '<div class="row">' + (u.pack ? '<span aria-hidden="true">' + esc(u.ico) + '</span><span class="eyebrow">' + esc(t('pack')) + ' · ' + esc(cityName(u)) + '</span>' : blaze(u.trail) + '<span class="eyebrow">Szlak ' + szlakOf(ui) + ' · ' + (szlakUnits(szlakOf(ui)).indexOf(ui) + 1) + ' / ' + szlakUnits(szlakOf(ui)).length + ' · ' + esc(cityName(u)) + '</span>' + (u.beta ? '<span class="badge" title="' + esc(t('beta_d')) + '">Beta</span>' : '')) + '</div>' +
+      '<div class="row">' + (u.pack ? '<span aria-hidden="true">' + esc(u.ico) + '</span><span class="eyebrow">' + esc(t('pack')) + ' · ' + esc(cityName(u)) + '</span>' : blaze(u.trail) + '<span class="eyebrow">Szlak ' + szlakOf(ui) + ' · ' + (szlakUnits(szlakOf(ui)).indexOf(ui) + 1) + ' / ' + szlakUnits(szlakOf(ui)).length + ' · ' + esc(cityName(u)) + '</span>' + (D.reviewed && D.reviewed[u.id] ? '<span class="badge good" title="' + esc(t('rev_d').replace('{n}', D.reviewed[u.id])) + '">✓ ' + esc(t('rev_ok')) + '</span>' : u.beta ? '<span class="badge" title="' + esc(t('beta_d')) + '">Beta</span>' : '')) + '</div>' +
       '<div class="pl">' + esc(u.city) + '</div><h2>' + esc(L(u.title)) + '</h2>' +
       '<div class="row small muted num"><div class="bar" style="flex:1;max-width:240px"><i style="width:' + (m / list.length * 100) + '%"></i></div>' + m + '/' + list.length + ' ' + esc(t('city_progress')) + (S.boss[u.id] ? ' · <span class="badge good">' + esc(t('passed')) + '</span>' : (S.skipped[u.id] ? ' · <span class="badge">' + esc(t('skipped_city')) + '</span>' : '')) + '</div></section>' +
       '<section class="card stack"><span class="eyebrow">' + esc(t('can')) + '</span><p>' + esc(L(u.can)) + '</p></section>';
@@ -921,7 +923,7 @@
     var rd = u.read, r3 = szlakUnits(3), no = r3.indexOf(ui) + 1, best = S.read && S.read[u.id];
     if (!rdAns || rdAns.ui !== ui) rdAns = { ui: ui, pick: {}, done: false, order: rd.q.map(function (q) { return C.shuffle(q.o.map(function (o, k) { return k; }), R); }) };
     var html = '<button class="btn ghost" id="back" style="justify-self:start;padding-left:0">← ' + esc(u.city) + '</button>' +
-      '<span class="eyebrow">📖 ' + esc(D.book ? D.book.title : '') + ' · ' + esc(t('rd_chapter')) + ' ' + no + '/' + r3.length + (u.beta ? ' · Beta' : '') + '</span><h1>' + esc(L(rd.t)) + '</h1>' +
+      '<span class="eyebrow">📖 ' + esc(D.book ? D.book.title : '') + ' · ' + esc(t('rd_chapter')) + ' ' + no + '/' + r3.length + (u.beta && !(D.reviewed && D.reviewed[u.id]) ? ' · Beta' : '') + '</span><h1>' + esc(L(rd.t)) + '</h1>' +
       (no === 1 && D.book ? '<section class="card row letter-szymek" style="align-items:start"><div class="krasnal" style="padding:0">' + krasnalSvg() + '</div><p class="small scene-intro grow">' + esc(L(D.book.prolog)) + '</p></section>' : '') +
       '<div class="row"><button class="btn" id="rd-all">' + I.spk + esc(t('rd_listen')) + '</button><label class="row small"><input type="checkbox" id="rd-tr"' + (rdShow ? ' checked' : '') + '> ' + esc(t('rd_tr')) + '</label></div>' +
       '<article class="card stack book" lang="pl">' + rd.lines.map(function (l, i) {
@@ -1141,7 +1143,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.6.4', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.7', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -2852,8 +2854,23 @@
      ✓ gesammelt in Paketen, ✗ sofort. Fortschritt bleibt im Browser (localStorage polski_szlak_review).
      ================================================================ */
   var REVIEW = /[?&]review\b/.test(location.search), RVK = 'polski_szlak_review', RV = null, rvSec = 'new', rvCur = null, rvBad = false;
-  var RVX = { title: 'Sprawdzanie treści', intro: 'Dziękujemy za pomoc! Sprawdź, czy polskie zdania są poprawne i naturalne, a tłumaczenia pasują. Formy w nawiasach {…|…} pokazujemy jako wersję męską i żeńską.', name: 'Twoje imię (opcjonalnie)', all: 'Wszystko', newer: 'Najpierw: Szlak 2, 3 i pakiety', ok: '✓ Poprawne', bad: '✗ Do poprawy', skip: 'Pomiń', how: 'Jak powinno być? Co jest nie tak?', send: 'Wyślij uwagę', done: 'Gotowe! Wszystko w tej części sprawdzone.', prog: 'sprawdzone', sent: 'Wysłano', pend: 'czeka na wysłanie', flush: 'Wyślij teraz', export: 'Wyniki jako tekst (kopia zapasowa)', copy: 'Kopiuj', fail: 'Brak połączenia – wyniki są zapisane i zostaną wysłane później.', back: 'Do aplikacji', listen: 'Odsłuchaj', undo: 'Cofnij ostatnie',
+  var RVX = { title: 'Sprawdzanie treści', intro: 'Dziękujemy za pomoc! Sprawdź, czy polskie zdania są poprawne i naturalne, a tłumaczenia pasują. Formy w nawiasach {…|…} pokazujemy jako wersję męską i żeńską.', name: 'Twoje imię (opcjonalnie)', all: 'Wszystko', units_done: 'Sprawdzone w całości', newer: 'Najpierw: Szlak 2, 3 i pakiety', ok: '✓ Poprawne', bad: '✗ Do poprawy', skip: 'Pomiń', how: 'Jak powinno być? Co jest nie tak?', send: 'Wyślij uwagę', done: 'Gotowe! Wszystko w tej części sprawdzone.', prog: 'sprawdzone', sent: 'Wysłano', pend: 'czeka na wysłanie', flush: 'Wyślij teraz', export: 'Wyniki jako tekst (kopia zapasowa)', copy: 'Kopiuj', fail: 'Brak połączenia – wyniki są zapisane i zostaną wysłane później.', back: 'Do aplikacji', listen: 'Odsłuchaj', undo: 'Cofnij ostatnie',
     secs: { rd: 'Książka (Szlak 3)', w: 'Słówka', s: 'Zdania', sc: 'Scenki', l: 'List i pocztówki', m: 'Misje', c: 'Przypadki', a: 'Aspekt', v: 'Czasowniki', t: 'Łamańce językowe', k: 'Krasnale', p: 'Dla Polaków' } };
+  /* 3.7 Prüfstand vom Server (alle Prüfer, nur Schlüssel + Vorname): auf jedem Gerät sichtbar, was schon geprüft ist */
+  var RVS = null, rvsTried = false;
+  function rvDone(k) { return !!(RV.res[k] || (RVS && RVS[k])); }
+  function rvLoadServer() {
+    if (rvsTried) return; rvsTried = true;
+    sbFetch('/rest/v1/rpc/ps_review_status', { method: 'POST', body: {} }).then(function (rows) {
+      if (!Array.isArray(rows)) return; RVS = {}; rows.forEach(function (r) { if (r && r.k) RVS[r.k] = { ok: !!r.ok, who: r.who || '' }; }); if (REVIEW) renderReview();
+    }, function () {});
+  }
+  /* Ganze Orte, die vollständig geprüft sind (eigene Ergebnisse + Server), mit Namen der Prüfer */
+  function rvUnitsDone(all) {
+    var by = {}; all.forEach(function (x) { var m = /^(?:w|s|sc|r|rq):([a-z]{3})/.exec(x.k); if (!m) return; var u = by[m[1]] = by[m[1]] || { n: 0, d: 0, who: {} }; u.n++;
+      if (rvDone(x.k)) { u.d++; var w = RV.res[x.k] ? (RV.name || '').split(' ')[0] : (RVS && RVS[x.k] && RVS[x.k].who); if (w) u.who[w] = 1; } });
+    return Object.keys(by).filter(function (id) { return by[id].d === by[id].n; }).map(function (id) { var u = unitById(id); return (u ? u.city : id) + ' ✓' + (Object.keys(by[id].who).length ? ' (' + Object.keys(by[id].who).join(', ') + ')' : ''); });
+  }
   function rvLoad() { try { RV = JSON.parse(localStorage.getItem(RVK) || 'null'); } catch (e) {} if (!RV || typeof RV !== 'object') RV = { name: '', res: {}, pend: [], hist: [] }; RV.res = RV.res || {}; RV.pend = RV.pend || []; RV.hist = RV.hist || []; }
   function rvSave() { try { localStorage.setItem(RVK, JSON.stringify(RV)); } catch (e) {} }
   function rvShow(s) { return C.hasG(s) ? C.gform(s, 'm') + '  ·  ' + C.gform(s, 'f') : String(s); }
@@ -2894,15 +2911,18 @@
   }
   function renderReview() {
     if (!RV) rvLoad();
-    var all = rvItems(), secs = {}, list = all.filter(function (x) { secs[x.sec] = secs[x.sec] || { n: 0, d: 0 }; secs[x.sec].n++; if (RV.res[x.k]) secs[x.sec].d++; return rvSec === 'all' || x.sec === rvSec || (rvSec === 'new' && x.r >= 2); });
-    var done = list.filter(function (x) { return RV.res[x.k]; }).length;
-    if (!rvCur || !list.some(function (x) { return x.k === rvCur; }) || RV.res[rvCur]) { var nx = list.filter(function (x) { return !RV.res[x.k]; })[0]; rvCur = nx ? nx.k : null; rvBad = false; }
+    rvLoadServer();
+    var all = rvItems(), secs = {}, list = all.filter(function (x) { secs[x.sec] = secs[x.sec] || { n: 0, d: 0 }; secs[x.sec].n++; if (rvDone(x.k)) secs[x.sec].d++; return rvSec === 'all' || x.sec === rvSec || (rvSec === 'new' && x.r >= 2); });
+    var done = list.filter(function (x) { return rvDone(x.k); }).length;
+    if (!rvCur || !list.some(function (x) { return x.k === rvCur; }) || rvDone(rvCur)) { var nx = list.filter(function (x) { return !rvDone(x.k); })[0]; rvCur = nx ? nx.k : null; rvBad = false; }
     var cur = list.filter(function (x) { return x.k === rvCur; })[0];
-    var tot = all.filter(function (x) { return RV.res[x.k]; }).length;
+    var tot = all.filter(function (x) { return rvDone(x.k); }).length;
     var html = '<section class="stack" lang="pl"><h1>' + esc(RVX.title) + '</h1><p class="small">' + esc(RVX.intro) + '</p>' +
       '<label class="fld">' + esc(RVX.name) + '<input type="text" id="rv-name" maxlength="30" autocomplete="name" value="' + esc(RV.name) + '"></label>' +
-      '<div class="seg rv-secs" id="rv-sec">' + segBtn('new', RVX.newer + ' ' + all.filter(function (x) { return x.r >= 2 && RV.res[x.k]; }).length + '/' + all.filter(function (x) { return x.r >= 2; }).length, rvSec === 'new') + segBtn('all', RVX.all + ' ' + tot + '/' + all.length, rvSec === 'all') + Object.keys(secs).map(function (k) { return segBtn(k, RVX.secs[k] + ' ' + secs[k].d + '/' + secs[k].n, rvSec === k); }).join('') + '</div>' +
+      '<div class="seg rv-secs" id="rv-sec">' + segBtn('new', RVX.newer + ' ' + all.filter(function (x) { return x.r >= 2 && rvDone(x.k); }).length + '/' + all.filter(function (x) { return x.r >= 2; }).length, rvSec === 'new') + segBtn('all', RVX.all + ' ' + tot + '/' + all.length, rvSec === 'all') + Object.keys(secs).map(function (k) { return segBtn(k, RVX.secs[k] + ' ' + secs[k].d + '/' + secs[k].n, rvSec === k); }).join('') + '</div>' +
       '<div class="row small muted num"><div class="bar" style="flex:1"><i style="width:' + (list.length ? done / list.length * 100 : 0) + '%"></i></div>' + done + '/' + list.length + ' ' + esc(RVX.prog) + '</div>';
+    var ud = rvUnitsDone(all);
+    if (ud.length) html += '<details class="card"><summary class="small" style="cursor:pointer;font-weight:700">' + esc(RVX.units_done) + ' (' + ud.length + ')</summary><p class="small">' + esc(ud.join(' · ')) + '</p></details>';
     if (cur) {
       html += '<article class="card stack rv-card"><span class="eyebrow">' + esc(RVX.secs[cur.sec]) + (cur.note ? ' · ' + esc(cur.note) : '') + ' · <span class="num">' + esc(cur.k) + '</span></span>' +
         '<div class="row" style="align-items:start;flex-wrap:nowrap"><p class="rv-pl grow">' + esc(cur.pl) + '</p><button class="icon-btn" id="rv-say" aria-label="' + esc(RVX.listen) + '">' + I.spk + '</button></div>' +
@@ -2922,7 +2942,7 @@
     if ((b = document.getElementById('rv-say'))) b.onclick = function () { ttsSpeak(C.gform(cur.pl.split('  ·  ')[0].split(' → ')[0], 'm')); };
     if ((b = document.getElementById('rv-ok'))) b.onclick = function () { RV.res[cur.k] = 'ok'; RV.pend.push(cur.k); RV.hist.push(cur.k); rvSave(); if (RV.pend.length >= 20) rvFlush().catch(function () {}); renderReview(); };
     if ((b = document.getElementById('rv-bad'))) b.onclick = function () { rvBad = true; renderReview(); setTimeout(function () { var t2 = document.getElementById('rv-txt'); if (t2) t2.focus(); }, 30); };
-    if ((b = document.getElementById('rv-skip'))) b.onclick = function () { var idx = list.indexOf(cur), nx = list.slice(idx + 1).concat(list.slice(0, idx)).filter(function (x) { return !RV.res[x.k]; })[0]; rvCur = nx ? nx.k : null; renderReview(); };
+    if ((b = document.getElementById('rv-skip'))) b.onclick = function () { var idx = list.indexOf(cur), nx = list.slice(idx + 1).concat(list.slice(0, idx)).filter(function (x) { return !rvDone(x.k); })[0]; rvCur = nx ? nx.k : null; renderReview(); };
     if ((b = document.getElementById('rv-cancel'))) b.onclick = function () { rvBad = false; renderReview(); };
     if ((b = document.getElementById('rv-send'))) b.onclick = function () {
       var txt = document.getElementById('rv-txt').value.trim(), item = cur; if (!txt) return;

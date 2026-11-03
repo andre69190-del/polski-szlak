@@ -101,6 +101,8 @@ chk "3.3 B1-Probeprüfung" "function renderExam"
 chk "3.5 Mehr für heute / Vorlernen" "function moreBox"
 chk "3.5 Wie sicher sind die Wörter" "function sureBox"
 chk "3.6 Schreibtraining (immer schreiben)" "forceWrite"
+chk "3.7 Prüfstand vom Server" "ps_review_status"
+chk "3.7 geprüft statt Beta" "D.reviewed"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL
