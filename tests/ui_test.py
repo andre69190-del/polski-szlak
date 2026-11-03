@@ -66,6 +66,14 @@ def play_through(page, max_steps=150):
 
 with sync_playwright() as p:
     b = p.chromium.launch()
+    # Tests dürfen nie echte Daten auf den Server schreiben (Feedback, Prüfmodus, Abgleich, KI):
+    # jeder Browser-Kontext beantwortet Supabase-Aufrufe selbst. Einzelne Seiten können eigene Antworten festlegen (z. B. KI-Test).
+    _new_ctx = b.new_context
+    def _safe_ctx(*a, **k):
+        c = _new_ctx(*a, **k)
+        c.route('https://supabase.arndt-software.de/**', lambda r: r.fulfill(status=201, content_type='application/json', body='[]'))
+        return c
+    b.new_context = _safe_ctx
     ctx = b.new_context(viewport={'width': 390, 'height': 844}, locale='de-DE')
     page = ctx.new_page()
     errors = []

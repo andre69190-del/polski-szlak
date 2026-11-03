@@ -25,6 +25,7 @@ ok, bad, who = set(), [], collections.Counter()
 for r in rows:
     ctx, msg = r.get('ctx') or '', r.get('msg') or ''
     if not ctx.startswith('review|'): continue
+    if ctx.split('|')[1] in ('?', ''): continue   # ohne Namen = Testlauf (automatische Tests bis 3.6.4), nicht auswerten
     who[ctx.split('|')[1]] += 1
     if msg.startswith('REVIEW ✓'): ok.update(msg.split(': ', 1)[1].split())
     m = re.match(r'REVIEW ✗ \[([^\]]+)\] (.*)', msg, re.S)
