@@ -1,5 +1,12 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.7.1 · 03.11.2026 · Rückmeldungen in der App (Admin)
+
+- `deploy/supabase_ps_admin.sql`: Tabelle `ps_admins` und RPC `ps_feedback_admin()` (security definer, prüft `auth.uid()` gegen `ps_admins`, sonst Fehler 42501; anon ohne Ausführungsrecht). Lokal getestet: Admin sieht alles, anderes Konto und anon werden abgewiesen.
+- Ich → „Rückmeldungen (nur für dich)“: erscheint nur, wenn die RPC antwortet. Prüfmodus je Prüfer (✓/✗), Korrekturvorschläge mit aktuellem App-Text, die letzten „Fehler melden“-Einträge, Knopf „Für Claude speichern (CSV)“ → Ordner `feedback`.
+- Größenbudget umgestellt: entscheidend ist die per gzip übertragene Größe (≤ 230 KB, derzeit ca. 210 KB), unkomprimiert ≤ 720 KB (vorher 650 KB unkomprimiert, jetzt erreicht).
+- Service Worker Cache v3-7-1.
+
 ## 3.7 · 03.11.2026 · Prüfstand sichtbar, „geprüft“ statt „Beta“
 
 - Erste Prüfung durch Magdalena: Sopot (51 Einträge) und 30 Wörter Malbork bestätigt, keine Korrektur (docs/PRUEFUNG_ERGEBNIS.md).

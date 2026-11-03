@@ -31542,6 +31542,16 @@
  ],
  "news": [
   {
+   "v": "3.7.1",
+   "date": "2026-11-03",
+   "de": [
+    "Für Andre: Unter Ich gibt es den Bereich „Rückmeldungen“ mit Prüfergebnissen und gemeldeten Fehlern – nur für Administrator-Konten sichtbar."
+   ],
+   "en": [
+    "For the admin: under Me there is a “Feedback” section with review results and reported problems – visible to admin accounts only."
+   ]
+  },
+  {
    "v": "3.7",
    "date": "2026-11-03",
    "de": [

@@ -339,3 +339,4 @@ a.ext { font-weight: 700; color: var(--ink); }
 .legal-foot a { color: var(--muted); }
 .note-box { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
 .auto-w { font-weight: 700; color: var(--red); margin: 0 0 6px; }
+.adm-list { margin: 6px 0; padding-left: 18px; display: grid; gap: 8px; }

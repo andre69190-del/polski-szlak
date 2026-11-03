@@ -489,6 +489,27 @@ with sync_playwright() as p:
     (ok if '1/144' in qp.inner_text('#rv-sec') else bad)('Prüfmodus zählt Server-Stand mit: %s' % qp.inner_text('#rv-sec')[:80])
     qx.close()
 
+    # 3.7.1 Rückmeldungen nur für Administratoren
+    import json as _j3
+    rows = [{'created_at': '2026-11-03T08:00:00Z', 'msg': 'REVIEW ✓ 20: w:sop:0 w:sop:1', 'ctx': 'review|Magdalena Arndt', 'lang': 'de', 'ver': '3.7'},
+            {'created_at': '2026-11-03T08:05:00Z', 'msg': 'REVIEW ✗ [w:jel:1] ogłoszenie → lepiej: anons', 'ctx': 'review|Magdalena Arndt|w:jel:1', 'lang': 'de', 'ver': '3.7'},
+            {'created_at': '2026-11-03T08:06:00Z', 'msg': 'REVIEW ✗ [w:waw:1] dzień dobry → Test', 'ctx': 'review|?|w:waw:1', 'lang': 'de', 'ver': '3.6'},
+            {'created_at': '2026-11-03T08:07:00Z', 'msg': 'Tippfehler bei kawa', 'ctx': 'Quiz · Warszawa', 'lang': 'de', 'ver': '3.7'}]
+    for admin in (True, False):
+        mx = b.new_context(); mp = mx.new_page()
+        mp.route('https://supabase.arndt-software.de/rest/v1/rpc/ps_feedback_admin', (lambda r: r.fulfill(status=200, content_type='application/json', body=_j3.dumps(rows))) if admin else (lambda r: r.fulfill(status=403, content_type='application/json', body='{"code":"42501","message":"nicht berechtigt"}')))
+        mp.goto(URL); mp.wait_for_selector('#app')
+        mp.evaluate("() => { localStorage.setItem('polski_szlak_v1', JSON.stringify({ app: 'polski-szlak', v: 1, base: 'de', onboarded: true, tour: true, xp: 1, cards: {}, appVer: '3.7.1', seenVer: '3.7.1' })); localStorage.setItem('polski_szlak_auth', JSON.stringify({ at: 'x', rt: 'y', exp: Date.now() + 3600000, email: 'a@b.de', uid: '00000000-0000-0000-0000-00000000000a', last: Date.now() })); }")
+        mp.reload(); mp.wait_for_selector('.map'); mp.evaluate("() => window.PSApp.go('me')"); mp.wait_for_timeout(600)
+        if admin:
+            txt = mp.inner_text('#adm') if mp.locator('#adm').count() else ''
+            (ok if 'Magdalena' in txt and '✓ 20' in txt and 'Korrekturvorschläge (1)' in txt and '(1)' in txt else bad)('Admin: Rückmeldungen mit Prüfstand, 1 Korrektur, Testzeilen ausgeblendet')
+            with mp.expect_download() as dl: mp.click('#adm-csv')
+            (ok if dl.value.suggested_filename.startswith('ps_feedback-') else bad)('Admin: CSV für Claude')
+        else:
+            (ok if mp.locator('#adm').count() == 0 else bad)('Kein Admin: Bereich unsichtbar')
+        mx.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))

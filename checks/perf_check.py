@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Größe/Performance (Idee aus GeoQuest/BIOGLOW perf_check.py). Budget: index.html < 650 KB (3.0: Szlak 2 + Pakete inline, +100 KB; Dla Polaków wird als data-polacy.json nachgeladen; per gzip übertragen ~170 KB)."""
-import os, sys
+"""Größe/Performance (Idee aus GeoQuest/BIOGLOW perf_check.py).
+Entscheidend für den ersten Start ist die übertragene Größe: nginx liefert gzip aus.
+Budget: index.html gzip ≤ 230 KB und unkomprimiert ≤ 720 KB (3.7.1: Szlak 2/3 und Dla Polaków werden nachgeladen;
+seit 3.7.1 zählt vor allem gzip – vorher 650 KB unkomprimiert)."""
+import os, sys, gzip
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-size = os.path.getsize(os.path.join(ROOT, 'index.html'))
-budget = 650 * 1024
-print(f'  index.html: {size / 1024:.0f} KB (Budget {budget // 1024} KB)')
-print('PASS' if size <= budget else 'FAIL')
-sys.exit(0 if size <= budget else 1)
+raw = open(os.path.join(ROOT, 'index.html'), 'rb').read()
+gz = len(gzip.compress(raw, 6))
+ok = gz <= 230 * 1024 and len(raw) <= 720 * 1024
+print(f'  index.html: {len(raw) / 1024:.0f} KB, per gzip {gz / 1024:.0f} KB (Budget 230 KB gzip / 720 KB)')
+print('PASS' if ok else 'FAIL')
+sys.exit(0 if ok else 1)

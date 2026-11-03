@@ -172,6 +172,7 @@
       autow: 'Diesmal selbst schreiben', autow_tap: 'Lieber antippen', autow_set: 'Ab und zu selbst schreiben (eine Schreibfrage pro Runde)',
       ws_line: '⭐ Diese Woche {n} Wörter neu sicher', ws_last: 'letzte Woche {n}', ws_none: 'Diese Woche noch kein Wort neu sicher – fällige Wörter wiederholen hilft.',
       rev_ok: 'geprüft', rev_d: 'Von einer Muttersprachlerin geprüft ({n}).',
+      adm_title: 'Rückmeldungen (nur für dich)', adm_rev: 'Prüfmodus', adm_fix: 'Korrekturvorschläge', adm_now: 'jetzt in der App', adm_reports: '„Fehler melden“', adm_csv: 'Für Claude speichern (CSV)', adm_reload: 'Aktualisieren', adm_d: 'Die CSV-Datei in den Ordner PolskiSzlak/feedback legen – dann baut Claude die Korrekturen ein.',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -296,6 +297,7 @@
       autow: 'This time, type it yourself', autow_tap: 'Rather tap', autow_set: 'Now and then, type it yourself (one typing question per round)',
       ws_line: '⭐ This week {n} words became solid', ws_last: 'last week {n}', ws_none: 'No word became solid this week yet – reviewing due words helps.',
       rev_ok: 'checked', rev_d: 'Checked by a native speaker ({n}).',
+      adm_title: 'Feedback (only for you)', adm_rev: 'Review mode', adm_fix: 'Suggested corrections', adm_now: 'now in the app', adm_reports: '“Report a problem”', adm_csv: 'Save for Claude (CSV)', adm_reload: 'Refresh', adm_d: 'Put the CSV file into the PolskiSzlak/feedback folder – then Claude builds in the corrections.',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -1143,7 +1145,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.7', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.7.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1291,7 +1293,7 @@
       '<label class="row"><input type="checkbox" id="s-slow"' + (S.slow ? ' checked' : '') + '> ' + esc(t('slow')) + ' (TTS)</label></section>' +
       voiceBox() + remBox() +
       '<section class="card stack"><h2>' + esc(t('jokers')) + '</h2><div class="row"><span class="chip num">' + esc(t('j_5050')) + ' ' + S.jokers.five0 + '</span><span class="chip num">' + esc(t('j_hint')) + ' ' + S.jokers.hint + '</span><span class="chip num">' + esc(t('j_freeze')) + ' ' + S.jokers.freeze + '</span></div><p class="small muted">' + esc(t('jokers_d')) + '</p></section>' +
-      safeBox() +
+      safeBox() + adminBox() +
       '<section class="card"><details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('bk_more')) + '</summary><div class="stack" style="margin-top:10px"><p class="small muted">' + esc(t('backup_d')) + '</p><textarea id="bk" aria-label="' + esc(t('backup')) + '">' + esc(JSON.stringify(S)) + '</textarea>' +
       '<div class="row"><button class="btn" id="bk-copy">' + esc(t('bk_copy')) + '</button><button class="btn" id="bk-restore">' + esc(t('restore')) + '</button></div></div></details></section>' +
       '<section class="card stack"><h2>' + esc(t('news')) + '</h2><p class="small muted">' + esc(t('news_ver')) + ' ' + esc(APP_VER) + '</p><button class="btn" id="news-open" style="justify-self:start">' + esc(t('news_all')) + ' →</button></section>' +
@@ -1316,7 +1318,7 @@
     document.getElementById('bk-restore').onclick = function () {
       try { var o = JSON.parse(document.getElementById('bk').value); o = C.validateSave(o) ? o : C.repairSave(o); if (!o) throw 0; mergeIn(o); } catch (e) { toast(t('bad_backup')); }
     };
-    bindSafe();
+    bindSafe(); bindAdmin();
     bindReport('rep-me', 'Ich / allgemein');
     document.getElementById('news-open').onclick = function () { go('news'); };
     document.getElementById('rv-link').onclick = function () { shareOut(t('rv_me_share') + ' ' + SITE + '?review'); };
@@ -1363,6 +1365,41 @@
       try { var o = JSON.parse(e.newValue); if (C.validateSave(o)) { S = Object.assign(fresh(), C.mergeSave(S, o)); loadData(); fixUnlock(); if (!G && !view) render(); } } catch (er) {}
     });
     if (RESCUE) { if (RESCUE !== 'lost') saveLocal(); setTimeout(function () { toast(t('rescue_' + RESCUE)); }, 600); }
+  }
+
+  /* ---------- 3.7.1 Rückmeldungen (nur Administratoren): Prüfmodus-Ergebnisse und „Fehler melden“ direkt in der App ----------
+     Server: deploy/supabase_ps_admin.sql (RPC ps_feedback_admin prüft ps_admins). Für alle anderen bleibt der Bereich unsichtbar. */
+  var ADM = { st: '', rows: null };
+  function adminLoad() {
+    if (!A || !A.uid || ADM.st === 'busy' || ADM.st === 'no') return;
+    ADM.st = 'busy';
+    sbToken().then(function () { return sbFetch('/rest/v1/rpc/ps_feedback_admin', { method: 'POST', auth: true, body: {} }); })
+      .then(function (rows) { ADM.rows = Array.isArray(rows) ? rows : []; ADM.st = 'ok'; if (tab === 'me') renderMe(); },
+        function () { ADM.st = 'no'; });
+  }
+  function adminBox() {
+    if (!A || !A.uid) return '';
+    if (ADM.st === '') { setTimeout(adminLoad, 0); return ''; }
+    if (ADM.st !== 'ok') return '';
+    var rows = ADM.rows, rv = rows.filter(function (r) { return /^review\|/.test(r.ctx || '') && !/^review\|(\?)?(\||$)/.test(r.ctx || ''); });
+    var who = {}, bad = [], cur = {};
+    try { rvItems().forEach(function (x) { cur[x.k] = x.pl; }); } catch (e) {}
+    rv.forEach(function (r) { var n = (r.ctx.split('|')[1] || '').split(' ')[0], m = /^REVIEW ✓ (\d+)/.exec(r.msg); who[n] = who[n] || { ok: 0, bad: 0 }; if (m) who[n].ok += +m[1]; else { who[n].bad++; var k = (/\[([^\]]+)\]/.exec(r.msg) || [])[1]; bad.push({ d: r.created_at, n: n, k: k, msg: r.msg.replace(/^REVIEW ✗ \[[^\]]+\] /, ''), now: cur[k] || '' }); } });
+    var rep = rows.filter(function (r) { return !/^review\|/.test(r.ctx || ''); }).slice(0, 20);
+    var loc = S.base === 'en' ? 'en-GB' : 'de-DE', dt = function (x) { try { return new Date(x).toLocaleDateString(loc, { day: 'numeric', month: 'numeric' }); } catch (e) { return ''; } };
+    return '<section class="card stack" id="adm"><h2>' + esc(t('adm_title')) + '</h2>' +
+      '<p class="small">' + esc(t('adm_rev')) + ': ' + (Object.keys(who).length ? Object.keys(who).map(function (n) { return '<b>' + esc(n) + '</b> ✓ ' + who[n].ok + (who[n].bad ? ' · ✗ ' + who[n].bad : ''); }).join(' · ') : '–') + '</p>' +
+      (bad.length ? '<details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('adm_fix')) + ' (' + bad.length + ')</summary><ul class="small adm-list">' + bad.map(function (x) { return '<li><span class="muted num">' + esc(dt(x.d)) + ' · ' + esc(x.n) + ' · ' + esc(x.k || '') + '</span><br><span lang="pl">' + esc(x.msg) + '</span>' + (x.now ? '<br><span class="muted">' + esc(t('adm_now')) + ': </span><span lang="pl">' + esc(x.now) + '</span>' : '') + '</li>'; }).join('') + '</ul></details>' : '') +
+      (rep.length ? '<details><summary class="small" style="cursor:pointer;font-weight:700">' + esc(t('adm_reports')) + ' (' + rep.length + ')</summary><ul class="small adm-list">' + rep.map(function (r) { return '<li><span class="muted num">' + esc(dt(r.created_at)) + ' · ' + esc(r.ctx || '') + ' · ' + esc(r.ver || '') + '</span><br>' + esc(r.msg) + '</li>'; }).join('') + '</ul></details>' : '') +
+      '<div class="row"><button class="btn" id="adm-csv">' + esc(t('adm_csv')) + '</button><button class="btn ghost" id="adm-re">↻ ' + esc(t('adm_reload')) + '</button></div><p class="small muted">' + esc(t('adm_d')) + '</p></section>';
+  }
+  function bindAdmin() {
+    var c = document.getElementById('adm-csv'); if (c) c.onclick = function () {
+      var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+      var csv = 'created_at,msg,ctx,lang,ver\n' + ADM.rows.slice().reverse().map(function (r) { return [r.created_at, r.msg, r.ctx, r.lang, r.ver].map(q).join(','); }).join('\n') + '\n';
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'ps_feedback-' + today() + '.csv'; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    };
+    var r = document.getElementById('adm-re'); if (r) r.onclick = function () { ADM.st = ''; adminLoad(); };
   }
 
   /* ---------- Geräte-Abgleich über das eigene Supabase (wie GeoQuest, gleiches Konto) ----------
