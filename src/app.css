@@ -340,3 +340,12 @@ a.ext { font-weight: 700; color: var(--ink); }
 .note-box { background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
 .auto-w { font-weight: 700; color: var(--red); margin: 0 0 6px; }
 .adm-list { margin: 6px 0; padding-left: 18px; display: grid; gap: 8px; }
+/* 3.8 Urkunde */
+.sz-done { border-color: var(--good); }
+.cert { padding: 6px; }
+.cert-in { border: 3px double var(--line); border-radius: 14px; padding: 22px 16px; text-align: center; display: grid; gap: 10px; }
+.cert-in h1 { margin: 0; }
+.cert-lv { font-weight: 700; color: var(--red); margin: 0; }
+.cert-name { font-size: 1.6rem; font-weight: 800; margin: 6px 0 0; }
+.cert-blaze { display: flex; gap: 8px; justify-content: center; }
+@media print { header.top, nav.nav, .no-print, .legal-foot, .toast { display: none !important; } body { background: #fff; } .cert-in { border-color: #999; } }

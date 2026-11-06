@@ -1,5 +1,13 @@
 # Polski Szlak – Änderungsprotokoll
 
+## 3.8 · 06.11.2026 · Szlak-Abschluss: Urkunde und Wiederholungs-Check
+
+- Anlass: Eine Lernende hat Szlak 1 fast geschafft; der Übergang zu Szlak 2 soll motivieren.
+- Ist ein Szlak komplett (alle Prüfungen bestanden oder übersprungen): Hinweis auf dem Ergebnis-Bildschirm, Karte „🎉 Szlak N geschafft!“ auf der Startseite (schließbar, `S.szSeen`) mit Ausblick auf die nächste Etappe.
+- **Urkunde** (`renderCert`): Name (auch fürs Duell), Etappe/Niveau, Städte, gelernte und sichere Wörter, Datum; Drucken bzw. als PDF speichern (Druckansicht ohne Navigation).
+- **Wiederholungs-Check** (`szcheck`): 20 Wörter aus allen Städten des Szlak, gewichtet nach wenig gefestigten; bestes Ergebnis in `S.szCheck`.
+- Service Worker Cache v3-8.
+
 ## 3.7.1 · 03.11.2026 · Rückmeldungen in der App (Admin)
 
 - `deploy/supabase_ps_admin.sql`: Tabelle `ps_admins` und RPC `ps_feedback_admin()` (security definer, prüft `auth.uid()` gegen `ps_admins`, sonst Fehler 42501; anon ohne Ausführungsrecht). Lokal getestet: Admin sieht alles, anderes Konto und anon werden abgewiesen.

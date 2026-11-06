@@ -104,6 +104,8 @@ chk "3.6 Schreibtraining (immer schreiben)" "forceWrite"
 chk "3.7 Prüfstand vom Server" "ps_review_status"
 chk "3.7 geprüft statt Beta" "D.reviewed"
 chk "3.7.1 Rückmeldungen für Admin" "ps_feedback_admin"
+chk "3.8 Urkunde nach einem Szlak" "function renderCert"
+chk "3.8 Wiederholungs-Check" "szcheck"
 [ -f sw.js ] && echo "  [OK] sw.js vorhanden" || { echo "  [!!] sw.js fehlt"; fail=1; }
 [ -f manifest.json ] && echo "  [OK] manifest.json vorhanden" || { echo "  [!!] manifest.json fehlt"; fail=1; }
 [ $fail -eq 0 ] && echo PASS || echo FAIL

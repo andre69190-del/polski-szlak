@@ -173,6 +173,9 @@
       ws_line: '⭐ Diese Woche {n} Wörter neu sicher', ws_last: 'letzte Woche {n}', ws_none: 'Diese Woche noch kein Wort neu sicher – fällige Wörter wiederholen hilft.',
       rev_ok: 'geprüft', rev_d: 'Von einer Muttersprachlerin geprüft ({n}).',
       adm_title: 'Rückmeldungen (nur für dich)', adm_rev: 'Prüfmodus', adm_fix: 'Korrekturvorschläge', adm_now: 'jetzt in der App', adm_reports: '„Fehler melden“', adm_csv: 'Für Claude speichern (CSV)', adm_reload: 'Aktualisieren', adm_d: 'Die CSV-Datei in den Ordner PolskiSzlak/feedback legen – dann baut Claude die Korrekturen ein.',
+      sz_done: 'Szlak {r} geschafft!', sz_done_res: 'Auf der Startseite warten deine Urkunde und ein kurzer Check.', sz_cert: 'Urkunde ansehen', sz_check: 'Wiederholungs-Check', sz_check_ok: 'Stark – das sitzt!', sz_check_low: 'Ein paar Wörter wackeln noch – sie kommen jetzt öfter in „Wiederholen“.', sz_print: 'Drucken oder als PDF speichern', sz_cert_h: 'Szlak {r} geschafft', sz_cert_you: 'Du', sz_cert_d: 'hat alle {n} Orte dieser Etappe auf Polnisch gemeistert – mit Szenen, Prüfungen und viel Wiederholung.', sz_cert_note: 'Eine Urkunde der App, kein offizielles Zertifikat – aber ein echter Meilenstein. Deinen Namen trägst du oben ein – er gilt auch fürs Duell.',
+      sz_out_1: 'Gratulacje! Du kannst grüßen, bestellen, einkaufen, nach dem Weg fragen und dich vorstellen. Auf Szlak 2 (A2) erzählst du von gestern und morgen, gehst zum Arzt, mietest eine Wohnung – und Ania schickt dir Postkarten. Tipp: Mach vorher den Wiederholungs-Check.', sz_out_2: 'Gratulacje! Du sprichst über Vergangenheit und Zukunft und kommst im Alltag zurecht. Auf Szlak 3 (B1-Einstieg) geht es um Arbeit, Reklamationen, Gefühle und Ämter – und du liest Anias Buch.', sz_out_3: 'Gratulacje! Du hast den Weg zum B1-Einstieg geschafft. Zeit für die B1-Probeprüfung – und für echte Gespräche auf Polnisch.',
+      sz_name: 'Name auf der Urkunde',
       vc_diag: 'Ton-Test mit Diagnose'
     },
     en: {
@@ -298,6 +301,9 @@
       ws_line: '⭐ This week {n} words became solid', ws_last: 'last week {n}', ws_none: 'No word became solid this week yet – reviewing due words helps.',
       rev_ok: 'checked', rev_d: 'Checked by a native speaker ({n}).',
       adm_title: 'Feedback (only for you)', adm_rev: 'Review mode', adm_fix: 'Suggested corrections', adm_now: 'now in the app', adm_reports: '“Report a problem”', adm_csv: 'Save for Claude (CSV)', adm_reload: 'Refresh', adm_d: 'Put the CSV file into the PolskiSzlak/feedback folder – then Claude builds in the corrections.',
+      sz_done: 'Szlak {r} completed!', sz_done_res: 'Your certificate and a short check are waiting on the home screen.', sz_cert: 'View certificate', sz_check: 'Review check', sz_check_ok: 'Strong – that has stuck!', sz_check_low: 'A few words are still wobbly – they will now come up more often in “Review”.', sz_print: 'Print or save as PDF', sz_cert_h: 'Szlak {r} completed', sz_cert_you: 'You', sz_cert_d: 'mastered all {n} places of this stage in Polish – with scenes, tests and lots of review.', sz_cert_note: 'A certificate from the app, not an official one – but a real milestone. Enter your name above – it is also used for duels.',
+      sz_out_1: 'Gratulacje! You can greet, order, shop, ask the way and introduce yourself. On Szlak 2 (A2) you talk about yesterday and tomorrow, go to the doctor, rent a flat – and Ania sends you postcards. Tip: do the review check first.', sz_out_2: 'Gratulacje! You talk about past and future and get by in everyday life. Szlak 3 (B1 entry) is about work, complaints, feelings and offices – and you read Ania’s book.', sz_out_3: 'Gratulacje! You have made it to B1 entry level. Time for the B1 practice exam – and for real conversations in Polish.',
+      sz_name: 'Name on the certificate',
       vc_diag: 'Sound test with diagnostics'
     }
   };
@@ -577,6 +583,7 @@
     if (tab === 'polacy') return RAW.polacy ? renderPolacy() : needPolacy(function () { renderPolacy(); });
     if (tab === 'letter') return renderLetter(arg);
     if (tab === 'read') return renderRead(arg);
+    if (tab === 'cert') return renderCert(arg);
     if (tab === 'exam') return renderExam();
     if (tab === 'themes') return renderThemes(arg);
     if (tab === 'chat') return renderChat(arg);
@@ -681,6 +688,7 @@
       (alt ? '<button class="btn primary block" id="cta">' + (alt === 'review' ? esc(t('more_review')) + ' · ' + due : blaze(U[pre].trail) + esc(t('more_pre').replace('{c}', U[pre].city))) + '</button><p class="small muted">' + esc(t('more_wait').replace('{c}', u.city)) + '</p>'
         : '<button class="btn primary block" id="cta">' + blaze(u.trail) + esc(t('continue')) + ': ' + esc(u.city) + (step ? ' · ' + esc(t(step)) : '') + '</button>') +
       (step ? '<div class="row small" style="justify-content:space-between"><span class="muted">' + (alt ? '' : esc(t('next_up')) + ': ' + esc(t('step_' + step))) + '</span><button class="btn ghost small" id="cta-city" style="min-height:36px;padding:4px 0">' + esc(t('view_city')) + ' →</button></div>' : '') + '</section>' +
+      szlakCelebrate() +
       (step === 'wait' ? moreBox(nUnit, pre, preOk, due, alt) : '') +
       storyCard() +
       '<section class="map-wrap card" style="padding:8px">' + mapSeg() + mapSvg() + '</section>' +
@@ -695,6 +703,10 @@
     shell(html);
     document.getElementById('cta').onclick = function () { if (alt === 'review') startMode('review'); else if (alt === 'pre') startMode('learn', pre); else if (step && isOpen(nUnit)) startMode(step, nUnit); else go('city', nUnit); };
     document.querySelectorAll('[data-more]').forEach(function (b) { b.onclick = function () { var m = b.getAttribute('data-more'), i = b.getAttribute('data-ui'); startMode(m, i == null ? undefined : +i); }; });
+    document.querySelectorAll('[data-cert]').forEach(function (b) { b.onclick = function () { go('cert', +b.getAttribute('data-cert')); }; });
+    document.querySelectorAll('[data-city-go]').forEach(function (b) { b.onclick = function () { go('city', +b.getAttribute('data-city-go')); }; });
+    var szx = document.getElementById('szc-x'); if (szx) szx.onclick = function () { S.szSeen[+szx.getAttribute('data-r')].hide = true; save(); renderHome(); };
+    var sze = document.getElementById('szc-exam'); if (sze) sze.onclick = function () { go('exam'); };
     var cc = document.getElementById('cta-city'); if (cc) cc.onclick = function () { go('city', nUnit); };
     var lo = document.getElementById('letter-open'); if (lo) lo.onclick = function () { go('letter', lo.getAttribute('data-story')); };
     var bo = document.getElementById('book-open'); if (bo) bo.onclick = function () { startMode('read', +bo.getAttribute('data-ui')); window.scrollTo(0, 0); };
@@ -734,6 +746,38 @@
     var m = ((S.wlog || {})[wk] || {}).m || 0, lm = ((S.wlog || {})[C.prevWeek(wk)] || {}).m || 0;
     if (!Object.keys(S.cards).length) return '';
     return '<span class="small week-sure' + (m ? ' good-t' : ' muted') + '">' + esc(m ? t('ws_line').replace('{n}', m) + (lm ? ' · ' + t('ws_last').replace('{n}', lm) : '') : t('ws_none')) + '</span>';
+  }
+  /* 3.8 Abschluss eines Szlak: Feier, Urkunde, Ausblick, Wiederholungs-Check */
+  function szlakDone(r) { var us = szlakUnits(r); return us.length > 0 && us.every(function (i) { return S.boss[U[i].id] || S.skipped[U[i].id]; }); }
+  function szlakCelebrate() {
+    for (var r = 3; r >= 1; r--) {
+      if (!szlakDone(r)) continue;
+      S.szSeen = S.szSeen || {}; if (S.szSeen[r] && S.szSeen[r].hide) return '';
+      if (!S.szSeen[r]) { S.szSeen[r] = { d: today() }; save(); }
+      var nx = szlakUnits(r + 1)[0];
+      return '<section class="card stack pop sz-done" id="szc"><div class="row" style="justify-content:space-between"><span class="eyebrow">🎉 ' + esc(t('sz_done').replace('{r}', r)) + '</span><button class="icon-btn" id="szc-x" data-r="' + r + '" aria-label="' + esc(t('wr_close')) + '">' + I.x + '</button></div>' +
+        '<p>' + esc(t('sz_out_' + r)) + '</p><div class="row" style="flex-wrap:wrap"><button class="btn primary" data-cert="' + r + '">📜 ' + esc(t('sz_cert')) + '</button><button class="btn" data-more="szcheck" data-ui="' + r + '">' + esc(t('sz_check')) + (S.szCheck && S.szCheck[r] ? ' · ' + S.szCheck[r] + ' %' : ' · 20') + '</button>' +
+        (nx != null ? '<button class="btn ghost" data-city-go="' + nx + '">' + esc(t('continue')) + ': ' + esc(U[nx].city) + ' →</button>' : '<button class="btn ghost" id="szc-exam">🎓 ' + esc(t('ex_start_btn')) + ' →</button>') + '</div></section>';
+    }
+    return '';
+  }
+  function renderCert(r) {
+    r = +r || 1; var us = szlakUnits(r), ws = []; us.forEach(function (i) { ws = ws.concat(wordsOf(i)); });
+    var learned = ws.filter(function (x) { return S.cards[x.id]; }).length, sure = masteredCount(ws), d = (S.szSeen && S.szSeen[r] && S.szSeen[r].d) || today();
+    var loc = S.base === 'en' ? 'en-GB' : 'de-DE', ds = new Date(d + 'T12:00:00').toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric' });
+    var html = '<button class="btn ghost no-print" id="back" style="justify-self:start;padding-left:0">← ' + esc(t('home')) + '</button>' +
+      '<article class="card cert"><div class="cert-in"><span class="eyebrow">Polski Szlak · Certyfikat</span><h1>' + esc(t('sz_cert_h').replace('{r}', r)) + '</h1>' +
+      '<p class="cert-lv">' + esc({ 1: 'A1', 2: 'A2', 3: 'B1' }[r] + ' · ' + U[us[0]].city + ' → ' + U[us[us.length - 1]].city) + '</p>' +
+      '<p class="cert-name">' + esc(S.name || t('sz_cert_you')) + '</p><p>' + esc(t('sz_cert_d').replace('{n}', us.length)) + '</p>' +
+      '<div class="stats3"><div class="stat"><b class="num">' + us.length + '</b><span class="small muted">' + esc(t('bk_cities')) + '</span></div><div class="stat"><b class="num">' + learned + '</b><span class="small muted">' + esc(t('bk_words')) + '</span></div><div class="stat"><b class="num">' + sure + '</b><span class="small muted">' + esc(t('sure_ok')) + '</span></div></div>' +
+      '<p class="small muted">' + esc(ds) + '</p><div class="cert-blaze" aria-hidden="true">' + blaze('red') + blaze('blue') + blaze('green') + '</div></div></article>' +
+      '<label class="fld no-print">' + esc(t('sz_name')) + '<input type="text" id="cert-name" maxlength="24" autocomplete="name" value="' + esc(S.name || '') + '"></label>' +
+      '<div class="row no-print"><button class="btn primary" id="cert-print">🖨 ' + esc(t('sz_print')) + '</button><button class="btn" data-more="szcheck" data-ui="' + r + '">' + esc(t('sz_check')) + '</button></div><p class="small muted no-print">' + esc(t('sz_cert_note')) + '</p>';
+    shell(html);
+    document.getElementById('back').onclick = function () { go('home'); };
+    document.getElementById('cert-print').onclick = function () { try { window.print(); } catch (e) {} };
+    document.getElementById('cert-name').onchange = function () { S.name = C.duelName(this.value); save(); renderCert(r); };
+    document.querySelectorAll('[data-more]').forEach(function (b) { b.onclick = function () { startMode(b.getAttribute('data-more'), +b.getAttribute('data-ui')); }; });
   }
   /* 3.5 „Mehr für heute“: wenn die aktuelle Stadt erst morgen weitergeht */
   function moreBox(cu, pre, preOk, due, alt) {
@@ -1145,7 +1189,7 @@
     addXp(first ? 150 : 40); markActive(); save(); toast('+' + (first ? 150 : 40) + ' XP');
   }
   /* ---------- Fehler melden (Vorschlag J): Text + Übungs-Kontext in public.ps_feedback, sonst per Mail ---------- */
-  var APP_VER = '3.7.1', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
+  var APP_VER = '3.8', SITE = 'https://polski.arndt-software.de/', FB_MAIL = 'farndt691@gmail.com';
   function reportHtml(id) {
     return '<details class="report" id="' + id + '"><summary class="small">⚑ ' + esc(t('rep')) + '</summary><div class="stack" style="margin-top:8px">' +
       '<textarea maxlength="1000" rows="3" aria-label="' + esc(t('rep')) + '" placeholder="' + esc(t('rep_ph')) + '"></textarea>' +
@@ -1779,6 +1823,13 @@
     if (mode === 'cloze') return runGame({ title: t('cloze'), qs: C.shuffle(u.sentences, R).map(function (s) { return qCloze(s, list); }), unit: ui });
     if (mode === 'speak') return runGame({ title: t('speak'), qs: u.sentences.map(qSpeak), unit: ui });
     if (mode === 'wait') return go('city', ui);
+    /* 3.8 Wiederholungs-Check nach einem Szlak: 20 gemischte Wörter aus allen Städten dieses Szlak */
+    if (mode === 'szcheck') {
+      var rr = ui || 1, pc = []; szlakUnits(rr).forEach(function (i) { pc = pc.concat(wordsOf(i).filter(function (x) { return S.cards[x.id]; })); });
+      if (pc.length < 4) { toast(t('learn_first')); return go('home'); }
+      var pk = pickWeighted(pc, Math.min(20, pc.length), function (x) { return C.MASTERED_BOX + 1 - Math.min(S.cards[x.id].box | 0, C.MASTERED_BOX); });
+      return runGame({ title: t('sz_check') + ' · Szlak ' + rr, qs: mixedFor(pk, pc, pk.length), szcheck: rr });
+    }
     /* 3.6 Schreibtraining: alle bisher gelernten Wörter, ohne Antwortvorgaben. Zuerst fällige, dann knifflige (Fehlerheft), dann wenig gefestigte */
     if (mode === 'writeall') {
       var td = today(), mine = allWords().filter(function (x) { return S.cards[x.id]; });
@@ -2333,6 +2384,7 @@
     var total = g.right + g.wrong, pct = total ? Math.round(g.right / total * 100) : 0, extras = '', shareTxt = '', party = false;
     if (!g.players) { addXp(g.xp); if (total >= 3 || g.cfg.timer) markActive(); }
     if (g.cfg.daily) { S.daily[g.cfg.daily] = { score: g.right, results: g.results }; }
+    if (g.cfg.szcheck) { S.szCheck = S.szCheck || {}; S.szCheck[g.cfg.szcheck] = Math.max(S.szCheck[g.cfg.szcheck] || 0, pct); extras += '<div class="banner pop"><strong>' + esc(t('sz_check')) + ': ' + pct + ' %</strong><span>' + esc(pct >= 80 ? t('sz_check_ok') : t('sz_check_low')) + '</span></div>'; }
     if (g.cfg.survival) { S.best = S.best || {}; if (g.right > (S.best.survival || 0)) { S.best.survival = g.right; extras += '<div class="banner pop"><strong>' + esc(t('best')) + ': ' + g.right + '</strong></div>'; } }
     if (g.cfg.boss) {
       var u = U[g.cfg.unit], passed = g.lives > 0 && g.i >= g.qs.length - 1 && pct >= (g.cfg.pass || 60);
@@ -2340,6 +2392,7 @@
         var first = !S.boss[u.id];
         S.boss[u.id] = Math.max(S.boss[u.id] || 0, pct);
         if (!isPack(g.cfg.unit) && g.cfg.unit < lastRoute() && (g.cfg.unit === S.unlocked || (S.free && g.cfg.unit > S.unlocked))) { S.unlocked = g.cfg.unit + 1; extras += '<div class="banner pop"><strong>' + esc(t('unlocked')) + ': ' + esc(U[S.unlocked].city) + '</strong></div>'; }
+        if (first && !isPack(g.cfg.unit) && szlakDone(szlakOf(g.cfg.unit))) extras += '<div class="banner pop"><strong>🎉 ' + esc(t('sz_done').replace('{r}', szlakOf(g.cfg.unit))) + '</strong><span>' + esc(t('sz_done_res')) + '</span></div>';
         if (first) extras += '<div class="card stack pop"><span class="eyebrow">' + esc(t('postcard_new')) + '</span><b>' + esc(u.city) + '</b><p class="small">' + esc(L(u.fact)) + '</p></div>' + letterNewBox(u.id);
         shareTxt = t('share_boss').replace('{c}', u.city).replace('{p}', pct) + ' ' + SITE; party = true;
         extras += maybeKrasnal(true);

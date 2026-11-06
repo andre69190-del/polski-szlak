@@ -510,6 +510,19 @@ with sync_playwright() as p:
             (ok if mp.locator('#adm').count() == 0 else bad)('Kein Admin: Bereich unsichtbar')
         mx.close()
 
+    # 3.8 Szlak 1 geschafft: Feier, Urkunde, Wiederholungs-Check
+    cx2 = b.new_context(); cp = cx2.new_page(); cp.goto(URL); cp.wait_for_selector('#app')
+    cp.evaluate("() => { const ids = ['waw','lod','poz','szc','gda','tor','bia','lub','kra','zak','kat','wro'], s = { app: 'polski-szlak', v: 1, base: 'de', onboarded: true, tour: true, xp: 900, cards: {}, unlocked: 12, boss: {}, appVer: '3.8', seenVer: '3.8' }; ids.forEach(i => { s.boss[i] = 80; for (let k = 0; k < 18; k++) s.cards[i + ':' + k] = { box: 4, seen: 5, due: '2099-01-01' }; }); localStorage.setItem('polski_szlak_v1', JSON.stringify(s)); }")
+    cp.reload(); cp.wait_for_selector('.map')
+    (ok if cp.locator('#szc').count() == 1 and 'Sopot' in cp.inner_text('#szc') else bad)('Startseite: „Szlak 1 geschafft“ mit Weiter nach Sopot')
+    cp.click('[data-cert="1"]'); cp.wait_for_selector('.cert')
+    (ok if 'Szlak 1 geschafft' in cp.inner_text('.cert') and '12' in cp.inner_text('.cert') else bad)('Urkunde Szlak 1')
+    cp.fill('#cert-name', 'Lena'); cp.dispatch_event('#cert-name', 'change'); cp.wait_for_timeout(200)
+    (ok if 'Lena' in cp.inner_text('.cert') else bad)('Name auf der Urkunde')
+    cp.click('.no-print [data-more="szcheck"]'); cp.wait_for_timeout(300)
+    (ok if cp.evaluate("() => { const g = window.PSApp.game(); return g && g.qs.length; }") == 20 else bad)('Wiederholungs-Check: 20 Fragen')
+    cx2.close()
+
     (ok if not OPTQ else bad)('Antwortoptionen eindeutig in allen Modi' + ('' if not OPTQ else ': ' + ' | '.join(OPTQ[:3])))
     real = [e for e in errors if 'speechSynthesis' not in e and 'supabase' not in e and 'Failed to load resource' not in e and 'CORS' not in e]
     (ok if not real else bad)('Keine JS-Fehler' + ('' if not real else ': ' + ' | '.join(real[:3])))
