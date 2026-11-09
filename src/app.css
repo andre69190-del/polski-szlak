@@ -349,3 +349,14 @@ a.ext { font-weight: 700; color: var(--ink); }
 .cert-name { font-size: 1.6rem; font-weight: 800; margin: 6px 0 0; }
 .cert-blaze { display: flex; gap: 8px; justify-content: center; }
 @media print { header.top, nav.nav, .no-print, .legal-foot, .toast { display: none !important; } body { background: #fff; } .cert-in { border-color: #999; } }
+
+/* Sichtbare Projektbeschreibung unter der App (für Besucher und Suchmaschinen).
+   Im Spiel, in der installierten App und beim Drucken ausgeblendet. */
+.seo-about { max-width: 720px; margin: -72px auto 0; padding: 8px max(16px, env(safe-area-inset-left, 0px)) calc(110px + env(safe-area-inset-bottom, 0px));
+  color: var(--muted); font-size: .9rem; line-height: 1.55; border-top: 1px solid var(--line); }
+.seo-about h2 { font-size: 1.05rem; color: var(--ink); margin: 18px 0 8px; }
+.seo-about p { margin: 0 0 10px; }
+.seo-about a { color: inherit; }
+body.in-play .seo-about { display: none; }
+@media (display-mode: standalone) { .seo-about { display: none; } }
+@media print { .seo-about { display: none !important; } }

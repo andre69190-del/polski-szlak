@@ -536,6 +536,8 @@
   function go(name, arg) { var tb = document.getElementById('tour'); if (tb) { tb.remove(); document.querySelectorAll('.tour-hl').forEach(function (e) { e.classList.remove('tour-hl'); }); } view = null; tab = name; polUI = name === 'polacy'; render(arg); window.scrollTo(0, 0); }
 
   function shell(inner, showNav) {
+    /* Projektbeschreibung unter der App: auf Start- und Übersichtsseiten sichtbar, im Spiel ausgeblendet */
+    document.body.classList.toggle('in-play', showNav === false && String(inner).indexOf('<section class="ob">') !== 0);
     /* Spielbildschirm: eine noch offene Einführungs-Tour darf nicht über den Antworten liegen bleiben */
     if (showNav === false) { var tb = document.getElementById('tour'); if (tb) { tb.remove(); document.querySelectorAll('.tour-hl').forEach(function (e) { e.classList.remove('tour-hl'); }); } }
     var lv = C.levelFromXp(S.xp);
